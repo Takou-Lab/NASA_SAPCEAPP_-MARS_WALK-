@@ -1,0 +1,37 @@
+<main>
+  <header>
+    <p class="eyebrow">MARSWALK · Development foundation</p>
+    <h1>Explore with evidence.</h1>
+    <p>Mount Sharp boxwork region · Gale Crater · Mars</p>
+  </header>
+  <section aria-labelledby="status">
+    <h2 id="status">Mission data</h2>
+    <p role="status">Data status: {{ mission.dataStatus() }}</p>
+    @if (mission.dataError()) {
+      <p>{{ mission.dataError() }}</p>
+    }
+    @if (mission.image(); as image) {
+      <p>{{ image.source.title }} · {{ image.width }} × {{ image.height }} pixels</p>
+      <p>Image reference: {{ image.imageRef }}</p>
+    } @else {
+      <p>Waiting for a verified local image and manifest from the data team.</p>
+    }
+  </section>
+  <section aria-labelledby="assessment">
+    <h2 id="assessment">Exploration confidence</h2>
+    <p>Visual review only. No verified terrain model is supplied.</p>
+    <ul>
+      @for (warning of mission.assessment().warnings; track $index) {
+        <li>{{ warning }}</li>
+      }
+    </ul>
+  </section>
+  <section>
+    <h2>Team integration</h2>
+    <p>
+      Angular and shared mission state are available. Map, route controls, notebook and optional 3D
+      components are the next contributions.
+    </p>
+  </section>
+  <footer>Research prototype. Not a certified navigation or astronaut safety system.</footer>
+</main>
