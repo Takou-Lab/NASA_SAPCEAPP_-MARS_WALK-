@@ -16,7 +16,7 @@ Willy's standalone Leaflet map is mounted in the Angular root with Gaddielle's p
 - Available: Emma's selectable science list and sourced details, including all three unlocated records without fabricated map pins. The shell currently starts in inspect mode.
 - Pending UI: Enzo's route controls/notebook/shell corrections and Emma's follow-up science filters plus dedicated confidence/image-passport presentation.
 - Pending PWA work: installation manifest/icons, service-worker preparation, verified offline readiness and installed-device reopening.
-- Metric distance, elevation and slope remain unavailable. 3D/VR is optional later work.
+- Metric distance, elevation and slope remain unavailable. This feature branch includes an explicitly opened, lazy-loaded flat 3D rehearsal view; it supplies no measured terrain or immersive VR. See [viewer verification](docs/qa/VIEWER3D_REVIEW.md).
 
 ## Development
 
@@ -63,4 +63,4 @@ Reset View and Focus Route are approved/integrated. Use [Willy's current brief](
 
 ## Evidence and credits
 
-See [science evidence](docs/SCIENCE_EVIDENCE.md), [references](docs/REFERENCES.md), [AI use](docs/AI_USE.md), and [integration checks](docs/qa/MAP_INTEGRATION.md). Imagery credit: NASA/JPL-Caltech/University of Arizona. Leaflet: BSD-2-Clause; Angular: MIT. See dependency packages for full licenses. Scientific source assertions are recorded in the data/science contributors' audits; runtime validation checks shape and consistency, not the truth of a scientific finding.
+See [science evidence](docs/SCIENCE_EVIDENCE.md), [references](docs/REFERENCES.md), [AI use](docs/AI_USE.md), and [integration checks](docs/qa/MAP_INTEGRATION.md). Imagery credit: NASA/JPL-Caltech/University of Arizona. Leaflet: BSD-2-Clause; Angular and Three.js: MIT. See dependency packages for full licenses. Scientific source assertions are recorded in the data/science contributors' audits; runtime validation checks shape and consistency, not the truth of a scientific finding.

@@ -52,18 +52,16 @@ Keep the implementation and correct **R1/R2** from [the latest review](docs/revi
 
 Exact specification: [GADDIELLE_IMAGE_PACK.md](docs/team/tasks/GADDIELLE_IMAGE_PACK.md). Ready-to-paste prompt: [GADDIELLE.md](docs/team/GADDIELLE.md).
 
-## Royce / Longla — correct the delivered 3D viewer
+## Royce / Longla — actual-device QA after verified corrections
 
-Published **`feature/longla-3d-rehearsal`**, **`aedfd4d`**: **changes required**. All 24 branch tests and the production build pass, with bundle/style size warnings. Preserve the viewer, transforms and camera controls; do not restart or add VR.
+The user asked the coordinator to perform the unpublished corrections. Code **`2a6dbba`** on **`feature/longla-3d-rehearsal`** now closes R1–R5 with 70 passing tests, build and recorded browser/resource/orientation checks. Main `d814ec4` is merged into that branch; feature integration into main remains pending. Do not repeat the corrections or add terrain/VR.
 
-Merge latest main into the same branch, resolve the root conflict while preserving the map/mission transfer, and keep the viewer optional/deferred. Correct route-triggered camera resets and resource leaks, show image/WebGL2 failures, remove unsupported Martian-north labels and replace the simulated VR toggle with an honest unimplemented state. Add meaningful regressions and actual QA records, then push that branch for re-review. No feature code is integrated.
-
-Exact findings: [review R1–R5](docs/reviews/LONGLA.md). Ready-to-paste agent prompt: [LONGLA.md](docs/team/LONGLA.md). Unrun installed-device/offline checks remain pending; terrain/VR work does not replace those checks.
+Next: test the actual demonstration/available physical device, record online 2D/science/mission-transfer and optional-viewer outcomes/defects in `docs/qa/PWA_ACCEPTANCE.md`, then execute installed/offline gates only when real PWA prerequisites exist. Own QA records for this slice and push the same feature branch. [Verified review](docs/reviews/LONGLA.md), [actual evidence](docs/qa/VIEWER3D_REVIEW.md), [updated agent prompt](docs/team/LONGLA.md).
 
 ## Other contributors and branch
 
 - **Enzo:** his published `15b1666` is now reviewed; follow the corrective assignment above. Do not discard his UI or move to a new branch before re-review.
-- **Royce/Longla:** `aedfd4d` is now reviewed above. Fix R1–R5 on the same branch, request re-review, then continue independent PWA/device QA. Earlier remote-visibility uncertainty is closed for this submission.
+- **Royce/Longla:** corrections `2a6dbba` are verified on the feature branch. Continue actual-device QA above; physical/PWA acceptance remains pending, not proven by automated checks.
 - **Coordinator:** review later submissions, integrate the UI and implement/test installable offline PWA behavior. Do not call it complete from unit/build results alone.
 - **Tablet-App:** duplicates the reviewed main. Keep main as the integration reference unless the team explicitly chooses another branch strategy; do not infer a separate implementation or owner.
 

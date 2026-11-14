@@ -1,4 +1,28 @@
-# Royce / Longla — 3D rehearsal review
+# Royce / Longla — corrections verified on feature branch
+
+Corrected code **`2a6dbbaf086fef072844888c8eb25a3e5e5552ca`**, branch **`feature/longla-3d-rehearsal`**, **14 November 2026**. The user asked the coordinator to implement the outstanding corrections for Longla. Main `d814ec4` is merged into the feature branch; feature integration into main remains pending.
+
+## R1–R5 closure
+
+| Finding | Correction and actual verification |
+| --- | --- |
+| R1 — older baseline / eager optional viewer | Reconciled current core/map/science/mission transfer; renderer/chunk only load after explicit Open. No viewer request/canvas at startup. Production initial assets 447.46 kB; lazy viewer 595.35 kB; no budget increases or style-budget warnings |
+| R2 — camera reset / resource leaks | Image effect separated from route/markers; replaced and pending textures/helper resources disposed; stale callbacks ignored. Twelve real-WebGL route edits kept camera, texture and warmed GPU count 2 → 2 stable; close disposed the actual texture |
+| R3 — silent image/graphics failures | Explicit loading/error states, decoded-dimension validation, guarded renderer initialization/context loss and visible fallback. Failed image/WebGL2/chunk probes preserved 2D use; automated regressions cover mismatched dimensions and late callbacks |
+| R4 — geographic claims | Removed compass/north indicator and heading state; image orientation/scale limits and source/credit visible; all offsets described as display-only |
+| R5 — simulated VR | Removed support/presenting toggles and Enter/Exit control; immersive VR explicitly unimplemented |
+
+**70 tests passed across seven files** and the production build passed. Only the existing Leaflet CommonJS warning remains. Four production open/close cycles preserved route/notes/image; tablet/narrow viewport checks passed. Controlled four-color image samples confirmed rendered orientation against 2D; the diagnostic fixture was never committed as scientific data.
+
+Full method/outcomes: [VIEWER3D_REVIEW.md](../qa/VIEWER3D_REVIEW.md). Remaining device/PWA gates: [PWA_ACCEPTANCE.md](../qa/PWA_ACCEPTANCE.md). Physical hardware, installed offline reopening and outside-user results remain unrun/blocked. This verification does not add terrain calibration or immersive VR.
+
+## Next task
+
+No repeat R1–R5 implementation. Longla's next work is independent actual-device online QA, defect recording and later installed/offline acceptance once the coordinator supplies that lifecycle. Keep the same feature branch and source history; do not expand terrain/VR or rewrite teammates' files. [Updated prompt](../team/LONGLA.md).
+
+---
+
+# Previous review — original `aedfd4d` findings
 
 Reviewed branch: **`feature/longla-3d-rehearsal`**, commit **`aedfd4d1e0811af53c01615057b079c00dc9e311`**, **14 November 2026**. Integration reference: main **`9408070`**. Royce is the original-plan name for the 3D role documented as Longla in this repository.
 
