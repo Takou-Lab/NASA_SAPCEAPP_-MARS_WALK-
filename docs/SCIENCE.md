@@ -45,3 +45,8 @@ Full record-by-record source passages and verification gaps are documented in [d
 
 - **Internal Rehearsal Script:** See [docs/DEMO_SCRIPT.md](DEMO_SCRIPT.md) for a 60-second internal rehearsal walkthrough distinguishing working foundation logic from pending UI and offline integration.
 - **3D Rehearsal Note:** Any future Three.js rehearsal view (Longla) is a planned prototype labeled **Prototype: 3D training view** and must not present unverified elevation relief as measured terrain.
+
+## 6. Use Cases & Enzo UI Handoff (Contextual vs. Geolocated Records)
+
+- **Near-Term Use Cases vs. Long-Term Vision:** MARSWALK's near-term use cases are planetary-science education, analogue mission rehearsal, science outreach, and human decision-making research under incomplete evidence. Operational astronaut or rover navigation is a long-term future vision, not a capability of the current prototype.
+- **UI Handoff for Enzo (`src/app/ui/`, `src/app/notebook/`):** All three records in `public/data/markers.json` (`curiosity-mount-sharp-boxwork`, `curiosity-vera-rubin-ridge-hematite`, and `curiosity-sulfate-bearing-unit`) currently carry `position: null` and `positionStatus: "unavailable"`. In the UI science list and Data Passport, present these as **readable regional contextual science records** (reusing their `name`, `instrument`, `date`, `evidenceType`, `finding`, `source`, and `limitations` fields) rather than hiding them or placing invented map pins. Users must be able to draw route endpoints visually on the imagery without requiring a geolocated science marker.
