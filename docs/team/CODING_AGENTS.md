@@ -2,7 +2,7 @@
 
 Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
 
-Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. Gaddielle's corrected passport at `c887286` is approved and integrated, as recorded in [the accepted review](../reviews/GADDIELLE.md). Her new [image-pack index task](tasks/GADDIELLE_IMAGE_PACK.md) reuses the accepted package/verifier; do not repeat image, conflict or passport work.
+Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. Gaddielle's corrected passport at `c887286` is approved and integrated, as recorded in [the accepted review](../reviews/GADDIELLE.md). Her submitted [image-pack index](tasks/GADDIELLE_IMAGE_PACK.md) needs R1/R2 corrections recorded below and reuses the accepted package/verifier; do not repeat image, conflict or passport work.
 
 **Current Enzo review exception:** repair `15b1666` on `feat/enzo-ui-planner-notebook` using [the review](../reviews/ENZO.md). Preserve his UI but retain main's canonical core, validation, persistence and dependencies while reconciling the older bootstrap. He may make only the root `app.ts`/HTML/SCSS/spec changes needed to mount his shell and the existing MapComponent once while preserving root initialization. Adapt global theme styling while retaining Leaflet CSS and local/system fonts; do not replace package/core ownership or create another mission store. No new PWA implementation or task branch is assigned until this revision passes re-review.
 
@@ -44,6 +44,8 @@ Willy's accepted Reset View/Focus Route must not be repeated. His new [Retry Ima
 ## Image-pack index handoff
 
 The coordinator-approved [image-only inventory task](tasks/GADDIELLE_IMAGE_PACK.md) is a new tooling deliverable, not an existing app API. It must not change ImageManifest or claim offline readiness. Its total counts the manifest and prepared image only, excluding the index itself, science records and built shell; the coordinator defines and verifies the full PWA asset set separately. Enzo must not invent fields or install/readiness states from the index.
+
+Submission `bf9689b` is now reviewed against main `c897a70`: 14 Python tests and the real index check pass, but **changes are required** for canonical/browser-safe paths and strict index shape/types. Gaddielle keeps the same branch and delivered code, fixes R1/R2 and adds regressions before re-review. See [the findings](../reviews/GADDIELLE.md). No index generator/runtime integration is accepted by this review; prior image/verifier/passport work remains accepted.
 
 ## Current product integration priorities
 

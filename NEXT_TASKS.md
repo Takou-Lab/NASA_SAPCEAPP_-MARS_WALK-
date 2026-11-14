@@ -35,18 +35,18 @@ This is a bounded new coding slice suitable for his agent-guided learning. Enzo 
 
 Specification: [EMMA_SCIENCE_CONTEXT_UI.md](docs/team/tasks/EMMA_SCIENCE_CONTEXT_UI.md). Agent prompt: [EMMA.md](docs/team/EMMA.md). Review: [EMMA.md](docs/reviews/EMMA.md).
 
-## Gaddielle — machine-readable image-pack index
+## Gaddielle — correct the submitted image-pack index
 
-Corrected passport **`c887286`**: **approved and integrated**. Image preparation, verifier fixes, conflict resolution and passport corrections are complete; do not repeat them.
+Corrected passport **`c887286`** remains **approved and integrated**. Latest index submission **`bf9689b`** is reviewed: **changes required**. All 14 Python tests and the real index check pass, but alternate/URL-unsafe paths and incomplete index shape/type validation need correction. The feature code is not merged. Image preparation, verifier fixes, conflict resolution and passport corrections remain complete.
 
-New coding deliverables:
+The four submitted deliverables are:
 
 - `tools/data/build_image_pack.py`: verify existing inputs and generate the index deterministically; `--check` detects stale/missing/tampered indexes without writing.
 - `public/data/image-pack.json`: versioned two-file inventory with imageRef, app-relative paths, actual byte counts, SHA-256 and summed payload bytes.
 - `tools/data/test_build_image_pack.py`: generation, deterministic output, check mode and safe failure regressions.
 - `docs/data/IMAGE_PACK_INDEX.md`: schema, commands and handoff to the coordinator.
 
-Reuse the accepted full-image verifier/Pillow dependency and preserve all source assets, manifest and runtime schema. The index covers only the manifest and active prepared image; it excludes itself, the archival master, science records and built shell. It does not establish complete offline readiness. Sync the published main integration into the same feature branch, implement this bounded tool task, run the relevant Python checks and push that branch for review.
+Keep the implementation and correct **R1/R2** from [the latest review](docs/reviews/GADDIELLE.md): enforce canonical/browser-safe paths and strict index object/keys/types, with clean read-only failure. Add temporary-fixture regressions, retain all current tests and preserve source assets, verifier and runtime schema. Stay on the same feature branch, merge latest main, commit/push the corrections and request re-review before a new task. The image-only inventory does not establish complete offline readiness.
 
 Exact specification: [GADDIELLE_IMAGE_PACK.md](docs/team/tasks/GADDIELLE_IMAGE_PACK.md). Ready-to-paste prompt: [GADDIELLE.md](docs/team/GADDIELLE.md).
 

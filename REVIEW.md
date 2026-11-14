@@ -8,7 +8,7 @@ Review date: **14 November 2026**. Baseline: `main` at **`f24f6fc68750f3bfd73513
 
 **Latest Willy review:** navigation `21cf6f0` passed 38 tests, production build and Chromium keyboard/touch-emulated checks and is approved/integrated. See [Willy's review](docs/reviews/WILLY.md). The next bounded task is map-owned image retry, not repeated navigation or root mounting.
 
-**Latest Gaddielle review:** `c887286` closes all Data Passport findings and is approved and integrated. Processing facts, pending caching and parent/release/derivative scale distinctions are corrected; image bytes, reference, verifier and runtime code are unchanged. See [the accepted review](docs/reviews/GADDIELLE.md). Her new coding task is the [machine-readable image-pack index](docs/team/tasks/GADDIELLE_IMAGE_PACK.md), not repeated documentation or image preparation.
+**Latest Gaddielle review:** image-pack generator/index **`bf9689b`**, compared with main `c897a70`: **changes required**. All 14 Python tests and the real index check pass, but canonical/browser-safe paths and strict index shape/type validation need correction (R1/R2). Feature code is not merged; a read-only merge preview was clean. Earlier package/passport `c887286` remains approved and integrated. See [the latest review and correction brief](docs/reviews/GADDIELLE.md); preserve the existing implementation and repair the same branch before a new task.
 
 See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named briefs for ready-to-paste coding-agent instructions. Passing a technical review is distinct from integration, external scientific verification and installed-PWA acceptance.
 
@@ -19,7 +19,7 @@ See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named brief
 | `main` | `f24f6fc` | Tests/build pass; integrated map and data baseline | Continue Enzo's UI and coordinator PWA work; do not claim the full offline mission is finished |
 | `feature/willy-map-development` | `21cf6f0` | Navigation approved/integrated; 38 tests/build and keyboard/touch-emulated checks pass | Begin map-owned image retry on proposed `feature/willy-image-retry` from published main |
 | `feature/emma-science-provenance` | `947ff1a` | Presentation delivered/integrated with small readiness-wording updates; earlier work retained | Build standalone contextual science UI on proposed `feature/emma-science-context-ui`, independently of Enzo |
-| `feature/gaddielle-data-preparation` | `c887286` | Approved and integrated; prior package/verifier/conflicts/passport findings closed | Generate/check the separate image-pack index using accepted inputs and verifier |
+| `feature/gaddielle-data-preparation` | `bf9689b` | Index needs corrections; 14 Python tests and real check pass; prior package/passport accepted | Fix R1/R2 path and index-validation findings on the same branch, then re-review |
 | `feat/enzo-ui-planner-notebook` | `15b1666` | Changes required; 47 tests pass, production build blocked by external fonts, UI/core integration and behavior issues reproduced | Preserve the UI and repair the same branch using [ENZO.md](docs/reviews/ENZO.md); no new assignment/branch yet |
 | `Tablet-App` | `f24f6fc` | Exactly matches the reviewed main: zero unique commits/diff | No independent contribution or branch owner can be inferred; no separate correctness claim |
 

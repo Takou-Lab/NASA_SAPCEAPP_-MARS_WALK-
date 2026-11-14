@@ -1,48 +1,31 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
-## Current follow-up — offline image-data package
+## Current follow-up — correct the submitted image-pack index
 
-Read [the detailed task](tasks/GADDIELLE_IMAGE_PACK.md), [the accepted review](../reviews/GADDIELLE.md), [REVIEW.md](../../REVIEW.md), [NEXT_TASKS.md](../../NEXT_TASKS.md) and [SOUL.MD](../../SOUL.MD). Preserve completed work and continue on `feature/gaddielle-data-preparation`.
+Latest reviewed branch: **`feature/gaddielle-data-preparation`** at **`bf9689b`**. Verdict: **changes required**. Read [the exact review](../reviews/GADDIELLE.md), [original index specification](tasks/GADDIELLE_IMAGE_PACK.md), [shared contract](CODING_AGENTS.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md).
 
-### Accepted delivery — `c887286`
+Your image package, verifier and corrected passport through `c887286` remain accepted and integrated. The new generator/index/tests/documentation are delivered: all **14 Python tests pass**, and the real index matches **524,472 bytes**. Preserve that work. The generator is not yet approved or merged.
 
-The image package, strict Pillow verifier, conflict resolutions and corrected Data Passport are accepted and included in this integration. The passport distinguishes recorded processing, actual 4:2:0 subsampling, unrecorded encoder quality, unverified image scales and pending offline caching.
+### Correction 1 — manifest and browser-safe paths
 
-Do not repeat acquisition, image processing, verifier fixes, conflict resolution or passport corrections. Preserve the image, manifest and imageRef. The prepared image remains 2048 × 1042; the required two-file image payload remains 524,472 bytes. Calibration and terrain remain unavailable.
+Keep the manifest at the selected public root's `data/manifest.json`; reject other locations even when contained. Validate emitted app-relative paths: forward slashes, no URL/query/fragment/backslash, absolute path, empty/dot/traversal segment or resolved symlink escape. The review reproduces successful generation for an alternate manifest and filenames with `?`/`#`/backslash; these must fail with exit 1 and leave existing output untouched.
 
-### New task — machine-readable image-pack index
+### Correction 2 — strict read-only index checking
 
-Create:
+Before comparing values, validate the root and entry objects, exact v1 keys and JSON types. Integer fields must exclude booleans and floats. The current checker accepts `schemaVersion: true`, float sizes and extra fields; `[]` crashes with a traceback. Reject these cleanly with exit 1, preserve output bytes/mtime and retain meaningful errors for stale content. Keep ordering, full lowercase SHA-256 and exact payload comparison.
 
-- `tools/data/build_image_pack.py`
-- `public/data/image-pack.json`
-- `tools/data/test_build_image_pack.py`
-- `docs/data/IMAGE_PACK_INDEX.md`
+Add temporary-fixture regressions for both corrections. Preserve all 14 current tests, alias protection, full-image validation and atomic writing. Confirm missing targets are not created by `--check`; update documentation and report the new actual test count. See R1/R2 in [the review](../reviews/GADDIELLE.md) for exact acceptance cases.
 
-Follow the [exact specification](tasks/GADDIELLE_IMAGE_PACK.md):
+### Scope and handoff
 
-- `schemaVersion: 1`, active `imageRef`, ordered `files` and `totalBytes`.
-- Exactly two entries: manifest first, referenced prepared image second.
-- Each entry has app-base-relative `path`, actual `bytes` and full lowercase `sha256`.
-- Exclude the index itself, archival master, science records and built application. `totalBytes` sums only the two declared payloads.
-- Reuse the existing `verify_package` and Pillow/full decoding; do not duplicate validation or add dependencies.
-- Generate deterministic JSON without timestamps or absolute paths. Resolve inputs inside the public root and reject output paths aliasing an input.
-- Write atomically; failure preserves the previous output. `--check` is read-only and fails nonzero for missing, stale or mismatched indexes.
-
-Commands:
+Continue on the **same feature branch**. Preserve local work; merge latest main without reset or force push. Edit only `tools/data/build_image_pack.py`, `tools/data/test_build_image_pack.py` and `docs/data/IMAGE_PACK_INDEX.md`; regenerate `public/data/image-pack.json` only if necessary, with identical output for unchanged assets. Keep ImageManifest, source files, accepted verifier, dependencies, app/core and service-worker work unchanged.
 
 ```sh
-python tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json
-python tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json --check
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tools/data -p 'test_*.py' -v
+python3 tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json --check
 ```
 
-### Verification and handoff
-
-Test actual sizes/hashes, exclusions, deterministic output, fresh checking, stale/tampered data, missing/corrupt inputs and preservation of prior output. Use temporary fixtures; retain the four accepted verifier regressions. Follow the detailed task for path containment, source preservation and failure cases.
-
-Document prerequisites, commands, schema and image-only scope. This index supports the coordinator's future offline pack; it does not establish installation or complete offline readiness. Do not change ImageManifest or implement the passport's proposed v2 schema.
-
-After publication of this integration, fetch and merge main into the existing branch while preserving local work. Implement the bounded task, commit and push only that feature branch, then report the commit, generated paths and actual checks. No main merge/push, application/core/schema/dependency/service-worker changes, deployment, environment publication or messaging to others is included.
+Commit/push only `feature/gaddielle-data-preparation`, then report the commit, files, R1/R2 fixes, actual commands/results and remaining limits. That feature-branch push is authorized. No new task, main merge/push, deployment, environment publication or external messaging is assigned. This remains an image-only inventory, not complete PWA readiness.
 
 ## Initial assignment reference
 
@@ -112,42 +95,35 @@ You are done when usable imagery is supplied with honest coverage information, a
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Gaddielle's image-pack indexing agent for MARSWALK.
-Read docs/team/tasks/GADDIELLE_IMAGE_PACK.md, docs/team/GADDIELLE.md,
-docs/reviews/GADDIELLE.md, REVIEW.md, NEXT_TASKS.md and SOUL.MD.
+You are Gaddielle's MARSWALK coding agent. Continue the SAME branch:
+feature/gaddielle-data-preparation. Reviewed commit bf9689b has changes
+required; do not restart the generator or repeat accepted image/passport work.
 
-Work through c887286 is accepted and integrated. Do not repeat earlier
-fixes, reacquire data or regenerate imagery.
+Read docs/reviews/GADDIELLE.md (R1/R2), docs/team/GADDIELLE.md,
+docs/team/tasks/GADDIELLE_IMAGE_PACK.md and docs/team/CODING_AGENTS.md.
+Preserve local work and merge latest main without reset or force push.
 
-1. Preserve local work. After this integration is published, fetch and
-   merge main into feature/gaddielle-data-preparation without resetting.
-2. Create only:
-   tools/data/build_image_pack.py
-   public/data/image-pack.json
-   tools/data/test_build_image_pack.py
-   docs/data/IMAGE_PACK_INDEX.md
-3. Follow the detailed task's exact v1 schema: active imageRef, files
-   ordered manifest then prepared image, each with base-relative path,
-   actual bytes and full lowercase SHA-256; totalBytes sums those two files.
-   Exclude the index itself, archival master, science records and app build.
-4. Reuse verify_pack.verify_package and required Pillow/full decoding.
-   Keep source files unchanged; no new dependencies or duplicate verifier.
-5. Provide explicit --manifest, --public-root and --output arguments.
-   Check path containment and reject output aliasing either input.
-   Generate deterministic stable JSON without timestamps/absolute paths.
-   Write atomically and preserve previous output on failure.
-   --check must be read-only and return nonzero for missing/stale/mismatched
-   output without rewriting it.
-6. Test hashes/sizes/exclusions, repeated identical generation, fresh check,
-   stale/tampered payloads, missing/corrupt inputs and preserved old output.
-   Use temporary fixtures and retain existing verifier regressions.
-7. Document and run the real generate/check commands. Report actual test
-   counts/results, generated paths and remaining limitations.
+14 Python tests and the real index check pass, but review reproduced gaps:
+1. Enforce manifest app-relative path data/manifest.json inside public root.
+   Reject emitted paths containing URL/query/fragment/backslash, absolute
+   paths, empty/dot/traversal segments or resolved escapes/symlinks.
+   Alternate contained manifest and image filenames with ?/#/backslash
+   currently succeed; make them exit 1 before writing, preserving old output.
+2. Validate complete v1 index shape/types before comparing payload values.
+   Require object root and entries, exact keys, integer fields excluding bool
+   and floats, correct strings/digests and ordered two-file payload.
+   schemaVersion:true, float bytes and extra keys currently pass --check.
+   [] currently crashes. Reject all cleanly, exit 1 with useful errors and no
+   traceback; --check must preserve bytes/mtime and never create missing paths.
+3. Add temporary-fixture regressions, retaining every current test, alias
+   protections, deterministic atomic generation and full Pillow validation.
+   Update tool documentation and actual test count. Keep the index identical
+   for unchanged real assets; compute hashes/sizes from inputs, not constants.
+4. Run the complete tools/data Python suite and real --check command from
+   the brief. Report actual results, R1/R2 closure and the new commit.
 
-This is an IMAGE-only index for future coordinator integration, not full
-PWA readiness. Preserve image bytes, manifest, imageRef and shared models.
-Use the learner checkpoint for this new coding slice, not completed work.
-Commit and push only the existing feature branch; that push is authorized.
-No main merge/push, deployment, environment publication, app/PWA changes or
-messaging to others.
+Edit only generator, its tests and tooling document; generated index only
+if needed. No source image/manifest/verifier/schema/dependency/app/PWA edits.
+Commit/push only this feature branch (authorized), then request re-review.
+No main integration, deployment, publication or external messaging.
 ```

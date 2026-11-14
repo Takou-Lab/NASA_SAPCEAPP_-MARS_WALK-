@@ -1,5 +1,7 @@
 # Gaddielle — Generate the offline image-pack index
 
+**Current review:** the implementation is delivered at `bf9689b`; 14 tests and the real index check pass. Before approval, fix R1/R2 in [the review](../../reviews/GADDIELLE.md) and use [the updated agent prompt](../GADDIELLE.md). Preserve existing work and this contract; do not restart the task.
+
 ## Why this is the next task
 
 Your imagery, verifier and corrected Data Passport at `c887286` are approved and integrated. Keep them unchanged. The coordinator now needs a deterministic machine-readable inventory to prepare and check the image portion of the future PWA cache.

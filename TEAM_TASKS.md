@@ -8,9 +8,11 @@ The [adopted guide improvements](docs/GUIDE_IMPROVEMENTS.md) preserve this regio
 
 ## Latest published review and next actions
 
-[REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's corrected `c887286` passport is approved and integrated; her new task is a deterministic image-pack index/generator for future PWA caching. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
+[REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's corrected `c887286` passport is approved and integrated; her submitted image-pack index now needs the bounded R1/R2 corrections below before future PWA integration. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
 
-Do not recreate accepted work. Emma builds the transferred science-context UI, Willy adds guarded image retry after accepted navigation, and Gaddielle implements the [image-pack index task](docs/team/tasks/GADDIELLE_IMAGE_PACK.md) after the accepted passport review. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+Do not recreate accepted work. Emma builds the transferred science-context UI, Willy adds guarded image retry after accepted navigation, and Gaddielle corrects the submitted [image-pack index](docs/team/tasks/GADDIELLE_IMAGE_PACK.md) after the review below. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+
+**Latest Gaddielle update:** image-pack submission `bf9689b` passed 14 Python tests and the real index check, but review requires R1/R2 corrections for canonical/browser-safe paths and strict index shape/types. It is not merged. She keeps the same branch and implementation; [her updated brief](docs/team/GADDIELLE.md) contains the correction prompt. No new task or repeat image/passport work.
 
 **Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
 
@@ -33,7 +35,7 @@ This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Proposed new `feature/willy-image-retry` from published main | Retry failed local imagery safely without changing metadata or mission state |
-| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Approved `c887286` integrated; implement image-pack index/generator/check mode and focused tests using existing assets |
+| [Gaddielle](docs/team/GADDIELLE.md) | `feature/gaddielle-data-preparation` | Keep accepted package/passport; correct R1/R2 in submitted `bf9689b` index tool, extend tests and request re-review |
 | [Emma](docs/team/EMMA.md) | Proposed new `feature/emma-science-context-ui` from published main | Standalone contextual list/details for all unlocated records; no Enzo/root/core file edits |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
@@ -44,7 +46,7 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Retry Image after accepted navigation | Explicit retry, stale-event safety, unchanged mission state and actual tests/browser outcomes |
 | [Enzo](docs/team/ENZO.md) | Shell/planner/notebook/core-port/font/sidebar fixes; integrate Emma's reviewed science component | Complete route/note flow, retained drafts and accessible viewport; no competing science explorer |
-| [Gaddielle](docs/team/GADDIELLE.md) | Machine-readable image-pack index and validation tool | Deterministic paths/bytes/hashes, stale-index rejection and safe failures; complete-app readiness remains coordinator-owned |
+| [Gaddielle](docs/team/GADDIELLE.md) | R1/R2 corrections to submitted image-pack tool | Canonical/browser-safe paths, strict index types/keys and read-only failure; retain all current tests and source assets |
 | [Emma](docs/team/EMMA.md) | New `src/app/science/` contextual science UI; preserve completed presentation | Null-position records selectable/readable; source/unknowns clear; route/mode/notes unchanged |
 | [Longla](docs/team/LONGLA.md) | Independent installed-device/offline QA first; optional 3D second | Recorded close/reopen/offline checks and observed usability issues; no untested VR claims |
 | [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |
