@@ -1,97 +1,112 @@
 # Enzo — Angular Interface, Route Controls and Notebook
 
-## Your mission
+## Current priority — one understandable PWA mission
 
-Build the tablet-friendly interface that connects the map, route planning, data sources and local observation notebook. Use Angular and TypeScript, keeping the mission flow understandable.
+Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared coding contract](CODING_AGENTS.md). Build the tablet workspace for mission rehearsal, science learning and analogue-workflow research. The complete mission is imagery → science context → route sketch → uncertainty → saved observation → offline reopening → export.
 
-Read [the team allocation](../../TEAM_TASKS.md). The repository contained documentation only when these briefs were written. Proposed paths are ownership suggestions; inspect the actual app before adding or moving components.
+The Angular foundation and MissionService are implemented on `main`; inspect the current app and reuse them. Installation and offline caching are still coordinator-owned work. Gaddielle's imagery and Emmanuelle's records are on feature branches pending integration, so represent absent data honestly.
 
 ## Deliverables and ownership
 
-- Layout and interface components, proposed under `src/app/ui/` and `src/app/planner/`.
-- Start, destination and waypoint controls, undo and clear actions.
-- Source/coverage display using Emma and Gaddielle's metadata.
-- Notebook form and observation list, proposed under `src/app/notebook/`.
-- Local route/note persistence connected to coordinator-owned contracts.
+- Standalone layout/interface components under `src/app/ui/`.
+- Route and mission controls under `src/app/planner/`.
+- Notebook form and observation list under `src/app/notebook/`.
+- A readable Exploration Confidence Panel and Data Passport view.
+- Science context accessible as a list even when positions are unavailable.
+- Interface states for installation and verified offline preparation once the coordinator supplies their integration contract.
 
-Willy owns map rendering and click events. The coordinator owns mission state, assessment rules and export. Avoid creating competing stores in individual components.
+Willy owns map rendering and map clicks. The coordinator owns shared state, persistence/export implementation, root assembly, package/config files and PWA lifecycle. Gaddielle and Emmanuelle own the evidence content. Do not create a second mission store, storage layer or service worker.
 
 ## Work in this order
 
-1. Inspect the current Angular shell and agree on shared actions and models with the coordinator.
-2. Build a responsive layout: map as the main workspace, readable side panel and comfortably sized controls.
-3. Add explicit inspect/start/destination/waypoint modes. Show which mode is active.
-4. Connect map clicks through shared actions. Route order is start, ordered waypoints, destination.
-5. Add undo and clear; make disabled states and empty-route messages clear.
-6. Display the coordinator's route assessment. Show distance as unavailable when verified calibration is missing.
-7. Add sources and coverage details without hiding missing-data messages.
-8. Add a notebook form, save status and saved-note list. Connect note positions to the same image/data reference used by the route.
-9. Add save/load controls using validated shared persistence helpers and connect mission export.
+1. Inspect the existing shell, models and actual MissionService methods. Coordinate component selectors with the coordinator for root assembly.
+2. Build a responsive tablet-first layout with the map as the main workspace, readable side panels and large controls. Support keyboard focus and accessible labels.
+3. Add inspect/start/destination/waypoint modes through `setMode()`, and layer controls through `setLayer()`. Display the active interaction mode.
+4. Connect undo/clear, save/load and mission export to service methods. Show their real outcomes, not optimistic success badges.
+5. Build the signature Exploration Confidence Panel from actual shared assessment state. Show available imagery, missing metric calibration, absent terrain and unverified location/coverage clearly. No numeric confidence score or SAFE label.
+6. Show science records as a list/card view. A null-position record may be inspected but must not imply a located map target or silently set a route destination.
+7. Add the notebook using shared persistence. Keep drafts after failed saves; render saved text as text. Do not infer observation position from the selected science record.
+8. Build a Data Passport from supplied evidence: source/credit, observation date when known, image reference/dimensions, coverage, calibration and limitations. Surface verified processing/resolution information only when the coordinator-approved data supplies it; otherwise show unavailable or link to documented provenance. Do not invent model fields or infer georeferencing.
+9. Integrate install guidance and distinct connectivity/offline-pack states after the coordinator defines the API. Until then, show offline preparation as not implemented/prepared; do not invent an offline signal or mark ready from `navigator.onLine`.
+
+## PWA interaction requirements
+
+- Installation availability varies by platform. Use the coordinator's actual install integration, or accurate browser-specific manual guidance when supplied; never show a fake successful install state.
+- Connectivity and offline readiness are separate. A disconnected device may have a prepared pack; a connected device may have no verified pack.
+- Readiness, update status, size and preparation progress must come from real coordinator-owned state, not fabricated percentages or timers.
+- Explain that external source links can need internet while bundled science text remains available offline.
+- Keep the essential workflow usable in standalone display without browser navigation controls.
 
 ## Persistence requirements
 
-- Coordinate schema version and image reference with the coordinator.
-- Validate loaded records; handle corrupt or outdated saved data without crashing.
-- Catch storage failures and keep unsaved note text visible.
-- Render note content as plain text.
-- Explain that browser records depend on origin; a different host/port may show different records.
-- Do not silently reuse positions after the image or coordinate system changes.
+- Use `saveRoute()`, `loadRoute()`, `addObservation()` and `exportMission()`; do not call localStorage independently.
+- `loadRoute()` restores validated route/observations and resets undo history. Give clear feedback for missing, corrupt or mismatched records.
+- Keep draft text in the component and clear it only after a successful save. Whitespace-only notes fail validation.
+- Use `addObservation(text, null)` for an unlocated note. Changing the image reference must not silently reuse old positions.
+- Explain browser/origin-local storage and let users export their work.
 
-## Checks before handoff
+## Acceptance checks
 
-- Complete start → waypoint → destination using the integrated map.
-- Undo and clear produce the expected shared route state.
-- Controls work by keyboard and have labels and visible focus states.
-- The layout remains usable on a tablet-sized viewport without covering essential map controls.
-- Saving/reloading restores valid notes and routes for the same data reference.
-- Missing calibration shows unavailable distance, not a fabricated number.
-- Invalid stored JSON and storage failure produce understandable feedback; typed text survives a failed save.
-- Source links and verification labels match the supplied records.
-- Run actual project build and relevant tests once available.
+- A user can inspect science, draw/edit a route, understand missing distance/slope, save/load a note and export mission JSON through the integrated interface.
+- Unlocated science records remain readable and are not presented as verified route destinations.
+- The Confidence Panel and Data Passport distinguish known evidence, interpretation and unavailable data.
+- Invalid storage and failed saves produce feedback without losing typed text. Notes never execute HTML.
+- Tablet layout, keyboard operation, labels and visible focus work throughout the mission.
+- Install and offline status accurately reflect the coordinator's implemented behavior. After caching is integrated, close the installed PWA, disconnect, reopen, recover the mission and repeat the workflow.
+- Run actual tests/build and relevant UI checks. Record unrun or pending installation/offline scenarios separately.
 
-## Fallback and completion
+## Learning and handoff
 
-Prioritize route controls and a plain text notebook over decorative UI. Your part is complete when a user can draw/edit a proposed route, understand its assessment limits and save an observation. Hand off files, shared actions, interaction checks, persistence behavior and remaining issues.
-
-## Learning focus
-
-Be able to explain Angular binding, form validation and the path from a button click to shared state to map rendering. Build and explain one small interaction at a time.
+Explain the flow from a button click to MissionService to map/UI rendering. Implement one small interaction at a time using the learner checkpoint. Hand off components, selectors, state dependencies, commands/outcomes and remaining integration needs. Support three outside users attempting route drawing, explaining whether distance/slope are known, and saving/recovering an observation; the coordinator collects actual results rather than invented usability claims.
 
 ## Copy-paste coding-agent prompt
 
-Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
-
 ```text
-You are Enzo's coding tutor and implementation agent for MARSWALK.
-Read docs/team/ENZO.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
-Own the Angular interface, route controls and notebook; Willy owns the map.
+You are Enzo's coding tutor and implementation agent for the MARSWALK PWA.
+Read SOUL.MD, TEAM_TASKS.md, docs/team/ENZO.md and
+docs/team/CODING_AGENTS.md.
 
-1. Inspect the real checkout and scripts. If Angular or the agreed core API
-   is absent, report that dependency; do not scaffold another application.
-2. Implement standalone components under src/app/ui/, src/app/planner/
-   and src/app/notebook/. Use Angular forms and plain CSS/SCSS. Coordinate
-   exported component selectors with the coordinator for root assembly.
-3. Inject MissionService. Bind the active mode to inspect/start/destination/
-   waypoint controls via setMode(). Layer checkboxes call setLayer().
-   Undo uses canUndo()/undoRoute(); clear calls clearRoute(). Do not edit
-   Leaflet objects or maintain another route array in a UI component.
-4. Display assessment().planarDistanceMeters only when available and mark
-   it as derived planar distance. Otherwise show Distance unavailable.
-   Always display missing-data warnings. Never add a SAFE badge.
-5. Call saveRoute()/loadRoute() and show their returned success/error.
-   Show selected marker details from markers()/selectedMarkerId(), including
-   position status, source, instrument, date and limitations.
-6. Build an accessible notebook form. Keep draft text in the component;
-   call addObservation(text, null) for an unlocated note. Do not infer a
-   location from a selected target. Clear draft only after success.
-   Show validation/storage feedback and render saved text with interpolation.
-7. Connect export to exportMission(). Show source/coverage details from
-   supplied models. Do not add independent localStorage calls.
-8. Test mode changes, undo/clear, missing distance, note validation, failed
-   storage feedback with retained draft, source display and keyboard use.
-   Verify tablet layout and run the actual build/relevant tests.
+Build an understandable tablet-first mission-rehearsal/science-learning
+workflow. The Angular foundation and MissionService already exist on main.
+Inspect real files/Git status, preserve work and reuse them. Own only
+src/app/ui/, src/app/planner/ and src/app/notebook/ with relevant tests.
+The coordinator owns root assembly, core APIs, package/config and the PWA
+worker/install implementation; Willy owns Leaflet.
 
-Coordinate shared API changes with the coordinator. Follow the learner
-checkpoint in CODING_AGENTS.md. Report files, checks, UI states and remaining
-integration needs. Do not push or merge without authorization.
+1. Implement standalone components with plain CSS/SCSS and Angular forms.
+   Coordinate selectors and shared changes with the coordinator.
+2. Inject MissionService. Modes call setMode(), layers call setLayer(),
+   undo uses canUndo()/undoRoute(), clear uses clearRoute(). Do not keep
+   another route store or manipulate Leaflet from UI components.
+3. Display actual assessment() and its warnings in Exploration Confidence.
+   Show derived planar distance only when available. State unavailable
+   distance, terrain/slope and unverified coverage honestly. Never add a
+   safety badge, invented hazard data or confidence percentage.
+4. Show science records as accessible list/cards, including null-position
+   records. Select through selectMarker(); do not invent a location or
+   turn an unlocated science selection into a route destination.
+5. Add Data Passport details using actual supplied source/credit, date,
+   imageRef/dimensions, coverage/calibration and limitations. Show verified
+   processing/resolution only when approved metadata provides it; otherwise
+   use unavailable/documented provenance. Do not invent runtime fields.
+6. Wire saveRoute()/loadRoute() outcomes and exportMission(). Add notebook
+   draft text and call addObservation(text, null) for unlocated notes.
+   Clear draft only after success. Preserve it on storage failure and
+   render all saved text through interpolation. No independent localStorage.
+7. Design distinct connectivity, install availability and offline-pack
+   states. Integrate only the coordinator's actual forthcoming API; until
+   then display not prepared/not implemented. Never infer offline readiness
+   from connectivity, worker registration or simulated progress. Support
+   standalone navigation and accurate platform install guidance.
+8. Verify the complete mission, null-position science, unavailable metrics,
+   storage failure, retained draft, keyboard use and tablet sizing. Run
+   actual tests/build. After coordinator integration, test installed-app
+   offline reopening, mission recovery and export; mark pending until run.
+9. Support three outside-user tasks: sketch a route, explain whether its
+   distance/slope are known, and save/recover an observation. Record actual
+   issues for the coordinator; never invent user test success.
+
+Follow the learner checkpoint in CODING_AGENTS.md. Report files, selectors,
+commands/outcomes, acceptance scenario and remaining dependencies.
+Do not push, merge or deploy without the user's authorization.
 ```

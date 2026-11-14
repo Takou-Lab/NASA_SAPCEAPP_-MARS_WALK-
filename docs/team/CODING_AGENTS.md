@@ -1,5 +1,7 @@
 # MARSWALK — Shared Coding-Agent Contract
 
+Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
+
 ## Status and scope
 
 The Angular foundation now implements the v1 models and MissionService API below, with Leaflet dependencies and noninteractive test/build scripts. MARSWALK's target is an installable offline PWA; installation and offline caching are not yet implemented in the foundation. Imagery and science records are on Gaddielle's and Emmanuelle's feature branches pending integration and evidence follow-up. Inspect the checkout and actual scripts before starting. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
@@ -15,13 +17,24 @@ The coding prompts in personal briefs are intended to be pasted into the relevan
 | Coordinator (YOU) | Angular bootstrap/config, `src/app/core/`, root assembly, assessment, offline build, package files | Starts first |
 | Willy | `src/app/map/` | Shared models/service and imagery metadata |
 | Enzo | `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` | Shared models/service; coordinate map integration with Willy |
-| Longla | `src/app/viewer3d/` | Shared route and image reference; verified terrain optional |
+| Longla | `docs/qa/` for independent device/offline checks first; optional `src/app/viewer3d/` afterward | Coordinator's integrated PWA and actual target device; optional viewer depends on shared route/image reference |
 | Gaddielle | `public/data/imagery/`, `public/data/terrain/`, `public/data/manifest.json`, `docs/data/`, optional `tools/data/` | Coordinator-approved manifest schema |
-| Emmanuelle / Emma | `public/data/markers.json`, `docs/SCIENCE.md`, `docs/SCIENCE_EVIDENCE.md`, `docs/DEMO_SCRIPT.md`, `docs/REFERENCES.md`, `docs/AI_USE.md` | Coordinator-approved science-record schema |
+| Emmanuelle / Emma | `public/data/markers.json`, `docs/SCIENCE.md`, `docs/SCIENCE_EVIDENCE.md`, `docs/DEMO_SCRIPT.md`, `docs/USABILITY.md`, `docs/REFERENCES.md`, `docs/AI_USE.md` | Coordinator-approved science-record schema; actual user sessions before recording outcomes |
 
 Do not overwrite another person's changes. Request shared model/API changes from the coordinator. The coordinator adds dependency declarations and lockfile changes for Leaflet/Three.js or processing tools. Do not scaffold a second Angular project in a feature directory. Use the existing checkout; create a feature branch only when useful and preserve local work. Do not push, merge, deploy or contact teammates unless the user explicitly authorizes that action.
 
 The current Gaddielle and Emmanuelle follow-up assignments explicitly include committing and pushing their own feature branches. This does not authorize merging into `main`, deployment or contacting teammates. Gaddielle owns the image-data inventory and verification tool; the coordinator owns service-worker caching, app installation and complete offline readiness. Emmanuelle owns the evidence audit and presentation content; shared models stay unchanged unless coordinated.
+
+## Current product integration priorities
+
+1. Integrate reviewed local imagery and science evidence without inventing geolocations or metric calibration.
+2. Finish the 2D mission: image, contextual science, route sketch, confidence messages, notebook, recovery and JSON export.
+3. Complete the installable offline PWA and test closing/reopening the installed app disconnected on the target device. Connectivity and verified pack readiness are different states.
+4. Present Data Passports using Gaddielle's documented metadata and Emmanuelle's evidence audit. Use existing model fields where supported; the coordinator must agree any typed extension before feature agents consume new fields.
+5. Conduct three outside-user sessions with the coordinator, record actual anonymized outcomes through Emmanuelle and Longla, and fix observed confusion.
+6. Add optional 3D/VR only after the essential mission is accepted.
+
+The implemented MissionService below has no install/offline lifecycle API. The coordinator must define and test that contract before Enzo consumes it; feature agents must not invent methods, progress values or readiness claims. The signature confidence panel reports evidence and limits, not safety scores. Unlocated science records must remain accessible as context without fabricated map positions.
 
 ## Version 1 models
 

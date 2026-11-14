@@ -1,5 +1,7 @@
 # MARSWALK
 
+Start with [SOUL.MD](SOUL.MD) for the project's purpose, real use cases, installable offline PWA goals and acceptance criteria. The [team assignments](TEAM_TASKS.md) and [personal agent briefs](docs/team/) describe the current work. These plans do not mean PWA installation or offline caching is implemented yet.
+
 Angular foundation for a research prototype exploring the Mount Sharp boxwork region of Gale Crater, Mars. This revision supplies shared state and contracts for the team. It does not yet implement the interactive map, notebook UI, 3D view or offline caching, and contains no verified imagery/terrain dataset.
 
 ## Development

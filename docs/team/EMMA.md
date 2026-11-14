@@ -2,6 +2,8 @@
 
 ## Current follow-up — scientific evidence and PWA demo
 
+Read [SOUL.MD](../../SOUL.MD) before continuing. Present MARSWALK for science learning, mission rehearsal and analogue-workflow research. Future astronaut support is a long-term vision, not a claim that this prototype is ready for operational navigation. The signature contribution is an understandable account of what the evidence supports and what remains unknown.
+
 **Name and branch:** Emmanuelle is listed as Emma in the existing filename and branch. Continue on `feature/emma-science-provenance`; keep `docs/team/EMMA.md` as the stable brief path.
 
 The latest reviewed science branch contains three records and the corrected image reference. Those records and Gaddielle's manifest pass the shared validator together. They have not yet been merged into `main`. The Angular foundation is on `main`; PWA installation, offline caching and the feature UI are still pending. Preserve the completed work rather than recreating it.
@@ -13,9 +15,11 @@ Your next deliverables are:
 3. **Corrected records:** preserve `imageRef: "hirise-mro-pia26306-boxwork-2048x1042-v1"`, `position: null` and `positionStatus: "unavailable"` until location evidence is independently verified. Remove unsupported precision instead of inventing measurements or coordinates.
 4. **Accurate summary:** describe an Angular PWA under development. The shared service already implements localStorage persistence and JSON export; the interface integration, installation and verified offline reopening remain pending. Do not describe the current release as offline-capable before those checks pass.
 5. **`docs/DEMO_SCRIPT.md`:** a 60-second internal rehearsal covering imagery, science context, route drawing, uncertainty, a saved note, mission export and offline reopening. Mark every step working, pending or requiring verification. This duration is a rehearsal choice, not a claim about the official submission limit.
-6. **References and handoff:** update `docs/REFERENCES.md` and `docs/AI_USE.md`, validate the data contract and report source access limits. Commit and push your feature branch for review; do not merge into `main` or deploy.
+6. **Readable science handoff:** supply plain-language descriptions that separate measured observations, derived results, interpretations and unknowns. Explain that regional context records with unavailable positions remain readable list/card items; they are not geolocated map targets. Coordinate science provenance with Gaddielle's Data Passport so Enzo can display source, evidence type and limitations together.
+7. **`docs/USABILITY.md`:** draft a short test protocol for three people outside the team: draw a proposed route, explain whether its distance and slope are known, then save and recover a note. The coordinator recruits and conducts the sessions; do not contact anyone through tools. Prepare anonymized participant IDs, task outcome/assistance, misunderstanding, observed failure and change-to-retest fields. Mark results pending until sessions actually happen. Record only actual observations and aggregate findings, with no invented times, quotes, successes or personal details.
+8. **References and handoff:** update `docs/REFERENCES.md` and `docs/AI_USE.md`, validate the data contract and report source access limits. Commit and push your feature branch for review; do not merge into `main` or deploy.
 
-**Done when:** every retained scientific claim has traceable support or an explicit limitation, the JSON remains compatible with the image contract, and demo wording matches implemented behavior.
+**Done when:** every retained scientific claim has traceable support or an explicit limitation, the JSON remains compatible with the image contract, demo wording matches implemented behavior, and the usability protocol is ready. Completed usability results require actual coordinator-run sessions; pending sessions must remain labeled pending.
 
 The standing guidance below remains applicable; the follow-up above is your current priority.
 
@@ -31,6 +35,8 @@ Read [the team allocation](../../TEAM_TASKS.md). The original brief predates the
 - Geological map coverage and legend notes.
 - A reference list and AI-use record, proposed under `docs/`.
 - An English project summary and concise demo/slide text.
+- An evidence audit and user-facing science descriptions.
+- The usability protocol and factual observation record in `docs/USABILITY.md`, coordinated with the integrator.
 
 Willy displays your markers. Gaddielle validates dataset coverage and coordinates with you. Enzo presents the source information. The coordinator integrates records and confirms submission readiness.
 
@@ -86,7 +92,9 @@ Paste the following into your coding-agent session for this follow-up. Read the 
 ```text
 You are Emmanuelle's science/provenance assistant for MARSWALK.
 The repository uses EMMA.md and feature/emma-science-provenance for her work.
-Read docs/team/EMMA.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
+Read SOUL.MD, docs/team/EMMA.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
+Prioritize science learning and mission rehearsal, honest uncertainty and
+traceable data. Future astronaut use is a vision, not established readiness.
 Your work is scientific evidence, structured data and presentation content,
 not another Angular feature or service worker.
 
@@ -95,7 +103,8 @@ not another Angular feature or service worker.
    without resetting or overwriting completed science work. The current
    science records live on this feature branch, not yet on main.
 2. Own public/data/markers.json, docs/SCIENCE.md, docs/REFERENCES.md,
-   docs/AI_USE.md, docs/SCIENCE_EVIDENCE.md and docs/DEMO_SCRIPT.md.
+   docs/AI_USE.md, docs/SCIENCE_EVIDENCE.md, docs/DEMO_SCRIPT.md and
+   docs/USABILITY.md.
    Do not alter shared Angular models, application logic or Gaddielle's assets.
 3. Verify the exact supporting sources for the three existing records:
    - Mount Sharp boxwork and ancient-groundwater interpretation.
@@ -119,17 +128,30 @@ not another Angular feature or service worker.
    PWA under development. Distinguish implemented shared-service localStorage
    persistence/JSON export from pending UI integration, installation and
    offline caching. Do not call the current app offline-capable until tested.
+   Explain the real near-term users: learners and rehearsal/analogue teams;
+   do not claim certified navigation, astronaut readiness or proven demand.
 7. Create docs/DEMO_SCRIPT.md as a 60-second internal rehearsal covering
    imagery, science context, route drawing, uncertainty, a saved note,
    mission export and offline reopening. Label each step working, pending
    or requiring verification. Do not invent successful demonstrations or
    treat this duration as an official submission requirement.
-8. Update references and the honest AI-use record. Validate JSON syntax,
+8. Give Enzo readable science text distinguishing observation, derivation,
+   interpretation and unknowns. Unlocated regional records are list/card
+   content, not invented map targets. Align provenance with Gaddielle's Data
+   Passport; do not change runtime schemas without coordinator agreement.
+9. Create docs/USABILITY.md with a protocol for three people outside the
+   team: draw a route, explain whether distance/slope are known, save and
+   recover a note. The coordinator recruits/conducts the tests; do not contact
+   participants yourself. Prepare anonymized IDs and fields for actual task
+   completion/assistance, misunderstandings, failures and fixes to retest.
+   Results stay pending until real sessions happen. Record only factual
+   observations/aggregate findings; invent no timings, quotes or successes.
+10. Update references and the honest AI-use record. Validate JSON syntax,
    required schema fields, unique IDs, the exact imageRef and unavailable
    positions. If Gaddielle's manifest is absent on your branch, compare
    against her delivered contract read-only rather than recreating her
    files. Run relevant actual checks and report what executed.
-9. Commit and push only feature/emma-science-provenance for review; this
+11. Commit and push only feature/emma-science-provenance for review; this
    assignment authorizes that feature-branch push. Do not merge into main,
    deploy, submit the project or contact others through messaging tools.
 
