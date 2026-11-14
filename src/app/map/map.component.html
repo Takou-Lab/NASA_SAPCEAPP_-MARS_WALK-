@@ -55,7 +55,10 @@
       </div>
     } @else if (imageDisplayState() === 'error') {
       <div class="map-state map-state-error" role="alert">
-        {{ imageDisplayError() || 'The image could not be displayed.' }}
+        <p>{{ imageDisplayError() || 'The image could not be displayed.' }}</p>
+        @if (canRetryImage()) {
+          <button class="retry-image" type="button" (click)="retryImage()">Retry Image</button>
+        }
       </div>
     }
   </div>
