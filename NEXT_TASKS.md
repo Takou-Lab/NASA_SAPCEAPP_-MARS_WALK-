@@ -33,6 +33,8 @@ Agent instructions: [WILLY.md](docs/team/WILLY.md).
 
 Science/evidence/demo/protocol `b0640d9`: **accepted and integrated**. The user reports his presentation work done locally; those two files are not visible at the reviewed remote tip.
 
+His branch now points to `ee9f6ae` after synchronization. The [latest review](docs/reviews/EMMA.md) confirms zero unique commits against main `6c78ebe` and no published presentation/Q&A files. The action below remains publication of existing work; no new task or branch is assigned yet.
+
 1. Locate and preserve the existing `docs/PRESENTATION.md` and `docs/JUDGES_QA.md` in his working branch.
 2. Check origin/branch and local changes. Sync main without overwriting his completed files.
 3. Commit and push the existing finished files to `feature/emma-science-provenance`, then hand off the commit and any still-pending evidence artifacts.

@@ -12,6 +12,8 @@ Do not recreate accepted work. Emma's reported finished presentation needs a pub
 
 **Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
 
+**Emma update:** his branch is now `ee9f6ae`, synchronized with the earlier integration/review history. [His review](docs/reviews/EMMA.md) confirms no unique new content against inspected main `6c78ebe`. His earlier contribution remains accepted; he should publish the completed presentation/Q&A files rather than repeat research or start a new assignment.
+
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
 ## Coding-agent instructions
