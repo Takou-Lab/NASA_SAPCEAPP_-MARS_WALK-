@@ -1,8 +1,14 @@
 # MARSWALK
 
-Read [SOUL.MD](SOUL.MD) for the product purpose and installable offline PWA goals. [Team assignments](TEAM_TASKS.md) and [personal agent briefs](docs/team/) describe the next work.
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
+Read [SOUL.MD](SOUL.MD) for the product purpose and installable offline PWA goals. The six current work pieces and dependencies are defined in [TEAM_TASKS.md](TEAM_TASKS.md); [personal agent briefs](docs/team/) contain matching prompts.
 
 See [the published branch review](REVIEW.md) for accepted contributions and integration findings, and [NEXT_TASKS.md](NEXT_TASKS.md) for each contributor's next action. Completed work should not be restarted.
+
+Enzo's functional shell/notebook and Longla's corrected optional viewer remain feature-branch contributions; see the exact verdicts before claiming they are on main. Complete PWA install/cache/update and disconnected reopening remain pending.
 
 The [Martian Map guide improvements](docs/GUIDE_IMPROVEMENTS.md) retain Gale and existing assignments: portable mission files now, complete offline operation next, compatible science layers and verified terrain before measured 3D.
 

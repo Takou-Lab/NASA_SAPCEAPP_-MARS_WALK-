@@ -1,5 +1,9 @@
 # Longla viewer — correction verification
 
+<!-- CURRENT_WORK_PLAN -->
+> **Revision-scoped evidence/acceptance record.** Keep recorded counts/outcomes tied to their revisions; current assignments and dependencies are in [the work plan](../../TEAM_TASKS.md). Unrun device/offline checks remain pending or blocked.
+<!-- /CURRENT_WORK_PLAN -->
+
 Date: **14 November 2026**. Tested code: **`2a6dbbaf086fef072844888c8eb25a3e5e5552ca`**, branch **`feature/longla-3d-rehearsal`**. The coordinator implemented the corrections at the user's request, preserving Longla's viewer and merging main **`d814ec4`**. Feature-branch verification is complete; this document does not claim the viewer is integrated into main.
 
 ## Automated checks

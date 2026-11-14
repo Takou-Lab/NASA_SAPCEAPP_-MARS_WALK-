@@ -1,5 +1,9 @@
 # MARSWALK — Project purpose and delivery priorities
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
 Updated: **14 November 2026**. This is the team's product charter and scope guide, not evidence that a feature already works or an official competition rulebook. Read it with [TEAM_TASKS.md](TEAM_TASKS.md), [the shared coding contract](docs/team/CODING_AGENTS.md) and your named brief.
 
 ## Apply this charter without restarting work
@@ -84,8 +88,8 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 | Essential | Willy | Preserve approved map/navigation, add explicit safe image retry and verify without rebuilding earlier work |
 | Essential | Enzo | Tablet shell/route controls, integration of Emma's reviewed science/evidence components, notebook/draft retention, recovery/export and real future PWA status UI |
 | Essential | Coordinator (YOU.md) | Shared state, reviewed integration, confidence calculations, installation, complete verified offline pack and end-to-end release checks |
-| Essential before optional 3D | Longla | Independent target-device/offline QA and support for usability observation, working with the coordinator |
-| Optional after core acceptance | Longla | Labeled 3D rehearsal; VR only if time and verified behavior permit |
+| Essential | Longla | W5 actual-device/offline QA and usability observation; corrected viewer work stays complete |
+| Preserve optional delivery | Coordinator / Longla | Keep the corrected flat viewer on its reviewed branch; integrate deliberately without adding terrain/VR or blocking the core mission |
 
 Keep existing role ownership and completed work. The Willy/Gaddielle swap remains in force. Use the personal briefs for exact files, agent prompts and checks.
 
@@ -117,8 +121,8 @@ Suggested pitch:
 
 ## Current integration status
 
-The integration includes the Angular foundation, shared models/MissionService, validation, localStorage/export service functionality, Willy's mounted map, Gaddielle's prepared image and Emma's three contextual science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover 32 Angular tests, four verifier tests, a production build and desktop/tablet-sized Chromium interactions and failure states.
+Main includes the real image, map/navigation, science list/details, shared assessment/persistence and guarded mission-file transfer. The [51-test science integration](docs/qa/SCIENCE_INTEGRATION.md), earlier [map](docs/qa/MAP_INTEGRATION.md) and [transfer](docs/qa/MISSION_TRANSFER.md) records retain their exact tested scopes/revisions; they are not new installed-PWA evidence.
 
-The subsequent [guide improvement](docs/GUIDE_IMPROVEMENTS.md) adds validated mission-file import alongside export. [Transfer checks](docs/qa/MISSION_TRANSFER.md) now cover 44 Angular tests, a production build and file transfer between isolated desktop/tablet-sized browser contexts, including rejection without data loss. This advances the same prepared mission across devices while preserving Gale, current ownership and the terrain-evidence requirements.
+Enzo's functional shell/planner/notebook and Longla's corrected optional flat viewer pass on their published branches, with final main integration/device acceptance tracked separately. Gaddielle's real index is merged/valid; W2 fixes the remaining runtime/browser-path compatibility edge case. Emma's W3 enhancements are assigned, not implemented. [REVIEW.md](REVIEW.md) records exact published tips and [TEAM_TASKS.md](TEAM_TASKS.md) defines the six current work pieces.
 
-Emma's science list/details are now mounted and pass [51 integrated tests, build and production browser checks](docs/qa/SCIENCE_INTEGRATION.md). His next assignment adds discovery and dedicated confidence/image-passport presentation. Enzo's route controls/notebook/shell corrections, installation and verified offline reopening remain pending. Physical-device and outside-user checks are not yet complete. Follow the actual integration revision; these results do not establish a full installed offline PWA or independently validate every scientific finding.
+Complete interface integration, real installation/cache/update lifecycle, physical-device disconnected reopening and actual outside-user outcomes remain pending. Preserve the current Gale data and uncertainty boundaries; do not call the full installed offline mission complete from tests/build or branch demos.

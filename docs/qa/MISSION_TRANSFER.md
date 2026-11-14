@@ -1,5 +1,9 @@
 # Mission transfer verification
 
+<!-- CURRENT_WORK_PLAN -->
+> **Revision-scoped evidence/acceptance record.** Keep recorded counts/outcomes tied to their revisions; current assignments and dependencies are in [the work plan](../../TEAM_TASKS.md). Unrun device/offline checks remain pending or blocked.
+<!-- /CURRENT_WORK_PLAN -->
+
 Date: **14 November 2026**. Scope: coordinator-owned mission import/export added to the integrated Angular application.
 
 ## Automated checks

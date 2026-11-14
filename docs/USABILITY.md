@@ -1,5 +1,9 @@
 # Usability Protocol & Formative Session Log — MARSWALK
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
 > **Status:** **`PENDING (Sessions Not Yet Conducted)`** — Protocol prepared for the post-handoff evaluation phase. No participants have been tested yet; no outcomes, timings, or failures may be fabricated.
 > **Scope Boundary:** A three-person formative usability test provides qualitative workflow feedback for refining the interface and confidence messaging. It is **not** proof of operational navigation fitness or astronaut safety certification.
 
@@ -14,9 +18,9 @@
 
 ## 2. Prerequisites Before Running Sessions
 
-Before conducting any session, confirm on the demonstration device that:
+Before conducting any session, confirm on the demonstration device that the following prerequisites are met. Current full-session readiness is **blocked by final interface/PWA integration**; the session log remains unrun:
 1. Gaddielle's `public/data/manifest.json` + prepared image (`hirise-mro-pia26306-boxwork-2048x1042-v1`) and Emma's `public/data/markers.json` are integrated.
-2. Willy's Leaflet `CRS.Simple` map and Enzo's tablet UI, Exploration Confidence Panel, Data Passport, contextual science list, and notebook are integrated.
+2. The accepted map/science UI and the final shell/planner/notebook are integrated. Emma implements science/evidence presentation and Enzo owns shell placement; his current main reconciliation is W4. Dedicated future W3 panels are integrated only after review. This is a prerequisite, not a claim that all UI is already on main.
 3. Coordinator's PWA manifest, service-worker caching, and production offline reopening pass independent QA checks.
 
 ## 3. Standardized Three-Task Protocol

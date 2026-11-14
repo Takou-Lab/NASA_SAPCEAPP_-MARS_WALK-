@@ -1,5 +1,9 @@
 # Enzo — Final shell integration after functional corrections
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current assignment: [W4](../../TEAM_TASKS.md#w4).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Latest reviewed delivery
 
 **`feat/enzo-ui-planner-notebook`**, **`bcac915`**, is reviewed against main **`584f24b`**. **57 branch tests and production build pass**. Production browser checks confirm the real map, drawing/save/load/export, science selection, exact draft retention after normal/failed-save tab changes and viewport-aware sidebar resizing. [Full review](../reviews/ENZO.md).

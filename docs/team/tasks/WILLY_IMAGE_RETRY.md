@@ -1,12 +1,16 @@
 # Willy — Retry a failed local image load
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current assignment: [W1](../../../TEAM_TASKS.md#w1).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+<!-- /CURRENT_WORK_PLAN -->
+
 Your Reset View / Focus Route work at `21cf6f0` passed review and its tests/build; preserve it and the integrated readiness guard. This is a new usability task, not a defect to reopen in the completed navigation assignment.
 
 Read [WILLY.md](../WILLY.md), [the shared contract](../CODING_AGENTS.md) and [the image contract](../../data/IMAGE_CONTRACT.md).
 
 ## Branch and ownership
 
-After the integration is published, preserve local changes and create proposed branch `feature/willy-image-retry` from latest main in the existing checkout. Own only `src/app/map/map.component.ts`, `.html`, `.scss` and `.spec.ts`. No new dependency, root/core API, data file, cache manager or service worker is needed.
+Preserve local task work. If no retry branch exists, create proposed `feature/willy-image-retry` from latest published main; otherwise keep the existing task branch and synchronize safely. Own only `src/app/map/map.component.ts`, `.html`, `.scss` and `.spec.ts`. No new dependency, root/core API, data file, cache manager or service worker is needed.
 
 ## Required behavior
 
@@ -25,4 +29,4 @@ Add meaningful regressions for initial failure → retry → correct load, repea
 
 Run `npm test` and `npm run build`. Where supported, use browser request interception to fail the first image request and allow the retry; verify one successful loaded image and no duplicate map/route layers. Use test-only interception rather than changing the real image. Mark unsupported checks unrun.
 
-Commit and push only `feature/willy-image-retry`; that own-feature push is authorized. Hand off the commit, changed files, actual tests/build/browser outcomes and remaining limits. No main merge/push, environment publication, deployment or external messaging is included.
+Commit and push only the assigned W1 task branch (default `feature/willy-image-retry`; report an existing task name if different); that own-feature push is authorized. Hand off the commit, changed files, actual tests/build/browser outcomes and remaining limits. No main merge/push, environment publication, deployment or external messaging is included.

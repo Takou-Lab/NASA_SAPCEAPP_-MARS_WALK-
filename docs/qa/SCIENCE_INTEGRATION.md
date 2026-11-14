@@ -1,5 +1,9 @@
 # Science-context integration checks
 
+<!-- CURRENT_WORK_PLAN -->
+> **Revision-scoped evidence/acceptance record.** Keep recorded counts/outcomes tied to their revisions; current assignments and dependencies are in [the work plan](../../TEAM_TASKS.md). Unrun device/offline checks remain pending or blocked.
+<!-- /CURRENT_WORK_PLAN -->
+
 Date: **14 November 2026**. Reviewed science tip **`4efcb5a`**, tested against main baseline **`91a1eaf`** with narrow coordinator root changes. GitHub PR #3 then merged the identical component at **`52f5764`**; this integration preserves that merge and adds the tested root mounting. Export: `ScienceContextComponent`, selector `app-science-context`.
 
 ## Automated verification

@@ -1,5 +1,9 @@
 # MARSWALK — device and PWA acceptance
 
+<!-- CURRENT_WORK_PLAN -->
+> **Revision-scoped evidence/acceptance record.** Keep recorded counts/outcomes tied to their revisions; current assignments and dependencies are in [the work plan](../../TEAM_TASKS.md). Unrun device/offline checks remain pending or blocked.
+<!-- /CURRENT_WORK_PLAN -->
+
 Plan/update: **14 November 2026**. Code reference for the corrected optional viewer: **`2a6dbba`**, `feature/longla-3d-rehearsal`; includes main **`d814ec4`**. Current evidence: [viewer checks](VIEWER3D_REVIEW.md), [science checks](SCIENCE_INTEGRATION.md), [mission transfer](MISSION_TRANSFER.md). The viewer checks are feature-branch outcomes; inspect the deployed/served commit before testing.
 
 **Result meanings:** Passed means the named check was actually run in the stated environment. Pending means unrun. Blocked means an explicit prerequisite is absent. A written scenario is not a pass.

@@ -1,5 +1,11 @@
 # MARSWALK — Offline Image-Pack Index & Tooling
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
+**Current implementation note:** the real committed index passes its checks and all 25 current Python tests pass. W2/R3 still adds rejection for encoded/whitespace paths that runtime rejects or browsers normalize differently; see [the exact review](../reviews/GADDIELLE.md). The schema below remains the intended contract, not a claim that this last edge case is already fixed.
+
 ## Purpose & Overview
 
 This document specifies the machine-readable inventory contract for the MARSWALK offline image data pack, implemented by `tools/data/build_image_pack.py` and serialized to `public/data/image-pack.json`.

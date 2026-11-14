@@ -1,12 +1,16 @@
 # Emma — Science explorer and evidence panels
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current assignment: [W3](../../../TEAM_TASKS.md#w3).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+<!-- /CURRENT_WORK_PLAN -->
+
 Assigned **14 November 2026**, after acceptance of science component **`4efcb5a`**. Emma uses he/him. This is a substantial follow-up in his own section plus an explicit transfer of **future read-only confidence and image Data Passport presentation** from Enzo. Preserve both contributors' delivered work.
 
 Read [EMMA.md](../EMMA.md), [the accepted review](../../reviews/EMMA.md), [shared contract](../CODING_AGENTS.md), [SOUL.MD](../../../SOUL.MD) and [Gaddielle's Data Passport](../../data/DATA_PASSPORT.md). The current typed ImageManifest is authoritative for executable UI; richer proposed passport schemas are not implemented APIs.
 
 ## Branch and ownership
 
-After the coordinator's reviewed integration is pushed to main, preserve local work and create **`feature/emma-science-evidence-workspace`** from that published main in the existing checkout. Keep `feature/emma-science-context-ui` and accepted history. Do not scaffold another application.
+Preserve local work. If no follow-up branch exists, create proposed **`feature/emma-science-evidence-workspace`** from latest published main in the existing checkout; otherwise retain existing task work and synchronize safely. Keep `feature/emma-science-context-ui` and accepted history. Do not scaffold another application.
 
 | Files | Deliverable |
 | --- | --- |
@@ -91,4 +95,4 @@ The handoff must name component exports/selectors and give imports/template plac
 
 ## Finish and push
 
-Work slice by slice with brief learning explanations, preserving accepted work. Complete all three UI deliverables and the behavioral handoff before calling the assignment done. Commit/push **only `feature/emma-science-evidence-workspace`**, then provide commit, files, selectors, test/build/browser evidence and remaining limitations for review. That normal feature-branch push is authorized. Main integration, deployment, environment publication, submission and external messaging remain separate.
+Work slice by slice with brief learning explanations, preserving accepted work. Complete all three UI deliverables and the behavioral handoff before calling the assignment done. Commit/push **only the assigned W3 task branch** (default `feature/emma-science-evidence-workspace`; report an existing local task name if different), then provide commit, files, selectors, test/build/browser evidence and remaining limitations for review. That normal feature-branch push is authorized. Main integration, deployment, environment publication, submission and external messaging remain separate.

@@ -1,5 +1,9 @@
 # Gaddielle — Generate the offline image-pack index
 
+<!-- CURRENT_WORK_PLAN -->
+> **Delivered inventory specification.** Current work is only the [W2 R3 compatibility follow-up](../../../TEAM_TASKS.md#w2); preserve the original contract and completed fixes.
+<!-- /CURRENT_WORK_PLAN -->
+
 **Current review:** `a53724a` is delivered/merged, with 25 Python tests and real index check passing. Previous R1/R2 fixes are complete. Continue only the R3 runtime/browser-path compatibility correction in [the latest review](../../reviews/GADDIELLE.md) and [updated prompt](../GADDIELLE.md); preserve this original contract and all completed work.
 
 ## Why this is the next task

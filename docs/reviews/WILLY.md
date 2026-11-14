@@ -1,5 +1,9 @@
 # Willy navigation review — approved and integrated
 
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
+
 Reviewed **14 November 2026**. Branch `feature/willy-map-development`, tip **`21cf6f0ad90144bd67af916d437651d97c40b9b2`**, compared with main `f65778d`. The accepted navigation contribution is merged into this integration.
 
 ## Findings and checks

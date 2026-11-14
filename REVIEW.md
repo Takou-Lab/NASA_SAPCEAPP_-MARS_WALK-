@@ -1,12 +1,16 @@
 # MARSWALK — Current published submission review
 
-Review date: **14 November 2026 (Africa/Douala)**. Snapshot: main **`584f24b`**, all seven advertised remote heads and four PR heads. This report covers published commits, not unseen local work. Detailed older reviews remain in `docs/reviews/` as labeled history.
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
+Review date: **14 November 2026 (Africa/Douala)**. Snapshot: main **`0043bae`** (documentation update on the same reviewed application), all seven advertised remote heads and four PR heads. Branch recheck for task alignment found no new submissions. This report covers published commits, not unseen local work. Detailed older reviews remain in `docs/reviews/` as labeled history.
 
 ## Current verdicts and next actions
 
 | Contributor / branch | Published tip | Review result | Next action |
 | --- | --- | --- | --- |
-| Main integration | `584f24b` | Science/map/mission transfer integrated; Gaddielle index already merged. Angular source unchanged since recorded 51-test integration; fresh data suite passes 25 tests with R3 follow-up below | Preserve current work; finish Enzo integration, then real PWA lifecycle/device acceptance |
+| Main integration | `0043bae` | Science/map/mission transfer integrated; Gaddielle index already merged. Angular source unchanged since recorded 51-test integration; fresh data suite passes 25 tests with R3 follow-up below | Preserve current work; finish Enzo integration, then real PWA lifecycle/device acceptance |
 | Willy — `feature/willy-map-development` | `21cf6f0` | **Approved/integrated**, unchanged since navigation review | Continue guarded image-retry assignment; no newer retry submission advertised |
 | Emma — `feature/emma-science-provenance` | `947ff1a` | **Accepted/integrated**, unchanged | Preserve research/protocol/presentation; no repeat assignment |
 | Emma — `feature/emma-science-context-ui` | `4efcb5a` | **Approved/integrated/mounted**, unchanged; recorded 51-test/build/browser integration retained | Continue science discovery and transferred confidence/image-passport work on proposed evidence-workspace branch |

@@ -1,5 +1,9 @@
 # Emma — Contextual science UI, transferred from Enzo
 
+<!-- CURRENT_WORK_PLAN -->
+> **Completed assignment reference.** The science component is accepted/mounted; current work is [W3](../../../TEAM_TASKS.md#w3). Do not repeat this original task.
+<!-- /CURRENT_WORK_PLAN -->
+
 **Completed reference:** `4efcb5a` is approved and mounted, with 51 integrated tests/build and recorded browser checks passing. Do not repeat this assignment. Continue with [the science/evidence workspace task](EMMA_SCIENCE_EVIDENCE_WORKSPACE.md) and [updated prompt](../EMMA.md).
 
 ## Scope and reason

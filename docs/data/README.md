@@ -1,5 +1,9 @@
 # MARSWALK — Data Preparation Documentation
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## 1. Overview & Ownership
 
 - **Role:** Gaddielle (Data Preparation Agent)
@@ -89,7 +93,7 @@ These specifications apply strictly while the committed image and manifest remai
 - **Surface Mesh:** Flat plane: `PlaneGeometry(2048, 1042)`.
 - **Coordinate Transform from 2D Map to 3D Scene:**
   - `scene.position.x = mapPoint.x - (2048 / 2)`
-  - `scene.position.y = 0.5` (slight display lift above texture plane to prevent z-fighting; not elevation)
+  - `scene.position.y`: a display-only lift to prevent overlap, not elevation. The corrected viewer uses `DISPLAY_Y_OFFSET = 1` for lines/rings and additional geometry offsets for node/marker centers
   - `scene.position.z = (1042 / 2) - mapPoint.y`
 - **Labeling:** Mark view clearly as **Prototype: 3D training view — No verified terrain; elevation unavailable**.
 

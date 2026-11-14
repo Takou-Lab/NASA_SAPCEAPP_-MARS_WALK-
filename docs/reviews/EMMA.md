@@ -1,5 +1,9 @@
 # Emma science-context review — approved and integrated
 
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
+
 Reviewed **14 November 2026**: **`feature/emma-science-context-ui`**, tip **`4efcb5ac9b4af5e0838552d1a4269f56352e0f55`**, against main **`91a1eaf`**. Emma uses he/him. Verdict: **approved**. GitHub PR #3 merged the component at `52f5764` while this review was underway; the coordinator preserves that merge and mounts it in this integration.
 
 ## Accepted implementation

@@ -1,5 +1,9 @@
 # MARSWALK — Shared Coding-Agent Contract
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](../../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
 Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
 
 Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. Gaddielle's corrected passport at `c887286` is approved and integrated, as recorded in [the accepted review](../reviews/GADDIELLE.md). Her index `a53724a` is merged and passes 25 Python tests; the R3 browser-path compatibility follow-up below reuses the accepted package/verifier; do not repeat image, conflict or passport work.

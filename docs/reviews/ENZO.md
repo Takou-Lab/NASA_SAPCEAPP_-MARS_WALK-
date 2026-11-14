@@ -1,5 +1,9 @@
 # Enzo review — functionality passes; final main integration required
 
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
+
 Reviewed **14 November 2026 (Africa/Douala)**. Published tip **`bcac915644ec58853033879184773564f50bb738`** on **`feat/enzo-ui-planner-notebook`**, compared with main **`584f24b`**. Verdict: **retain the corrected UI; finish the bounded integration below before merging or starting a new task**.
 
 ## Previous findings closed

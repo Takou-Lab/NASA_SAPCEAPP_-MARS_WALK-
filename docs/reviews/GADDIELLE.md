@@ -1,5 +1,9 @@
 # Gaddielle review — original fixes pass; one browser-path follow-up
 
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
+
 Reviewed **14 November 2026 (Africa/Douala)**. Tip **`a53724a43990319f44ca54e3d8693d0f821587ee`**, **`feature/gaddielle-data-preparation`**. This code is **already on main**, merged through PR #4 at `d814ec4`. Main review baseline: **`584f24b`**.
 
 ## Completed work retained

@@ -1,52 +1,50 @@
 # MARSWALK — Judges' Q&A Reference
 
-> **Purpose:** Factual answers grounded strictly in inspected repository files, verified NASA/USGS sources, and recorded test/review outputs through `22e07ef` (`main`) and `b0640d9` (`feature/emma-science-provenance`). Do not claim unverified metrics, partnerships, or untested offline results. Author: Emma (he/him).
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
 
----
+Use the actual demonstrated revision. [Current verdicts](../REVIEW.md) and [work pieces](../TEAM_TASKS.md) determine feature/readiness claims. This reference is not an official competition rubric.
 
-### 1. Who are MARSWALK's current users, and is this ready for astronaut navigation?
-- **Near-term target users (to evaluate with, not claimed existing customers/partnerships):**
-  - **Planetary-science students & educators:** Inspect genuine orbital Mars imagery, trace sourced Curiosity findings, and learn what cannot be inferred from a visual raster alone.
-  - **Analogue mission teams:** Rehearse traverse preparation, local note capture, and delayed/disconnected workflows.
-  - **Science outreach & research teams / mission-planning researchers:** Carry a curated, attributed study-area package and study how planners make decisions under incomplete information ([SOUL.MD](../SOUL.MD)).
-- **Long-term vision vs. current boundary:** Operational astronaut or rover navigation is a **long-term future vision**. The current prototype has no live telemetry, no validated terrain elevation model, and no hazard classification—it is **not** a certified navigation or safety system.
+## Who uses it, and why?
 
-### 2. What does MARSWALK contribute alongside existing tools like NASA Mars Trek or JMARS?
-- **Fair comparison:** Tools such as **NASA Mars Trek** and **JMARS** already provide comprehensive global planetary GIS layers, elevation models, and route/profile measurement tools. MARSWALK does not claim those tools lack terrain or routing features.
-- **MARSWALK's contribution:** A focused, portable **Angular PWA rehearsal workflow** centered on one bounded study area (Mount Sharp boxwork in Gale Crater) that foregrounds **epistemic transparency**: separating measured, derived, and interpreted science records, keeping unverified positions and uncalibrated distances explicitly `unavailable`, and bundling route/observation provenance into a versioned JSON export (`marswalk-mission.json`).
+Target near-term users are planetary-science learners/educators, analogue mission teams and outreach groups rehearsing decisions under incomplete evidence. MARSWALK combines a bounded local image, readable scientific context, user-sketched missions, portable notes/routes and clear unknowns. No customers, partnerships, participant outcomes or operational astronaut deployment are claimed.
 
-### 3. Which NASA, USGS, and software resources were actually used?
-- **Imagery:** NASA/JPL-Caltech/University of Arizona MRO HiRISE observation **PIA26306 (`PSP_001752_1750`)**, captured Dec. 10, 2006, prepared locally as a **2048 × 1042** JPEG (`hirise-mro-pia26306-boxwork-2048x1042-v1`) in [public/data/manifest.json](../public/data/manifest.json).
-- **Curiosity Science Records:** Three specific `science.nasa.gov` mission blog updates verified via HTTP 200 checks in [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md):
-  1. [Curiosity Blog, Sols 4804–4811](https://science.nasa.gov/blog/curiosity-blog-sols-4804-4811-kicking-off-the-final-phase-of-boxwork-exploration/) (Mount Sharp boxwork ridges/hollows, Sol 4803 `2026-02-09`, MAHLI/APXS; paired with `PIA26306` HiRISE context).
-  2. [Curiosity Blog, Sol 2121: Blackjack!](https://science.nasa.gov/blog/sol-2121-blackjack/) (Vera Rubin Ridge `'Pettegrove Point'` / `'Ailsa Craig'` target, DRT/MAHLI/APXS characterization and orbital hematite reference).
-  3. [Curiosity Blog, Sols 3251–3253](https://science.nasa.gov/blog/sols-3251-3253-celebrating-another-go-around/) (Glen Torridon clay unit to sulfate-rich strata transition, Left Navcam Sol 3247, Drill, CheMin, SAM).
-- **Regional / Geological Context:** NASA *Curiosity's Proposed Path Up Mount Sharp* (HiRISE/CRISM/CTX/HRSC orbital mapping context) and USGS SIM-3292 (*Geologic Map of Mars*, Tanaka et al., 2014, 1:20,000,000 scale) listed in [REFERENCES.md](REFERENCES.md). Note: `jpl.nasa.gov/news/nasas-curiosity-rover-explores-a-spiderweb-on-mars/` returned `HTTP 403 Forbidden` during automated verification and was replaced by the accessible `science.nasa.gov` and `PIA26306` records.
-- **Software Libraries:** Angular & TypeScript (MIT), Leaflet with `CRS.Simple` (BSD-2-Clause), Vitest + jsdom for unit testing, and Python + Pillow for image-pack verification (`tools/data/verify_pack.py`).
+## What data is real?
 
-### 4. How do you ensure scientific accuracy and separate observations from interpretations?
-- Every record in [public/data/markers.json](../public/data/markers.json) and [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md) explicitly labels `evidenceType` (`measured`, `derived`, or `interpreted`) and divides the `finding` text into **Observation** versus **Derivation** or **Interpretation**.
-- Unsupported details (such as unverified Earth dates, quantitative chemical percentages not present in the blog text, or calcium sulfate veins absent from the Sol 2121 post) were removed during the evidence audit.
-- Explicit scientific boundaries state that ancient groundwater mineralization does **not** prove current liquid water, and regional geological units do **not** guarantee rover-scale trafficability or slope safety.
+The prepared PIA26306 image is credited to NASA/JPL-Caltech/University of Arizona. Three Curiosity contextual records cite primary NASA sources, with findings, instruments/dates where available, evidence type and limitations in [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md) and [REFERENCES.md](REFERENCES.md). The exact processed image has its own imageRef, hashes and preparation evidence in [DATA_PASSPORT.md](data/DATA_PASSPORT.md).
 
-### 5. Why are marker coordinates, metric distances, and terrain slopes marked `unavailable`?
-- **Marker coordinates (`position: null`, `positionStatus: "unavailable"`):** Neither the Curiosity blog updates nor the `PIA26306` release provide verified pixel-level tie-points mapping rover drill/bedrock targets onto `PIA26306_derived_2048.jpg`. The planned contextual science view will expose these records without invented map pins; that component and shell integration are still pending.
-- **Metric distance (`distanceStatus: "unavailable"`):** `manifest.json` keeps `calibration.verified: false` (`metersPerPixel: null`) because the public Photojournal JPEG and its 2048 × 1042 derivative lack independent ground-control scale calibration (`src/app/core/route.ts`).
-- **Terrain slope (`terrainStatus: "unavailable"`):** No validated, co-registered DEM is bundled in v1 ([TERRAIN_EVALUATION.md](data/TERRAIN_EVALUATION.md)), so MARSWALK triggers **visual review only** and never infers elevation from image brightness or assigns a `"SAFE"` classification.
+These are contributor source-audit records. Schema validation and image decoding do not independently certify scientific interpretation. The latest documentation alignment did not re-fetch those scientific sources.
 
-### 6. What is actually implemented and tested right now versus still pending?
-- **Implemented & Verified on `main` (`f24f6fc` / `22e07ef`):**
-  - Core models, validation, `MissionService` signals, `localStorage` route/observation persistence, and `marswalk-mission.json` export ([src/app/core/mission.service.ts](../src/app/core/mission.service.ts)).
-  - Prepared 2048 × 1042 HiRISE image pack (524,472 bytes, 4 passing Python verifier tests in `tools/data/test_verify_pack.py`) and 3 validated science records (`public/data/markers.json`).
-  - Mounted Leaflet `CRS.Simple` map (`src/app/map/map.component.ts`) with readiness guards, layer toggles, and zoom/pan — verified by **32 passing unit tests across 4 files**, production `npm run build`, and one-time Playwright desktop (1366 × 1000) / tablet-sized (820 × 1180) smoke checks in [MAP_INTEGRATION.md](qa/MAP_INTEGRATION.md).
-- **Pending / In Progress:**
-  - Enzo's route-drawing controls, contextual science list, Confidence Panel, and notebook/export UI (`feat/enzo-ui-planner-notebook` at `15b1666`, awaiting fixes in [docs/reviews/ENZO.md](reviews/ENZO.md)).
-  - Emma's standalone contextual science component and its shell integration. Willy's navigation at `21cf6f0` and Gaddielle's corrected passport at `c887286` are now approved/integrated; they are not unfinished assignments.
-  - Coordinator's PWA web manifest, service-worker caching, installation, and physical-device offline close/reopen verification.
-  - Three outside-user formative usability sessions ([USABILITY.md](USABILITY.md), currently `PENDING`).
+## Why are there no science pins or metric distance?
 
-### 7. How was AI assistance used and reviewed?
-- AI coding assistants helped scaffold the Angular foundation, data-verification scripts, documentation structure, and source lookups.
-- Recorded checks are documented in [AI_USE.md](AI_USE.md), [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md) and [REVIEW.md](../REVIEW.md): Emma recorded source-access checks and supporting passages; the coordinator checked runtime record compatibility, reviewed contributions, and ran the reported tests/builds/browser checks. These are specific recorded checks, not a claim that every artifact or external source was independently reverified. Unavailable data and unrun tests remain explicit.
+All three science positions are null/unavailable on the prepared image. The **implemented science list** keeps them accessible without guessed coordinates. Exact AOI/geodetic alignment and metric calibration are unverified. The current contract has no verified DEM; image brightness is not elevation. Consequently distance, elevation, slope and route safety cannot be invented. A flat 3D image is not measured terrain.
 
-**Coordinator readiness update:** navigation `21cf6f0` adds six tests (38 total) and passed production build plus development-browser keyboard/touch-emulated navigation checks. This does not establish installed offline PWA behavior.
+## How does it compare with Mars Trek or JMARS?
+
+Those tools already provide substantial planetary mapping, terrain and measurement capabilities. Our intended contribution is a focused portable rehearsal workflow with local mission notes and explicit evidence boundaries. We do not claim those tools lack features or that this prototype is more accurate.
+
+## What works now, and what remains?
+
+| Stage | Truthful capability |
+| --- | --- |
+| Main | Real local image/map/navigation, three selectable science records, shared assessment/persistence and guarded mission JSON import/export |
+| Enzo branch `bcac915` | Functional shell, route controls and notebook; 57 tests/build/browser checks pass, final current-main reconciliation remains |
+| Longla branch `9d794e2` | Corrected lazy flat viewer, code `2a6dbba`; 70 tests/build/browser/resource/orientation evidence, main integration and physical-device outcomes pending |
+| Emma W3 | Science discovery plus dedicated confidence/image-passport UI assigned, not yet delivered |
+| Gaddielle W2 | Real image index checks pass; one runtime/browser-path syntax follow-up remains |
+| Coordinator W6 / Longla W5 | Installation, full verified cache/readiness/update behavior and disconnected device reopening still to implement/verify |
+
+Do not add the test counts together; they apply to different revisions/scopes. Build success and an emulated tablet viewport are not installed-device acceptance.
+
+## Does it work offline or in VR?
+
+The target is an installable offline Angular PWA. That complete installed workflow has **not passed acceptance**. A mission JSON transfer does not contain the imagery or prepare the full cache. External citation pages may need connectivity. Immersive VR is **not implemented**; the optional branch viewer says so explicitly.
+
+## What are the next proof points?
+
+Finish W4's main reconciliation while W1/W2/W3 progress independently. W6 implements a real lifecycle contract and full pack, W5 records actual device results, and the coordinator arranges three outside-user sessions using [USABILITY.md](USABILITY.md). Report actual failures, fixes and retests. No participant results exist yet.
+
+## How was AI used and credited?
+
+See [AI_USE.md](AI_USE.md). AI assisted research drafting, coding, tests, technical review and documentation. Cite specific contributor/coordinator checks; do not claim every AI output or scientific conclusion was independently verified. Preserve NASA/data and library attribution. Check official submission requirements separately.

@@ -1,5 +1,9 @@
 # References & Credits — MARSWALK
 
+<!-- CURRENT_WORK_PLAN -->
+> **Evidence/credit record.** Current product stage and ownership follow [the team plan](../TEAM_TASKS.md). This alignment preserves prior source audits; it does not claim a new independent scientific verification.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Verified Primary NASA & USGS Sources
 1. **NASA Science — Curiosity Blog (Sols 4804–4811)** — *Kicking Off the Final Phase of Boxwork Exploration* (`HTTP 200 OK`): https://science.nasa.gov/blog/curiosity-blog-sols-4804-4811-kicking-off-the-final-phase-of-boxwork-exploration/ (Credit: NASA/JPL-Caltech/MSSS)
 2. **NASA Photojournal PIA26306** — *HiRISE Views Mount Sharp's Boxwork (PSP_001752_1750)* (`HTTP 200 OK`): https://photojournal.jpl.nasa.gov/catalog/PIA26306 (Credit: NASA/JPL-Caltech/University of Arizona)
@@ -14,5 +18,5 @@
 
 ## Software Frameworks & Libraries
 - **Angular & TypeScript** — Core application framework (MIT License)
-- **Leaflet (`CRS.Simple`)** — Configured in `package.json` for planned 2D local-image map rendering (BSD-2-Clause License)
-- **Three.js** — Planned optional 3D training view (`src/app/viewer3d/`, not yet implemented)
+- **Leaflet (`CRS.Simple`)** — Implemented on main for 2D local-image map rendering (BSD-2-Clause License)
+- **Three.js** — Implemented optional flat training view on Longla's verified feature branch (`9d794e2`, code `2a6dbba`), pending main integration (MIT License)

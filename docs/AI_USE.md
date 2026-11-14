@@ -1,5 +1,9 @@
 # AI-Use Record — MARSWALK
 
+<!-- CURRENT_WORK_PLAN -->
+> **Evidence/credit record.** Current product stage and ownership follow [the team plan](../TEAM_TASKS.md). This alignment preserves prior source audits; it does not claim a new independent scientific verification.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Scope of AI Assistance
 - **Owned Files:** `public/data/markers.json`, `docs/SCIENCE.md`, `docs/SCIENCE_EVIDENCE.md`, `docs/DEMO_SCRIPT.md`, `docs/USABILITY.md`, `docs/PRESENTATION.md`, `docs/JUDGES_QA.md`, `docs/REFERENCES.md`, `docs/AI_USE.md`.
 - **Use:**
@@ -12,3 +16,8 @@
   - Verified HTTP accessibility and extracted source passages for each retained NASA URL.
   - Kept `imageRef: "hirise-mro-pia26306-boxwork-2048x1042-v1"`, `position: null`, `positionStatus: "unavailable"`, and unverified Earth dates as `null`.
   - Validated `public/data/markers.json` against `ScienceMarker` in `src/app/core/models.ts` and `validMarkers` rules in `src/app/core/validation.ts`, and checked compatibility read-only against Gaddielle's `manifest.json`.
+
+
+## Coordinator implementation and documentation assistance
+
+AI assistance also supported the Angular integration, guarded mission transfer, science mounting, Longla viewer corrections and recorded automated/browser reviews. Exact source revisions and check scopes are in `docs/qa/` and `docs/reviews/`; counts are not aggregated across branches. The current work-plan alignment updates stale assignments and readiness language without changing source records or claiming a fresh independent scientific-source audit. Physical-device, installed-offline and outside-user outcomes remain pending where recorded.

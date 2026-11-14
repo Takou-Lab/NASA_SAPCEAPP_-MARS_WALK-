@@ -1,5 +1,9 @@
 # Science, Geological Coverage, and Presentation — MARSWALK
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## 1. Selected Region & Active Manifest Reference
 
 - **Target Region:** Mount Sharp (*Aeolis Mons*) boxwork formations, Gale Crater, Mars (`~5.4° S, 137.8° E`).
@@ -39,14 +43,14 @@ Full record-by-record source passages and verification gaps are documented in [d
 
 ## 4. English Project Summary (50–200 words)
 
-**MARSWALK** is an installable Angular Progressive Web App (PWA) under development for exploring the **Mount Sharp (*Aeolis Mons*)** boxwork region in **Gale Crater, Mars**. The current Angular foundation implements core domain contracts, data validation, browser `localStorage` persistence for routes and field observations, and versioned JSON mission export within its shared mission service. Science provenance records trace Curiosity rover and orbital HiRISE observations directly to primary NASA sources while marking unverified marker coordinates, uncalibrated pixel distances, and missing terrain relief as unavailable. Interactive map rendering, route-drawing controls, notebook UI integration, PWA installation, and verified offline asset caching remain pending integration and testing. By keeping data limitations visible alongside mission planning workflows, MARSWALK aims to support transparent planetary traverse rehearsal.
+**MARSWALK** is an Angular PWA project for exploration rehearsal in the **Mount Sharp boxwork region of Gale Crater, Mars**. Current main displays a real prepared HiRISE image, lets users inspect three sourced Curiosity contextual records, and supports validated mission-file import/export with shared route, observation and uncertainty state. Record positions, image metric scale and terrain relief remain unavailable where unverified; no map pins, calibrated distances, slopes or safety classifications are invented. Enzo's functional route/notebook interface and Longla's corrected optional flat viewer are verified on their feature branches, with final integration tracked separately. Installation and the complete prepared offline close/reopen workflow still require implementation and actual-device acceptance. By making provenance and missing evidence visible alongside portable rehearsal missions, MARSWALK targets science education, analogue mission practice and outreach rather than validated operational navigation.
 
 ## 5. Presentation Notes
 
-- **Internal Rehearsal Script:** See [docs/DEMO_SCRIPT.md](DEMO_SCRIPT.md) for a 60-second internal rehearsal walkthrough distinguishing working foundation logic from pending UI and offline integration.
-- **3D Rehearsal Note:** Any future Three.js rehearsal view (Longla) is a planned prototype labeled **Prototype: 3D training view** and must not present unverified elevation relief as measured terrain.
+- **Internal Rehearsal Script:** See [docs/DEMO_SCRIPT.md](DEMO_SCRIPT.md) for the current-main 60-second internal rehearsal, distinguishing working main features, branch-only interfaces and pending installed offline acceptance.
+- **3D Rehearsal Note:** Longla's corrected optional flat viewer is verified on `feature/longla-3d-rehearsal` (`9d794e2`, code `2a6dbba`), pending main integration and device evidence. It is labeled **Prototype: 3D training view** and supplies no verified terrain or immersive VR.
 
-## 6. Use Cases & Enzo UI Handoff (Contextual vs. Geolocated Records)
+## 6. Use Cases & Emma / Enzo UI Handoff (Contextual vs. Geolocated Records)
 
 - **Near-Term Use Cases vs. Long-Term Vision:** MARSWALK's near-term use cases are planetary-science education, analogue mission rehearsal, science outreach, and human decision-making research under incomplete evidence. Operational astronaut or rover navigation is a long-term future vision, not a capability of the current prototype.
-- **UI Handoff for Enzo (`src/app/ui/`, `src/app/notebook/`):** All three records in `public/data/markers.json` (`curiosity-mount-sharp-boxwork`, `curiosity-vera-rubin-ridge-hematite`, and `curiosity-sulfate-bearing-unit`) currently carry `position: null` and `positionStatus: "unavailable"`. In the UI science list and Data Passport, present these as **readable regional contextual science records** (reusing their `name`, `instrument`, `date`, `evidenceType`, `finding`, `source`, and `limitations` fields) rather than hiding them or placing invented map pins. Users must be able to draw route endpoints visually on the imagery without requiring a geolocated science marker.
+- **UI Ownership:** Emma owns science/evidence component implementation; Enzo integrates it in his shell and owns the notebook. The science list is already mounted on main. All three records in `public/data/markers.json` (`curiosity-mount-sharp-boxwork`, `curiosity-vera-rubin-ridge-hematite`, and `curiosity-sulfate-bearing-unit`) currently carry `position: null` and `positionStatus: "unavailable"`. In the UI science list and Data Passport, present these as **readable regional contextual science records** (reusing their `name`, `instrument`, `date`, `evidenceType`, `finding`, `source`, and `limitations` fields) rather than hiding them or placing invented map pins. Users must be able to draw route endpoints visually on the imagery without requiring a geolocated science marker.

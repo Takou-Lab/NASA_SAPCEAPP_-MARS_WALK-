@@ -1,24 +1,15 @@
-# Willy — Map integration handoff
+# Willy — Current map handoff
 
-Willy's published map at `094fce2` has been reviewed and integrated with the root application. Gaddielle's image package and Emma's science records are included in the same integration. Do not mount another instance or repeat the completed map implementation.
+<!-- CURRENT_WORK_PLAN -->
+> **Current assignment: [W1](../../TEAM_TASKS.md#w1).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+<!-- /CURRENT_WORK_PLAN -->
 
-## Start the next slice
+Current piece: **[W1 — map recovery](../../TEAM_TASKS.md#w1)**. The original map `094fce2` and navigation `21cf6f0` are approved/integrated. Do not repeat Reset View, Focus Route, map creation or root mounting.
 
-After this integration is published, preserve your feature branch and local changes, fetch the latest `main`, and merge it into your branch without resetting completed work. Read [WILLY.md](WILLY.md) for the new Reset View / Focus Route assignment. Current ownership returns to `src/app/map/`; root assembly stays with the coordinator.
+Read [WILLY.md](WILLY.md) and [WILLY_IMAGE_RETRY.md](tasks/WILLY_IMAGE_RETRY.md). If no retry branch exists locally, create proposed `feature/willy-image-retry` from published main; otherwise preserve existing task work and synchronize safely. Own only the four map component files.
 
-```sh
-npm ci
-npm start
-npm test
-npm run build
-```
+Implement explicit Retry Image for valid metadata plus display failure. Keep load/dimension checks, stale-event tokens, duplicate-attempt blocking and mission/navigation guards. No source changes, metadata reinitialization or cache/storage clearing. Run actual regressions/build/browser retry checks and push the task branch with commit/results/blockers.
 
-The root imports MapComponent and mounts `<app-map>` once. It initializes MissionService once. The integration adds a readiness guard so clicks cannot dispatch route actions while imagery is loading or has failed; preserve it when merging.
+The image remains 2048 × 1042, imageRef `hirise-mro-pia26306-boxwork-2048x1042-v1`, using bottom-left pixels. All three science positions remain unavailable; Emma's science component is already mounted on main. Enzo integrates the shell/planner/notebook with that component and existing mission transfer. PWA lifecycle stays coordinator-owned. No invented pins or calibrated measurements.
 
-## Data status
-
-The local prepared image is 2048 × 1042 pixels with imageRef `hirise-mro-pia26306-boxwork-2048x1042-v1`. Its bytes and reference are unchanged. Three valid science records load, all with unavailable positions; Enzo will expose them through a contextual list. Do not invent marker locations.
-
-Enzo's controls/notebook and the coordinator's installable offline PWA lifecycle remain pending. The current shell uses inspect mode; map/service support for route actions does not itself supply route-control UI.
-
-See [image contract](../data/IMAGE_CONTRACT.md), [shared API](CODING_AGENTS.md), and [recorded integration checks](../qa/MAP_INTEGRATION.md) for verification and limitations.
+[Image contract](../data/IMAGE_CONTRACT.md), [shared API](CODING_AGENTS.md), [review](../reviews/WILLY.md).

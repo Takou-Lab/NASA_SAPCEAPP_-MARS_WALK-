@@ -1,5 +1,9 @@
 # Gaddielle — Image-pack browser-path compatibility follow-up
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current assignment: [W2](../../TEAM_TASKS.md#w2).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Latest reviewed delivery — keep completed work
 
 Published **`a53724a`** on **`feature/gaddielle-data-preparation`** is reviewed. It is already merged into main via PR #4 (`d814ec4`). **25 Python tests and the real index check pass**; image payload remains **524,472 bytes**. Previous literal-path/manifest/symlink fixes and strict schema/type/read-only errors are complete. Preserve them and all earlier imagery/verifier/passport work.

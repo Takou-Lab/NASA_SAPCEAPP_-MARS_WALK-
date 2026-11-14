@@ -1,5 +1,9 @@
 # Royce / Longla — corrections verified on feature branch
 
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
+
 Corrected code **`2a6dbbaf086fef072844888c8eb25a3e5e5552ca`**, branch **`feature/longla-3d-rehearsal`**, **14 November 2026**. The user asked the coordinator to implement the outstanding corrections for Longla. Main `d814ec4` is merged into the feature branch; feature integration into main remains pending.
 
 ## R1–R5 closure

@@ -1,5 +1,9 @@
 # MARSWALK — Offline Image Data Package Inventory
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Purpose & Scope
 
 This document provides a verified inventory of the local image assets and manifest required for the MARSWALK application runtime. 
@@ -22,7 +26,7 @@ These files must be present locally under `public/data/` and deployed to `dist/m
 
 ### Total Required Runtime Image-Pack Size
 - **Total Payload:** **524,472 bytes** (~512.2 KB / ~0.50 MB)
-- **Caching Characteristic:** Highly optimized for tablet/mobile GPU memory and rapid offline service-worker precaching.
+- **Caching Scope:** Bounded prepared image intended for the future essential cache. Actual device memory/performance and complete service-worker readiness require W5/W6 verification.
 
 ---
 
