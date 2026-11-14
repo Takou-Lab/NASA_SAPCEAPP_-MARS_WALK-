@@ -20,6 +20,12 @@
     <span class="unavailable-layer" title="No coverage product is supplied"
       >Coverage unavailable</span
     >
+    <div class="map-view-actions" aria-label="Map view actions">
+      <button type="button" [disabled]="!canResetView()" (click)="resetView()">Reset View</button>
+      <button type="button" [disabled]="!canFocusRoute()" (click)="focusRoute()">
+        Focus Route
+      </button>
+    </div>
   </div>
 
   <div class="map-frame">
