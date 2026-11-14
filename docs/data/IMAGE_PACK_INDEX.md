@@ -67,11 +67,11 @@ python tools/data/build_image_pack.py \
 ```
 
 **Generation Behavior:**
-1. Validates path confinement: ensures `--manifest` and the referenced image reside strictly within `--public-root`.
-2. Validates that `--output` does not alias either source file.
+1. Validates path confinement: ensures `--manifest` resolves strictly to `data/manifest.json` within `--public-root`. Emitted browser asset paths must use forward slashes and must not contain URL schemes/authorities, query parameters (`?`), fragment identifiers (`#`), backslashes (`\`), absolute roots, empty/dot/traversal segments, or symlink escapes outside the root.
+2. Validates that `--output` does not alias either source file (`manifest.json` or `PIA26306_derived_2048.jpg`).
 3. Invokes `verify_pack.verify_package` to confirm manifest schema validity, full pixel decoding via Pillow (`img.load()`), and exact dimensions (`2048 × 1042`).
 4. Constructs the canonical dictionary in memory.
-5. Writes the file atomically via a temporary file and `os.replace()`, ensuring that any input failure leaves previous files untouched.
+5. Writes the file atomically via a temporary file, `os.fsync()`, and `os.replace()`, ensuring that any input failure leaves previous files untouched.
 
 ### Verification Mode (`--check`)
 
@@ -86,15 +86,20 @@ python tools/data/build_image_pack.py \
 ```
 
 **Check Behavior:**
-- Completely read-only: does not create, rewrite, or touch any file.
-- Returns exit code `0` if the index exists, parses cleanly, and exactly matches the computed payload, ordering, hashes, and totals.
-- Returns exit code `1` if the index is missing, corrupted, stale, or tampered.
+- Completely read-only: does not create, rewrite, or touch any file, and does not create missing target directories.
+- Validates the complete structural shape and strict scalar types of the JSON index before comparing payload values:
+  - Root must be an object with exactly `{"schemaVersion", "imageRef", "files", "totalBytes"}` (rejecting lists, primitives, and extra keys without tracebacks).
+  - `schemaVersion` must be integer `1` (strictly excluding booleans).
+  - Byte fields (`files[i].bytes`, `totalBytes`) must be positive integers (strictly excluding floats and booleans).
+  - File entries must have exact keys `{"path", "bytes", "sha256"}`, valid app-relative browser paths, and 64-character lowercase hexadecimal SHA-256 digests.
+- If verification fails (stale, tampered, invalid schema, or missing index), exits code `1` with descriptive errors while preserving the existing file's exact bytes and modification time (`mtime`).
+- Returns exit code `0` if and only if the index exists, parses cleanly, satisfies all schema constraints, and exactly matches the computed payload.
 
 ---
 
 ## 3. Automated Test Regressions
 
-The test suite in `tools/data/test_build_image_pack.py` validates 10 automated test cases:
+The test suite in `tools/data/test_build_image_pack.py` validates 21 automated regression cases:
 1. `test_generate_real_package_matches_expected_schema_and_values`: Generates real index and verifies schema, paths, hashes, and byte sums.
 2. `test_deterministic_identical_generation`: Confirms repeated executions produce byte-identical JSON.
 3. `test_check_mode_passes_fresh_index_without_modifying`: Confirms `--check` passes fresh index without changing `mtime`.
@@ -105,8 +110,19 @@ The test suite in `tools/data/test_build_image_pack.py` validates 10 automated t
 8. `test_missing_image_fails_and_preserves_existing_output`: Confirms missing image preserves output.
 9. `test_output_aliasing_input_is_rejected_safely`: Confirms attempting to overwrite manifest or image is blocked.
 10. `test_escaping_path_is_rejected`: Confirms path traversal escapes outside public root are rejected.
+11. `test_noncanonical_manifest_path_is_rejected_and_preserves_output`: Confirms noncanonical manifest names under public root fail exit `1` without writing.
+12. `test_image_path_with_query_is_rejected_and_preserves_output`: Confirms asset paths with `?` fail exit `1` without writing.
+13. `test_image_path_with_fragment_is_rejected_and_preserves_output`: Confirms asset paths with `#` fail exit `1` without writing.
+14. `test_image_path_with_backslash_is_rejected_and_preserves_output`: Confirms asset paths with backslashes fail exit `1` without writing.
+15. `test_symlink_escape_is_rejected`: Confirms symlink paths resolving outside public root are safely rejected.
+16. `test_check_fails_on_schema_version_boolean`: Confirms `schemaVersion: true` fails exit `1` with schema error and preserves `mtime`.
+17. `test_check_fails_on_float_bytes_and_preserves_file`: Confirms JSON float bytes (e.g. `1200.0`) fail exit `1` and preserve `mtime`.
+18. `test_check_fails_on_extra_keys_and_preserves_file`: Confirms unexpected keys at root or file entries fail exit `1` and preserve `mtime`.
+19. `test_check_fails_cleanly_on_root_list_no_traceback`: Confirms root `[]` fails cleanly with exit `1` without unhandled traceback.
+20. `test_check_fails_cleanly_on_root_primitive_no_traceback`: Confirms primitive root JSON fails cleanly with exit `1` without traceback.
+21. `test_check_does_not_create_missing_path_or_parent_directory`: Confirms `--check` on nonexistent target creates neither directory nor file.
 
-To run all data package tests:
+To run the complete data tools test suite (25 tests total: 21 indexer regressions + 4 package verifier regressions):
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_*.py' -v

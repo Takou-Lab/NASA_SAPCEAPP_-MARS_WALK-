@@ -55,6 +55,140 @@ def paths_alias(path1: str, path2: str) -> bool:
         return False
 
 
+def validate_browser_asset_path(path: str, public_root: str, label: str) -> tuple[bool, str | None]:
+    """
+    Validates that a path is a valid app-base-relative browser asset path:
+    - uses forward slashes
+    - no URL scheme, authority, query (?), fragment (#), or backslash (\\)
+    - no absolute path, empty, dot, or traversal (..) segments
+    - resolved target must not escape public_root (including via symlinks)
+    """
+    if not isinstance(path, str) or not path.strip():
+        return False, f"{label} path must be a non-empty string"
+    if "\\" in path:
+        return False, f"{label} path '{path}' contains forbidden backslash"
+    if "?" in path:
+        return False, f"{label} path '{path}' contains forbidden query string"
+    if "#" in path:
+        return False, f"{label} path '{path}' contains forbidden fragment identifier"
+    if "://" in path or path.startswith("//"):
+        return False, f"{label} path '{path}' contains forbidden URL scheme or authority"
+    if path.startswith("/"):
+        return False, f"{label} path '{path}' must not be an absolute path"
+
+    segments = path.split("/")
+    if any(seg in ("", ".", "..") for seg in segments):
+        return False, f"{label} path '{path}' contains empty, dot, or traversal segments"
+
+    # Filesystem containment and symlink escape verification
+    try:
+        resolved_root = os.path.realpath(os.path.abspath(public_root))
+        resolved_file = os.path.realpath(os.path.join(resolved_root, *segments))
+        if os.path.commonpath([resolved_file, resolved_root]) != resolved_root:
+            return False, f"{label} path '{path}' resolves outside public root '{public_root}'"
+    except Exception:
+        return False, f"{label} path '{path}' containment verification failed"
+
+    return True, None
+
+
+def validate_index_schema(data: any) -> tuple[bool, list[str]]:
+    """
+    Validates the complete v1 index JSON structure and strict scalar types
+    prior to field value comparison:
+    - Root must be a JSON object with exactly {"schemaVersion", "imageRef", "files", "totalBytes"}
+    - schemaVersion must be integer 1 (strictly excluding boolean)
+    - imageRef must be a non-empty string
+    - totalBytes must be a positive integer (strictly excluding boolean/float)
+    - files must be an array of exactly 2 objects with exact keys {"path", "bytes", "sha256"}
+    - files[0].path must be 'data/manifest.json'
+    - files[1].path must start with 'data/imagery/' and be a valid browser path
+    - files[i].bytes must be positive integers (strictly excluding boolean/float)
+    - files[i].sha256 must be a 64-character lowercase hexadecimal digest
+    - totalBytes must equal sum(files[i].bytes)
+    """
+    errors: list[str] = []
+    if not isinstance(data, dict):
+        return False, [f"Root of index must be a JSON object, found {type(data).__name__}"]
+
+    expected_root_keys = {"schemaVersion", "imageRef", "files", "totalBytes"}
+    actual_root_keys = set(data.keys())
+    if actual_root_keys != expected_root_keys:
+        missing = expected_root_keys - actual_root_keys
+        extra = actual_root_keys - expected_root_keys
+        if missing:
+            errors.append(f"Missing required root keys: {sorted(missing)}")
+        if extra:
+            errors.append(f"Unexpected extra root keys: {sorted(extra)}")
+
+    # schemaVersion: integer 1, strictly not boolean
+    sv = data.get("schemaVersion")
+    if type(sv) is not int or isinstance(sv, bool) or sv != 1:
+        errors.append(f"schemaVersion must be integer 1, found {type(sv).__name__} ({sv!r})")
+
+    # imageRef: non-empty string
+    ir = data.get("imageRef")
+    if not isinstance(ir, str) or not ir.strip():
+        errors.append(f"imageRef must be a non-empty string, found {type(ir).__name__} ({ir!r})")
+
+    # totalBytes: integer > 0, strictly not boolean or float
+    tb = data.get("totalBytes")
+    if type(tb) is not int or isinstance(tb, bool) or tb <= 0:
+        errors.append(f"totalBytes must be a positive integer, found {type(tb).__name__} ({tb!r})")
+
+    # files: list of exactly 2 items
+    files = data.get("files")
+    if not isinstance(files, list):
+        errors.append(f"files must be an array, found {type(files).__name__}")
+    elif len(files) != 2:
+        errors.append(f"files array must contain exactly 2 entries, found {len(files)}")
+    else:
+        expected_file_keys = {"path", "bytes", "sha256"}
+        for idx, entry in enumerate(files):
+            if not isinstance(entry, dict):
+                errors.append(f"files[{idx}] must be a JSON object, found {type(entry).__name__}")
+                continue
+
+            entry_keys = set(entry.keys())
+            if entry_keys != expected_file_keys:
+                missing = expected_file_keys - entry_keys
+                extra = entry_keys - expected_file_keys
+                if missing:
+                    errors.append(f"files[{idx}] missing required keys: {sorted(missing)}")
+                if extra:
+                    errors.append(f"files[{idx}] unexpected extra keys: {sorted(extra)}")
+
+            p = entry.get("path")
+            if not isinstance(p, str) or not p.strip():
+                errors.append(f"files[{idx}].path must be a non-empty string, found {type(p).__name__}")
+            elif "\\" in p or "?" in p or "#" in p or p.startswith("/") or any(s in ("", ".", "..") for s in p.split("/")):
+                errors.append(f"files[{idx}].path '{p}' is not a valid app-relative browser path")
+
+            b = entry.get("bytes")
+            if type(b) is not int or isinstance(b, bool) or b <= 0:
+                errors.append(f"files[{idx}].bytes must be a positive integer, found {type(b).__name__} ({b!r})")
+
+            s = entry.get("sha256")
+            if not isinstance(s, str) or len(s) != 64 or not all(c in "0123456789abcdef" for c in s):
+                errors.append(f"files[{idx}].sha256 must be a 64-character lowercase hex digest, found {s!r}")
+
+    if errors:
+        return False, errors
+
+    # Check payload ordering
+    if files[0]["path"] != "data/manifest.json":
+        errors.append(f"files[0].path must be 'data/manifest.json', found '{files[0]['path']}'")
+    if not files[1]["path"].startswith("data/imagery/"):
+        errors.append(f"files[1].path must start with 'data/imagery/', found '{files[1]['path']}'")
+
+    # Check sum of declared files equals totalBytes
+    sum_bytes = files[0]["bytes"] + files[1]["bytes"]
+    if tb != sum_bytes:
+        errors.append(f"totalBytes ({tb}) does not equal sum of file bytes ({sum_bytes})")
+
+    return len(errors) == 0, errors
+
+
 def build_index_data(manifest_path: str, public_root: str) -> tuple[bool, dict | None, list[str]]:
     """
     Validates manifest and image using verify_pack.verify_package and constructs
@@ -63,15 +197,28 @@ def build_index_data(manifest_path: str, public_root: str) -> tuple[bool, dict |
     """
     errors: list[str] = []
 
-    # 1. Path confinement checks
+    # 1. Path confinement and manifest canonical naming
     if not is_path_contained(manifest_path, public_root):
         errors.append(f"Manifest path '{manifest_path}' is not contained within public root '{public_root}'.")
         return False, None, errors
 
-    # Calculate app-base-relative manifest path
-    rel_manifest_path = os.path.relpath(os.path.abspath(manifest_path), os.path.abspath(public_root)).replace("\\", "/")
-    if rel_manifest_path.startswith("..") or rel_manifest_path.startswith("/"):
-        errors.append(f"Manifest path resolves outside public root: '{rel_manifest_path}'")
+    try:
+        norm_manifest = os.path.normpath(manifest_path)
+        norm_root = os.path.normpath(public_root)
+        rel_manifest_path = os.path.relpath(norm_manifest, norm_root).replace("\\", "/")
+    except Exception as exc:
+        errors.append(f"Failed to resolve relative manifest path: {exc}")
+        return False, None, errors
+
+    if rel_manifest_path != "data/manifest.json":
+        errors.append(
+            f"Manifest relative path must be exactly 'data/manifest.json' under public root, found '{rel_manifest_path}'"
+        )
+        return False, None, errors
+
+    valid_m, err_m = validate_browser_asset_path(rel_manifest_path, public_root, "Manifest")
+    if not valid_m:
+        errors.append(err_m)
         return False, None, errors
 
     # 2. Run full verification via verify_pack
@@ -84,11 +231,17 @@ def build_index_data(manifest_path: str, public_root: str) -> tuple[bool, dict |
     image_rel_path = manifest_data["assetPath"]
     resolved_image_path = res["imagePath"]
 
+    # 3. Validate image asset path and confinement
+    valid_img, err_img = validate_browser_asset_path(image_rel_path, public_root, "Image asset")
+    if not valid_img:
+        errors.append(err_img)
+        return False, None, errors
+
     if not is_path_contained(resolved_image_path, public_root):
         errors.append(f"Referenced image '{resolved_image_path}' escapes public root '{public_root}'.")
         return False, None, errors
 
-    # 3. Construct canonical v1 index structure
+    # 4. Construct canonical v1 index structure
     manifest_bytes = res["manifestBytes"]
     manifest_sha256 = res["manifestSha256"]
     image_bytes = res["imageBytes"]
@@ -123,7 +276,7 @@ def write_index_atomically(index_data: dict, output_path: str):
 
     json_text = json.dumps(index_data, indent=2) + "\n"
 
-    # Write to a temporary file in the same directory, then rename atomically
+    # Write to a temporary file in the destination directory, flush/fsync, then rename atomically
     temp_fd, temp_path = tempfile.mkstemp(prefix="image_pack_", suffix=".tmp", dir=output_dir)
     try:
         with open(temp_fd, "w", encoding="utf-8", newline="\n") as f:
@@ -157,41 +310,34 @@ def check_index(expected_data: dict, output_path: str) -> tuple[bool, list[str]]
         errors.append(f"Failed to read index file: {exc}")
         return False, errors
 
-    # Check schemaVersion
-    if actual_data.get("schemaVersion") != expected_data["schemaVersion"]:
+    # Validate structural schema and scalar types first
+    valid_schema, schema_errors = validate_index_schema(actual_data)
+    if not valid_schema:
+        errors.extend(schema_errors)
+        return False, errors
+
+    # Check payload values against computed expectation
+    if actual_data["schemaVersion"] != expected_data["schemaVersion"]:
         errors.append(
-            f"schemaVersion mismatch: expected {expected_data['schemaVersion']}, got {actual_data.get('schemaVersion')}"
+            f"schemaVersion mismatch: expected {expected_data['schemaVersion']}, got {actual_data['schemaVersion']}"
         )
 
-    # Check imageRef
-    if actual_data.get("imageRef") != expected_data["imageRef"]:
+    if actual_data["imageRef"] != expected_data["imageRef"]:
         errors.append(
-            f"imageRef mismatch: expected '{expected_data['imageRef']}', got '{actual_data.get('imageRef')}'"
+            f"imageRef mismatch: expected '{expected_data['imageRef']}', got '{actual_data['imageRef']}'"
         )
 
-    # Check files array
-    actual_files = actual_data.get("files")
-    expected_files = expected_data["files"]
-    if not isinstance(actual_files, list) or len(actual_files) != len(expected_files):
+    if actual_data["totalBytes"] != expected_data["totalBytes"]:
         errors.append(
-            f"File count mismatch: expected {len(expected_files)} files, got {len(actual_files) if isinstance(actual_files, list) else 'invalid'}"
+            f"totalBytes mismatch: expected {expected_data['totalBytes']}, got {actual_data['totalBytes']}"
         )
-    else:
-        for idx, (exp, act) in enumerate(zip(expected_files, actual_files)):
-            if not isinstance(act, dict):
-                errors.append(f"Entry {idx} in 'files' is not an object")
-                continue
-            for key in ("path", "bytes", "sha256"):
-                if act.get(key) != exp[key]:
-                    errors.append(
-                        f"Mismatch in files[{idx}].{key}: expected '{exp[key]}', got '{act.get(key)}'"
-                    )
 
-    # Check totalBytes
-    if actual_data.get("totalBytes") != expected_data["totalBytes"]:
-        errors.append(
-            f"totalBytes mismatch: expected {expected_data['totalBytes']}, got {actual_data.get('totalBytes')}"
-        )
+    for idx, (exp, act) in enumerate(zip(expected_data["files"], actual_data["files"])):
+        for key in ("path", "bytes", "sha256"):
+            if act[key] != exp[key]:
+                errors.append(
+                    f"Mismatch in files[{idx}].{key}: expected '{exp[key]}', got '{act[key]}'"
+                )
 
     return len(errors) == 0, errors
 
@@ -258,4 +404,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
