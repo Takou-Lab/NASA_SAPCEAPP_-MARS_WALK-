@@ -17,6 +17,8 @@ Review of `feat/enzo-ui-planner-notebook` at `15b1666`: **changes required**. Th
 
 Full findings: [docs/reviews/ENZO.md](docs/reviews/ENZO.md). Agent instructions: [docs/team/ENZO.md](docs/team/ENZO.md).
 
+Emma's science component `4efcb5a` is now accepted/mounted on main. Preserve one instance when porting the shell. His next assignment also owns future confidence/image-passport presentation; retain current warnings and do not import those new components until reviewed. Enzo keeps planner/notebook/draft/layout/font/core-port fixes.
+
 ## Willy — Retry Image after accepted navigation
 
 Original map and navigation **`21cf6f0`**: **approved and integrated**. Navigation passed 38 tests/build and Chromium keyboard/touch-emulated checks. Do not repeat Reset View / Focus Route or root mounting.
@@ -25,15 +27,15 @@ After this integration is published, preserve local work and start proposed bran
 
 Own only the four map files. Specification: [WILLY_IMAGE_RETRY.md](docs/team/tasks/WILLY_IMAGE_RETRY.md). Agent prompt: [WILLY.md](docs/team/WILLY.md). Review: [WILLY.md](docs/reviews/WILLY.md).
 
-## Emma — contextual science UI transferred from Enzo
+## Emma — substantial science and evidence workspace follow-up
 
-Presentation/Q&A **`947ff1a`** is delivered and integrated with small coordinator readiness-wording updates. Earlier science, demo and usability work stays complete; do not recreate it.
+Science component **`4efcb5a`** is **approved, integrated and mounted**: 51 tests, production build and production browser checks pass. Earlier science, protocol and presentation remain complete.
 
-After this integration is published, preserve local work and start proposed branch `feature/emma-science-context-ui` from latest main. Implement standalone `ScienceContextComponent` (`app-science-context`) under `src/app/science/`: accessible list, selection/clear, sourced details and loading/error/empty states for the three records, including unavailable positions. Use existing MissionService signals/actions; never mutate routes or invent map locations.
+After this integration is published, preserve local work and create proposed **`feature/emma-science-evidence-workspace`** from latest main. Complete: science computed counts/search/composed filters/retained selection; standalone **ExplorationConfidenceComponent** and **ImagePassportComponent** under `src/app/evidence/`; meaningful behavioral tests and `docs/qa/EMMA_EVIDENCE_UI.md` with actual results and integration instructions.
 
-This is a bounded new coding slice suitable for his agent-guided learning. Enzo retains shell, planner, notebook, draft retention, font/sidebar and canonical-core integration. Emma does not edit Enzo's files or mount the component in the root; Enzo/coordinator integrates it after review.
+The user explicitly transfers Enzo's future read-only confidence/image-passport presentation to Emma. Enzo retains shell/root integration, planner, notebook/drafts, fonts/sidebar, core-port corrections and later real PWA-status UI. Emma owns science/evidence components and the QA handoff only; no shared-core/root/Enzo-file changes or new metrics/storage/PWA APIs.
 
-Specification: [EMMA_SCIENCE_CONTEXT_UI.md](docs/team/tasks/EMMA_SCIENCE_CONTEXT_UI.md). Agent prompt: [EMMA.md](docs/team/EMMA.md). Review: [EMMA.md](docs/reviews/EMMA.md).
+Specification and computed-badge answer: [EMMA_SCIENCE_EVIDENCE_WORKSPACE.md](docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). Ready-to-paste prompt: [EMMA.md](docs/team/EMMA.md). Accepted review: [EMMA.md](docs/reviews/EMMA.md).
 
 ## Gaddielle — correct the submitted image-pack index
 

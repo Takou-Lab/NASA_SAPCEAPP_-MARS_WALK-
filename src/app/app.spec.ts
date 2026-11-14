@@ -58,6 +58,24 @@ it('loads the delivered image and three unlocated science records through the re
   ).toBe(true);
   expect(mission.assessment().planarDistanceMeters).toBeNull();
   expect(fixture.nativeElement.textContent).toContain('3 contextual science records');
+  const buttons = fixture.nativeElement.querySelectorAll(
+    'app-science-context .science-record-button',
+  ) as NodeListOf<HTMLButtonElement>;
+  expect(buttons).toHaveLength(3);
+  const route = mission.route();
+  const mode = mission.mode();
+  const observations = mission.observations();
+  buttons[0].click();
+  fixture.detectChanges();
+  expect(mission.selectedMarkerId()).toBe(markers[0].id);
+  const details = fixture.nativeElement.querySelector(
+    'app-science-context .science-record-details',
+  );
+  expect(details.textContent).toContain(markers[0].finding);
+  expect(details.textContent).toContain('Unavailable on this image');
+  expect(mission.route()).toBe(route);
+  expect(mission.mode()).toBe(mode);
+  expect(mission.observations()).toBe(observations);
   http.verify();
 });
 

@@ -1,75 +1,98 @@
-# Emma — Science and Contextual Science UI
+# Emma — Science Explorer and Evidence UI
 
-Emma uses **he/him**. Read [the accepted presentation review](../reviews/EMMA.md), [the new coding task](tasks/EMMA_SCIENCE_CONTEXT_UI.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md).
+Emma uses **he/him**. Read [the accepted review](../reviews/EMMA.md), [the new detailed assignment](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md).
 
 ## Completed work — preserve it
 
-Your science/evidence/demo work `8a947a4`, usability protocol `b0640d9` and presentation/Q&A `947ff1a` are delivered and integrated. The coordinator applied small current-readiness wording updates to the presentation without asking you to redo it. Real user sessions remain pending.
+Science/evidence/demo `8a947a4`, usability protocol `b0640d9`, presentation/Q&A `947ff1a` and **ScienceContextComponent `4efcb5a`** are accepted. The coordinator has mounted the science component with the real service/data; **51 integrated tests, production build and recorded browser checks pass**. Do not recreate these contributions. Real outside-user sessions and installed offline acceptance remain pending.
 
-Do not repeat the research, protocol, presentation, data acquisition or project scaffolding. Unverified dates/positions, calibration and terrain remain unavailable. Source access/audit is distinct from independent verification of every scientific claim.
+## New substantial assignment — your section plus Enzo's future evidence panels
 
-## New task — part of Enzo's UI work
+Build **science discovery plus read-only Exploration Confidence and Image Data Passport UI**. The user explicitly transfers those future presentation components from Enzo. His existing shell/planner/notebook work stays intact.
 
-You now own a standalone **contextual science list and selected-record details** component under `src/app/science/`. It lets people read all three records even though their map positions are unavailable.
+1. Enhance `src/app/science/`: live computed record/located counts, text search, evidence/position filters, result count, clear filters and selected-record details that remain accessible when filtered out.
+2. Create standalone **ExplorationConfidenceComponent** (`app-exploration-confidence`) under `src/app/evidence/exploration-confidence.component.{ts,html,scss,spec.ts}`. Read existing service assessment and route state; show actual limitations, unavailable terrain/scale and only supported derived planar distance. Do not calculate new metrics or safety scores.
+3. Create standalone **ImagePassportComponent** (`app-image-passport`) under `src/app/evidence/image-passport.component.{ts,html,scss,spec.ts}`. Present actual ImageManifest source/credit, reference, pixel dimensions, coordinate convention, date, coverage, calibration and limitations. No invented fields, source facts, byte totals or offline readiness.
+4. Add meaningful behavioral tests and `docs/qa/EMMA_EVIDENCE_UI.md` with actual checks plus Enzo's exact import/selector/placement handoff.
 
-Enzo keeps the shell, root integration, route controls, notebook, failed-save draft retention, theme/font/sidebar fixes and canonical-core reconciliation. He will import your reviewed component and remove duplicate selected-record UI as appropriate. Do not edit his files or mount your component in the root yourself.
+The [full specification](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md) defines UI states, filters, null/zero distance behavior, safe links, ownership and acceptance. Complete the slices in order; preserve the accepted list/details and its tests.
 
-After this integration is published, preserve local changes and create proposed branch **`feature/emma-science-context-ui`** from latest main in the existing checkout. Own:
+## Branch and boundaries
 
-- `src/app/science/science-context.component.ts`
-- `src/app/science/science-context.component.html`
-- `src/app/science/science-context.component.scss`
-- `src/app/science/science-context.component.spec.ts`
+After this reviewed integration is pushed, preserve local work and create **`feature/emma-science-evidence-workspace`** from latest published main in the existing checkout. Keep the original science branch/history. Own only the existing four science files, the eight new evidence component files and the QA handoff document.
 
-## Exact interface
+Enzo keeps `src/app/ui/`, planner, notebook/draft retention, shell/root assembly, font/sidebar fixes and future real PWA-status UI. He integrates your reviewed components without duplicating them. Preserve any related UI he already drafted as integration reference. Do not edit his files or root yourself.
 
-Implement standalone **ScienceContextComponent**, selector **`app-science-context`**, using the existing root-provided MissionService. Read `markers()`, `selectedMarkerId()`, `dataStatus()` and `dataError()`; use computed selection. Call only `selectMarker(id)` or `selectMarker(null)` for selection actions. Root already initializes data once.
+Use readonly MissionService signals. No repeated initialize/fetch, separate mission store, storage access, model/core changes, dependencies, new data or worker. Missing positions, scale, terrain and exact-AOI verification remain unavailable.
 
-Show loading/error/empty/no-selection states, readable selection buttons and record details: finding, evidence type, instrument/date or Unavailable, source/credit, position status and limitations. All current null-position records must remain selectable without invented pins or route destinations. Render content as plain text and label external links as requiring connectivity.
+## Answer — live count with computed()
 
-Do not fetch another dataset, access storage, duplicate mission state, change core/models/records, add dependencies, calculate missing metrics or implement PWA lifecycle. Follow [the detailed task](tasks/EMMA_SCIENCE_CONTEXT_UI.md) for UI states and acceptance checks.
+```ts
+readonly recordBadge = computed(() => {
+  const records = this.mission.markers();
+  const located = records.filter(
+    (record) => record.position !== null && record.positionStatus !== 'unavailable',
+  ).length;
+  return `${records.length} records (${located} located on image)`;
+});
+```
 
-## Learning, tests and handoff
+```html
+<p>{{ recordBadge() }}</p>
+```
 
-Start with the list, then selection, then details. Explain signals, computed selection and bindings; follow learner checkpoints for this new code, not completed lessons.
+MissionService supplies validated records for the active image. Angular updates the badge when `markers()` changes; no separate counter/effect is needed. Located includes illustrative positions, which must remain distinguished from verified positions. Current data: **3 records (0 located on image)**.
 
-Test unlocated records, selection/clear behavior, unchanged route/mode/observations/image, missing fields, loading/error/empty/removed-selection states and safe text rendering. Use synthetic fixtures in tests only. Run actual `npm test` and `npm run build`, plus supported keyboard/layout checks.
+## Checks and handoff
 
-Commit/push only `feature/emma-science-context-ui`; that own-feature push is authorized. Give Enzo/coordinator the commit, selector/export, files, actual results and limits. No main merge, deployment, submission, environment publication or external messaging is included.
+Retain all accepted tests. Verify composed filters, hidden selection, unchanged mission state, reactive warnings/distance, genuine unavailable fields, derived zero, safe text/links and loading/error states. Run `npm test` and `npm run build`; check keyboard and tablet/narrow-panel behavior where supported. Report actual revision/browser/device evidence; mark unrun physical-device/offline/user checks pending.
+
+Commit/push only **`feature/emma-science-evidence-workspace`**; that own-feature push is authorized. Hand off commit, files, selectors, actual checks and remaining limits. No main integration, deployment, environment publication, submission or external messaging is included.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Emma's Angular science-context coding tutor/agent. He uses he/him.
-Read docs/team/tasks/EMMA_SCIENCE_CONTEXT_UI.md, docs/team/EMMA.md,
-docs/reviews/EMMA.md, docs/team/CODING_AGENTS.md and SOUL.MD.
+You are Emma's MARSWALK science/evidence UI coding agent. He uses he/him.
+Read docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md,
+docs/team/EMMA.md, docs/reviews/EMMA.md, docs/team/CODING_AGENTS.md
+and SOUL.MD. Follow the detailed assignment rather than inventing APIs.
 
-Science, protocol and presentation947ff1a are delivered and integrated.
-Do not redo them or scaffold another Angular app. This is a bounded coding
-slice transferred from Enzo so both people can work independently.
+ScienceContextComponent 4efcb5a is accepted/mounted: 51 integrated tests,
+build and recorded browser checks pass. Preserve earlier science/protocol/
+presentation work and existing list/details/tests. Do not restart the app.
 
-1. Preserve local changes. After this integration is published, create
-   feature/emma-science-context-ui from latest main in the existing checkout.
-2. Own only src/app/science/science-context.component.ts/.html/.scss/.spec.ts.
-   Implement standalone ScienceContextComponent, selector app-science-context.
-3. Inject existing MissionService. Read markers/selectedMarkerId/dataStatus/
-   dataError. Compute selected record; use selectMarker(id/null) actions.
-   Do not fetch data, initialize again, access storage or mutate routes.
-4. List every contextual record, including null/unavailable positions.
-   Use labeled native selection buttons with selected state and visible focus.
-   Show selected finding, evidence type, instrument/date or Unavailable,
-   source/credit, position status and limitations. Allow clearing selection.
-5. Render text safely. Show loading/error/empty/no-selection states and
-   handle a removed selected ID. External source pages require connectivity.
-   Never invent pins, coordinates, metric distance or route destinations.
-6. Test all three unlocated records, selection/clear, unchanged route/mode/
-   notes/image, missing fields, state changes and plain-text rendering.
-   Run actual tests/build and supported keyboard/tablet-layout checks.
-7. Hand the reviewed component to Enzo/coordinator for shell integration.
-   Enzo retains shell/planner/notebook/draft/font/sidebar work; don't edit
-   those files or root/core/dependencies/records/PWA code yourself.
+1. Preserve local work. After coordinator integration is pushed, create
+   feature/emma-science-evidence-workspace from latest published main.
+   Keep the previous science branch and accepted history.
+2. Enhance only science component files: computed live counts, case-insensitive
+   search, evidence/position filters, visible/total count, clear filters and
+   selected details retained when a filter hides their button. Located is
+   distinct from verified. Never change route/mode/layers/notes/image.
+3. Build standalone ExplorationConfidenceComponent, selector
+   app-exploration-confidence, in src/app/evidence/ with TS/HTML/SCSS/spec.
+   Read MissionService assessment/route/data/image. Show Visual review only,
+   real warnings, endpoint/waypoint state and supported planar distance.
+   Null is unavailable, zero may be valid. No safety score or invented terrain.
+4. Build standalone ImagePassportComponent, selector app-image-passport,
+   in src/app/evidence/ with TS/HTML/SCSS/spec. Present actual manifest fields,
+   safe source link/credit, imageRef, PIXEL dimensions, coordinates, date,
+   coverage, calibration and limitations. Do not invent processing/schema/
+   storage/offline fields or treat a pixel dimension as metric resolution.
+5. Add behavioral regressions for discovery, filtered selection, unchanged
+   mission state, reactive confidence, null/zero values, metadata failure
+   states and safe text/links. Both evidence panels are readonly.
+6. Run full tests/build and actual keyboard/tablet/narrow-panel checks.
+   Record actual outcomes and selectors/import/placement instructions in
+   docs/qa/EMMA_EVIDENCE_UI.md. Unrun device/offline/user checks stay pending.
 
-Teach one small slice at a time using the learner checkpoint. Commit/push
-only the new feature branch and report commit/selector/files/results/limits.
-No main merge, deployment, environment publication or external messaging.
+This explicitly transfers future confidence/passport PRESENTATION from Enzo.
+Enzo retains shell, planner, notebook/drafts, fonts/sidebar, root integration
+and later real PWA-status UI. Preserve his work; don't edit his files.
+Own only science/, the two evidence components and that QA handoff.
+No root/core/data/package/worker edits, new dependencies, fetching/storage,
+reinitialization or competing mission state. No fabricated measurements.
+Teach one new slice at a time using the learner checkpoint.
+Commit/push only the new feature branch (authorized) and send its commit,
+selectors, exact checks and limits for review. No main merge/push,
+deployment, environment publication, submission or external messaging.
 ```

@@ -1,4 +1,31 @@
-# Emma presentation review — delivered and integrated with readiness wording updates
+# Emma science-context review — approved and integrated
+
+Reviewed **14 November 2026**: **`feature/emma-science-context-ui`**, tip **`4efcb5ac9b4af5e0838552d1a4269f56352e0f55`**, against main **`91a1eaf`**. Emma uses he/him. Verdict: **approved**. GitHub PR #3 merged the component at `52f5764` while this review was underway; the coordinator preserves that merge and mounts it in this integration.
+
+## Accepted implementation
+
+All four assigned science files are delivered. The standalone `ScienceContextComponent` (`app-science-context`) uses the existing MissionService without fetching, initializing, storage or route edits. Three unlocated records stay accessible through native buttons, shared selection and safe text/source details. Loading/error/empty/removed-selection states, missing fields, safe URLs and long/plain-text content are covered.
+
+No changes to core, source records, map, dependencies or another contributor's files were included in his submission. The merge preview was clean, and the published PR contains the same reviewed files. The coordinator mounted the component once, preserved the map and mission transfer, updated readiness text and extended the real-service root regression to prove selection leaves route/mode/observations unchanged.
+
+## Verification
+
+- Isolated current-main-plus-component suite: **51 tests passed across five files**, production build passed.
+- After root mounting: **51 tests passed**, production build passed; initial output **438.42 kB** remains below the configured warning budget. The existing Leaflet CommonJS warning remains.
+- Production Chromium: keyboard-select all three real records, read correct finding/source/unknown-position details and clear selection. Mission export before/after confirms unchanged route, observations and image. No science map pins were fabricated.
+- Desktop/tablet-sized and narrow-panel checks plus a failed science request are recorded in [SCIENCE_INTEGRATION.md](../qa/SCIENCE_INTEGRATION.md).
+
+These checks establish the assigned UI behavior, not independent scientific-source verification, physical-device behavior, PWA installation/offline reopening or actual outside-user outcomes.
+
+## Next substantial assignment
+
+The user explicitly transfers Enzo's future read-only **Exploration Confidence and Image Data Passport presentation** to Emma, alongside enhancements to his own science explorer. Scope: computed counts, search/filters/retained details; two standalone evidence panels; behavioral tests and an integration handoff. Existing core calculations and Enzo's shell/planner/notebook remain owned as before.
+
+Detailed task: [EMMA_SCIENCE_EVIDENCE_WORKSPACE.md](../team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). Agent prompt and computed-badge answer: [EMMA.md](../team/EMMA.md). Use proposed `feature/emma-science-evidence-workspace` from the published integration; do not repeat the accepted component, research or presentation.
+
+---
+
+# Previous accepted presentation review — retained
 
 Reviewed **14 November 2026**. Branch `feature/emma-science-provenance`, tip **`947ff1a5ae641fe6fd8c3cdd8247609d787426ab`**, compared with main `f65778d`. Emma uses he/him pronouns.
 
@@ -21,7 +48,7 @@ The presentation is integrated with small factual updates, without reassigning t
 
 No application code was changed by Emma's presentation submission. Scientific sources were not independently re-fetched in this document review. Real user sessions, installation and offline reopening remain pending.
 
-## New coding assignment — transferred from Enzo
+## Previous coding assignment — delivered at `4efcb5a`
 
 Emma will implement a standalone **contextual science list and selected-record details** under `src/app/science/`, using the existing MissionService. This small read/selection component fits his familiarity with the data and can be built with his coding agent one slice at a time.
 

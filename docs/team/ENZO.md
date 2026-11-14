@@ -1,6 +1,6 @@
 # Enzo — Angular Interface, Route Controls and Notebook
 
-**Ownership split:** Emma now implements the standalone contextual science list/details under `src/app/science/` ([task](tasks/EMMA_SCIENCE_CONTEXT_UI.md)). Keep working on your shell, canonical-core reconciliation, real map mounting, planner, notebook/draft retention, fonts and sidebar fixes. Do not implement a competing science explorer or edit Emma's files. When her component passes review, import `ScienceContextComponent` (`app-science-context`) and replace your duplicate selected-record block as appropriate. Integration remains required before the mission passes; other fixes can proceed independently while her component is pending.
+**Ownership split:** Emma's `ScienceContextComponent` (`4efcb5a`, `app-science-context`) is now accepted and mounted on main. Keep one instance when porting the shell. The user also transfers future read-only **Exploration Confidence and Image Data Passport presentation** to Emma, alongside science filters/counts: [new task](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). You retain shell, canonical-core reconciliation, map/root integration, planner, notebook/draft retention, fonts/sidebar and later real PWA-status UI. Preserve related UI you already drafted as reference for integration; do not discard it or develop competing components. Integrate future evidence components only after implementation/review, without importing nonexistent files or editing Emma's ownership.
 
 ## Current review — changes required before integration
 
@@ -38,7 +38,7 @@ For this integration only, you may change `src/app/app.ts`, `app.html`, `app.scs
 
 The coordinator has also added working mission-file transfer in the root: Export mission, file selection and Import selected mission, with asynchronous read guards and replacement/error messages. Preserve this capability when mounting your shell; reuse `MissionService.importMission(raw)` and the 1 MiB limit rather than replacing the service or creating another storage layer. Keep the explicit replacement warning. See [guide improvements](../GUIDE_IMPROVEMENTS.md) and [transfer verification](../qa/MISSION_TRANSFER.md).
 
-The three integrated science records have unavailable positions. Emma now owns their contextual list/details component under `src/app/science/`. Integrate her reviewed `app-science-context` selector when available, and remove duplicate selected-record UI as appropriate. Selection uses the existing service and must not set a route destination or manufacture coordinates. Continue your independent fixes while that component is pending; do not implement a competing list.
+The three integrated science records have unavailable positions. Emma's reviewed `app-science-context` selector is already mounted on main. Preserve it once when mounting your shell; remove duplicate shell selected-record UI as appropriate. Selection must not set a route destination or manufacture coordinates. His future `app-exploration-confidence` and `app-image-passport` components are assigned, not implemented yet: preserve current truthful assessment/source UI until those pass review, then integrate them without duplicating implementation. Continue your existing corrections independently.
 
 ### 4. Preserve drafts and usable layout
 
@@ -81,10 +81,13 @@ Use learner checkpoints for the new correction slice, not to repeat completed UI
 ## Copy-paste coding-agent prompt
 
 ```text
-Ownership update: Emma owns src/app/science/ contextual list/details.
-Do not duplicate it; integrate her reviewed app-science-context component
-when available. You retain shell/planner/notebook/core-port/font/sidebar
-corrections. Do not import nonexistent files while her branch is pending.
+Ownership update: Emma science-context 4efcb5a is accepted/mounted on main.
+Preserve one app-science-context instance while porting the shell. He now
+also owns future readonly confidence/image-passport presentation under
+evidence/ plus science discovery. Retain related UI as integration reference;
+no duplicate implementation. You keep shell/planner/notebook/core-port/
+font/sidebar corrections and later real PWA-status UI. Future evidence
+components must pass review before importing them.
 
 You are Enzo's UI integration and correction agent for MARSWALK.
 Read docs/reviews/ENZO.md, REVIEW.md, SOUL.MD, TEAM_TASKS.md,
@@ -112,10 +115,11 @@ Google Fonts with HTTP403. Do not represent that as an integrated pass.
    A narrow root exception permits app.ts/html/scss/spec.ts only to mount
    the shell, size it and test integration while preserving initialize().
    Do not leave an old root map mount alongside the shell's map.
-5. Emma owns the contextual list/details in src/app/science/. Integrate
-   her reviewed app-science-context component when published; do not code
-   a competing list or import nonexistent files while it is pending. Keep
-   source/unknown-position access and no route mutation on record selection.
+5. Preserve the already-mounted app-science-context exactly once in the
+   integrated shell. Emma owns science plus future confidence/image-passport
+   components; don't duplicate them or import the future files before review.
+   Preserve truthful current warnings/source access until reviewed replacement.
+   Keep unknown-position access and no route mutation on science selection.
 6. Preserve notebook drafts across tab changes and failed saves. Current
    @switch teardown must not erase drafts. Clear only after confirmed
    addObservation success. Keep draft state UI-only, not another mission store.

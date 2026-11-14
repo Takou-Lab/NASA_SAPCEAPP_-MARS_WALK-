@@ -13,7 +13,8 @@ Willy's standalone Leaflet map is mounted in the Angular root with Gaddielle's p
 - Available: real local-image display, pan/zoom, imagery/marker visibility, source/coverage information and basic Exploration Confidence warnings.
 - Implemented in the map/service: start/destination/waypoint actions, route rendering, undo/clear, local mission persistence and JSON export.
 - Available in the root: mission JSON export/import between devices with the same image version. Import validates route/notes and saves before replacing current work; maximum file size is 1 MiB.
-- Pending UI: Enzo's route controls, contextual science list and notebook/export controls. The shell currently starts in inspect mode. All three science positions are unavailable, so they do not produce map pins.
+- Available: Emma's selectable science list and sourced details, including all three unlocated records without fabricated map pins. The shell currently starts in inspect mode.
+- Pending UI: Enzo's route controls/notebook/shell corrections and Emma's follow-up science filters plus dedicated confidence/image-passport presentation.
 - Pending PWA work: installation manifest/icons, service-worker preparation, verified offline readiness and installed-device reopening.
 - Metric distance, elevation and slope remain unavailable. 3D/VR is optional later work.
 
@@ -58,7 +59,7 @@ Records are versioned and tied to the active imageRef. `loadRoute()` explicitly 
 
 To transfer a mission, export it, open another device with the same image version, choose the downloaded JSON and select **Import selected mission**. Import replaces the route and notes; export the destination's current work first. Failed validation or storage preserves existing work. The mission file does not include imagery or install an offline pack. See [transfer verification](docs/qa/MISSION_TRANSFER.md).
 
-Reset View and Focus Route are approved/integrated. Use [Willy's current brief](docs/team/WILLY.md) for the next guarded image-retry task. Emma now owns the contextual science component under `src/app/science/`; Enzo retains shell/planner/notebook fixes and its integration. Root mounting is integrated and must not be repeated.
+Reset View and Focus Route are approved/integrated. Use [Willy's current brief](docs/team/WILLY.md) for the next guarded image-retry task. Emma's science component `4efcb5a` is now mounted and [verified with 51 tests/build and browser checks](docs/qa/SCIENCE_INTEGRATION.md). His [next assignment](docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md) adds science discovery and dedicated read-only confidence/image-passport components transferred from Enzo's future work. Enzo retains shell/planner/notebook fixes and reviewed-component integration. Preserve the current map, science and mission-transfer mounts when integrating his shell.
 
 ## Evidence and credits
 

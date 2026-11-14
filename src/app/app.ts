@@ -1,10 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MAX_MISSION_IMPORT_BYTES, MissionService } from './core/mission.service';
 import { MapComponent } from './map/map.component';
+import { ScienceContextComponent } from './science/science-context.component';
 
 @Component({
   selector: 'app-root',
-  imports: [MapComponent],
+  imports: [MapComponent, ScienceContextComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

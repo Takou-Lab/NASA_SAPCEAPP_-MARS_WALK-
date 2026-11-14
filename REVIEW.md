@@ -4,7 +4,7 @@ Review date: **14 November 2026**. Baseline: `main` at **`f24f6fc68750f3bfd73513
 
 **Supplemental Enzo review:** `15b1666` was subsequently reviewed against main `ee9f6ae` (the same application code with the published review documents). **Changes required:** 47 branch tests pass, but the production build fails on remote Google Fonts; duplicate core/bootstrap, placeholder map, inaccessible unlocated science, draft loss and sidebar sizing need correction. See the [full Enzo review](docs/reviews/ENZO.md). No Enzo feature code has been merged.
 
-**Latest Emma review:** presentation/Q&A `947ff1a` is delivered and integrated with minor coordinator updates for contextual UI/install readiness, recorded verification scope and now-complete navigation/passport tasks. See [Emma's accepted review](docs/reviews/EMMA.md). His next task is the standalone science-context list/details transferred from Enzo; no repeat presentation or source audit.
+**Latest Emma review:** science UI **`4efcb5a`** on `feature/emma-science-context-ui` is **approved, integrated and mounted**. Current-main integration passes 51 tests, production build and recorded keyboard/layout/error browser checks. Presentation/research stay accepted. His substantial follow-up combines science counts/search/filters and future read-only confidence/image-passport presentation transferred from Enzo. See [review](docs/reviews/EMMA.md) and [new agent assignment](docs/team/EMMA.md); no repeat earlier work.
 
 **Latest Willy review:** navigation `21cf6f0` passed 38 tests, production build and Chromium keyboard/touch-emulated checks and is approved/integrated. See [Willy's review](docs/reviews/WILLY.md). The next bounded task is map-owned image retry, not repeated navigation or root mounting.
 
@@ -20,7 +20,8 @@ See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named brief
 | --- | --- | --- | --- |
 | `main` | `f24f6fc` | Tests/build pass; integrated map and data baseline | Continue Enzo's UI and coordinator PWA work; do not claim the full offline mission is finished |
 | `feature/willy-map-development` | `21cf6f0` | Navigation approved/integrated; 38 tests/build and keyboard/touch-emulated checks pass | Begin map-owned image retry on proposed `feature/willy-image-retry` from published main |
-| `feature/emma-science-provenance` | `947ff1a` | Presentation delivered/integrated with small readiness-wording updates; earlier work retained | Build standalone contextual science UI on proposed `feature/emma-science-context-ui`, independently of Enzo |
+| `feature/emma-science-provenance` | `947ff1a` | Presentation delivered/integrated; earlier work retained | Preserve; subsequent science component accepted below |
+| `feature/emma-science-context-ui` | `4efcb5a` | Science component approved, integrated/mounted; 51 integrated tests/build and production browser checks pass | New `feature/emma-science-evidence-workspace`: science discovery, confidence/image-passport presentation and QA handoff |
 | `feature/gaddielle-data-preparation` | `bf9689b` | Index needs corrections; 14 Python tests and real check pass; prior package/passport accepted | Fix R1/R2 path and index-validation findings on the same branch, then re-review |
 | `feat/enzo-ui-planner-notebook` | `15b1666` | Changes required; 47 tests pass, production build blocked by external fonts, UI/core integration and behavior issues reproduced | Preserve the UI and repair the same branch using [ENZO.md](docs/reviews/ENZO.md); no new assignment/branch yet |
 | `feature/longla-3d-rehearsal` | `aedfd4d` | Viewer delivered; 24 tests/build pass, integration and R1–R5 corrections required | Preserve the viewer, repair the same branch using [LONGLA.md](docs/reviews/LONGLA.md), then re-review |
@@ -49,7 +50,7 @@ Original accepted contribution: `b0640d9c7f423eb066ed133e63e4366de981e20c`. The 
 - Actual outside-user sessions remain pending. The protocol does not claim invented participants or results.
 - Presentation/Q&A files are now published at `947ff1a` and integrated with the coordinator's small readiness wording updates. The earlier publication gap is closed.
 
-**Latest status:** the presentation is now delivered at `947ff1a` and integrated with readiness wording updates. Emma's next work is the independently owned science-context component; see [EMMA.md](docs/team/EMMA.md). The publication gap described above is historical and closed.
+**Latest status:** presentation `947ff1a` and science component `4efcb5a` are accepted/integrated. His new science-discovery and confidence/image-passport assignment is in [EMMA.md](docs/team/EMMA.md). The earlier publication gap is historical and closed.
 
 This review validated records and inspected evidence documentation; it did not independently refetch every external scientific source or certify the underlying scientific interpretations.
 
@@ -102,4 +103,4 @@ The [previous production browser checks](docs/qa/MAP_INTEGRATION.md) apply to th
 
 ## Remaining product limits
 
-Enzo's route controls, contextual science list and notebook UI, PWA installation, complete verified offline reopening and actual user sessions remain pending. Technical checks do not establish those outcomes. No application code, dependency declarations, source data or feature branches are changed by publishing this review and the associated task updates.
+Emma's science list/details are now mounted and verified in [SCIENCE_INTEGRATION.md](docs/qa/SCIENCE_INTEGRATION.md). Enzo's route controls/notebook/shell corrections, Emma's follow-up discovery/evidence panels, PWA installation, complete verified offline reopening and actual user sessions remain pending. Technical checks do not establish those outcomes. Emma's reviewed component and narrow coordinator root mounting are the application changes in this latest integration; source data, shared core, dependencies and other feature branches are unchanged.

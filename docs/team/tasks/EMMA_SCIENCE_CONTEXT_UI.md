@@ -1,5 +1,7 @@
 # Emma — Contextual science UI, transferred from Enzo
 
+**Completed reference:** `4efcb5a` is approved and mounted, with 51 integrated tests/build and recorded browser checks passing. Do not repeat this assignment. Continue with [the science/evidence workspace task](EMMA_SCIENCE_EVIDENCE_WORKSPACE.md) and [updated prompt](../EMMA.md).
+
 ## Scope and reason
 
 Your presentation and Q&A were delivered at `947ff1a`; preserve them and the accepted science/protocol work. The coordinator will integrate minor wording updates for current readiness. Your next task is a small standalone Angular component that makes the three unlocated science records accessible. This transfers the missing science-context list/details from Enzo; it does not transfer his shell, planner, notebook, theme or core-integration work.

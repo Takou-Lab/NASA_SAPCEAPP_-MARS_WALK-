@@ -10,7 +10,7 @@ The [adopted guide improvements](docs/GUIDE_IMPROVEMENTS.md) preserve this regio
 
 [REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's corrected `c887286` passport is approved and integrated; her submitted image-pack index now needs the bounded R1/R2 corrections below before future PWA integration. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
 
-Do not recreate accepted work. Emma builds the transferred science-context UI, Willy adds guarded image retry after accepted navigation, and Gaddielle corrects the submitted [image-pack index](docs/team/tasks/GADDIELLE_IMAGE_PACK.md) after the review below. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+Do not recreate accepted work. Emma preserves the accepted science-context UI and builds the follow-up evidence workspace, Willy adds guarded image retry after accepted navigation, and Gaddielle corrects the submitted [image-pack index](docs/team/tasks/GADDIELLE_IMAGE_PACK.md) after the review below. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
 
 **Latest Gaddielle update:** image-pack submission `bf9689b` passed 14 Python tests and the real index check, but review requires R1/R2 corrections for canonical/browser-safe paths and strict index shape/types. It is not merged. She keeps the same branch and implementation; [her updated brief](docs/team/GADDIELLE.md) contains the correction prompt. No new task or repeat image/passport work.
 
@@ -18,7 +18,7 @@ Do not recreate accepted work. Emma builds the transferred science-context UI, W
 
 **Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
 
-**Emma/Willy update:** Emma's `947ff1a` presentation is delivered and integrated with minor coordinator readiness wording updates. He now owns the standalone science-context list/details under `src/app/science/`, transferred from Enzo. Willy's navigation `21cf6f0` passed 38 tests/build and browser checks and is integrated; his new task is Retry Image. Enzo retains shell/planner/notebook/font/sidebar/core-port work and integrates Emma's reviewed component without duplicating it.
+**Emma/Willy update:** Emma's `947ff1a` presentation and `4efcb5a` science-context component are accepted/integrated; the latter passed 51 tests/build and production browser checks. His substantial next task combines science discovery with read-only confidence/image-passport presentation transferred from Enzo's future work. Willy's navigation `21cf6f0` passed 38 tests/build and browser checks and is integrated; his new task is Retry Image. Enzo retains shell/planner/notebook/font/sidebar/core-port work and integrates Emma's reviewed component without duplicating it.
 
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
@@ -28,17 +28,17 @@ Each personal brief below includes a ready-to-paste agent prompt. Read [SOUL.MD]
 
 **No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emma's previous science assignment and protocol are integrated from `b0640d9`; they must not be repeated.
 
-**Latest task update:** Emma uses **he/him**. His research, protocol and presentation are complete; his next coding task is an isolated contextual science component. Willy's map/navigation are complete; image retry is the next slice. Proposed new task branches start from the published integration and preserve all existing work.
+**Latest task update:** Emma uses **he/him**. His research, protocol and presentation are complete; his accepted science component stays complete; his next task is science discovery plus standalone confidence/image-passport presentation. Willy's map/navigation are complete; image retry is the next slice. Proposed new task branches start from the published integration and preserve all existing work.
 
 ## Current follow-up assignments — 14 November 2026
 
-This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9`. The map is mounted once with the real image and three unlocated science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover the integrated tests, build and production browser behavior. Route-control/notebook UI, PWA installation and full offline reopening remain pending.
+This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9`. The map is mounted once with the real image and three unlocated science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover the integrated tests, build and production browser behavior. Science list/details are now mounted and verified separately in [the science integration record](docs/qa/SCIENCE_INTEGRATION.md). Route-control/notebook UI, PWA installation and full offline reopening remain pending.
 
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Proposed new `feature/willy-image-retry` from published main | Retry failed local imagery safely without changing metadata or mission state |
 | [Gaddielle](docs/team/GADDIELLE.md) | `feature/gaddielle-data-preparation` | Keep accepted package/passport; correct R1/R2 in submitted `bf9689b` index tool, extend tests and request re-review |
-| [Emma](docs/team/EMMA.md) | Proposed new `feature/emma-science-context-ui` from published main | Standalone contextual list/details for all unlocated records; no Enzo/root/core file edits |
+| [Emma](docs/team/EMMA.md) | Proposed new `feature/emma-science-evidence-workspace` from published main | Science computed counts/search/filters; readonly confidence and image-passport components; tests and QA integration handoff |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
 
@@ -49,7 +49,7 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 | [Willy](docs/team/WILLY.md) | Retry Image after accepted navigation | Explicit retry, stale-event safety, unchanged mission state and actual tests/browser outcomes |
 | [Enzo](docs/team/ENZO.md) | Shell/planner/notebook/core-port/font/sidebar fixes; integrate Emma's reviewed science component | Complete route/note flow, retained drafts and accessible viewport; no competing science explorer |
 | [Gaddielle](docs/team/GADDIELLE.md) | R1/R2 corrections to submitted image-pack tool | Canonical/browser-safe paths, strict index types/keys and read-only failure; retain all current tests and source assets |
-| [Emma](docs/team/EMMA.md) | New `src/app/science/` contextual science UI; preserve completed presentation | Null-position records selectable/readable; source/unknowns clear; route/mode/notes unchanged |
+| [Emma](docs/team/EMMA.md) | Enhance accepted science UI; build transferred `src/app/evidence/` confidence/image-passport panels | Reactive discovery, honest assessment/provenance, unchanged mission state and actual checks; no Enzo/root/core edits |
 | [Royce / Longla](docs/team/LONGLA.md) | Correct delivered viewer `aedfd4d`, then continue independent device/offline QA | Close R1–R5 with integrated regressions and browser evidence; record unrun device/offline checks as pending |
 | [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |
 
@@ -61,7 +61,7 @@ The coordinator conducts the outside-user sessions, Emma maintains `docs/USABILI
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Angular map and map interactions | Map with layer toggles and clickable sourced markers |
 | [Gaddielle](docs/team/GADDIELLE.md) | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
-| [Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three sourced observations, evidence audit, references and submission text |
+| [Emma](docs/team/EMMA.md) | Science discovery and confidence/provenance presentation | Preserve accepted science/evidence/presentation; deliver two readonly evidence panels and integration handoff |
 | [Enzo](docs/team/ENZO.md) | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
 | [Longla](docs/team/LONGLA.md) | Device/offline QA, then optional 3D/VR | Recorded checks first; labeled rehearsal prototype only after the core mission |
 | [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and installable offline PWA | Integrated mission flow, confidence panel and tested installed offline pack |
@@ -104,7 +104,7 @@ The coordinator conducts the outside-user sessions, Emma maintains `docs/USABILI
 - Connect start, destination and waypoint controls to Willy's map.
 - Add undo and clear actions, plus route save/load through the shared contracts.
 - Show distance only when the active coordinate system has verified metric calibration; otherwise show it as unavailable.
-- Add a data-sources panel and a notebook that saves observations locally.
+- Integrate Emma's reviewed science/image-passport presentation and keep the notebook that saves observations locally. Future confidence/passport component implementation now belongs to Emma; shell placement remains Enzo's.
 - Preserve note text on storage failure and render notes as text.
 
 **Done when:** a user can draw and edit a route, inspect its limitations and save an observation.
