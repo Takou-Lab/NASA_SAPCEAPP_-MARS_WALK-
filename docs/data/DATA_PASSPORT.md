@@ -40,11 +40,12 @@ This Data Passport provides an authoritative, human-readable and machine-traceab
 | Feature | Assessment & Status | Scientific Boundary |
 | :--- | :--- | :--- |
 | **Target Region** | Mount Sharp (Aeolis Mons), Gale Crater, Mars | Lower foothills exhibiting mineralized boxwork ridge networks. |
-| **Orbital Center Coordinates** | Latitude: `-4.843°N` (`-4.843°`), Longitude: `137.298°E` | Center footprint of parent observation `PSP_001752_1750`. |
-| **Coverage Classification** | `regional-context` | **Verified regional context only.** While NASA's Curiosity rover explored boxwork structures in Gale Crater in 2024–2025, no rover telemetry or traverse coordinates are geodetically tied to pixel coordinates on this cropped visual product. Exact exploration-area boundary overlap is unverified. |
-| **Master Image Resolution** | Nominal 25 cm/pixel (orbital PDS product) | 7488 × 3813 px full release image. |
-| **Active Derivative Resolution** | **Uncalibrated / Unknown** | Prepared 2048 × 1042 px derivative was resampled for web/tablet runtime performance. Orbital scale cannot be linearly scaled without ground control points. |
-| **Metric Distance Calibration** | `verified: false` | `metersPerPixel = null`. Conversion of pixel distances to meters is disabled. |
+| **Parent Observation Center** | Latitude: `-4.843°` (`4.843°S`), Longitude: `137.298°E` | Nominal center footprint of parent orbital observation `PSP_001752_1750`. Contextual orbital metadata only; not a pixel georeference, ground tie-point, or route anchor. |
+| **Coverage Classification** | `regional-context` | **Verified regional context only.** While NASA's Curiosity rover explored boxwork structures in Gale Crater in 2024–2025, no rover telemetry or traverse coordinates are geodetically tied to pixel coordinates on this visual product. Exact exploration-area boundary overlap is unverified. |
+| **Parent Orbital Observation Scale** | Nominal ~25 cm/pixel (~0.25 m/pixel) | Supported by orbital metadata of the uncropped map-projected PDS observation (`PSP_001752_1750`). This nominal orbital resolution does not establish ground scale for downstream visual releases. |
+| **Public-Release JPEG Scale (`PIA26306`)** | **Unverified / Unknown** | The 7488 × 3813 px NASA Photojournal JPEG is a visual presentation release lacking embedded geodetic tags, world files, or a documented, verified transformation chain back to ground meters. |
+| **Active Derivative Scale (`PIA26306_derived_2048.jpg`)** | **Uncalibrated / Unknown** | Resampled to 2048 × 1042 px for runtime display. Because the parent-to-release-to-derivative transform chain lacks independent calibration, ground scale remains unverified. Conversion of pixel distances to meters is disabled. |
+| **Metric Distance Calibration** | `verified: false` | `metersPerPixel = null`, `sourceUrl = null`, `method = null`. Planar distance calculation is disabled. |
 | **Digital Elevation Model (DEM)** | `terrainStatus: 'unavailable'` | No aligned DEM is bundled in v1. Visual brightness does not indicate surface elevation, relief, or slope. |
 
 ---
@@ -79,13 +80,13 @@ This Data Passport provides an authoritative, human-readable and machine-traceab
   - SHA-256:    c3a93d30db3daff7c964c1960d40493c72eb700b4e38d2ccfaabce255f617f5a
   - Role:       Archival master for provenance and tiling reproducibility; excluded from runtime caching
              │
-             │ tools/data/process_image.py (bicubic resampling, quality 85, no subsampling)
+             │ tools/data/process_image.py (GDI+ HighQualityBicubic; 4:2:0 chroma subsampling; encoder quality unrecorded)
              ▼
 [Active Web Derivative: public/data/imagery/PIA26306_derived_2048.jpg]
   - Dimensions: 2048 × 1042 px
   - File Size:  523,272 bytes (~511 KB)
   - SHA-256:    7b814497d98d7e5fb89dd122c65b01c32e5c2099b039ef62887a606af199bfa8
-  - Role:       Active client map texture precached for offline tablet use
+  - Role:       Active client map texture; required/intended offline runtime asset (actual service-worker precaching and full offline reopening remain coordinator-owned and pending)
              +
 [Mission Manifest: public/data/manifest.json]
   - File Size:  1,200 bytes
@@ -121,7 +122,7 @@ When displaying the Data Passport in the user interface, Enzo should map the act
 | `coordinateSystem` | **Coordinates** | Image Pixels (Bottom-Left Origin) | Technical metadata label; emphasizes unprojected pixel space. |
 | `calibration.verified` | **Metric Scale** | Unverified (Pixel Scale Only) | If `false`, display: "Metric scale unavailable; distances cannot be measured in meters." |
 | `limitations[]` | **Scientific Limitations** | Bulleted list of documented gaps | Display as an expandable list or callout box inside the Confidence Panel. |
-| *(Derived / Documented)* | **Runtime Package Size** | 524,472 bytes (0.50 MB) | Helpful context for device storage and offline caching status. |
+| *(Derived / Documented)* | **Runtime Package Size** | 524,472 bytes (0.50 MB) | Required/intended offline runtime image pack size; device installation and service-worker precaching remain pending coordinator verification. |
 | *(Derived / Documented)* | **SHA-256 Checksum** | `7b814497...` (Image)<br>`40381b96...` (Manifest) | Collapsible technical verification details. |
 
 ---
@@ -131,7 +132,7 @@ When displaying the Data Passport in the user interface, Enzo should map the act
 The Exploration Confidence Panel must transparently communicate the following constraints to the user:
 
 1. **Uncalibrated Metric Scale:**
-   Because `calibration.verified` is `false`, planar distances along drawn routes cannot be calculated. The UI must state: *"Distance unavailable: metric calibration has not been independently verified for this raster."*
+   Because `calibration.verified` is `false`, planar distances along drawn routes cannot be calculated. The UI must state: *"Distance unavailable: metric calibration has not been independently verified for this raster."* The parent orbital observation's nominal scale (~25 cm/pixel) does not establish ground scale for the public-release JPEG or the prepared 2048 × 1042 derivative, as the transformation chain lacks verified georeferencing.
 2. **Missing Terrain & Elevation:**
    Because `terrainStatus` is `unavailable`, slope analysis, elevation profiles, and 3D terrain relief are unavailable. The UI must state: *"Terrain unavailable: visual brightness does not provide surface elevation or slope."*
 3. **No Direct Rover Georeferencing:**
