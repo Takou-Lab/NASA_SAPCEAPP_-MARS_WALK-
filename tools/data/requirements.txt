@@ -1,0 +1,4 @@
+# Required on every platform for full image verification with verify_pack.py.
+# Other preparation tools may also support native Windows GDI+ independently.
+Pillow>=10.0.0
+

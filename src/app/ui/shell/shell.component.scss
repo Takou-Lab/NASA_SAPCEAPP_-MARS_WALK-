@@ -50,6 +50,13 @@
   min-height: 0;
   position: relative;
   outline: none;
+  overflow: auto;
+}
+
+.map-container app-map {
+  display: block;
+  min-width: 0;
+  padding: 0.75rem;
 }
 
 .map-placeholder {
@@ -294,6 +301,14 @@
     height: 45%;
     border-left: none;
     border-top: 1px solid var(--border-subtle);
+  }
+
+  .map-workspace {
+    min-height: 45%;
+  }
+
+  .map-container app-map {
+    padding: 0.5rem;
   }
 
   .main-workspace.panel-collapsed .side-panel {

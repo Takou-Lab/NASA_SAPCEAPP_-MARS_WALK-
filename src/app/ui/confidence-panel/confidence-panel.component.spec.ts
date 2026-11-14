@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { MissionService } from '../../core/mission.service';
 import { ImageManifest, ScienceMarker } from '../../core/models';
 import { ConfidencePanelComponent } from './confidence-panel.component';
@@ -8,6 +10,7 @@ describe('ConfidencePanelComponent', () => {
   let fixture: ComponentFixture<ConfidencePanelComponent>;
   let component: ConfidencePanelComponent;
   let service: MissionService;
+  let http: HttpTestingController;
 
   const mockManifest: ImageManifest = {
     schemaVersion: 1,
@@ -53,16 +56,31 @@ describe('ConfidencePanelComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ConfidencePanelComponent],
-      providers: [MissionService],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ConfidencePanelComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(MissionService);
-    service.setImageManifest(mockManifest);
-    service.setMarkers([sampleMarker]);
+    http = TestBed.inject(HttpTestingController);
+    const unlocatedMarker: ScienceMarker = {
+      ...sampleMarker,
+      id: 'm2',
+      name: 'Unlocated contextual record',
+      position: null,
+      positionStatus: 'unavailable',
+    };
+    const initialized = service.initialize();
+    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush(mockManifest);
+    await Promise.resolve();
+    http
+      .expectOne((request) => request.url.endsWith('/data/markers.json'))
+      .flush([sampleMarker, unlocatedMarker]);
+    await initialized;
     fixture.detectChanges();
   });
+
+  afterEach(() => http.verify());
 
   it('displays Visual Review Only badge and never displays a SAFE badge', () => {
     const compiled = fixture.nativeElement as HTMLElement;
@@ -100,5 +118,17 @@ describe('ConfidencePanelComponent', () => {
     component.clearMarkerSelection();
     fixture.detectChanges();
     expect(compiled.querySelector('.marker-detail-card')).toBeNull();
+  });
+
+  it('opens an unlocated contextual record without modifying the route', () => {
+    const button = (fixture.nativeElement as HTMLElement).querySelectorAll(
+      '.science-record-button',
+    )[1] as HTMLButtonElement;
+    button.click();
+    fixture.detectChanges();
+    expect(service.selectedMarkerId()).toBe('m2');
+    expect(service.markers()[1].position).toBeNull();
+    expect(service.route()).toEqual({ start: null, destination: null, waypoints: [] });
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Source: Curiosity Mastcam');
   });
 });

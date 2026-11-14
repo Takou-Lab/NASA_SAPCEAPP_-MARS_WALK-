@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { LayerId } from '../../core/models';
 import { MissionService } from '../../core/mission.service';
-import { ThemeService } from '../../core/theme.service';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-header',

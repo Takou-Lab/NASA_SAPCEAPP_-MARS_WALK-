@@ -2,23 +2,18 @@ export interface Point {
   x: number;
   y: number;
 }
-
 export type Mode = 'inspect' | 'start' | 'destination' | 'waypoint';
-
 export type LayerId = 'imagery' | 'markers' | 'grid' | 'coverage';
-
 export interface Route {
   start: Point | null;
   destination: Point | null;
   waypoints: Point[];
 }
-
 export interface Source {
   title: string;
   url: string; // validated HTTPS URL
   credit: string;
 }
-
 export interface ImageManifest {
   schemaVersion: 1;
   imageRef: string; // changes when raster or coordinate interpretation changes
@@ -37,7 +32,6 @@ export interface ImageManifest {
     method: string | null;
   };
 }
-
 export interface ScienceMarker {
   id: string;
   name: string;
@@ -51,7 +45,6 @@ export interface ScienceMarker {
   source: Source;
   limitations: string[];
 }
-
 export interface Observation {
   id: string;
   imageRef: string;
@@ -59,7 +52,6 @@ export interface Observation {
   text: string;
   position: Point | null;
 }
-
 export interface Assessment {
   planarDistanceMeters: number | null;
   distanceStatus: 'unavailable' | 'derived';
@@ -67,28 +59,7 @@ export interface Assessment {
   warnings: string[];
 }
 
-export interface StoredRouteRecord {
-  schemaVersion: 1;
-  imageRef: string;
-  savedAt: string;
-  route: Route;
-}
-
-export interface StoredObservationsRecord {
-  schemaVersion: 1;
-  imageRef: string;
-  savedAt: string;
-  observations: Observation[];
-}
-
-export interface MissionExportData {
-  schemaVersion: 1;
-  appName: 'MARSWALK';
-  exportedAt: string;
-  imageRef: string;
-  imageManifest: ImageManifest | null;
-  route: Route;
-  assessment: Assessment;
-  observations: Observation[];
-  markers: ScienceMarker[];
+export interface OperationResult {
+  ok: boolean;
+  error?: string;
 }

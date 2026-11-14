@@ -1,131 +1,144 @@
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { vi } from 'vitest';
 import { MissionService } from './mission.service';
-import { ImageManifest } from './models';
+import { testImage } from './fixtures.spec-helper';
 
 describe('MissionService', () => {
   let service: MissionService;
-
-  const mockManifest: ImageManifest = {
-    schemaVersion: 1,
-    imageRef: 'mission_spec_ref',
-    assetPath: 'data/imagery/gale.png',
-    width: 800,
-    height: 600,
-    coordinateSystem: 'image-pixels-bottom-left',
-    source: {
-      title: 'Mount Sharp Boxwork',
-      url: 'https://mars.nasa.gov/test',
-      credit: 'NASA/JPL-Caltech',
-    },
-    observationDate: '2024-05-10',
-    coverageStatus: 'verified-aoi',
-    limitations: ['2D visible spectrum only'],
-    calibration: {
-      verified: true,
-      metersPerPixel: 0.5,
-      sourceUrl: 'https://mars.nasa.gov/calibration',
-      method: 'Spacecraft telemetry triangulation',
-    },
-  };
-
+  let http: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MissionService],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     service = TestBed.inject(MissionService);
-    service.setImageManifest(mockManifest);
+    http = TestBed.inject(HttpTestingController);
+    localStorage.clear();
   });
-
-  it('starts in inspect mode with empty route and disabled undo', () => {
-    expect(service.mode()).toBe('inspect');
+  afterEach(() => {
+    http.verify();
+    vi.restoreAllMocks();
+  });
+  async function load(markers: object[] = []) {
+    const promise = service.initialize();
+    http.expectOne((r) => r.url.endsWith('/data/manifest.json')).flush(testImage());
+    await Promise.resolve();
+    http.expectOne((r) => r.url.endsWith('/data/markers.json')).flush(markers);
+    await promise;
+  }
+  it('loads once and exposes readonly immutable mission records', async () => {
+    await load();
+    await service.initialize();
+    expect(service.dataStatus()).toBe('ready');
+    expect(Object.isFrozen(service.image())).toBe(true);
+    expect(service.assessment().planarDistanceMeters).toBeNull();
+  });
+  it('handles missing image data without crashing or fabricating a manifest', async () => {
+    const p = service.initialize();
+    http
+      .expectOne((r) => r.url.endsWith('/data/manifest.json'))
+      .flush('', { status: 404, statusText: 'Not Found' });
+    await p;
+    expect(service.dataStatus()).toBe('unavailable');
+    expect(service.image()).toBeNull();
+    expect(service.saveRoute().ok).toBe(false);
+  });
+  it('rejects an invalid manifest', async () => {
+    const p = service.initialize();
+    http
+      .expectOne((r) => r.url.endsWith('/data/manifest.json'))
+      .flush({ ...testImage(), width: -1 });
+    await p;
+    expect(service.dataStatus()).toBe('error');
+    expect(service.image()).toBeNull();
+  });
+  it('keeps usable imagery when science records fail validation', async () => {
+    await load([{ id: 'bad' }]);
+    expect(service.dataStatus()).toBe('ready');
+    expect(service.markers()).toEqual([]);
+    expect(service.dataError()).toContain('validated');
+  });
+  it('ignores inspect mode and invalid points, replaces endpoints and supports undo/clear', async () => {
+    await load();
+    service.applyMapPoint({ x: 1, y: 2 });
     expect(service.route().start).toBeNull();
-    expect(service.route().destination).toBeNull();
-    expect(service.route().waypoints).toHaveLength(0);
-    expect(service.canUndo()).toBe(false);
-  });
-
-  it('does not alter route when point clicked in inspect mode', () => {
-    service.setMode('inspect');
-    service.applyMapPoint({ x: 100, y: 150 });
-    expect(service.route().start).toBeNull();
-    expect(service.canUndo()).toBe(false);
-  });
-
-  it('applies points according to active mode and supports undo', () => {
-    // 1. Set start
     service.setMode('start');
-    service.applyMapPoint({ x: 50, y: 50 });
-    expect(service.route().start).toEqual({ x: 50, y: 50 });
-    expect(service.canUndo()).toBe(true);
-
-    // 2. Set waypoint
+    service.applyMapPoint({ x: Infinity, y: 0 });
+    service.applyMapPoint({ x: 101, y: 0 });
+    expect(service.canUndo()).toBe(false);
+    service.applyMapPoint({ x: 1, y: 2 });
+    service.applyMapPoint({ x: 3, y: 4 });
+    service.undoRoute();
+    expect(service.route().start).toEqual({ x: 1, y: 2 });
     service.setMode('waypoint');
-    service.applyMapPoint({ x: 100, y: 150 });
-    expect(service.route().waypoints).toEqual([{ x: 100, y: 150 }]);
-
-    // 3. Set destination
+    service.applyMapPoint({ x: 5, y: 6 });
     service.setMode('destination');
-    service.applyMapPoint({ x: 200, y: 250 });
-    expect(service.route().destination).toEqual({ x: 200, y: 250 });
-
-    // 4. Undo destination
-    service.undoRoute();
-    expect(service.route().destination).toBeNull();
-    expect(service.route().waypoints).toEqual([{ x: 100, y: 150 }]);
-
-    // 5. Undo waypoint
-    service.undoRoute();
-    expect(service.route().waypoints).toHaveLength(0);
-    expect(service.route().start).toEqual({ x: 50, y: 50 });
-
-    // 6. Undo start
-    service.undoRoute();
-    expect(service.route().start).toBeNull();
-    expect(service.canUndo()).toBe(false);
-  });
-
-  it('clearRoute empties the route but allows undo to restore it', () => {
-    service.setMode('start');
-    service.applyMapPoint({ x: 20, y: 30 });
-    service.setMode('destination');
-    service.applyMapPoint({ x: 200, y: 300 });
-
-    expect(service.route().start).not.toBeNull();
-    expect(service.route().destination).not.toBeNull();
-
+    service.applyMapPoint({ x: 10, y: 20 });
     service.clearRoute();
     expect(service.route().start).toBeNull();
-    expect(service.route().destination).toBeNull();
-    expect(service.canUndo()).toBe(true);
-
-    // Undo clear restores both endpoints
     service.undoRoute();
-    expect(service.route().start).toEqual({ x: 20, y: 30 });
-    expect(service.route().destination).toEqual({ x: 200, y: 300 });
+    expect(service.route().waypoints).toEqual([{ x: 5, y: 6 }]);
+    expect(service.route().destination).toEqual({ x: 10, y: 20 });
   });
-
-  it('validates observations and rejects whitespace-only entries', () => {
-    const invalidRes = service.addObservation('   ', null);
-    expect(invalidRes.ok).toBe(false);
-    expect(invalidRes.error).toBeDefined();
-
-    const validRes = service.addObservation('Layered sulphate veins observed', null);
-    expect(validRes.ok).toBe(true);
-    expect(service.observations()).toHaveLength(1);
-    expect(service.observations()[0].text).toBe('Layered sulphate veins observed');
-  });
-
-  it('calculates assessment derived planar distance when endpoints exist', () => {
+  it('round trips valid route and notes and resets undo on load', async () => {
+    await load();
     service.setMode('start');
-    service.applyMapPoint({ x: 0, y: 0 });
-    service.setMode('destination');
-    service.applyMapPoint({ x: 100, y: 0 });
-
-    const assessment = service.assessment();
-    expect(assessment.distanceStatus).toBe('derived');
-    // 100 px * 0.5 m/px = 50 meters
-    expect(assessment.planarDistanceMeters).toBe(50);
-    expect(assessment.terrainStatus).toBe('unavailable');
+    service.applyMapPoint({ x: 1, y: 2 });
+    expect(service.addObservation(' A note ', null).ok).toBe(true);
+    service.clearRoute();
+    expect(service.loadRoute().ok).toBe(true);
+    expect(service.route().start).toEqual({ x: 1, y: 2 });
+    expect(service.observations()[0].text).toBe('A note');
+    expect(service.canUndo()).toBe(false);
+  });
+  it('rejects malformed, mismatched and out-of-bounds stored records without changing state', async () => {
+    await load();
+    const key = 'marswalk:v1:synthetic-test-only';
+    for (const raw of [
+      '{',
+      JSON.stringify({ schemaVersion: 1, imageRef: 'other' }),
+      JSON.stringify({
+        schemaVersion: 1,
+        imageRef: testImage().imageRef,
+        route: { start: { x: 999, y: 0 }, destination: null, waypoints: [] },
+        observations: [],
+      }),
+    ]) {
+      localStorage.setItem(key, raw);
+      expect(service.loadRoute().ok).toBe(false);
+      expect(service.route().start).toBeNull();
+    }
+  });
+  it('reports failed storage and does not publish an unsaved observation', async () => {
+    await load();
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('full');
+    });
+    expect(service.saveRoute().ok).toBe(false);
+    expect(service.addObservation('draft', null).ok).toBe(false);
+    expect(service.observations()).toEqual([]);
+  });
+  it('rejects blank observations and invalid positions', async () => {
+    await load();
+    expect(service.addObservation('  ', null).ok).toBe(false);
+    expect(service.addObservation('text', { x: -1, y: 0 }).ok).toBe(false);
+  });
+  it('exports versioned mission JSON with provenance and limitations', async () => {
+    await load();
+    let blob: Blob | undefined;
+    vi.spyOn(URL, 'createObjectURL').mockImplementation((value) => {
+      blob = value as Blob;
+      return 'blob:test';
+    });
+    vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {});
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {});
+    service.exportMission();
+    const result = JSON.parse(await blob!.text());
+    expect(result.schemaVersion).toBe(1);
+    expect(result.imageRef).toBe(testImage().imageRef);
+    expect(result.image.source).toEqual(testImage().source);
+    expect(result.assessment.terrainStatus).toBe('unavailable');
+    expect(result.type).toBeUndefined();
   });
 });

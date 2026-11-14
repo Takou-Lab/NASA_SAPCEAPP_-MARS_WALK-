@@ -1,10 +1,53 @@
 # Emma — Science, Provenance and Presentation
 
+## Current follow-up — scientific evidence and PWA demo
+
+**Emma uses he/him pronouns.** Keep the stable filename `docs/team/EMMA.md` and branch `feature/emma-science-provenance`.
+
+**Latest review:** published branch tip `ee9f6ae` was checked against main `6c78ebe`: one commit behind, zero unique commits, and no runtime/config differences. Synchronization is confirmed. Earlier science/protocol work through `b0640d9` remains accepted and integrated. Read [Emma's review](../reviews/EMMA.md), [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md). No new content assignment is issued until the presentation handoff can be reviewed.
+
+**Presentation status:** the user reports the presentation task completed, but `docs/PRESENTATION.md` and `docs/JUDGES_QA.md` are not present at the inspected branch tip `ee9f6ae` or main `6c78ebe`; no apparent renamed alternative was found. This is a publication gap, not proof that the work was not done. Preserve his completed local files; do not recreate them. External scientific sources were not independently reverified in this synchronization review.
+
+Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared contract](CODING_AGENTS.md). Preserve all completed work and any current small slice.
+
+### Completed work — do not repeat
+
+| Delivered work | Commit / branch files |
+| --- | --- |
+| Science records, corrected citations, evidence audit, accurate PWA status, references, AI-use record and internal demo script | `8a947a4`; `public/data/markers.json`, `docs/SCIENCE_EVIDENCE.md`, `docs/SCIENCE.md`, `docs/REFERENCES.md`, `docs/AI_USE.md`, `docs/DEMO_SCRIPT.md` |
+| Three-user usability protocol and contextual-record handoff to Enzo | `b0640d9`; `docs/USABILITY.md`, `docs/SCIENCE.md` |
+
+The usability protocol is delivered. **Actual user sessions remain pending** until the coordinator's integrated PWA is ready. Neither a delivered document nor a branch inspection establishes a working installed offline PWA. Do not recreate the audit, rewrite the existing demo or prepare a second usability protocol.
+
+### Immediate task — publish the completed presentation handoff
+
+1. Inspect local Git status, current branch and the location of the two completed presentation files. Continue on `feature/emma-science-provenance`; verify the intended `origin` is `boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-`.
+2. Preserve all local changes and completed documents. If the files live in another local folder or branch, identify their location and preserve them before moving or integrating anything. Do not reset the branch, overwrite the files from `main` or invent replacements.
+3. Sync the latest `main` into the existing branch using a workflow that preserves local files. Stop and report any conflict whose resolution would discard work; do not force-push.
+4. Check the existing presentation/Q&A for factual readiness statements and working local references. Make only concrete corrections required by the integrated revision; do not repeat the science audit, recreate slides, rewrite the delivered demo or prepare another usability protocol.
+5. Commit the intended presentation documents if they are not yet committed, then publish the existing branch with `git push -u origin feature/emma-science-provenance`.
+6. Give the coordinator the pushed commit, the two paths and any remaining real demo evidence needed. If the completed local files cannot be located, report that precise blocker and their last known location; do not fabricate completion or create new content merely to fill the gap.
+
+**Done means:** the reported completed presentation files can be inspected in the published feature branch, with the commit identified. This assignment authorizes pushing only his own feature branch. It does not authorize merging to `main`, deployment, competition submission or messages to other people.
+
+### Completed presentation specification — handoff reference only
+
+Use this checklist to identify and review the existing work; it is not a new creation assignment:
+
+- `docs/PRESENTATION.md`: the team's internal outline of at most seven slides, with a science-learning/rehearsal user story, problem, fair existing-tool comparison, sourced data, Exploration Confidence, actual demo evidence and limitations/next steps. The format is an internal choice, not a verified official submission limit.
+- Each slide identifies its message, evidence/source or implementation reference, reviewed revision, feature status and outstanding artifact. Unavailable screenshots, installed-device/offline results and participant outcomes stay pending.
+- `docs/JUDGES_QA.md`: factual answers about current users and future vision, contribution alongside Mars Trek/JMARS, resources actually used, scientific support, unavailable metrics/positions, implemented versus pending behavior, and reviewed AI assistance.
+- Existing `docs/SCIENCE.md`, `docs/SCIENCE_EVIDENCE.md` and `docs/DEMO_SCRIPT.md` are reused. No invented customers, partnerships, source checks, screenshots or successful demonstrations.
+
+Actual usability sessions remain a later activity. Reuse the already delivered `docs/USABILITY.md`; the coordinator conducts sessions, Longla supports QA and Emma records actual anonymized observations after the integrated PWA is ready. Do not recreate its protocol or invent results.
+
+The standing scientific guidance below remains reference, not an instruction to reopen completed assignments.
+
 ## Your mission
 
 Make every scientific claim traceable and prepare clear presentation material. Collect three meaningful Curiosity observations relevant to the selected Gale Crater region without inventing precise locations or measurements.
 
-Read [the team allocation](../../TEAM_TASKS.md). This repository contained documentation only when the briefs were written; datasets and features described as goals are not already verified.
+Read [the team allocation](../../TEAM_TASKS.md). The original brief predates the Angular foundation and the reviewed science branch. Inspect actual branch contents before editing; scientific assertions still require source verification.
 
 ## Deliverables and ownership
 
@@ -12,10 +55,12 @@ Read [the team allocation](../../TEAM_TASKS.md). This repository contained docum
 - Geological map coverage and legend notes.
 - A reference list and AI-use record, proposed under `docs/`.
 - An English project summary and concise demo/slide text.
+- An evidence audit and user-facing science descriptions.
+- The usability protocol and factual observation record in `docs/USABILITY.md`, coordinated with the integrator.
 
 Willy displays your markers. Gaddielle validates dataset coverage and coordinates with you. Enzo presents the source information. The coordinator integrates records and confirms submission readiness.
 
-## Work in this order
+## Original workflow reference — completed work is not reassigned
 
 1. Confirm the selected region and distinguish exact AOI evidence from broad regional context.
 2. Check an actual USGS/NASA geological map for relevant coverage, scale and legend. Record if no suitable map is found.
@@ -47,49 +92,57 @@ Willy displays your markers. Gaddielle validates dataset coverage and coordinate
 - Do not claim topography or chemistry coverage that the supplied files do not support.
 - Treat AI-proposed product IDs, dates and citations as unverified until checked against the real source.
 
-## Presentation tasks
+## Standing presentation guidance — reuse completed material
 
-- Draft a 50–200 word English summary, subject to the current official form's requirements.
+- Reuse the delivered English summary; adapt it only when required by verified submission fields or changed implementation status.
 - Explain the mission flow: target, route, confidence information, observation and offline reopening.
 - Credit NASA resources, other datasets, code libraries, images and text actually used.
 - Record which code/content was AI-assisted and how the team reviewed it.
 - Verify competition rules and deadlines against official pages; the planning PDF is not independent confirmation.
 - Coordinate one concise demo with the coordinator and label incomplete 3D/VR honestly.
 
-## Checks and completion
+## Original science acceptance reference — already delivered
 
 Open every source link; compare each record to its source; check that marker labels match location verification; inspect references for missing credits. You are done when the three records are usable, geological coverage is documented, and presentation claims match the integrated prototype. Hand off data files, links, credits and unresolved scientific questions.
 
 ## Copy-paste coding-agent prompt
 
-Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
-
 ```text
-You are Emma's science/provenance assistant for MARSWALK.
-Read docs/team/EMMA.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
-Your primary work is research and structured data, not Angular feature code.
+You are Emma's publication/handoff assistant for MARSWALK. He uses he/him.
+Read docs/reviews/EMMA.md, REVIEW.md, NEXT_TASKS.md, SOUL.MD, TEAM_TASKS.md,
+docs/team/EMMA.md and docs/team/CODING_AGENTS.md.
 
-1. Inspect current records before editing. Own public/data/markers.json,
-   docs/SCIENCE.md, docs/REFERENCES.md and docs/AI_USE.md.
-2. Open authoritative sources for three relevant Curiosity observations.
-   Record what the source actually supports. Check geological coverage,
-   scale and legend independently from imagery coverage.
-3. Match ScienceMarker in CODING_AGENTS.md. Missing instrument/date are
-   null. Unverified locations use position:null and positionStatus:
-   unavailable. Do not invent coordinates to make markers appear on a map.
-   An explicitly agreed illustrative point must be labeled illustrative
-   and use the active manifest imageRef; source findings remain distinct
-   from the demonstration position.
-4. Label each finding's evidence type and limitations. Include primary HTTPS
-   source, credit and verified timing. Do not manufacture three records
-   merely to satisfy a target count if sources cannot be verified.
-5. Keep references for datasets, libraries, images and text actually used.
-   Record AI assistance honestly. Draft an English summary and demo text
-   matching implemented features; verify official competition rules directly.
-6. Validate JSON syntax, schema fields, unique IDs and references against
-   the active manifest. Hand records to Willy/Enzo and identify records
-   that are contextual only. Do not alter shared schemas or Angular code.
+Emma's science/evidence/demo work and usability protocol are accepted and
+integrated through b0640d9. His current published tip ee9f6ae is synchronized
+with project integration and has no unique commits against reviewed main
+6c78ebe. Do not repeat research or create another protocol. The user reports
+the presentation completed locally, but docs/PRESENTATION.md and
+docs/JUDGES_QA.md are absent from the reviewed published refs. Your task is
+only to publish existing completed work, not recreate it or start a new task.
 
-Report source links checked, files, missing evidence and unresolved gaps.
-Do not send messages, submit, deploy, push or merge without authorization.
+1. Inspect Git status, current branch, origin and existing local files.
+   Continue on feature/emma-science-provenance. Verify origin is the selected
+   boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK- repository.
+2. Locate and preserve the completed presentation/Q&A files and all other
+   local work before syncing. If they are in another folder/branch, report
+   that location and preserve them. Never reset, silently overwrite, force-
+   push or invent replacement content. If missing, report the precise gap.
+3. Sync current main into the same feature branch without losing local
+   files. Preserve the integrated science records, audit, demo and protocol.
+4. Review the already-created documents only for concrete readiness/link
+   corrections. Use actual sources, implementation revision and results;
+   keep unavailable screenshots, PWA/offline checks and participant sessions
+   pending. Do not rewrite the slides, re-run the research assignment or
+   claim new tests or source checks that did not happen.
+5. Commit the intended completed presentation files if needed, then run:
+   git push -u origin feature/emma-science-provenance
+   This task authorizes only that feature-branch push.
+6. Hand off the pushed commit, both document paths, actual small corrections
+   and remaining demonstration artifacts. Keep shared models, imagery,
+   application logic and other teammates' work unchanged.
+
+Actual user sessions wait for the integrated PWA. The existing protocol
+already specifies coordinator-led sessions and real anonymized outcomes.
+No main merge, deployment, competition submission, fabricated results or
+messaging to others is authorized. Do not restart completed lessons.
 ```

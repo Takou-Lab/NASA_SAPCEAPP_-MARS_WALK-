@@ -1,24 +1,40 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MissionService } from '../core/mission.service';
+import { testImage } from '../core/fixtures.spec-helper';
 import { NotebookComponent } from './notebook.component';
 
 describe('NotebookComponent', () => {
   let fixture: ComponentFixture<NotebookComponent>;
   let component: NotebookComponent;
   let service: MissionService;
+  let http: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NotebookComponent],
-      providers: [MissionService],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotebookComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(MissionService);
+    http = TestBed.inject(HttpTestingController);
+    const initialized = service.initialize();
+    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush({
+      ...testImage(),
+      width: 1000,
+      height: 1000,
+    });
+    await Promise.resolve();
+    http.expectOne((request) => request.url.endsWith('/data/markers.json')).flush([]);
+    await initialized;
     fixture.detectChanges();
   });
+
+  afterEach(() => http.verify());
 
   it('creates notebook with empty draft and disabled submit', () => {
     expect(component).toBeTruthy();

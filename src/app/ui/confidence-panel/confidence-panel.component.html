@@ -122,7 +122,29 @@
     }
   </section>
 
-  <!-- 4. Selected Science Target Detail (when marker clicked) -->
+  <section class="card science-context-card" aria-labelledby="science-context-title">
+    <div class="card-header">
+      <div class="card-title"><span id="science-context-title">Science records</span></div>
+    </div>
+    @if (markers().length) {
+      <ul class="science-record-list">
+        @for (marker of markers(); track marker.id) {
+          <li>
+            <button type="button" class="science-record-button"
+              [attr.aria-pressed]="selectedMarkerId() === marker.id"
+              (click)="selectMarker(marker.id)">
+              <strong>{{ marker.name }}</strong>
+              <span>{{ marker.positionStatus }} position · {{ marker.evidenceType }} evidence</span>
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p>No science records are available.</p>
+    }
+  </section>
+
+  <!-- Selected Science Target Detail -->
   @if (selectedMarker(); as marker) {
     <section class="card marker-detail-card">
       <div class="card-header">

@@ -1,6 +1,6 @@
-import { UpperCasePipe } from '@angular/common';
 import { Component, HostListener, inject, OnDestroy, signal } from '@angular/core';
 import { MissionService } from '../../core/mission.service';
+import { MapComponent } from '../../map/map.component';
 import { NotebookComponent } from '../../notebook/notebook.component';
 import { RoutePlannerComponent } from '../../planner/route-planner.component';
 import { ConfidencePanelComponent } from '../confidence-panel/confidence-panel.component';
@@ -12,7 +12,7 @@ export type ActiveTab = 'confidence' | 'planner' | 'notebook';
   selector: 'app-shell',
   standalone: true,
   imports: [
-    UpperCasePipe,
+    MapComponent,
     HeaderComponent,
     ConfidencePanelComponent,
     RoutePlannerComponent,
@@ -24,9 +24,6 @@ export type ActiveTab = 'confidence' | 'planner' | 'notebook';
 export class ShellComponent implements OnDestroy {
   private missionService = inject(MissionService);
 
-  readonly mode = this.missionService.mode;
-  readonly route = this.missionService.route;
-  readonly image = this.missionService.image;
   readonly observations = this.missionService.observations;
 
   readonly activeTab = signal<ActiveTab>('confidence');
@@ -37,6 +34,7 @@ export class ShellComponent implements OnDestroy {
   readonly isResizing = signal<boolean>(false);
 
   private readonly MIN_WIDTH = 300;
+  private readonly MIN_MAP_WIDTH = 300;
   private readonly MAX_WIDTH = 750;
   private readonly DEFAULT_WIDTH = 380;
   private readonly STORAGE_KEY = 'marswalk_panel_width';
@@ -50,19 +48,31 @@ export class ShellComponent implements OnDestroy {
     this.initPanelWidth();
   }
 
+  maxPanelWidth(): number {
+    const viewportWidth = typeof window === 'undefined' ? this.MAX_WIDTH + this.MIN_MAP_WIDTH : window.innerWidth;
+    return Math.max(this.MIN_WIDTH, Math.min(this.MAX_WIDTH, viewportWidth - this.MIN_MAP_WIDTH));
+  }
+
+  private clampPanelWidth(width: number): number {
+    return Math.min(this.maxPanelWidth(), Math.max(this.MIN_WIDTH, width));
+  }
+
   private initPanelWidth(): void {
     if (typeof window === 'undefined') return;
     try {
       const saved = localStorage.getItem(this.STORAGE_KEY);
       if (saved) {
         const parsed = parseInt(saved, 10);
-        if (!isNaN(parsed) && parsed >= this.MIN_WIDTH && parsed <= this.MAX_WIDTH) {
-          this.panelWidth.set(parsed);
-        }
+        if (!isNaN(parsed)) this.panelWidth.set(this.clampPanelWidth(parsed));
       }
     } catch {
       // Ignore storage errors
     }
+  }
+
+  @HostListener('window:resize')
+  onViewportResize(): void {
+    if (window.innerWidth > 768) this.panelWidth.set(this.clampPanelWidth(this.panelWidth()));
   }
 
   setActiveTab(tab: ActiveTab): void {
@@ -101,11 +111,7 @@ export class ShellComponent implements OnDestroy {
   private handlePointerMove(clientX: number): void {
     const windowWidth = window.innerWidth;
     const newWidth = windowWidth - clientX;
-    const maxAllowed = Math.min(this.MAX_WIDTH, windowWidth - 280);
-
-    if (newWidth >= this.MIN_WIDTH && newWidth <= maxAllowed) {
-      this.panelWidth.set(Math.round(newWidth));
-    }
+    this.panelWidth.set(this.clampPanelWidth(newWidth));
   }
 
   private stopResize(): void {
@@ -116,39 +122,40 @@ export class ShellComponent implements OnDestroy {
     if (this.boundTouchMove) window.removeEventListener('touchmove', this.boundTouchMove);
     if (this.boundTouchEnd) window.removeEventListener('touchend', this.boundTouchEnd);
 
+    this.persistPanelWidth();
+  }
+
+  private persistPanelWidth(): void {
     try {
       localStorage.setItem(this.STORAGE_KEY, this.panelWidth().toString());
     } catch {
-      // Ignore
+      // Ignore storage errors.
     }
   }
 
   resetPanelWidth(): void {
-    this.panelWidth.set(this.DEFAULT_WIDTH);
-    try {
-      localStorage.setItem(this.STORAGE_KEY, this.DEFAULT_WIDTH.toString());
-    } catch {
-      // Ignore
-    }
+    this.panelWidth.set(this.clampPanelWidth(this.DEFAULT_WIDTH));
+    this.persistPanelWidth();
   }
 
   onResizerKeydown(event: KeyboardEvent): void {
     const STEP = 20;
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      const next = Math.min(this.MAX_WIDTH, this.panelWidth() + STEP);
+      const next = this.clampPanelWidth(this.panelWidth() + STEP);
       this.panelWidth.set(next);
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
-      const next = Math.max(this.MIN_WIDTH, this.panelWidth() - STEP);
+      const next = this.clampPanelWidth(this.panelWidth() - STEP);
       this.panelWidth.set(next);
     } else if (event.key === 'Home') {
       event.preventDefault();
-      this.panelWidth.set(this.MIN_WIDTH);
+      this.panelWidth.set(this.clampPanelWidth(this.MIN_WIDTH));
     } else if (event.key === 'End') {
       event.preventDefault();
-      this.panelWidth.set(this.MAX_WIDTH);
+      this.panelWidth.set(this.clampPanelWidth(this.MAX_WIDTH));
     }
+    if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) this.persistPanelWidth();
   }
 
   ngOnDestroy(): void {

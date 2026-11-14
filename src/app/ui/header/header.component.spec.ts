@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { MissionService } from '../../core/mission.service';
-import { ThemeService } from '../../core/theme.service';
+import { ThemeService } from '../theme.service';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -13,7 +14,7 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
-      providers: [MissionService, ThemeService],
+      providers: [MissionService, ThemeService, provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

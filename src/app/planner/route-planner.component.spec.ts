@@ -1,24 +1,40 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { MissionService } from '../core/mission.service';
+import { testImage } from '../core/fixtures.spec-helper';
 import { RoutePlannerComponent } from './route-planner.component';
 
 describe('RoutePlannerComponent', () => {
   let fixture: ComponentFixture<RoutePlannerComponent>;
   let component: RoutePlannerComponent;
   let service: MissionService;
+  let http: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RoutePlannerComponent],
-      providers: [MissionService],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RoutePlannerComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(MissionService);
+    http = TestBed.inject(HttpTestingController);
+    const initialized = service.initialize();
+    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush({
+      ...testImage(),
+      width: 200,
+      height: 200,
+    });
+    await Promise.resolve();
+    http.expectOne((request) => request.url.endsWith('/data/markers.json')).flush([]);
+    await initialized;
     fixture.detectChanges();
   });
+
+  afterEach(() => http.verify());
 
   it('creates component and defaults to inspect mode', () => {
     expect(component).toBeTruthy();

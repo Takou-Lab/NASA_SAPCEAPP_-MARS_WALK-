@@ -235,13 +235,33 @@
   50% { opacity: 0.4; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .mission-header {
     height: auto;
+    min-height: 60px;
     padding: 8px 12px;
     flex-wrap: wrap;
+    gap: 8px;
+  }
+  .brand-section {
+    flex: 1 1 220px;
+  }
+  .mission-meta {
+    margin-left: auto;
   }
   .dataset-tag {
     display: none;
+  }
+  .controls-section {
+    flex: 1 1 100%;
+    justify-content: space-between;
+    min-width: 0;
+  }
+  .layer-toggles {
+    max-width: calc(100vw - 140px);
+    overflow-x: auto;
+  }
+  .layer-btn {
+    padding: 0 8px;
   }
 }

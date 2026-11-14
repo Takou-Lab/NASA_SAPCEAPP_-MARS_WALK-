@@ -312,3 +312,31 @@
   color: var(--text-muted);
   font-size: 12px;
 }
+.science-record-list {
+  display: grid;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+}
+
+.science-record-button {
+  display: grid;
+  width: 100%;
+  min-height: 44px;
+  gap: 0.25rem;
+  padding: 0.65rem;
+  text-align: left;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.science-record-button[aria-pressed='true'] {
+  border-color: var(--science-cyan);
+}
+
+.science-record-button span {
+  color: var(--text-secondary);
+}

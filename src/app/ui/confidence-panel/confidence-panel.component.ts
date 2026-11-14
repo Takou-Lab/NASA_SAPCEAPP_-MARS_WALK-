@@ -35,4 +35,8 @@ export class ConfidencePanelComponent {
   clearMarkerSelection(): void {
     this.missionService.selectMarker(null);
   }
+
+  selectMarker(id: string): void {
+    this.missionService.selectMarker(id);
+  }
 }

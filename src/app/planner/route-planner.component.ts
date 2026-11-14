@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Mode, Point, Route } from '../core/models';
+import { Mode } from '../core/models';
 import { MissionService } from '../core/mission.service';
-import { getOrderedRoutePoints } from '../core/route-helpers';
+import { routePoints } from '../core/route';
 
 @Component({
   selector: 'app-route-planner',
@@ -26,7 +26,7 @@ export class RoutePlannerComponent {
   });
 
   readonly orderedPoints = computed(() => {
-    return getOrderedRoutePoints(this.route());
+    return routePoints(this.route());
   });
 
   readonly modeDescriptions: Record<Mode, string> = {
