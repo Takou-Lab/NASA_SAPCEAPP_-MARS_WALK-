@@ -1,6 +1,10 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+
 ## Current follow-up — offline image-data package
+
+Read [SOUL.MD](../../SOUL.MD) before continuing. Your data package supports an installable Angular PWA for science learning, mission rehearsal and analogue-workflow research. Future astronaut support is the long-term vision; this release does not establish operational navigation or route safety.
 
 Continue on **`feature/gaddielle-data-preparation`**. Your initial imagery and manifest have been reviewed for technical compatibility: both images decode and the prepared image is **2048 × 1042**, matching the manifest. The committed file checksums match the processing log. Scientific product/coverage claims still require authoritative evidence.
 
@@ -14,10 +18,12 @@ The Angular foundation is on `main`, but your imagery files remain on your featu
 4. Run the verifier against the committed data and demonstrate a failure using temporary test files for a missing image or wrong dimensions. Do not corrupt repository assets for a negative check. Reuse the declared Pillow dependency if needed; coordinate any new dependency declaration with the coordinator.
 5. Preserve the committed derivative. GDI+ and Pillow can produce different bytes from the same source; changing the derivative or its coordinate interpretation requires deliberate `imageRef` versioning and a coordinated migration.
 6. Give Willy a short written handoff: image path, manifest path, imageRef, bounds, bottom-left pixel convention, Leaflet `[y, x]` conversion, and expected feedback for failed image loading or mismatched dimensions. Do not implement Willy's map.
+7. Create **`docs/data/DATA_PASSPORT.md`** as the source for Enzo's readable Data Sources panel. Include the source/credit, observation date when verified, coverage and resolution when known, exact image version/reference, processing steps, checksum, verification status and limitations. Distinguish confirmed metadata from unverified claims. Map existing manifest fields to display labels; document extra information without adding runtime schema fields unilaterally. Give the coordinator any proposed model changes before implementation.
+8. Support the complete offline mission test by supplying the exact required image files and checksums. An image-pack verification pass cannot prove application installation, full offline reopening or route/note persistence. Keep those outcomes pending until the coordinator tests the integrated PWA.
 
 ### Completion and publication
 
-Done means the image-data inventory is accurate, offline verification passes, a controlled failure is detected, and the handoff and unsupported-claim corrections are committed. Report the commands and outcomes. Commit and push **your feature branch**; this follow-up authorizes that push. Do not merge into or push `main`, deploy the app, create a second service worker, or change shared Angular models.
+Done means the image-data inventory and Data Passport are accurate, offline file verification passes, a controlled failure is detected, and the handoff and unsupported-claim corrections are committed. Report the commands and outcomes. Commit and push **your feature branch**; this follow-up authorizes that push. Do not merge into or push `main`, deploy the app, create a second service worker, or change shared Angular models.
 
 ## Initial assignment reference
 
@@ -91,7 +97,9 @@ Paste this into your coding-agent session for the current follow-up assignment.
 ```text
 You are Gaddielle's data-preparation agent for the Angular MARSWALK PWA.
 Read docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md,
-docs/data/IMAGE_CONTRACT.md and TEAM_TASKS.md.
+docs/data/IMAGE_CONTRACT.md, SOUL.MD and TEAM_TASKS.md.
+The immediate users are science learners and exploration-rehearsal teams.
+Do not present this regional imagery as validated astronaut navigation.
 
 Continue on feature/gaddielle-data-preparation. Inspect Git status and
 preserve local work before updating from main. The Angular foundation is
@@ -126,6 +134,17 @@ already delivered data unnecessarily.
    conversion, unavailable calibration/terrain and load/dimension error
    expectations. These dimensions apply only while the committed image
    and manifest remain the inspected version.
+7. Create docs/data/DATA_PASSPORT.md for the user-facing Data Sources panel:
+   source/credit, verified date, coverage/resolution where known, imageRef,
+   processing, checksum, verification status and limitations. Separate
+   confirmed metadata from unknowns. Map existing manifest fields to labels;
+   propose extra runtime fields to the coordinator instead of changing the
+   shared schema yourself. Help Enzo explain what this imagery supports.
+8. Supply the coordinator with the required files/checksums for the complete
+   offline mission test. Your verifier checks image data only. Do not claim
+   installability, full offline readiness, route persistence or note recovery
+   until the integrated PWA is actually tested. Keep terrain and calibration
+   limitations visible in the passport and handoff.
 
 Own docs/data/, tools/data/ and your existing data files. Do not alter
 Willy's Angular map, shared models, service-worker logic or another

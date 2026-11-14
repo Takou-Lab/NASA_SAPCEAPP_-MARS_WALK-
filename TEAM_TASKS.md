@@ -2,22 +2,39 @@
 
 Product: **installable offline PWA built with Angular and TypeScript**. Region: **Mount Sharp boxwork formations, Gale Crater, Mars**; exact area of interest still needs verification.
 
+Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offline mission and acceptance criteria. Education, mission rehearsal and analogue-workflow research are near-term use cases; operational astronaut navigation remains a long-term vision.
+
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
 ## Coding-agent instructions
 
-Each personal brief below includes a ready-to-paste agent prompt. Read the [shared coding contract](docs/team/CODING_AGENTS.md) first. The coordinator implements the foundation before feature integration; research/data preparation can proceed independently.
+Each personal brief below includes a ready-to-paste agent prompt. Read [SOUL.MD](SOUL.MD) and the [shared coding contract](docs/team/CODING_AGENTS.md) first. The Angular foundation is already implemented; reuse it. The next work is reviewed data integration, the 2D mission, installability and verified offline operation.
+
+**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emmanuelle's previous science assignment is delivered at `8a947a4` and awaits coordinator integration, not repeated research.
 
 ## Current follow-up assignments — 14 November 2026
 
-The Angular foundation is on `main`. Gaddielle's imagery and Emmanuelle's science records have been reviewed together on their feature branches: image dimensions and shared record contracts pass, along with the foundation tests/build. These branches have not yet been merged into `main`. Scientific source support still requires review; schema validation alone does not verify a finding.
+The Angular foundation is on `main`. The last joint review of Gaddielle's imagery and Emmanuelle's science records passed image dimensions and shared record contracts, along with the foundation tests/build. These branches have not yet been merged into `main`; inspect newer branch revisions before integration. Scientific source support still requires review; schema validation alone does not verify a finding.
 
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Offline image-pack inventory, offline verification tool, qualified metadata claims and Willy handoff |
-| [Emmanuelle / Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | Record-level evidence audit, corrected scientific citations, accurate PWA status and demo rehearsal script |
+| [Emmanuelle / Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | Previous audit, citations, summary and demo delivered at `8a947a4`; handoff now, usability protocol as a separate later task |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. These assignments include committing and pushing the respective feature branch; integration into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
+
+### Full-team priorities
+
+| Person | Current work | Acceptance evidence |
+| --- | --- | --- |
+| [Willy](docs/team/WILLY.md) | Real local-image map and route rendering | Image-load/dimension failures handled; pixel conversion and route modes correct; prepared imagery works offline after PWA integration |
+| [Enzo](docs/team/ENZO.md) | Tablet mission UI, Confidence Panel, Data Passport, science list and notebook | Users understand missing distance/slope, unlocated records remain readable, failed saves retain drafts, recovery/export work |
+| [Gaddielle](docs/team/GADDIELLE.md) | Offline image inventory/verifier and Data Passport | Actual file sizes/checksums/dimensions and provenance documented; whole-app readiness not implied |
+| [Emmanuelle](docs/team/EMMA.md) | Completed science/evidence/demo handoff; later usability support | Preserve delivered `8a947a4`; address concrete integration findings, then record actual user-test outcomes when sessions occur |
+| [Longla](docs/team/LONGLA.md) | Independent installed-device/offline QA first; optional 3D second | Recorded close/reopen/offline checks and observed usability issues; no untested VR claims |
+| [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |
+
+The coordinator conducts the outside-user sessions, Emmanuelle maintains `docs/USABILITY.md`, and Longla supports observation and device testing. Work towards the next complete 2D offline mission before optional 3D/VR. These are assignment updates, not a claim that the features are implemented.
 
 ## Task overview
 
@@ -27,8 +44,8 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 | [Gaddielle](docs/team/GADDIELLE.md) | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
 | [Emmanuelle / Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three sourced observations, evidence audit, references and submission text |
 | [Enzo](docs/team/ENZO.md) | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
-| [Longla](docs/team/LONGLA.md) | 3D rehearsal and optional VR | Labeled prototype showing the route and markers |
-| [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and offline operation | Integrated mission flow, confidence panel and tested offline pack |
+| [Longla](docs/team/LONGLA.md) | Device/offline QA, then optional 3D/VR | Recorded checks first; labeled rehearsal prototype only after the core mission |
+| [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and installable offline PWA | Integrated mission flow, confidence panel and tested installed offline pack |
 
 ## Willy — Angular map
 
@@ -38,7 +55,7 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 - Show source, instrument, date and location limitations when a marker is selected.
 - Initialize the map after its container exists and clean it up when the component is destroyed.
 
-**Done when:** the map displays the available imagery, layers can be toggled, and a marker opens its sourced details.
+**Done when:** the map displays the available imagery, layers can be toggled, and route interactions work. Sourced science remains accessible through Enzo's list; marker interaction is required only for records with supplied display positions.
 
 ## Gaddielle — Imagery and terrain data
 
@@ -73,19 +90,21 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 
 **Done when:** a user can draw and edit a route, inspect its limitations and save an observation.
 
-## Longla — 3D rehearsal and optional VR
+## Longla — Device/offline QA and optional 3D/VR
 
-- Build a small Three.js rehearsal prototype connected to the agreed route and marker format.
+- First support the coordinator with installed-device/offline QA and outside-user observation as described in [Longla's current brief](docs/team/LONGLA.md). Defer optional 3D until the essential mission is accepted.
+- After core acceptance, optionally build a small Three.js rehearsal prototype connected to the agreed route and marker format.
 - Use verified aligned terrain and imagery if available; state vertical exaggeration.
 - If terrain is unavailable, label any illustrative view clearly and do not present invented relief as measured terrain.
 - Add optional WebXR support with fixed viewpoints or teleport movement.
 - Label the feature **Prototype: 3D training view**.
-- At Sunday 12:00 local time, use a recorded 3D walkthrough if VR remains incomplete.
+- At the team's feature freeze, omit unfinished VR; a recording of a working optional 3D view is a fallback, not a core release requirement.
 
-**Done when:** the prototype shows the route and markers, with terrain provenance and limitations visible. VR is optional.
+**Done when:** independent QA records actual installed-device/offline results, defects and affected retests. Optional 3D may show the shared route and any positioned markers with provenance and limitations; neither 3D nor VR blocks the core release.
 
 ## YOU — Coordinator, assessment and integration
 
+- Follow [SOUL.MD](SOUL.MD): complete the installed offline mission before integrating optional 3D/VR. Reuse the implemented foundation and coordinate Data Passport/PWA state contracts before UI integration.
 - Define shared data contracts and coordinate changes across components.
 - Integrate small reviewed changes regularly and keep the Angular app runnable.
 - Build the Exploration Confidence Panel: supported route information, data coverage, missing information and assessment limits.
@@ -95,7 +114,7 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 - Trigger the imagery-only **visual review only** fallback when verified terrain is unavailable.
 - Check the complete demo, references, AI-use declaration and submission materials.
 
-**Done when:** one integrated mission can select a target, draw a route, explain uncertainty, save/export observations and reopen its prepared assets offline.
+**Done when:** one integrated installed PWA can inspect science context, choose a visual destination, draw a route, explain uncertainty, save/recover/export observations and reopen its prepared assets offline.
 
 ## Shared checkpoints and rules
 

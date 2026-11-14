@@ -2,22 +2,36 @@
 
 ## Current follow-up — scientific evidence and PWA demo
 
-**Name and branch:** Emmanuelle is listed as Emma in the existing filename and branch. Continue on `feature/emma-science-provenance`; keep `docs/team/EMMA.md` as the stable brief path.
+Read [SOUL.MD](../../SOUL.MD) as guidance for integration and later work. It does not restart your completed assignment. Emmanuelle is listed as Emma in the existing filename and branch; keep `docs/team/EMMA.md` and `feature/emma-science-provenance`.
 
-The latest reviewed science branch contains three records and the corrected image reference. Those records and Gaddielle's manifest pass the shared validator together. They have not yet been merged into `main`. The Angular foundation is on `main`; PWA installation, offline caching and the feature UI are still pending. Preserve the completed work rather than recreating it.
+### Previous assignment completed — commit `8a947a4`
 
-Your next deliverables are:
+The user reported completion, and the branch inspection confirms these deliverables:
 
-1. **Evidence audit:** verify the specific source for each boxwork, Vera Rubin Ridge and sulfate-transition claim. A mission homepage or proposed-route illustration does not by itself establish mineral measurements or instrument attribution. Replace unsuitable citations or narrow the claim. Record blocked access honestly; do not mark an inaccessible source as checked.
-2. **`docs/SCIENCE_EVIDENCE.md`:** one row per record with ID, supported claim, source URL, supporting passage/section, instrument evidence, observation-date evidence and remaining gaps. Separate observation, derivation and interpretation.
-3. **Corrected records:** preserve `imageRef: "hirise-mro-pia26306-boxwork-2048x1042-v1"`, `position: null` and `positionStatus: "unavailable"` until location evidence is independently verified. Remove unsupported precision instead of inventing measurements or coordinates.
-4. **Accurate summary:** describe an Angular PWA under development. The shared service already implements localStorage persistence and JSON export; the interface integration, installation and verified offline reopening remain pending. Do not describe the current release as offline-capable before those checks pass.
-5. **`docs/DEMO_SCRIPT.md`:** a 60-second internal rehearsal covering imagery, science context, route drawing, uncertainty, a saved note, mission export and offline reopening. Mark every step working, pending or requiring verification. This duration is a rehearsal choice, not a claim about the official submission limit.
-6. **References and handoff:** update `docs/REFERENCES.md` and `docs/AI_USE.md`, validate the data contract and report source access limits. Commit and push your feature branch for review; do not merge into `main` or deploy.
+| Delivered work | Branch files |
+| --- | --- |
+| Three science records with the agreed imageRef and unavailable positions | `public/data/markers.json` |
+| Record-level evidence audit, source passages and access log | `docs/SCIENCE_EVIDENCE.md` |
+| Revised NASA-blog citations and narrowed claims/instrument attribution | `public/data/markers.json`, `docs/REFERENCES.md` |
+| Accurate PWA-under-development status and implemented-versus-pending distinctions | `docs/SCIENCE.md` |
+| Seven-step, status-labeled 60-second internal rehearsal | `docs/DEMO_SCRIPT.md` |
+| Updated AI-use record | `docs/AI_USE.md` |
 
-**Done when:** every retained scientific claim has traceable support or an explicit limitation, the JSON remains compatible with the image contract, and demo wording matches implemented behavior.
+**Do not recreate or repeat this research, rewrite the demo, or reopen completed tasks simply because SOUL.MD was added.** The coordinator still needs to review and integrate the branch; delivered work is distinct from a merge or a working PWA. This inspection confirms the files and recorded evidence, not an independent revalidation of every external source.
 
-The standing guidance below remains applicable; the follow-up above is your current priority.
+Keep the existing explicit limitations: null/unavailable map positions, unknown dates where appropriate, unavailable terrain/calibration, and pending UI/install/offline behavior. Preserve `imageRef: "hirise-mro-pia26306-boxwork-2048x1042-v1"` unless a coordinated data migration changes it.
+
+### Handoff now
+
+1. Preserve your completed branch. Give the coordinator commit `8a947a4` and the delivered files for review; do not reset or duplicate them.
+2. Address a concrete integration finding only if one is identified. A request to update from `main` must preserve your branch work; do not overwrite the completed science files.
+3. Explain to Enzo which science records are contextual and unlocated. Existing evidence and demo content can be reused in the UI and presentation.
+
+### Separate next phase — after handoff
+
+A usability protocol in `docs/USABILITY.md` is **new follow-up work**, not an unfinished part of your previous assignment. When this next phase begins, help the coordinator prepare three outside-user tasks: draw a route, explain whether distance/slope are known, and save/recover a note. The coordinator conducts the sessions, Longla supports QA, and you record actual anonymized outcomes. Mark unrun sessions pending; do not invent results or contact participants through tools.
+
+Keep the current mission and scientific guidance below as standing reference. It is not an instruction to repeat completed work.
 
 ## Your mission
 
@@ -31,10 +45,12 @@ Read [the team allocation](../../TEAM_TASKS.md). The original brief predates the
 - Geological map coverage and legend notes.
 - A reference list and AI-use record, proposed under `docs/`.
 - An English project summary and concise demo/slide text.
+- An evidence audit and user-facing science descriptions.
+- The usability protocol and factual observation record in `docs/USABILITY.md`, coordinated with the integrator.
 
 Willy displays your markers. Gaddielle validates dataset coverage and coordinates with you. Enzo presents the source information. The coordinator integrates records and confirms submission readiness.
 
-## Work in this order
+## Original workflow reference — completed work is not reassigned
 
 1. Confirm the selected region and distinguish exact AOI evidence from broad regional context.
 2. Check an actual USGS/NASA geological map for relevant coverage, scale and legend. Record if no suitable map is found.
@@ -81,58 +97,38 @@ Open every source link; compare each record to its source; check that marker lab
 
 ## Copy-paste coding-agent prompt
 
-Paste the following into your coding-agent session for this follow-up. Read the [shared contract](CODING_AGENTS.md) with it.
-
 ```text
 You are Emmanuelle's science/provenance assistant for MARSWALK.
-The repository uses EMMA.md and feature/emma-science-provenance for her work.
-Read docs/team/EMMA.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
-Your work is scientific evidence, structured data and presentation content,
-not another Angular feature or service worker.
+Read SOUL.MD, TEAM_TASKS.md, docs/team/EMMA.md and
+docs/team/CODING_AGENTS.md. The previous science assignment is completed
+on feature/emma-science-provenance at commit 8a947a4.
 
-1. Inspect Git status and preserve all local changes. Continue on
-   feature/emma-science-provenance. Fetch and integrate the latest main
-   without resetting or overwriting completed science work. The current
-   science records live on this feature branch, not yet on main.
-2. Own public/data/markers.json, docs/SCIENCE.md, docs/REFERENCES.md,
-   docs/AI_USE.md, docs/SCIENCE_EVIDENCE.md and docs/DEMO_SCRIPT.md.
-   Do not alter shared Angular models, application logic or Gaddielle's assets.
-3. Verify the exact supporting sources for the three existing records:
-   - Mount Sharp boxwork and ancient-groundwater interpretation.
-   - Vera Rubin Ridge hematite/calcium-sulfate observations and instruments.
-   - Clay-to-sulfate transition and associated evidence/instruments.
-   A general mission homepage or proposed-route image is insufficient for
-   a detailed measurement claim unless it actually documents that claim.
-   Replace unsuitable citations with specific authoritative records,
-   articles or research sources. Narrow/remove unsupported precision.
-   Record inaccessible sources and what remains unverified; never invent
-   evidence, dates, coordinates or source-access results.
-4. Create docs/SCIENCE_EVIDENCE.md with one row per record: ID, supported
-   claim, source URL, supporting passage/section, instrument evidence,
-   observation-date evidence and remaining gaps. Distinguish observation,
-   derivation and interpretation, including within the finding text.
-5. Preserve imageRef hirise-mro-pia26306-boxwork-2048x1042-v1 on all records.
-   Keep position:null and positionStatus:unavailable until independently
-   verified. Missing dates/instruments remain null. Keep valid records
-   compatible with ScienceMarker and the active image contract.
-6. Update the English project summary to describe an installable Angular
-   PWA under development. Distinguish implemented shared-service localStorage
-   persistence/JSON export from pending UI integration, installation and
-   offline caching. Do not call the current app offline-capable until tested.
-7. Create docs/DEMO_SCRIPT.md as a 60-second internal rehearsal covering
-   imagery, science context, route drawing, uncertainty, a saved note,
-   mission export and offline reopening. Label each step working, pending
-   or requiring verification. Do not invent successful demonstrations or
-   treat this duration as an official submission requirement.
-8. Update references and the honest AI-use record. Validate JSON syntax,
-   required schema fields, unique IDs, the exact imageRef and unavailable
-   positions. If Gaddielle's manifest is absent on your branch, compare
-   against her delivered contract read-only rather than recreating her
-   files. Run relevant actual checks and report what executed.
-9. Commit and push only feature/emma-science-provenance for review; this
-   assignment authorizes that feature-branch push. Do not merge into main,
-   deploy, submit the project or contact others through messaging tools.
+1. Inspect Git status and preserve all local work. Do not reset, recreate,
+   or repeat the completed evidence audit, record corrections, summary,
+   references, AI-use record or 60-second internal demo script.
+2. Confirm the completed files are available for coordinator review and
+   integration. Report the branch/commit and existing limitations. Do not
+   equate delivered files with a completed installed offline PWA.
+3. Keep the agreed imageRef and null/unavailable positions. Reuse the
+   existing source audit; update a specific claim only for a concrete new
+   evidence or integration issue, not because the charter was added.
+4. Finish any small slice already in progress before taking on new work.
+   Updating from main must preserve branch work; never overwrite the
+   completed data to match main's still-pending integration state.
+5. After handoff, the separate next phase is a usability protocol in
+   docs/USABILITY.md, if not already present. Three outside users attempt
+   route drawing, explanation of known/unknown distance and slope, and
+   note recovery. Coordinator conducts sessions; Longla supports QA.
+   Prepare the protocol first and label results pending until observed.
+   Record only real anonymized outcomes, failures and changes to retest.
+6. Present near-term science-learning/rehearsal use cases and future
+   astronaut support honestly. Existing demo pacing is internal, not an
+   official submission requirement. Reuse delivered science descriptions
+   to help Enzo distinguish context records from geolocated markers.
 
-Report changed files, sources actually checked, supported findings, check
-results, remaining access/evidence gaps and the pushed commit.
+Report existing completed work, any concrete integration issue and only
+new follow-up changes. The prior branch assignment permits pushing your
+own feature branch; no main merge, deployment, submission or messaging
+without applicable authorization. Follow learner checkpoints only for
+new substantive work; do not restart a completed lesson.
 ```
