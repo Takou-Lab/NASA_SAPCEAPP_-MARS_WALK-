@@ -2,6 +2,8 @@
 
 > **Notice:** This 7-slide outline and the accompanying 60-second rehearsal pacing in [DEMO_SCRIPT.md](DEMO_SCRIPT.md) are **internal team presentation choices**, not verified official NASA Space Apps Challenge submission limits. Author: Emma (he/him).
 
+**Coordinator readiness update:** Willy's `21cf6f0` navigation is now approved/integrated (38 tests and production build passed; Chromium keyboard and touch-emulated checks passed). Gaddielle's `c887286` passport is approved/integrated. Historical baseline counts below remain tied to their recorded revision. Science-context UI, full shell integration and installed offline PWA acceptance remain pending.
+
 ## Slide Overview
 
 | Slide | Title | Feature Status | Reviewed Revision | Outstanding Artifact |
@@ -47,7 +49,7 @@
 - **Outstanding Artifact:** `PENDING` — Independent rover-to-orbital pixel tie-point verification (until then, records stay contextual).
 
 ### Slide 5 — Signature Experience: Exploration Confidence & Data Passports
-- **Message:** MARSWALK's core contribution is telling the truth when data is missing. `assessRoute()` reports `distanceStatus: "unavailable"` (`planarDistanceMeters: null`) while `calibration.verified` is `false`, and `terrainStatus: "unavailable"` (visual review only) with explicit warnings—never fabricating confidence scores or `"SAFE"` labels. Contextual science records remain readable in the Data Passport / science list even without map coordinates.
+- **Message:** MARSWALK's core contribution is telling the truth when data is missing. `assessRoute()` reports `distanceStatus: "unavailable"` (`planarDistanceMeters: null`) while `calibration.verified` is `false`, and `terrainStatus: "unavailable"` (visual review only) with explicit warnings—never fabricating confidence scores or `"SAFE"` labels. The planned contextual science view will keep records readable without map coordinates; its component and shell integration remain pending.
 - **Evidence / Implementation Reference:** [src/app/core/route.ts](../src/app/core/route.ts), [src/app/core/mission.service.ts](../src/app/core/mission.service.ts), [src/app/core/validation.ts](../src/app/core/validation.ts), [SCIENCE.md](SCIENCE.md) (Section 6).
 - **Reviewed Revision:** `f24f6fc` (`main`), `15b1666` (`feat/enzo-ui-planner-notebook`, under corrective review in [docs/reviews/ENZO.md](reviews/ENZO.md)).
 - **Feature Status:** `WORKING` (core `MissionService` & `assessRoute` logic) / `IN CORRECTIVE REVIEW` (Enzo's Confidence Panel, Data Passport, and contextual science UI).
@@ -58,11 +60,11 @@
 - **Evidence / Implementation Reference:** [DEMO_SCRIPT.md](DEMO_SCRIPT.md), [MAP_INTEGRATION.md](qa/MAP_INTEGRATION.md), [src/app/map/map.component.ts](../src/app/map/map.component.ts).
 - **Reviewed Revision:** `f24f6fc` / `22e07ef` (`main`, 32 passing unit tests across 4 files, production `ng build` passing, one-time Playwright desktop 1366 × 1000 & tablet-sized 820 × 1180 smoke checks recorded in [MAP_INTEGRATION.md](qa/MAP_INTEGRATION.md)).
 - **Feature Status:** `WORKING` (map mounting, data validation, core route/note state) / `PENDING` (route-mode UI controls, notebook/export UI buttons, PWA installation, offline cache).
-- **Outstanding Artifact:** `PENDING` — Integrated full-UI screenshots, Reset View / Focus Route buttons (`feature/willy-map-development`), and installed-device offline reload capture.
+- **Outstanding Artifact:** `PENDING` — Integrated full-UI screenshots, updated navigation-control screenshots after accepted `21cf6f0`, and installed-device offline reload capture.
 
 ### Slide 7 — Honest Limitations & Next Steps
-- **Message:** MARSWALK is currently an installable Angular PWA **under development**. Before claiming a complete offline mission, the team is completing four concrete steps: (1) resolving Enzo's UI integration and local font issues (`feat/enzo-ui-planner-notebook`), (2) Willy's Reset View / Focus Route controls, (3) Coordinator's PWA manifest, service-worker caching, and physical-device offline reload verification, and (4) Coordinator-led formative usability sessions with three outside participants.
+- **Message:** MARSWALK is an Angular PWA **under development; installation remains pending**. Before claiming a complete offline mission, the team is completing four concrete steps: (1) resolving Enzo's UI integration and local font issues (`feat/enzo-ui-planner-notebook`), (2) Emma's contextual science component and its shell integration, (3) Coordinator's PWA manifest, service-worker caching, and physical-device offline reload verification, and (4) Coordinator-led formative usability sessions with three outside participants.
 - **Evidence / Implementation Reference:** [REVIEW.md](../REVIEW.md), [NEXT_TASKS.md](../NEXT_TASKS.md), [USABILITY.md](USABILITY.md), [docs/reviews/ENZO.md](reviews/ENZO.md), [docs/reviews/GADDIELLE.md](reviews/GADDIELLE.md).
 - **Reviewed Revision:** `22e07ef` (`main`).
 - **Feature Status:** `PENDING` (UI integration, PWA service-worker caching, physical-device QA, and outside-user sessions).
-- **Outstanding Artifact:** `PENDING` — Anonymized participant outcomes in [USABILITY.md](USABILITY.md), Data Passport wording fixes on `feature/gaddielle-data-preparation`, and production offline reload logs.
+- **Outstanding Artifact:** `PENDING` — Anonymized participant outcomes in [USABILITY.md](USABILITY.md), contextual science UI integration and production offline reload logs. Gaddielle's Data Passport corrections at `c887286` are approved and integrated.

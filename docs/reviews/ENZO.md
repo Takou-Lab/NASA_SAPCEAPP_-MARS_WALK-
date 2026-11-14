@@ -37,6 +37,8 @@ In Chromium with the real manifest and records supplied through intercepted requ
 
 ## 4. High priority — unlocated science records cannot be opened
 
+**Assignment update:** implementation of the contextual list/details is now transferred to Emma under `src/app/science/`. Enzo retains integration of her reviewed component and removal of duplicate selected-record UI. This finding remains open until that component is available and mounted; do not have both contributors implement the same feature.
+
 `src/app/ui/confidence-panel/confidence-panel.component.html:125` displays only an already-selected marker. No UI action selects a non-null science ID. All three real records have unavailable positions and therefore correctly produce no map pins.
 
 In the browser check, none of the three record titles appeared as selectable context even after the records loaded.

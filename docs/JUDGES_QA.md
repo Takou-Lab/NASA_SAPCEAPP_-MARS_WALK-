@@ -30,7 +30,7 @@
 - Explicit scientific boundaries state that ancient groundwater mineralization does **not** prove current liquid water, and regional geological units do **not** guarantee rover-scale trafficability or slope safety.
 
 ### 5. Why are marker coordinates, metric distances, and terrain slopes marked `unavailable`?
-- **Marker coordinates (`position: null`, `positionStatus: "unavailable"`):** Neither the Curiosity blog updates nor the `PIA26306` release provide verified pixel-level tie-points mapping rover drill/bedrock targets onto `PIA26306_derived_2048.jpg`. Rather than inventing map pins, the records render as readable contextual entries.
+- **Marker coordinates (`position: null`, `positionStatus: "unavailable"`):** Neither the Curiosity blog updates nor the `PIA26306` release provide verified pixel-level tie-points mapping rover drill/bedrock targets onto `PIA26306_derived_2048.jpg`. The planned contextual science view will expose these records without invented map pins; that component and shell integration are still pending.
 - **Metric distance (`distanceStatus: "unavailable"`):** `manifest.json` keeps `calibration.verified: false` (`metersPerPixel: null`) because the public Photojournal JPEG and its 2048 × 1042 derivative lack independent ground-control scale calibration (`src/app/core/route.ts`).
 - **Terrain slope (`terrainStatus: "unavailable"`):** No validated, co-registered DEM is bundled in v1 ([TERRAIN_EVALUATION.md](data/TERRAIN_EVALUATION.md)), so MARSWALK triggers **visual review only** and never infers elevation from image brightness or assigns a `"SAFE"` classification.
 
@@ -41,10 +41,12 @@
   - Mounted Leaflet `CRS.Simple` map (`src/app/map/map.component.ts`) with readiness guards, layer toggles, and zoom/pan — verified by **32 passing unit tests across 4 files**, production `npm run build`, and one-time Playwright desktop (1366 × 1000) / tablet-sized (820 × 1180) smoke checks in [MAP_INTEGRATION.md](qa/MAP_INTEGRATION.md).
 - **Pending / In Progress:**
   - Enzo's route-drawing controls, contextual science list, Confidence Panel, and notebook/export UI (`feat/enzo-ui-planner-notebook` at `15b1666`, awaiting fixes in [docs/reviews/ENZO.md](reviews/ENZO.md)).
-  - Willy's Reset View / Focus Route buttons (`feature/willy-map-development`) and Gaddielle's Data Passport wording corrections ([docs/reviews/GADDIELLE.md](reviews/GADDIELLE.md)).
+  - Emma's standalone contextual science component and its shell integration. Willy's navigation at `21cf6f0` and Gaddielle's corrected passport at `c887286` are now approved/integrated; they are not unfinished assignments.
   - Coordinator's PWA web manifest, service-worker caching, installation, and physical-device offline close/reopen verification.
   - Three outside-user formative usability sessions ([USABILITY.md](USABILITY.md), currently `PENDING`).
 
 ### 7. How was AI assistance used and reviewed?
 - AI coding assistants helped scaffold the Angular foundation, data-verification scripts, documentation structure, and source lookups.
-- Every AI-assisted artifact underwent human/coordinator and automated verification documented in [AI_USE.md](AI_USE.md) and [REVIEW.md](../REVIEW.md): HTTP checks on every retained NASA URL, strict TypeScript/JSON schema checks against `models.ts` and `validation.ts`, Pillow decoding/dimension regression tests, and strict enforcement against fabricated coordinates, dates, or test results.
+- Recorded checks are documented in [AI_USE.md](AI_USE.md), [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md) and [REVIEW.md](../REVIEW.md): Emma recorded source-access checks and supporting passages; the coordinator checked runtime record compatibility, reviewed contributions, and ran the reported tests/builds/browser checks. These are specific recorded checks, not a claim that every artifact or external source was independently reverified. Unavailable data and unrun tests remain explicit.
+
+**Coordinator readiness update:** navigation `21cf6f0` adds six tests (38 total) and passed production build plus development-browser keyboard/touch-emulated navigation checks. This does not establish installed offline PWA behavior.

@@ -53,7 +53,7 @@ The root calls `MissionService.initialize()` once. Components use readonly signa
 
 Records are versioned and tied to the active imageRef. `loadRoute()` explicitly restores validated route and observations and resets undo history; initialization does not overwrite current work with storage. `addObservation()` persists before returning success, so callers must retain drafts on failure. Export contains provenance and limitations. Browser storage is isolated by origin.
 
-Use [Willy's current brief](docs/team/WILLY.md) for the next map-navigation task. Root mounting is integrated and must not be repeated.
+Reset View and Focus Route are approved/integrated. Use [Willy's current brief](docs/team/WILLY.md) for the next guarded image-retry task. Emma now owns the contextual science component under `src/app/science/`; Enzo retains shell/planner/notebook fixes and its integration. Root mounting is integrated and must not be repeated.
 
 ## Evidence and credits
 
