@@ -12,10 +12,11 @@ This document records the exact command-line steps executed to download, inspect
 
 ## Step 1: Tool Installation & Dependency Declaration
 
-All tools are standalone command-line Python scripts placed in `tools/data/`:
+Standalone command-line Python scripts placed in `tools/data/`:
 - `tools/data/fetch_data.py`: Downloads assets over HTTPS with input validation.
 - `tools/data/inspect_raster.py`: Inspects raster binary headers (dimensions, format, byte size, SHA-256).
 - `tools/data/process_image.py`: Resamples raster images with aspect-ratio preservation and high-quality bicubic filtering.
+- `tools/data/verify_pack.py`: Read-only offline package verifier that checks manifest compliance, file presence, dimensions, and checksums.
 
 Dependencies:
 - Python 3 standard library (`os`, `sys`, `urllib`, `argparse`, `hashlib`, `struct`, `ctypes`).
@@ -84,9 +85,13 @@ Resampling details:
 - **Aspect ratio preserved:** Input ratio = 1.9638; output ratio = 1.9654 (integer pixel rounding).
 - **NoData handling:** The image is continuous optical imagery with 0 NoData pixels within the framing.
 
+> [!CAUTION]
+> **Derivative Preservation:**
+> The committed derivative file (`PIA26306_derived_2048.jpg`) must be kept unchanged. Different image libraries (such as Pillow vs. GDI+) produce differing JPEG compression bitstreams from identical inputs. Any regenerated file with altered bytes or coordinates would invalidate `imageRef` (`hirise-mro-pia26306-boxwork-2048x1042-v1`) and require a coordinated data migration across the team.
+
 ---
 
-## Step 5: Verification of Derivative
+## Step 5: Verification of Derivative Dimensions & Readability
 
 Command executed:
 ```bash
@@ -123,3 +128,39 @@ Output:
 Manifest strictly verified
 ```
 
+---
+
+## Step 7: Offline Package Verification
+
+Command executed:
+```bash
+python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public
+```
+
+Output:
+```text
+======================================================================
+MARSWALK Offline Image Package Verification
+======================================================================
+Manifest path:      public/data/manifest.json
+Manifest size:      1,200 bytes
+Manifest SHA-256:   40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82
+Schema version:     1
+imageRef:           hirise-mro-pia26306-boxwork-2048x1042-v1
+Coverage status:    regional-context
+Coordinate system:  image-pixels-bottom-left
+Manifest dimensions:2048 x 1042 px
+Calibration:        verified=False
+----------------------------------------------------------------------
+Image asset path:   public\data\imagery\PIA26306_derived_2048.jpg
+Image size:         523,272 bytes
+Image SHA-256:      7b814497d98d7e5fb89dd122c65b01c32e5c2099b039ef62887a606af199bfa8
+Decoded dimensions: 2048 x 1042 px
+Decoder used:       JPEG (standard library SOF decoder)
+----------------------------------------------------------------------
+Total required pack:524,472 bytes (0.50 MB)
+======================================================================
+RESULT: SUCCESS - All package files exist, decode cleanly, and match manifest specifications.
+======================================================================
+```
+Exit code: `0`.
