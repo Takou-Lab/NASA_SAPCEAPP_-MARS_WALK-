@@ -36,6 +36,8 @@ Replace the shell's decorative map placeholder with the existing standalone **Ma
 
 For this integration only, you may change `src/app/app.ts`, `app.html`, `app.scss` and `app.spec.ts` narrowly to mount your shell, provide layout space and test the integrated root. Preserve the root's one-time MissionService initialization, actual data/error states and existing capabilities. If the shell owns MapComponent, remove the old root map mount rather than displaying two maps. All unrelated root/core/package/PWA changes remain coordinator-owned.
 
+The coordinator has also added working mission-file transfer in the root: Export mission, file selection and Import selected mission, with asynchronous read guards and replacement/error messages. Preserve this capability when mounting your shell; reuse `MissionService.importMission(raw)` and the 1 MiB limit rather than replacing the service or creating another storage layer. Keep the explicit replacement warning. See [guide improvements](../GUIDE_IMPROVEMENTS.md) and [transfer verification](../qa/MISSION_TRANSFER.md).
+
 The three integrated science records have unavailable positions. Emma now owns their contextual list/details component under `src/app/science/`. Integrate her reviewed `app-science-context` selector when available, and remove duplicate selected-record UI as appropriate. Selection uses the existing service and must not set a route destination or manufacture coordinates. Continue your independent fixes while that component is pending; do not implement a competing list.
 
 ### 4. Preserve drafts and usable layout

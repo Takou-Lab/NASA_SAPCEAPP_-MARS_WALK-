@@ -160,9 +160,12 @@ loadRoute(): { ok: boolean; error?: string };
 addObservation(text: string, position: Point | null):
   { ok: boolean; error?: string };
 exportMission(): void; // downloads versioned JSON, never pixel GeoJSON
+importMission(raw: string): { ok: boolean; error?: string };
 ```
 
 Use `inject(MissionService)` in components. Features must not mutate signal values, create competing state stores or read/write browser storage independently. Handle asynchronous data loading centrally and validate JSON before publishing state. Show loading/errors without crashing. Root assembly loads data once; rendering effects must not refetch it.
+
+Mission transfer is now implemented in the root and shared service. `MAX_MISSION_IMPORT_BYTES` is exported from `mission.service.ts` (1 MiB of UTF-8 JSON). Import validates schema, exact imageRef, bounded coordinates and notes, then saves before publishing the replacement route/observations and clearing history. Failed validation or storage leaves current and saved work unchanged. Only route/notes are imported; trusted imagery/science/calibration and derived assessment stay local. Preserve the warning that import replaces current work and the explicit file-selection/import action when integrating Enzo's shell. See [guide improvements](../GUIDE_IMPROVEMENTS.md) and [transfer checks](../qa/MISSION_TRANSFER.md). This API does not prepare an offline cache.
 
 ## Storage, assessment and offline acceptance
 

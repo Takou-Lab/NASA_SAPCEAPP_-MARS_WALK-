@@ -4,6 +4,8 @@ Product: **installable offline PWA built with Angular and TypeScript**. Region: 
 
 Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offline mission and acceptance criteria. Education, mission rehearsal and analogue-workflow research are near-term use cases; operational astronaut navigation remains a long-term vision.
 
+The [adopted guide improvements](docs/GUIDE_IMPROVEMENTS.md) preserve this region and every current assignment. The coordinator has added validated mission-file transfer (44 tests/build and isolated-browser checks passed). Enzo preserves it during shell integration; full installed offline operation remains the next release gate.
+
 ## Latest published review and next actions
 
 [REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's corrected `c887286` passport is approved and integrated; her new task is a deterministic image-pack index/generator for future PWA caching. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.

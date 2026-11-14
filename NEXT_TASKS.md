@@ -2,6 +2,8 @@
 
 Based on [REVIEW.md](REVIEW.md), dated **14 November 2026**. Preserve existing branches, completed work and learning. These are bounded follow-ups, not restarts. Named briefs contain the full coding-agent prompts.
 
+**Guide improvement:** the coordinator has implemented validated mission-file import alongside export, with 44 tests, production build and isolated-browser transfer checks passing. Preserve this capability in shell integration. [Adopted guide priorities](docs/GUIDE_IMPROVEMENTS.md) keep Gale and existing assignments; complete installed offline operation is next, followed by compatible layers and evidence-gated optional 3D. No teammate needs to restart work.
+
 ## Enzo — correct the reviewed UI branch before a new task
 
 Review of `feat/enzo-ui-planner-notebook` at `15b1666`: **changes required**. The 47 branch tests pass, but the production build fails here on the Google Fonts request. Keep his UI work and stay on the same branch; do not start another app or task branch yet.

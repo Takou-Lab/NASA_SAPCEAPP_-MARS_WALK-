@@ -18,6 +18,48 @@
     }
   </section>
   <app-map />
+  <section aria-labelledby="transfer-title">
+    <h2 id="transfer-title">Carry your mission between devices</h2>
+    <p>Export a mission here, then import it on another device using the same image version.</p>
+    <p id="import-help">
+      Import replaces the current route and saved notes. Export your current work first. Maximum
+      file size: 1 MiB.
+    </p>
+    <div class="transfer-actions">
+      <button
+        type="button"
+        (click)="mission.exportMission()"
+        [disabled]="mission.dataStatus() !== 'ready'"
+      >
+        Export mission
+      </button>
+      <label for="mission-file">Choose a mission JSON file</label>
+      <input
+        id="mission-file"
+        type="file"
+        accept=".json,application/json"
+        aria-describedby="import-help"
+        (change)="selectMissionFile($event)"
+      />
+      <button
+        type="button"
+        (click)="importSelectedMission()"
+        [disabled]="!hasMissionFile() || readingMission() || mission.dataStatus() !== 'ready'"
+      >
+        Import selected mission
+      </button>
+    </div>
+    @if (missionFileName()) {
+      <p>Selected: {{ missionFileName() }}</p>
+    }
+    @if (readingMission()) {
+      <p role="status">Reading mission file…</p>
+    }
+    @if (transferMessage()) {
+      <p role="status">{{ transferMessage() }}</p>
+    }
+    <p>Coordinates stay tied to this image. Distance and terrain limits remain visible below.</p>
+  </section>
   <section aria-labelledby="assessment">
     <h2 id="assessment">Exploration confidence</h2>
     <p>Visual review only. No verified terrain model is supplied.</p>
