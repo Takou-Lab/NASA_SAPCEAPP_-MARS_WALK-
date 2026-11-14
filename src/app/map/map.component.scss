@@ -134,6 +134,33 @@
   color: #ffd1cd;
 }
 
+.map-state-error p {
+  margin: 0 0 0.75rem;
+}
+
+.retry-image {
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0 auto;
+  padding: 0.55rem 1rem;
+  border: 1px solid #8bc8ff;
+  border-radius: 0.45rem;
+  color: #f1f5fa;
+  background: #202a38;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retry-image:hover {
+  background: #2a394b;
+}
+
+.retry-image:focus-visible {
+  outline: 2px solid #8bc8ff;
+  outline-offset: 2px;
+}
+
 .image-provenance,
 .marker-details {
   padding: 0.9rem 1rem;

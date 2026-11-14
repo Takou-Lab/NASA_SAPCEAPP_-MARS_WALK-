@@ -49,6 +49,7 @@ const leaflet = vi.hoisted(() => {
     const events = new Map<string, (event?: any) => void>();
     const layer: any = {
       events,
+      callbacks: new Map<string, (event?: any) => void>(),
       addTo: vi.fn((target: any) => {
         target.addLayer(layer);
         return layer;
@@ -60,12 +61,21 @@ const leaflet = vi.hoisted(() => {
       }),
       on: vi.fn((name: string, handler: (event?: any) => void) => {
         events.set(name, handler);
+        layer.callbacks.set(name, handler);
+        return layer;
+      }),
+      off: vi.fn((name: string, handler: (event?: any) => void) => {
+        if (events.get(name) === handler) events.delete(name);
         return layer;
       }),
       setLatLng: vi.fn(),
       setLatLngs: vi.fn(),
       setStyle: vi.fn(),
-      getElement: vi.fn(() => ({ naturalWidth: 2048, naturalHeight: 1042 })),
+      getElement: vi.fn(() => ({
+        naturalWidth: 2048,
+        naturalHeight: 1042,
+        decode: vi.fn(() => Promise.resolve()),
+      })),
     };
     return layer;
   };
@@ -107,6 +117,7 @@ const leaflet = vi.hoisted(() => {
       layer.getElement.mockReturnValue({
         naturalWidth: (bounds as number[][])[1][1],
         naturalHeight: (bounds as number[][])[1][0],
+        decode: vi.fn(() => Promise.resolve()),
       });
       overlays.push(layer);
       return layer;
@@ -184,10 +195,11 @@ describe('MapComponent', () => {
   };
   let applyMapPoint: ReturnType<typeof vi.fn>;
   let selectMarker: ReturnType<typeof vi.fn>;
+  let initializeMission: ReturnType<typeof vi.fn>;
   let resizeDisconnect: ReturnType<typeof vi.fn>;
   let originalResizeObserver: PropertyDescriptor | undefined;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     resizeDisconnect = vi.fn();
     originalResizeObserver = Object.getOwnPropertyDescriptor(window, 'ResizeObserver');
     Object.defineProperty(window, 'ResizeObserver', {
@@ -229,9 +241,11 @@ describe('MapComponent', () => {
     };
     applyMapPoint = vi.fn();
     selectMarker = vi.fn((id: string | null) => state.selectedMarkerId.set(id));
+    initializeMission = vi.fn();
     const mission = {
       image: state.image.asReadonly(),
       dataStatus: state.dataStatus.asReadonly(),
+      dataError: () => 'Test metadata error.',
       route: state.route.asReadonly(),
       markers: state.markers.asReadonly(),
       layers: state.layers.asReadonly(),
@@ -240,17 +254,13 @@ describe('MapComponent', () => {
       observations: state.observations.asReadonly(),
       applyMapPoint,
       selectMarker,
+      initialize: initializeMission,
       setLayer: vi.fn((id: string, visible: boolean) =>
         state.layers.update((layers) => ({ ...layers, [id]: visible })),
       ),
     };
     TestBed.configureTestingModule({ providers: [{ provide: MissionService, useValue: mission }] });
-    fixture = TestBed.createComponent(MapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    triggerImageLoad();
-    fixture.detectChanges();
-    leaflet.mapInstance.fitBounds.mockClear();
+    await mountMap();
   });
 
   afterEach(() => {
@@ -261,8 +271,23 @@ describe('MapComponent', () => {
     }
   });
 
-  function triggerImageLoad(index = 0): void {
-    leaflet.overlays[index]?.events.get('load')?.();
+  async function triggerImageLoad(index = 0): Promise<void> {
+    await leaflet.overlays[index]?.callbacks.get('load')?.();
+  }
+
+  async function mountMap(loadInitialImage = true): Promise<void> {
+    fixture = TestBed.createComponent(MapComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    if (loadInitialImage) {
+      await triggerImageLoad();
+      fixture.detectChanges();
+      leaflet.mapInstance.fitBounds.mockClear();
+    }
+  }
+
+  function triggerImageError(index = 0): void {
+    leaflet.overlays[index]?.callbacks.get('error')?.();
   }
 
   it('dispatches a map click in the shared coordinate shape', () => {
@@ -279,13 +304,13 @@ describe('MapComponent', () => {
     },
   );
 
-  it('blocks clicks until a replacement image has loaded and matched its manifest', () => {
+  it('blocks clicks until a replacement image has loaded, decoded and matched its manifest', async () => {
     state.image.set({ ...image(), imageRef: 'fixture-replacement' });
     fixture.detectChanges();
     leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
     expect(applyMapPoint).not.toHaveBeenCalled();
 
-    triggerImageLoad(1);
+    await triggerImageLoad(1);
     fixture.detectChanges();
     leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
     expect(applyMapPoint).toHaveBeenCalledOnce();
@@ -493,7 +518,7 @@ describe('MapComponent', () => {
     expect(leaflet.mapInstance.removeLayer).toHaveBeenCalledWith(leaflet.groups[1]);
   });
 
-  it('replaces the image overlay and uses the new manifest dimensions when imageRef changes', () => {
+  it('replaces the image overlay and uses the new manifest dimensions when imageRef changes', async () => {
     const firstOverlay = leaflet.overlays[0];
     const next = {
       ...image(),
@@ -511,7 +536,7 @@ describe('MapComponent', () => {
       [500, 1000],
     ]);
     expect(leaflet.overlays[1].options.pane).toBe('tilePane');
-    triggerImageLoad(1);
+    await triggerImageLoad(1);
     expect(leaflet.mapInstance.fitBounds).toHaveBeenLastCalledWith(
       [
         [0, 0],
@@ -521,9 +546,13 @@ describe('MapComponent', () => {
     );
   });
 
-  it('shows image decode errors when actual dimensions differ from the manifest', () => {
-    leaflet.overlays[0].getElement.mockReturnValue({ naturalWidth: 1, naturalHeight: 1 });
-    triggerImageLoad();
+  it('shows image dimension errors after decoding when actual dimensions differ from the manifest', async () => {
+    leaflet.overlays[0].getElement.mockReturnValue({
+      naturalWidth: 1,
+      naturalHeight: 1,
+      decode: vi.fn(() => Promise.resolve()),
+    });
+    await triggerImageLoad();
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('dimensions do not match its manifest');
     leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
@@ -536,6 +565,452 @@ describe('MapComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('Imagery is unavailable');
     expect(leaflet.overlays[0].remove).toHaveBeenCalled();
+  });
+
+  it('retries successfully after the initial image load fails before any successful load', async () => {
+    fixture.destroy();
+    leaflet.handlers.clear();
+    leaflet.mapLayers.clear();
+    leaflet.overlays.length = 0;
+    leaflet.groups.length = 0;
+    leaflet.polylines.length = 0;
+    leaflet.circles.length = 0;
+    leaflet.mapInstance.on.mockClear();
+    leaflet.mapInstance.off.mockClear();
+    leaflet.mapInstance.addLayer.mockClear();
+    leaflet.mapInstance.removeLayer.mockClear();
+    leaflet.mapInstance.fitBounds.mockClear();
+    leaflet.mapInstance.remove.mockClear();
+    leaflet.map.mockClear();
+    leaflet.imageOverlay.mockClear();
+    leaflet.layerGroup.mockClear();
+    leaflet.polyline.mockClear();
+    leaflet.circleMarker.mockClear();
+
+    const route: Route = {
+      start: { x: 10, y: 20 },
+      waypoints: [{ x: 30, y: 40 }],
+      destination: { x: 50, y: 60 },
+    };
+    const scienceMarker = marker(image().imageRef);
+    const notes: Observation[] = [
+      {
+        id: 'initial-retry-note',
+        imageRef: image().imageRef,
+        createdAt: '2026-11-14T00:00:00Z',
+        text: 'Preserve this note after an initial image failure',
+        position: null,
+      },
+    ];
+    state.route.set(route);
+    state.markers.set([scienceMarker]);
+    state.mode.set('waypoint');
+    state.observations.set(notes);
+    state.selectedMarkerId.set(scienceMarker.id);
+    state.layers.set({ imagery: false, markers: true, grid: false, coverage: true });
+    const imageSnapshot = state.image();
+    const routeSnapshot = state.route();
+    const markersSnapshot = state.markers();
+    const modeSnapshot = state.mode();
+    const observationsSnapshot = state.observations();
+    const selectedSnapshot = state.selectedMarkerId();
+    const layersSnapshot = state.layers();
+
+    await mountMap(false);
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(leaflet.imageOverlay).toHaveBeenCalledOnce();
+
+    const initialOverlay = leaflet.overlays[0];
+    const initialLoad = initialOverlay.callbacks.get('load');
+    const initialError = initialOverlay.callbacks.get('error');
+    expect(initialLoad).toBeTypeOf('function');
+    expect(initialError).toBeTypeOf('function');
+    initialError?.();
+    fixture.detectChanges();
+
+    expect(component.imageDisplayState()).toBe('error');
+    expect(component.canRetryImage()).toBe(true);
+    expect(fixture.nativeElement.querySelector('.retry-image')).not.toBeNull();
+
+    fixture.nativeElement.querySelector('.retry-image').click();
+    fixture.detectChanges();
+    expect(leaflet.overlays).toHaveLength(2);
+    expect(leaflet.imageOverlay).toHaveBeenCalledTimes(2);
+    expect(leaflet.map).toHaveBeenCalledOnce();
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(state.image()).toBe(imageSnapshot);
+    expect(state.route()).toBe(routeSnapshot);
+    expect(state.markers()).toBe(markersSnapshot);
+    expect(state.mode()).toBe(modeSnapshot);
+    expect(state.observations()).toBe(observationsSnapshot);
+    expect(state.selectedMarkerId()).toBe(selectedSnapshot);
+    expect(state.layers()).toBe(layersSnapshot);
+
+    await initialLoad?.();
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(leaflet.overlays[1].remove).not.toHaveBeenCalled();
+
+    const retryOverlay = leaflet.overlays[1];
+    const decodedImage = retryOverlay.getElement();
+    await triggerImageLoad(1);
+    fixture.detectChanges();
+
+    expect(decodedImage.decode).toHaveBeenCalledOnce();
+    expect(component.imageDisplayState()).toBe('ready');
+    expect(leaflet.map).toHaveBeenCalledOnce();
+    expect(leaflet.polylines).toHaveLength(1);
+    expect(leaflet.polylines[0].setLatLngs).toHaveBeenLastCalledWith([
+      [20, 10],
+      [40, 30],
+      [60, 50],
+    ]);
+    expect(leaflet.circles).toHaveLength(4);
+    expect(leaflet.groups[0].layers.size).toBe(4);
+    expect(leaflet.groups[1].layers.size).toBe(1);
+    expect(state.image()).toBe(imageSnapshot);
+    expect(state.route()).toBe(routeSnapshot);
+    expect(state.markers()).toBe(markersSnapshot);
+    expect(state.mode()).toBe(modeSnapshot);
+    expect(state.observations()).toBe(observationsSnapshot);
+    expect(state.selectedMarkerId()).toBe(selectedSnapshot);
+    expect(state.layers()).toBe(layersSnapshot);
+  });
+
+  it('blocks retry when metadata is not ready even while a valid manifest remains present', () => {
+    const route: Route = {
+      start: { x: 10, y: 20 },
+      waypoints: [{ x: 30, y: 40 }],
+      destination: { x: 50, y: 60 },
+    };
+    const scienceMarker = marker(image().imageRef);
+    const notes: Observation[] = [
+      {
+        id: 'metadata-guard-note',
+        imageRef: image().imageRef,
+        createdAt: '2026-11-14T00:00:00Z',
+        text: 'Preserve this note while metadata is not ready',
+        position: null,
+      },
+    ];
+    state.route.set(route);
+    state.markers.set([scienceMarker]);
+    state.mode.set('waypoint');
+    state.observations.set(notes);
+    state.selectedMarkerId.set(scienceMarker.id);
+    state.layers.set({ imagery: false, markers: true, grid: false, coverage: true });
+    const imageSnapshot = state.image();
+
+    state.dataStatus.set('error');
+    fixture.detectChanges();
+
+    expect(state.image()).toBe(imageSnapshot);
+    expect(state.image()).not.toBeNull();
+    expect(component.canRetryImage()).toBe(false);
+    expect(fixture.nativeElement.querySelector('.retry-image')).toBeNull();
+    const overlayCalls = leaflet.imageOverlay.mock.calls.length;
+    const routeSnapshot = state.route();
+    const markersSnapshot = state.markers();
+    const modeSnapshot = state.mode();
+    const observationsSnapshot = state.observations();
+    const selectedSnapshot = state.selectedMarkerId();
+    const layersSnapshot = state.layers();
+
+    component.retryImage();
+    fixture.detectChanges();
+
+    expect(leaflet.imageOverlay).toHaveBeenCalledTimes(overlayCalls);
+    expect(leaflet.overlays).toHaveLength(1);
+    expect(state.image()).toBe(imageSnapshot);
+    expect(state.route()).toBe(routeSnapshot);
+    expect(state.markers()).toBe(markersSnapshot);
+    expect(state.mode()).toBe(modeSnapshot);
+    expect(state.observations()).toBe(observationsSnapshot);
+    expect(state.selectedMarkerId()).toBe(selectedSnapshot);
+    expect(state.layers()).toBe(layersSnapshot);
+    expect(initializeMission).not.toHaveBeenCalled();
+  });
+
+  it('retries on the existing map and restores layers only after decoding and validation', async () => {
+    const route: Route = {
+      start: { x: 10, y: 20 },
+      waypoints: [{ x: 30, y: 40 }],
+      destination: { x: 50, y: 60 },
+    };
+    const scienceMarker = marker(image().imageRef);
+    const notes: Observation[] = [
+      {
+        id: 'retry-note',
+        imageRef: image().imageRef,
+        createdAt: '2026-11-14T00:00:00Z',
+        text: 'Preserve this note',
+        position: null,
+      },
+    ];
+    state.route.set(route);
+    state.markers.set([scienceMarker]);
+    state.mode.set('waypoint');
+    state.observations.set(notes);
+    state.selectedMarkerId.set(scienceMarker.id);
+    state.layers.set({ imagery: false, markers: true, grid: false, coverage: true });
+    fixture.detectChanges();
+
+    const routeSnapshot = state.route();
+    const markersSnapshot = state.markers();
+    const modeSnapshot = state.mode();
+    const observationsSnapshot = state.observations();
+    const selectedSnapshot = state.selectedMarkerId();
+    const layersSnapshot = state.layers();
+    const originalImage = state.image()!;
+    const originalOverlay = leaflet.overlays[0];
+    const routeGroup = leaflet.groups[0];
+    const markerGroup = leaflet.groups[1];
+
+    triggerImageError();
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('error');
+    expect(component.canRetryImage()).toBe(true);
+    expect(fixture.nativeElement.textContent).toContain('The image file could not be loaded.');
+
+    const retryButton = fixture.nativeElement.querySelector('.retry-image') as HTMLButtonElement;
+    expect(retryButton).not.toBeNull();
+    expect(retryButton.type).toBe('button');
+    expect(retryButton.textContent.trim()).toBe('Retry Image');
+    retryButton.click();
+    fixture.detectChanges();
+
+    expect(leaflet.overlays).toHaveLength(2);
+    expect(leaflet.map).toHaveBeenCalledOnce();
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(component.canResetView()).toBe(false);
+    expect(component.canFocusRoute()).toBe(false);
+    expect(fixture.nativeElement.querySelector('.retry-image')).toBeNull();
+    expect(leaflet.overlays[1].url).toBe(originalOverlay.url);
+    expect(leaflet.overlays[1].bounds).toEqual(originalOverlay.bounds);
+    expect(state.image()).toBe(originalImage);
+    expect(state.route()).toBe(routeSnapshot);
+    expect(state.markers()).toBe(markersSnapshot);
+    expect(state.mode()).toBe(modeSnapshot);
+    expect(state.observations()).toBe(observationsSnapshot);
+    expect(state.selectedMarkerId()).toBe(selectedSnapshot);
+    expect(state.layers()).toBe(layersSnapshot);
+    expect(initializeMission).not.toHaveBeenCalled();
+
+    let finishDecode!: () => void;
+    const decode = vi.fn(
+      () =>
+        new Promise<void>((resolve) => {
+          finishDecode = resolve;
+        }),
+    );
+    leaflet.overlays[1].getElement.mockReturnValue({
+      naturalWidth: originalImage.width,
+      naturalHeight: originalImage.height,
+      decode,
+    });
+    const loadPromise = triggerImageLoad(1);
+    fixture.detectChanges();
+    expect(decode).toHaveBeenCalledOnce();
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(routeGroup.layers.size).toBe(1);
+    expect(markerGroup.layers.size).toBe(0);
+
+    finishDecode();
+    await loadPromise;
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('ready');
+    expect(component.canResetView()).toBe(true);
+    expect(component.canFocusRoute()).toBe(true);
+    expect(leaflet.map).toHaveBeenCalledOnce();
+    expect(leaflet.polylines[0].setLatLngs).toHaveBeenLastCalledWith([
+      [20, 10],
+      [40, 30],
+      [60, 50],
+    ]);
+    expect(routeGroup.layers.size).toBe(4); // one route line plus three route points
+    expect(markerGroup.layers.size).toBe(1);
+    expect(state.image()).toBe(originalImage);
+    expect(state.route()).toBe(routeSnapshot);
+    expect(state.markers()).toBe(markersSnapshot);
+    expect(state.mode()).toBe(modeSnapshot);
+    expect(state.observations()).toBe(observationsSnapshot);
+    expect(state.selectedMarkerId()).toBe(selectedSnapshot);
+    expect(state.layers()).toBe(layersSnapshot);
+  });
+
+  it('allows another explicit attempt after a repeated retry failure without looping', () => {
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+    triggerImageError(1);
+    fixture.detectChanges();
+
+    expect(component.imageDisplayState()).toBe('error');
+    expect(fixture.nativeElement.textContent).toContain('The image file could not be loaded.');
+    expect(fixture.nativeElement.querySelector('.retry-image')).not.toBeNull();
+    expect(leaflet.overlays).toHaveLength(2);
+    expect(initializeMission).not.toHaveBeenCalled();
+
+    fixture.nativeElement.querySelector('.retry-image').click();
+    expect(leaflet.overlays).toHaveLength(3);
+    expect(component.imageDisplayState()).toBe('loading');
+  });
+
+  it('keeps a decode failure retryable and does not restore route or markers', async () => {
+    state.route.set({ start: { x: 10, y: 20 }, waypoints: [], destination: { x: 30, y: 40 } });
+    state.markers.set([marker(image().imageRef)]);
+    fixture.detectChanges();
+    const routeGroup = leaflet.groups[0];
+    const markerGroup = leaflet.groups[1];
+
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+    leaflet.overlays[1].getElement.mockReturnValue({
+      naturalWidth: image().width,
+      naturalHeight: image().height,
+      decode: vi.fn(() => Promise.reject(new Error('decode failed'))),
+    });
+    await triggerImageLoad(1);
+    fixture.detectChanges();
+
+    expect(component.imageDisplayState()).toBe('error');
+    expect(fixture.nativeElement.querySelector('.retry-image')).not.toBeNull();
+    expect(routeGroup.layers.size).toBe(1);
+    expect(markerGroup.layers.size).toBe(0);
+    expect(state.route().destination).toEqual({ x: 30, y: 40 });
+    expect(state.markers()).toHaveLength(1);
+  });
+
+  it('ignores a pending decode when a newer image reference supersedes the retry', async () => {
+    state.route.set({ start: { x: 10, y: 20 }, waypoints: [], destination: { x: 30, y: 40 } });
+    fixture.detectChanges();
+    const routeGroup = leaflet.groups[0];
+
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+
+    let finishDecode!: () => void;
+    leaflet.overlays[1].getElement.mockReturnValue({
+      naturalWidth: image().width,
+      naturalHeight: image().height,
+      decode: () =>
+        new Promise<void>((resolve) => {
+          finishDecode = resolve;
+        }),
+    });
+    const staleDecode = triggerImageLoad(1);
+
+    state.image.set({ ...image(), imageRef: 'superseding-image' });
+    fixture.detectChanges();
+    expect(leaflet.overlays).toHaveLength(3);
+    expect(component.imageDisplayState()).toBe('loading');
+
+    finishDecode();
+    await staleDecode;
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(routeGroup.layers.size).toBe(1);
+    expect(leaflet.overlays[2].remove).not.toHaveBeenCalled();
+
+    await triggerImageLoad(2);
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('ready');
+    expect(routeGroup.layers.size).toBe(3);
+  });
+
+  it('keeps a dimension mismatch in error state and offers another explicit retry', async () => {
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+    leaflet.overlays[1].getElement.mockReturnValue({
+      naturalWidth: 1,
+      naturalHeight: 1,
+      decode: vi.fn(() => Promise.resolve()),
+    });
+    await triggerImageLoad(1);
+    fixture.detectChanges();
+
+    expect(component.imageDisplayState()).toBe('error');
+    expect(fixture.nativeElement.textContent).toContain('dimensions do not match its manifest');
+    expect(fixture.nativeElement.querySelector('.retry-image')).not.toBeNull();
+    expect(component.canResetView()).toBe(false);
+  });
+
+  it('ignores stale load and error callbacks from a superseded overlay', async () => {
+    const oldOverlay = leaflet.overlays[0];
+    const oldLoad = oldOverlay.events.get('load');
+    const oldError = oldOverlay.events.get('error');
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+    const retryOverlay = leaflet.overlays[1];
+
+    oldLoad?.();
+    oldError?.();
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('loading');
+    expect(retryOverlay.remove).not.toHaveBeenCalled();
+    expect(fixture.nativeElement.querySelector('.retry-image')).toBeNull();
+
+    await triggerImageLoad(1);
+    fixture.detectChanges();
+    oldError?.();
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('ready');
+  });
+
+  it('blocks duplicate retry attempts and navigation while an image attempt is loading', () => {
+    state.route.set({ start: { x: 10, y: 20 }, waypoints: [], destination: { x: 30, y: 40 } });
+    fixture.detectChanges();
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+
+    component.retryImage();
+    component.retryImage();
+    fixture.detectChanges();
+    expect(leaflet.overlays).toHaveLength(2);
+    expect(component.canRetryImage()).toBe(false);
+    expect(component.canResetView()).toBe(false);
+    expect(component.canFocusRoute()).toBe(false);
+    expect(fixture.nativeElement.querySelector('.retry-image')).toBeNull();
+
+    leaflet.handlers.get('click')?.({ latlng: { lat: 25, lng: 25 } });
+    expect(applyMapPoint).not.toHaveBeenCalled();
+  });
+
+  it.each(['unavailable', 'error'] as const)(
+    'does not offer or start a retry when mission metadata is %s',
+    (status) => {
+      state.image.set(null);
+      state.dataStatus.set(status);
+      fixture.detectChanges();
+
+      expect(component.canRetryImage()).toBe(false);
+      expect(fixture.nativeElement.querySelector('.retry-image')).toBeNull();
+      component.retryImage();
+      expect(leaflet.overlays).toHaveLength(1);
+      expect(initializeMission).not.toHaveBeenCalled();
+    },
+  );
+
+  it('invalidates a pending retry when the component is destroyed', () => {
+    triggerImageError();
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('.retry-image').click();
+    const pendingOverlay = leaflet.overlays[1];
+    const lateLoad = pendingOverlay.events.get('load');
+    const lateError = pendingOverlay.events.get('error');
+
+    fixture.destroy();
+    lateLoad?.();
+    lateError?.();
+
+    expect(leaflet.mapInstance.remove).toHaveBeenCalledOnce();
+    expect(resizeDisconnect).toHaveBeenCalledOnce();
+    expect(component.imageDisplayState()).toBe('loading');
   });
 
   it('removes map handlers and disposes of Leaflet when destroyed', () => {

@@ -73,10 +73,18 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   readonly canFocusRoute = computed(
     () => this.canResetView() && routePoints(this.mission.route()).length >= 2,
   );
+  readonly canRetryImage = computed(
+    () =>
+      this.mission.dataStatus() === 'ready' &&
+      this.mission.image() !== null &&
+      this.imageDisplayState() === 'error',
+  );
 
   private readonly document = inject(DOCUMENT);
   private map?: L.Map;
   private imageOverlay?: L.ImageOverlay;
+  private imageLoadHandler?: L.LeafletEventHandlerFn;
+  private imageErrorHandler?: L.LeafletEventHandlerFn;
   private routeLayer?: L.LayerGroup;
   private markerLayer?: L.LayerGroup;
   private routeLine?: L.Polyline;
@@ -113,6 +121,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.imageRequest++;
+    this.removeImageOverlay();
     this.resizeObserver?.disconnect();
     this.resizeObserver = undefined;
     if (this.map && this.clickHandler) this.map.off('click', this.clickHandler);
@@ -169,6 +178,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  retryImage(): void {
+    const image = this.mission.image();
+    if (!this.canRetryImage() || !this.map || !image) return;
+    this.loadImageOverlay(image, false);
+  }
+
   private initializeMap(): void {
     if (this.map || !this.mapContainer?.nativeElement) return;
 
@@ -212,8 +227,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     if (status === 'unavailable' || status === 'error' || !image) {
       this.imageRequest++;
       this.activeImageRef = null;
-      this.imageOverlay?.remove();
-      this.imageOverlay = undefined;
+      this.removeImageOverlay();
       this.clearRoutePointLayers();
       this.clearScienceMarkerLayers();
       this.imageDisplayState.set('error');
@@ -222,54 +236,96 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     }
     if (!this.map || this.activeImageRef === image.imageRef) return;
 
-    this.imageRequest++;
-    const request = this.imageRequest;
+    this.loadImageOverlay(image, true);
+  }
+
+  private loadImageOverlay(image: ImageManifest, fitInitialView: boolean): void {
+    const map = this.map;
+    if (!map) return;
+
+    // Invalidate previous overlay callbacks before removing or replacing a layer.
+    const request = ++this.imageRequest;
     this.activeImageRef = image.imageRef;
-    this.imageOverlay?.remove();
-    this.imageOverlay = undefined;
+    this.removeImageOverlay();
     this.imageDisplayState.set('loading');
     this.imageDisplayError.set(null);
     this.clearRoutePointLayers();
     this.clearScienceMarkerLayers();
 
     const assetUrl = new URL(image.assetPath, this.document.baseURI).href;
-    this.map.setView([image.height / 2, image.width / 2], -1);
+    if (fitInitialView) map.setView([image.height / 2, image.width / 2], -1);
     const overlay = L.imageOverlay(assetUrl, imageBounds(image), {
       interactive: false,
       className: 'mars-map-image',
       pane: 'tilePane',
     });
     this.imageOverlay = overlay;
-    overlay.once('load', () => {
+    const onLoad: L.LeafletEventHandlerFn = async () => {
+      this.detachImageHandlers(overlay, onLoad, onError);
       if (request !== this.imageRequest || this.activeImageRef !== image.imageRef) return;
       const element = overlay.getElement();
-      if (
-        !element ||
-        element.naturalWidth !== image.width ||
-        element.naturalHeight !== image.height
-      ) {
+      if (!element) {
+        this.failImage('The loaded image could not be decoded.');
+        return;
+      }
+
+      try {
+        await element.decode();
+      } catch {
+        if (request === this.imageRequest) {
+          this.failImage('The loaded image could not be decoded.');
+        }
+        return;
+      }
+
+      if (request !== this.imageRequest || this.activeImageRef !== image.imageRef) return;
+      if (element.naturalWidth !== image.width || element.naturalHeight !== image.height) {
         this.failImage('The loaded image dimensions do not match its manifest.');
         return;
       }
       this.imageDisplayState.set('ready');
-      this.map?.fitBounds(imageBounds(image), { padding: [8, 8] });
+      if (fitInitialView) map.fitBounds(imageBounds(image), { padding: [8, 8] });
       this.syncLayerVisibility(this.mission.layers());
       this.syncRoute(this.mission.route());
       this.syncMarkers(this.mission.markers(), image, this.mission.selectedMarkerId());
-    });
-    overlay.once('error', () => {
+    };
+    const onError: L.LeafletEventHandlerFn = () => {
+      this.detachImageHandlers(overlay, onLoad, onError);
       if (request === this.imageRequest) this.failImage('The image file could not be loaded.');
-    });
-    overlay.addTo(this.map);
+    };
+    this.imageLoadHandler = onLoad;
+    this.imageErrorHandler = onError;
+    overlay.on('load', onLoad).on('error', onError);
+    overlay.addTo(map);
   }
 
   private failImage(message: string): void {
-    this.imageOverlay?.remove();
-    this.imageOverlay = undefined;
+    this.removeImageOverlay();
     this.imageDisplayState.set('error');
     this.imageDisplayError.set(message);
     this.clearRoutePointLayers();
     this.clearScienceMarkerLayers();
+  }
+
+  private removeImageOverlay(): void {
+    const overlay = this.imageOverlay;
+    if (!overlay) return;
+    this.detachImageHandlers(overlay, this.imageLoadHandler, this.imageErrorHandler);
+    overlay.remove();
+    this.imageOverlay = undefined;
+  }
+
+  private detachImageHandlers(
+    overlay: L.ImageOverlay,
+    loadHandler: L.LeafletEventHandlerFn | undefined,
+    errorHandler: L.LeafletEventHandlerFn | undefined,
+  ): void {
+    if (loadHandler) overlay.off('load', loadHandler);
+    if (errorHandler) overlay.off('error', errorHandler);
+    if (this.imageOverlay === overlay) {
+      this.imageLoadHandler = undefined;
+      this.imageErrorHandler = undefined;
+    }
   }
 
   private syncLayerVisibility(layers: Readonly<Record<string, boolean>>): void {
