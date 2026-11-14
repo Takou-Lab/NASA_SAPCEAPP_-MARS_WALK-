@@ -2,14 +2,15 @@
 """
 Offline Image Package Verifier for MARSWALK.
 Validates the data manifest against the shared contract, confirms the referenced
-raster exists, verifies that it decodes cleanly, compares actual dimensions to
-the manifest, and calculates file sizes and SHA-256 checksums.
+raster exists, verifies that it fully decodes cleanly (detecting truncated files
+via Pillow's .load()), compares actual dimensions to the manifest, and calculates
+file sizes and SHA-256 checksums.
 
 This tool runs completely offline, performs read-only operations, and does not
 modify or download any data.
 
 Usage:
-  python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public
+  python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public [--json]
 """
 import argparse
 import hashlib
@@ -46,29 +47,36 @@ def parse_png_dimensions(data: bytes):
     width, height = struct.unpack(">II", data[16:24])
     return width, height
 
-def decode_image_dimensions(file_path: str):
+def decode_and_verify_image(file_path: str):
     """
-    Decodes image dimensions using Pillow if available, falling back to
-    built-in standard library binary decoders for JPEG/PNG.
+    Decodes the image and verifies its full integrity.
+    Uses Pillow's .load() to fully decode pixel data and catch truncated or corrupted files.
     """
     try:
-        from PIL import Image
+        from PIL import Image, ImageFile
+        # Ensure Pillow raises an error on truncated images instead of silently loading partial pixels
+        ImageFile.LOAD_TRUNCATED_IMAGES = False
         with Image.open(file_path) as img:
-            return img.size[0], img.size[1], f"{img.format} (via Pillow)"
+            w, h = img.size
+            img.load()  # Fully decode pixel buffer to detect truncation/corruption
+            return w, h, f"{img.format} (fully decoded via Pillow .load())"
     except ImportError:
         pass
 
+    # Fallback to standard library decoder with EOF validation
     with open(file_path, "rb") as f:
-        header = f.read(65536)
+        full_data = f.read()
 
-    if header.startswith(b'\xff\xd8'):
-        with open(file_path, "rb") as f:
-            full_data = f.read()
+    if full_data.startswith(b'\xff\xd8'):
+        if not full_data.endswith(b'\xff\xd9'):
+            raise ValueError(f"Truncated JPEG image: missing EOI (0xFFD9) marker in {file_path}")
         w, h = parse_jpeg_dimensions(full_data)
-        return w, h, "JPEG (standard library SOF decoder)"
-    elif header.startswith(b'\x89PNG\r\n\x1a\n'):
-        w, h = parse_png_dimensions(header)
-        return w, h, "PNG (standard library IHDR decoder)"
+        return w, h, "JPEG (standard library SOF + EOI check)"
+    elif full_data.startswith(b'\x89PNG\r\n\x1a\n'):
+        if not full_data.endswith(b'IEND\xaeB`\x82'):
+            raise ValueError(f"Truncated PNG image: missing IEND chunk in {file_path}")
+        w, h = parse_png_dimensions(full_data)
+        return w, h, "PNG (standard library IHDR + IEND check)"
     else:
         raise ValueError(f"Unsupported image format or unrecognized header in {file_path}")
 
@@ -77,7 +85,7 @@ def is_valid_https_url(url: str) -> bool:
         parsed = urllib.parse.urlparse(url)
         return parsed.scheme == "https" and bool(parsed.netloc) and not parsed.username and not parsed.password
     except Exception:
-        return false
+        return False
 
 def validate_manifest_schema(m: dict) -> list[str]:
     errors = []
@@ -164,6 +172,7 @@ def sha256_file(path: str) -> str:
 
 def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
     results = {
+        "success": False,
         "manifestPath": manifest_path,
         "publicRoot": public_root,
         "errors": [],
@@ -222,9 +231,9 @@ def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
         results["errors"].append(f"Failed to compute image size/checksum: {e}")
         return False, results
 
-    # 5. Decode image and compare dimensions
+    # 5. Decode image and compare dimensions (fully decoding with .load())
     try:
-        dec_w, dec_h, decoder_name = decode_image_dimensions(resolved_image_path)
+        dec_w, dec_h, decoder_name = decode_and_verify_image(resolved_image_path)
         results["decodedDimensions"] = (dec_w, dec_h)
         results["decoder"] = decoder_name
         
@@ -240,6 +249,7 @@ def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
         results["errors"].append(f"Failed to decode image {resolved_image_path}: {e}")
         return False, results
 
+    results["success"] = True
     return True, results
 
 def main():
@@ -253,6 +263,7 @@ def main():
 
     if args.json:
         print(json.dumps(res, indent=2))
+        sys.exit(0 if success else 1)
     else:
         print("=" * 70)
         print("MARSWALK Offline Image Package Verification")
@@ -298,4 +309,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
