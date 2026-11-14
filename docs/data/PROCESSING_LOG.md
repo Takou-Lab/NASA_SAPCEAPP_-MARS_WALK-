@@ -132,6 +132,11 @@ Manifest strictly verified
 
 ## Step 7: Offline Package Verification
 
+Prerequisite:
+```bash
+python -m pip install -r tools/data/requirements.txt
+```
+
 Command executed:
 ```bash
 python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public
