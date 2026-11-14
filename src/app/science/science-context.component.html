@@ -1,0 +1,129 @@
+<section class="science-context" aria-label="Contextual science records">
+  <div class="science-context-header">
+    <h2>Contextual Science Records</h2>
+    <p class="science-context-note">
+      Regional Curiosity and orbital findings remain readable here as exploration context when pixel
+      coordinates on the active image are unavailable.
+    </p>
+  </div>
+
+  @if (mission.dataStatus() === 'loading') {
+    <p class="science-state" role="status">Loading contextual science records…</p>
+  } @else if (mission.dataStatus() === 'unavailable') {
+    <p class="science-state" role="status">
+      Contextual science records are unavailable because image metadata has not been supplied yet.
+    </p>
+  } @else if (mission.dataStatus() === 'error') {
+    <p class="science-state science-state-error" role="alert">
+      {{ mission.dataError() || 'Contextual science records could not be loaded.' }}
+    </p>
+  } @else {
+    @if (mission.dataError(); as errorMessage) {
+      <p class="science-banner-error" role="alert">{{ errorMessage }}</p>
+    }
+
+    @if (mission.markers().length === 0) {
+      <p class="science-empty" role="status">No contextual science records are available.</p>
+    } @else {
+      <ul class="science-record-list" aria-label="Science records">
+        @for (record of mission.markers(); track record.id) {
+          <li>
+            <button
+              type="button"
+              class="science-record-button"
+              [class.selected]="isSelected(record.id)"
+              [attr.aria-pressed]="isSelected(record.id)"
+              (click)="selectRecord(record.id)"
+            >
+              <span class="record-title">{{ record.name }}</span>
+              <span class="record-badges">
+                <span class="record-evidence">{{ record.evidenceType }}</span>
+                <span class="record-position-badge">{{
+                  record.positionStatus === 'unavailable' || !record.position
+                    ? 'Contextual (unlocated)'
+                    : record.positionStatus
+                }}</span>
+              </span>
+            </button>
+          </li>
+        }
+      </ul>
+
+      @if (selectedRecord(); as record) {
+        <article
+          class="science-record-details"
+          aria-live="polite"
+          aria-label="Selected science record details"
+        >
+          <div class="details-header">
+            <h3>{{ record.name }}</h3>
+            <button
+              type="button"
+              class="clear-selection-button"
+              aria-label="Clear selection of science record"
+              (click)="clearSelection()"
+            >
+              Clear selection
+            </button>
+          </div>
+
+          <p class="record-finding">{{ record.finding }}</p>
+
+          <dl class="record-metadata">
+            <div class="metadata-row">
+              <dt>Evidence type</dt>
+              <dd>{{ record.evidenceType }}</dd>
+            </div>
+            <div class="metadata-row">
+              <dt>Instrument</dt>
+              <dd>{{ record.instrument || 'Unavailable' }}</dd>
+            </div>
+            <div class="metadata-row">
+              <dt>Observation date</dt>
+              <dd>{{ record.date || 'Unavailable' }}</dd>
+            </div>
+            <div class="metadata-row">
+              <dt>Position status</dt>
+              <dd>{{ formatPositionStatus(record) }}</dd>
+            </div>
+            <div class="metadata-row">
+              <dt>Source</dt>
+              <dd>
+                @if (safeExternalUrl(record.source.url); as sourceUrl) {
+                  <a [href]="sourceUrl" target="_blank" rel="noopener noreferrer">{{
+                    record.source.title
+                  }}</a>
+                  <span class="source-credit"> — {{ record.source.credit }}</span>
+                  <small class="connectivity-note"
+                    >External source link requires network connectivity.</small
+                  >
+                } @else {
+                  <span>{{ record.source.title }}</span>
+                  <span class="source-credit"> — {{ record.source.credit }}</span>
+                }
+              </dd>
+            </div>
+          </dl>
+
+          <div class="record-limitations">
+            <h4>Limitations</h4>
+            @if (record.limitations.length > 0) {
+              <ul class="limitations-list">
+                @for (limitation of record.limitations; track $index) {
+                  <li>{{ limitation }}</li>
+                }
+              </ul>
+            } @else {
+              <p class="limitations-empty">No limitations recorded.</p>
+            }
+          </div>
+        </article>
+      } @else {
+        <p class="science-no-selection" role="status">
+          Select a science record to view its finding, source, instrument attribution, and
+          limitations.
+        </p>
+      }
+    }
+  }
+</section>
