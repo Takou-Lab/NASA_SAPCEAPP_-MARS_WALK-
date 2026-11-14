@@ -10,6 +10,8 @@ Review date: **14 November 2026**. Baseline: `main` at **`f24f6fc68750f3bfd73513
 
 **Latest Gaddielle review:** image-pack generator/index **`bf9689b`**, compared with main `c897a70`: **changes required**. All 14 Python tests and the real index check pass, but canonical/browser-safe paths and strict index shape/type validation need correction (R1/R2). Feature code is not merged; a read-only merge preview was clean. Earlier package/passport `c887286` remains approved and integrated. See [the latest review and correction brief](docs/reviews/GADDIELLE.md); preserve the existing implementation and repair the same branch before a new task.
 
+**Latest Royce/Longla review:** `feature/longla-3d-rehearsal` at **`aedfd4d`**, compared with main `9408070`: **changes required**. The 24 branch tests and production build pass with size warnings. The older baseline has an `app.ts` merge conflict and lacks the integrated image pack. Browser probes with main's data reproduced route-triggered camera resets/texture leaks, silent image/graphics failures and a simulated VR toggle; north claims also exceed the image contract. Preserve the viewer and correct R1–R5 on the same branch. [Full review](docs/reviews/LONGLA.md) and [agent brief](docs/team/LONGLA.md). No viewer code is merged.
+
 See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named briefs for ready-to-paste coding-agent instructions. Passing a technical review is distinct from integration, external scientific verification and installed-PWA acceptance.
 
 ## All published branches
@@ -21,9 +23,10 @@ See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named brief
 | `feature/emma-science-provenance` | `947ff1a` | Presentation delivered/integrated with small readiness-wording updates; earlier work retained | Build standalone contextual science UI on proposed `feature/emma-science-context-ui`, independently of Enzo |
 | `feature/gaddielle-data-preparation` | `bf9689b` | Index needs corrections; 14 Python tests and real check pass; prior package/passport accepted | Fix R1/R2 path and index-validation findings on the same branch, then re-review |
 | `feat/enzo-ui-planner-notebook` | `15b1666` | Changes required; 47 tests pass, production build blocked by external fonts, UI/core integration and behavior issues reproduced | Preserve the UI and repair the same branch using [ENZO.md](docs/reviews/ENZO.md); no new assignment/branch yet |
+| `feature/longla-3d-rehearsal` | `aedfd4d` | Viewer delivered; 24 tests/build pass, integration and R1–R5 corrections required | Preserve the viewer, repair the same branch using [LONGLA.md](docs/reviews/LONGLA.md), then re-review |
 | `Tablet-App` | `f24f6fc` | Exactly matches the reviewed main: zero unique commits/diff | No independent contribution or branch owner can be inferred; no separate correctness claim |
 
-No Royce/Longla feature branch was visible in the original fetched remote heads. Enzo's branch became available later and is covered by the supplemental review above. Remote visibility does not establish whether other local work is complete; preserve it and obtain a published commit before reviewing it.
+No Royce/Longla feature branch was visible in the original fetched remote heads; `aedfd4d` is now available and reviewed above. Enzo's branch also became available later and is covered by its supplemental review. Remote visibility does not establish whether other local work is complete; preserve it and obtain a published commit before reviewing it. This record covers named reviewed tips; other newly published branches require their own review.
 
 ## Willy — original accepted contribution; latest navigation approved above
 

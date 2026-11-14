@@ -1,4 +1,30 @@
-# Longla — PWA Quality Checks and Optional 3D Rehearsal
+# Royce / Longla — PWA Quality Checks and Optional 3D Rehearsal
+
+## Current review — correct the delivered viewer before integration
+
+Royce's original-plan 3D role is documented as Longla in this repository. Published branch **`feature/longla-3d-rehearsal`**, commit **`aedfd4d`**, is reviewed: **changes required**. Read [the full findings](../reviews/LONGLA.md), [shared contract](CODING_AGENTS.md), [SOUL.MD](../../SOUL.MD) and [NEXT_TASKS.md](../../NEXT_TASKS.md).
+
+The viewer is delivered: **24 branch tests and production build passed**, with initial/style size warnings. Preserve the component, transforms, route rendering and camera controls. The branch predates the integrated map/data and has a root conflict with main; no viewer code is merged. Do not restart the assignment or add VR.
+
+### Same-branch correction slice
+
+1. **R1 — integrate safely:** merge latest main into the same branch without reset/force push. Retain canonical core, one initialization, MapComponent, real data, mission import/export and all accepted tests. Keep the optional viewer behind explicit activation and defer its download/rendering. Resolve the root conflict; do not raise budgets to hide size warnings.
+2. **R2 — camera/resources:** route edits must update route objects without rebuilding the image or resetting the user's view. Dispose replaced textures and helper resources as well as resources still attached at teardown. Guard asynchronous loading and reset obsolete hover references.
+3. **R3 — failures:** show loading/image-error/ready states, validate decoded dimensions and graphics initialization, and keep the main 2D mission usable when WebGL2/image loading fails. Do not relabel a metadata-ready mission as invalid because the viewer image fails. Include source/credit/limitations and verify actual texture corners.
+4. **R4 — evidence:** replace unsupported Martian-north/geographic-heading claims with image-axis labels or remove the compass. The current image orientation is unverified. Describe all display offsets honestly; terrain and metric scale remain unavailable.
+5. **R5 — VR:** remove the Enter/Exit VR toggle that only changes a signal. Mark immersive VR unimplemented. Actual VR is a later optional task.
+
+Own `src/app/viewer3d/` and QA records. For this correction only, narrow root TS/HTML/SCSS/spec and package/lockfile edits are authorized to reconcile the viewer, preserve main behavior and defer it. Keep existing dependency versions; put type declarations in devDependencies. Do not edit another person's component, shared core/models, source data or worker.
+
+### Verification and handoff
+
+Add meaningful regressions for R2/R3 and truthful labels/VR availability. Retain the integrated regressions and run `npm test` and `npm run build` from the reconciled branch. Record actual real-data browser outcomes, including image failure, graphics fallback, route edits, view persistence, activation/teardown/reopening and texture alignment in `docs/qa/VIEWER3D_REVIEW.md`. Create/update `docs/qa/PWA_ACCEPTANCE.md`; installation/offline/physical-device scenarios remain pending until actually run.
+
+Commit/push **only `feature/longla-3d-rehearsal`**, then provide the commit, files, R1–R5 closure, actual test/build/browser results and remaining limitations. This correction assignment authorizes that normal feature-branch push. No main merge/push, deployment, environment publication, competition submission or external messaging is included. After approval, continue independent PWA/device QA; do not expand into terrain/VR now.
+
+## Continuing role reference
+
+The retained role plan below supplies context. The active task is the reviewed correction slice above; preserve completed work.
 
 **Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work). If a 3D change is already underway, preserve and finish or hand off that bounded change before the next QA slice; do not discard it or recreate it.
 
@@ -47,42 +73,45 @@ Learn and explain the difference between installation, cache readiness, online s
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Longla's coding tutor and QA/optional-3D agent for MARSWALK.
-Read SOUL.MD, docs/team/LONGLA.md, docs/team/CODING_AGENTS.md and
-TEAM_TASKS.md. Prioritize an evidenced offline PWA mission before 3D/VR.
+You are Royce/Longla's MARSWALK viewer and QA agent. Continue the SAME
+feature/longla-3d-rehearsal branch. aedfd4d is delivered but needs corrections;
+do not restart the viewer or implement VR to close this review.
 
-1. Inspect actual app, branch, scripts and data. Preserve work. Angular
-   foundation exists; do not create another application or assume PWA
-   installation/offline behavior works from the unit test results.
-2. Own docs/qa/ and optional src/app/viewer3d/. Create a reproducible PWA
-   acceptance plan with prerequisites, expected behavior, device/browser,
-   revision, actual result and evidence. Unrun checks remain pending.
-3. As the coordinator integrates features, verify image load, route modes,
-   undo/clear, evidence/unknown-data display, note save/recovery and export.
-   Confirm unlocated records do not appear at invented map coordinates.
-4. When supported, prepare assets online and install on the target device.
-   Disconnect, close, reopen from installed icon, inspect image/science,
-   edit route, recover/save a note and export. Check incomplete preparation,
-   storage failures and update feedback using safe isolated test data.
-   Separate connectivity, verified cache readiness and persistence.
-5. Support the coordinator's three outsider task checks. Record anonymous
-   actual route completion, understanding of unknown distance/slope, and
-   note recovery; hand observations to Emma's usability summary.
-   Do not fabricate results or contact participants through tools without
-   authorization. Report defects and retest affected scenarios.
-6. Only after core acceptance, implement optional standalone Viewer3dComponent
-   using MissionService and coordinator-managed Three.js dependencies.
-   V1 has no DEM: use a labeled flat image plane. Transform X=x-width/2,
-   Y=0,Z=height/2-y; verify corners/texture orientation. Small line offsets
-   are display adjustments, not elevation. Use shared route order.
-7. Render only positioned, matching-reference markers and preserve their
-   verification labels. Keep source/limitations visible. Do not fabricate
-   terrain, coordinates or measurements. Ask for a verified terrain contract
-   before any real height integration. Dispose all graphics resources.
-8. VR is optional after the core and viewer work. Unsupported WebXR must
-   leave the normal app usable. Record actual runtime/outcomes only.
+Read docs/reviews/LONGLA.md (R1–R5), docs/team/LONGLA.md,
+docs/team/CODING_AGENTS.md, SOUL.MD and NEXT_TASKS.md.
+24 branch tests and production build pass; they use the older foundation.
 
-Follow the learner checkpoint. Report files, real checks, evidence, blockers
-and optional transforms. Do not rewrite another person's map/UI/core/worker.
-No push, merge, deployment or messaging without applicable authorization.
+1. Preserve local work. Merge latest main without reset or force push.
+   Resolve app.ts conflict while retaining MapComponent, single initialize,
+   current core/data, mission transfer UI/guards and all accepted regressions.
+   Optional viewer must load/render only after explicit activation. Do not
+   raise size budgets. Preserve dependencies; type declarations are dev-only.
+2. Separate image/terrain changes from route/marker updates. Route edits must
+   keep camera and loaded texture unchanged. Dispose replaced textures,
+   grid/arrow descendants and all teardown resources; guard late image work
+   and clear stale hover references. Add meaningful behavioral tests.
+3. Add local image loading/error/ready and natural-dimension checks. Handle
+   WebGL2/renderer initialization failure with cleanup and visible fallback.
+   Keep core readiness and 2D mission unchanged. Never show image-coordinate
+   overlays as usable when imagery failed. Label practice coordinates.
+   Preserve document-base paths, source link/credit/limitations; verify
+   actual texture corners against 2D, not only coordinate helper math.
+4. Remove unsupported Martian North/N/S/geographic-heading claims. Use image
+   axes or omit the compass; current orientation/metric scale are unverified.
+   Describe visual offsets honestly; no measured elevation or terrain claims.
+5. Remove the simulated Enter/Exit VR state. State immersive VR unimplemented.
+   No new VR scope; capability detection alone is not a working session.
+6. Run complete integrated tests and production build. Browser-check main
+   2D flow before/after optional activation, camera retention, failed/wrong
+   image, graphics fallback, repeated teardown/reopening and alignment.
+   Record actual outcomes in docs/qa/VIEWER3D_REVIEW.md. Create/update
+   docs/qa/PWA_ACCEPTANCE.md with unrun installation/offline/device checks
+   marked pending. Do not fabricate device, headset or user-test outcomes.
+
+Own viewer3d and QA docs. Narrow root TS/HTML/SCSS/spec and package/lockfile
+changes are allowed for this integration only. Do not alter shared core,
+source assets, another contributor's component or service worker.
+Commit/push only this existing feature branch (authorized) and request
+re-review with commit, R1–R5 closure and actual checks. No main integration,
+deployment, environment publication, submission or external messaging.
 ```
