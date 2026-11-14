@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
@@ -11,9 +12,12 @@ import {
 import { DOCUMENT } from '@angular/common';
 import * as L from 'leaflet';
 import { MissionService } from '../core/mission.service';
+import { routePoints } from '../core/route';
 import type { ImageManifest, Point, ScienceMarker } from '../core/models';
 
 type ImageDisplayState = 'loading' | 'ready' | 'error';
+const FOCUS_ROUTE_MAX_ZOOM = 2;
+const VIEWPORT_PADDING: L.PointExpression = [32, 32];
 
 /** Convert app image coordinates to Leaflet's [y, x] order at the map boundary. */
 export function toLeafletPoint(point: Point): L.LatLngTuple {
@@ -60,6 +64,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   readonly mission = inject(MissionService);
   readonly imageDisplayState = signal<ImageDisplayState>('loading');
   readonly imageDisplayError = signal<string | null>(null);
+  readonly canResetView = computed(
+    () =>
+      this.mission.dataStatus() === 'ready' &&
+      this.mission.image() !== null &&
+      this.imageDisplayState() === 'ready',
+  );
+  readonly canFocusRoute = computed(
+    () => this.canResetView() && routePoints(this.mission.route()).length >= 2,
+  );
 
   private readonly document = inject(DOCUMENT);
   private map?: L.Map;
@@ -136,6 +149,24 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   zoomOut(): void {
     this.map?.zoomOut();
+  }
+
+  resetView(): void {
+    const image = this.mission.image();
+    if (!this.canResetView() || !this.map || !image) return;
+    this.map.fitBounds(imageBounds(image), { padding: VIEWPORT_PADDING });
+  }
+
+  focusRoute(): void {
+    if (!this.canFocusRoute() || !this.map) return;
+    const points = routePoints(this.mission.route());
+    if (points.length < 2) return;
+    const bounds = L.latLngBounds(points.map(toLeafletPoint));
+    this.map.fitBounds(bounds, {
+      padding: VIEWPORT_PADDING,
+      // A coincident route has zero-size bounds; cap zoom so focusing stays useful.
+      maxZoom: FOCUS_ROUTE_MAX_ZOOM,
+    });
   }
 
   private initializeMap(): void {

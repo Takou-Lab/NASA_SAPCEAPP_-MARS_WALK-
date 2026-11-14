@@ -2,6 +2,8 @@
 
 Based on [REVIEW.md](REVIEW.md), dated **14 November 2026**. Preserve existing branches, completed work and learning. These are bounded follow-ups, not restarts. Named briefs contain the full coding-agent prompts.
 
+**Guide improvement:** the coordinator has implemented validated mission-file import alongside export, with 44 tests, production build and isolated-browser transfer checks passing. Preserve this capability in shell integration. [Adopted guide priorities](docs/GUIDE_IMPROVEMENTS.md) keep Gale and existing assignments; complete installed offline operation is next, followed by compatible layers and evidence-gated optional 3D. No teammate needs to restart work.
+
 ## Enzo — correct the reviewed UI branch before a new task
 
 Review of `feat/enzo-ui-planner-notebook` at `15b1666`: **changes required**. The 47 branch tests pass, but the production build fails here on the Google Fonts request. Keep his UI work and stay on the same branch; do not start another app or task branch yet.
@@ -9,54 +11,42 @@ Review of `feat/enzo-ui-planner-notebook` at `15b1666`: **changes required**. Th
 1. Reconcile the older branch with current main while preserving the canonical models, MissionService, validators, persistence, dependencies and map. Do not replace main with the duplicate foundation.
 2. Mount the existing MapComponent once in the shell and wire the UI to the existing service/helper APIs.
 3. Use local/system fonts so production builds and essential rendering do not depend on Google Fonts.
-4. Add contextual science selection for all three unlocated records without inventing positions.
+4. Integrate Emma's reviewed `app-science-context` component for all three unlocated records; do not duplicate its implementation or invent positions.
 5. Preserve unsaved/failed-save notebook drafts across tab changes and clamp sidebar sizing to the viewport for all input paths.
 6. Run the integrated regressions, adapted UI tests, production build and real browser mission/error checks; push the corrected same branch for re-review.
 
 Full findings: [docs/reviews/ENZO.md](docs/reviews/ENZO.md). Agent instructions: [docs/team/ENZO.md](docs/team/ENZO.md).
 
-## Willy — viewport navigation
+## Willy — Retry Image after accepted navigation
 
-Original map `094fce2`: **accepted and integrated**.
+Original map and navigation **`21cf6f0`**: **approved and integrated**. Navigation passed 38 tests/build and Chromium keyboard/touch-emulated checks. Do not repeat Reset View / Focus Route or root mounting.
 
-1. Preserve local work and merge the published integration from `main` into `feature/willy-map-development`.
-2. Add Reset View and Focus Route only if equivalent controls are absent.
-3. Disable actions until imagery is ready; require at least two route points for Focus Route and cap coincident-point zoom.
-4. Preserve route, mode, observations, selection and layer state. Keep controls keyboard/touch accessible.
-5. Run relevant map tests, the full suite/build and supported browser checks; push the same feature branch and report its commit.
+After this integration is published, preserve local work and start proposed branch `feature/willy-image-retry` from latest main. Add an explicit Retry Image action only for valid metadata plus an image-display error. Recreate the overlay safely, recheck dimensions, ignore stale callbacks, block duplicate attempts and preserve mission state. Keep all navigation/readiness regressions.
 
-Own only `src/app/map/`. Root mounting is already complete. Do not repeat it or implement Enzo's controls/PWA caching.
+Own only the four map files. Specification: [WILLY_IMAGE_RETRY.md](docs/team/tasks/WILLY_IMAGE_RETRY.md). Agent prompt: [WILLY.md](docs/team/WILLY.md). Review: [WILLY.md](docs/reviews/WILLY.md).
 
-Agent instructions: [WILLY.md](docs/team/WILLY.md).
+## Emma — contextual science UI transferred from Enzo
 
-## Emma — publish completed presentation work
+Presentation/Q&A **`947ff1a`** is delivered and integrated with small coordinator readiness-wording updates. Earlier science, demo and usability work stays complete; do not recreate it.
 
-Science/evidence/demo/protocol `b0640d9`: **accepted and integrated**. The user reports his presentation work done locally; those two files are not visible at the reviewed remote tip.
+After this integration is published, preserve local work and start proposed branch `feature/emma-science-context-ui` from latest main. Implement standalone `ScienceContextComponent` (`app-science-context`) under `src/app/science/`: accessible list, selection/clear, sourced details and loading/error/empty states for the three records, including unavailable positions. Use existing MissionService signals/actions; never mutate routes or invent map locations.
 
-His branch now points to `ee9f6ae` after synchronization. The [latest review](docs/reviews/EMMA.md) confirms zero unique commits against main `6c78ebe` and no published presentation/Q&A files. The action below remains publication of existing work; no new task or branch is assigned yet.
+This is a bounded new coding slice suitable for his agent-guided learning. Enzo retains shell, planner, notebook, draft retention, font/sidebar and canonical-core integration. Emma does not edit Enzo's files or mount the component in the root; Enzo/coordinator integrates it after review.
 
-1. Locate and preserve the existing `docs/PRESENTATION.md` and `docs/JUDGES_QA.md` in his working branch.
-2. Check origin/branch and local changes. Sync main without overwriting his completed files.
-3. Commit and push the existing finished files to `feature/emma-science-provenance`, then hand off the commit and any still-pending evidence artifacts.
-4. If they are already on another published branch, provide its exact name/commit. Do not recreate them to satisfy an outdated checklist.
-5. Reuse the existing usability protocol when the coordinator conducts real sessions; leave unrun results pending.
+Specification: [EMMA_SCIENCE_CONTEXT_UI.md](docs/team/tasks/EMMA_SCIENCE_CONTEXT_UI.md). Agent prompt: [EMMA.md](docs/team/EMMA.md). Review: [EMMA.md](docs/reviews/EMMA.md).
 
-This is a publication handoff, not a new research or presentation assignment. Emma uses he/him pronouns.
+## Gaddielle — correct the submitted image-pack index
 
-Agent instructions: [EMMA.md](docs/team/EMMA.md).
+Corrected passport **`c887286`** remains **approved and integrated**. Latest index submission **`bf9689b`** is reviewed: **changes required**. All 14 Python tests and the real index check pass, but alternate/URL-unsafe paths and incomplete index shape/type validation need correction. The feature code is not merged. Image preparation, verifier fixes, conflict resolution and passport corrections remain complete.
 
-## Gaddielle — machine-readable image-pack index
-
-Corrected passport **`c887286`**: **approved and integrated**. Image preparation, verifier fixes, conflict resolution and passport corrections are complete; do not repeat them.
-
-New coding deliverables:
+The four submitted deliverables are:
 
 - `tools/data/build_image_pack.py`: verify existing inputs and generate the index deterministically; `--check` detects stale/missing/tampered indexes without writing.
 - `public/data/image-pack.json`: versioned two-file inventory with imageRef, app-relative paths, actual byte counts, SHA-256 and summed payload bytes.
 - `tools/data/test_build_image_pack.py`: generation, deterministic output, check mode and safe failure regressions.
 - `docs/data/IMAGE_PACK_INDEX.md`: schema, commands and handoff to the coordinator.
 
-Reuse the accepted full-image verifier/Pillow dependency and preserve all source assets, manifest and runtime schema. The index covers only the manifest and active prepared image; it excludes itself, the archival master, science records and built shell. It does not establish complete offline readiness. Sync the published main integration into the same feature branch, implement this bounded tool task, run the relevant Python checks and push that branch for review.
+Keep the implementation and correct **R1/R2** from [the latest review](docs/reviews/GADDIELLE.md): enforce canonical/browser-safe paths and strict index object/keys/types, with clean read-only failure. Add temporary-fixture regressions, retain all current tests and preserve source assets, verifier and runtime schema. Stay on the same feature branch, merge latest main, commit/push the corrections and request re-review before a new task. The image-only inventory does not establish complete offline readiness.
 
 Exact specification: [GADDIELLE_IMAGE_PACK.md](docs/team/tasks/GADDIELLE_IMAGE_PACK.md). Ready-to-paste prompt: [GADDIELLE.md](docs/team/GADDIELLE.md).
 

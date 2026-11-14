@@ -1,5 +1,7 @@
 # Enzo — Angular Interface, Route Controls and Notebook
 
+**Ownership split:** Emma now implements the standalone contextual science list/details under `src/app/science/` ([task](tasks/EMMA_SCIENCE_CONTEXT_UI.md)). Keep working on your shell, canonical-core reconciliation, real map mounting, planner, notebook/draft retention, fonts and sidebar fixes. Do not implement a competing science explorer or edit Emma's files. When her component passes review, import `ScienceContextComponent` (`app-science-context`) and replace your duplicate selected-record block as appropriate. Integration remains required before the mission passes; other fixes can proceed independently while her component is pending.
+
 ## Current review — changes required before integration
 
 Reviewed branch: **`feat/enzo-ui-planner-notebook`**, commit **`15b1666`**. Read [the detailed review](../reviews/ENZO.md), [published branch review](../../REVIEW.md), [SOUL.MD](../../SOUL.MD), [team allocation](../../TEAM_TASKS.md) and [shared contract](CODING_AGENTS.md).
@@ -34,7 +36,9 @@ Replace the shell's decorative map placeholder with the existing standalone **Ma
 
 For this integration only, you may change `src/app/app.ts`, `app.html`, `app.scss` and `app.spec.ts` narrowly to mount your shell, provide layout space and test the integrated root. Preserve the root's one-time MissionService initialization, actual data/error states and existing capabilities. If the shell owns MapComponent, remove the old root map mount rather than displaying two maps. All unrelated root/core/package/PWA changes remain coordinator-owned.
 
-The three integrated science records have unavailable positions. Add an accessible contextual record list/card selector that calls `selectMarker(id)` and opens their evidence/details. It must work without map pins and must not set a route destination or manufacture coordinates.
+The coordinator has also added working mission-file transfer in the root: Export mission, file selection and Import selected mission, with asynchronous read guards and replacement/error messages. Preserve this capability when mounting your shell; reuse `MissionService.importMission(raw)` and the 1 MiB limit rather than replacing the service or creating another storage layer. Keep the explicit replacement warning. See [guide improvements](../GUIDE_IMPROVEMENTS.md) and [transfer verification](../qa/MISSION_TRANSFER.md).
+
+The three integrated science records have unavailable positions. Emma now owns their contextual list/details component under `src/app/science/`. Integrate her reviewed `app-science-context` selector when available, and remove duplicate selected-record UI as appropriate. Selection uses the existing service and must not set a route destination or manufacture coordinates. Continue your independent fixes while that component is pending; do not implement a competing list.
 
 ### 4. Preserve drafts and usable layout
 
@@ -77,6 +81,11 @@ Use learner checkpoints for the new correction slice, not to repeat completed UI
 ## Copy-paste coding-agent prompt
 
 ```text
+Ownership update: Emma owns src/app/science/ contextual list/details.
+Do not duplicate it; integrate her reviewed app-science-context component
+when available. You retain shell/planner/notebook/core-port/font/sidebar
+corrections. Do not import nonexistent files while her branch is pending.
+
 You are Enzo's UI integration and correction agent for MARSWALK.
 Read docs/reviews/ENZO.md, REVIEW.md, SOUL.MD, TEAM_TASKS.md,
 docs/team/ENZO.md and docs/team/CODING_AGENTS.md.
@@ -103,9 +112,10 @@ Google Fonts with HTTP403. Do not represent that as an integrated pass.
    A narrow root exception permits app.ts/html/scss/spec.ts only to mount
    the shell, size it and test integration while preserving initialize().
    Do not leave an old root map mount alongside the shell's map.
-5. Add a contextual science list for all3 actual records. selectMarker(id)
-   opens source/evidence details even with position:null. Do not fabricate
-   pins or turn context selection into a route destination.
+5. Emma owns the contextual list/details in src/app/science/. Integrate
+   her reviewed app-science-context component when published; do not code
+   a competing list or import nonexistent files while it is pending. Keep
+   source/unknown-position access and no route mutation on record selection.
 6. Preserve notebook drafts across tab changes and failed saves. Current
    @switch teardown must not erase drafts. Clear only after confirmed
    addObservation success. Keep draft state UI-only, not another mission store.

@@ -60,3 +60,59 @@ it('loads the delivered image and three unlocated science records through the re
   expect(fixture.nativeElement.textContent).toContain('3 contextual science records');
   http.verify();
 });
+
+it('reads a selected mission and exposes the actual import result', async () => {
+  const fixture = TestBed.createComponent(App);
+  const http = TestBed.inject(HttpTestingController);
+  http.expectOne((r) => r.url.endsWith('/data/manifest.json')).flush(manifest);
+  await Promise.resolve();
+  http.expectOne((r) => r.url.endsWith('/data/markers.json')).flush(markers);
+  await fixture.whenStable();
+  const raw = JSON.stringify({
+    schemaVersion: 1,
+    imageRef: manifest.imageRef,
+    route: { start: { x: 30, y: 40 }, destination: null, waypoints: [] },
+    observations: [],
+  });
+  const event = {
+    target: { files: [{ name: 'mission.json', size: raw.length, text: async () => raw }] },
+  } as unknown as Event;
+  await fixture.componentInstance.selectMissionFile(event);
+  fixture.componentInstance.importSelectedMission();
+  fixture.detectChanges();
+  expect(fixture.nativeElement.textContent).toContain('Mission imported and saved on this device.');
+  expect(TestBed.inject(MissionService).route().start).toEqual({ x: 30, y: 40 });
+  http.verify();
+});
+
+it('keeps a newer file selection when an older file finishes reading later', async () => {
+  const fixture = TestBed.createComponent(App);
+  const app = fixture.componentInstance;
+  const http = TestBed.inject(HttpTestingController);
+  http
+    .expectOne((r) => r.url.endsWith('/data/manifest.json'))
+    .flush('', { status: 404, statusText: 'Not Found' });
+  let finishOld!: (raw: string) => void;
+  const old = app.selectMissionFile({
+    target: {
+      files: [
+        {
+          name: 'old.json',
+          size: 2,
+          text: () =>
+            new Promise<string>((resolve) => {
+              finishOld = resolve;
+            }),
+        },
+      ],
+    },
+  } as unknown as Event);
+  await app.selectMissionFile({
+    target: { files: [{ name: 'new.json', size: 2, text: async () => '{}' }] },
+  } as unknown as Event);
+  finishOld('old');
+  await old;
+  expect(app.missionFileName()).toBe('new.json');
+  expect(app.readingMission()).toBe(false);
+  http.verify();
+});

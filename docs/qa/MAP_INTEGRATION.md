@@ -1,5 +1,7 @@
 # Map integration verification — 14 November 2026
 
+**Later navigation update:** `21cf6f0` adds Reset View/Focus Route and passes 38 tests, build and browser checks; see [Willy's navigation review](../reviews/WILLY.md). The baseline record and pending list below describe the earlier integration and are retained as historical evidence.
+
 This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9`, preserving their commits. The coordinator mounted one standalone MapComponent in the root, kept source data unchanged, blocked route actions until valid imagery displays, and required Pillow for full image-package verification.
 
 ## Automated checks
