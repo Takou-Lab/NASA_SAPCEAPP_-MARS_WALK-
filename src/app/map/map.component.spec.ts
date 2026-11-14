@@ -3,7 +3,14 @@ import { TestBed } from '@angular/core/testing';
 import { afterEach } from 'vitest';
 import { vi } from 'vitest';
 import { MissionService } from '../core/mission.service';
-import type { ImageManifest, LayerId, Route, ScienceMarker } from '../core/models';
+import type {
+  ImageManifest,
+  LayerId,
+  Mode,
+  Observation,
+  Route,
+  ScienceMarker,
+} from '../core/models';
 import { imageBounds, MapComponent, toLeafletPoint } from './map.component';
 
 const leaflet = vi.hoisted(() => {
@@ -104,6 +111,7 @@ const leaflet = vi.hoisted(() => {
       overlays.push(layer);
       return layer;
     }),
+    latLngBounds: vi.fn((points: unknown[]) => ({ points })),
     CRS: { Simple: {} },
     DomEvent: { stopPropagation: vi.fn() },
   };
@@ -115,6 +123,7 @@ vi.mock('leaflet', () => ({
   polyline: leaflet.polyline,
   circleMarker: leaflet.circleMarker,
   imageOverlay: leaflet.imageOverlay,
+  latLngBounds: leaflet.latLngBounds,
   CRS: leaflet.CRS,
   DomEvent: leaflet.DomEvent,
 }));
@@ -170,6 +179,8 @@ describe('MapComponent', () => {
     markers: ReturnType<typeof signal<readonly ScienceMarker[]>>;
     layers: ReturnType<typeof signal<Readonly<Record<LayerId, boolean>>>>;
     selectedMarkerId: ReturnType<typeof signal<string | null>>;
+    mode: ReturnType<typeof signal<Mode>>;
+    observations: ReturnType<typeof signal<readonly Observation[]>>;
   };
   let applyMapPoint: ReturnType<typeof vi.fn>;
   let selectMarker: ReturnType<typeof vi.fn>;
@@ -213,6 +224,8 @@ describe('MapComponent', () => {
         coverage: true,
       }),
       selectedMarkerId: signal<string | null>(null),
+      mode: signal<Mode>('inspect'),
+      observations: signal<readonly Observation[]>([]),
     };
     applyMapPoint = vi.fn();
     selectMarker = vi.fn((id: string | null) => state.selectedMarkerId.set(id));
@@ -223,6 +236,8 @@ describe('MapComponent', () => {
       markers: state.markers.asReadonly(),
       layers: state.layers.asReadonly(),
       selectedMarkerId: state.selectedMarkerId.asReadonly(),
+      mode: state.mode.asReadonly(),
+      observations: state.observations.asReadonly(),
       applyMapPoint,
       selectMarker,
       setLayer: vi.fn((id: string, visible: boolean) =>
@@ -235,6 +250,7 @@ describe('MapComponent', () => {
     fixture.detectChanges();
     triggerImageLoad();
     fixture.detectChanges();
+    leaflet.mapInstance.fitBounds.mockClear();
   });
 
   afterEach(() => {
@@ -292,6 +308,146 @@ describe('MapComponent', () => {
     fixture.nativeElement.querySelector('[aria-label="Zoom out"]').click();
     expect(leaflet.mapInstance.zoomIn).toHaveBeenCalledOnce();
     expect(leaflet.mapInstance.zoomOut).toHaveBeenCalledOnce();
+  });
+
+  it('resets the viewport to the active image without changing mission state', () => {
+    const route = {
+      start: { x: 10, y: 20 },
+      waypoints: [{ x: 30, y: 40 }],
+      destination: { x: 50, y: 60 },
+    };
+    const observations: Observation[] = [
+      {
+        id: 'observation-1',
+        imageRef: image().imageRef,
+        createdAt: '2026-11-14T00:00:00Z',
+        text: 'Keep this note',
+        position: null,
+      },
+    ];
+    const selectedMarkerId = 'selected-record';
+    const layers = { imagery: false, markers: true, grid: false, coverage: true } as const;
+    state.route.set(route);
+    state.mode.set('destination');
+    state.observations.set(observations);
+    state.selectedMarkerId.set(selectedMarkerId);
+    state.layers.set(layers);
+    fixture.detectChanges();
+
+    const routeSnapshot = state.route();
+    const modeSnapshot = state.mode();
+    const observationsSnapshot = state.observations();
+    const selectedSnapshot = state.selectedMarkerId();
+    const layersSnapshot = state.layers();
+    const buttons = fixture.nativeElement.querySelectorAll('.map-view-actions button');
+    buttons[0].click();
+
+    expect(leaflet.mapInstance.fitBounds).toHaveBeenNthCalledWith(
+      1,
+      [
+        [0, 0],
+        [1042, 2048],
+      ],
+      { padding: [32, 32] },
+    );
+    buttons[1].click();
+    expect(leaflet.mapInstance.fitBounds).toHaveBeenLastCalledWith(
+      {
+        points: [
+          [20, 10],
+          [40, 30],
+          [60, 50],
+        ],
+      },
+      { padding: [32, 32], maxZoom: 2 },
+    );
+    expect(state.route()).toBe(routeSnapshot);
+    expect(state.mode()).toBe(modeSnapshot);
+    expect(state.observations()).toBe(observationsSnapshot);
+    expect(state.selectedMarkerId()).toBe(selectedSnapshot);
+    expect(state.layers()).toBe(layersSnapshot);
+  });
+
+  it('disables both navigation actions until mission data and the image are ready', () => {
+    const buttons = fixture.nativeElement.querySelectorAll('.map-view-actions button');
+    expect(buttons[0].disabled).toBe(false);
+    expect(buttons[1].disabled).toBe(true);
+
+    state.dataStatus.set('loading');
+    fixture.detectChanges();
+    expect(buttons[0].disabled).toBe(true);
+    expect(buttons[1].disabled).toBe(true);
+
+    state.dataStatus.set('ready');
+    state.route.set({ start: { x: 1, y: 1 }, waypoints: [], destination: { x: 2, y: 2 } });
+    fixture.detectChanges();
+    leaflet.overlays[0].events.get('error')?.();
+    fixture.detectChanges();
+    expect(buttons[0].disabled).toBe(true);
+    expect(buttons[1].disabled).toBe(true);
+  });
+
+  it('disables Focus Route with fewer than two shared route points', () => {
+    const button = fixture.nativeElement.querySelectorAll('.map-view-actions button')[1];
+    expect(button.disabled).toBe(true);
+    state.route.set({ start: { x: 4, y: 5 }, waypoints: [], destination: null });
+    fixture.detectChanges();
+    expect(button.disabled).toBe(true);
+    component.focusRoute();
+    expect(leaflet.mapInstance.fitBounds).not.toHaveBeenCalled();
+  });
+
+  it('disables both actions when mission imagery is unavailable', () => {
+    state.image.set(null);
+    state.dataStatus.set('unavailable');
+    fixture.detectChanges();
+    const buttons = fixture.nativeElement.querySelectorAll('.map-view-actions button');
+    expect(buttons[0].disabled).toBe(true);
+    expect(buttons[1].disabled).toBe(true);
+    component.resetView();
+    component.focusRoute();
+    expect(leaflet.mapInstance.fitBounds).not.toHaveBeenCalled();
+  });
+
+  it('focuses available route points in start, waypoint, destination order', () => {
+    state.route.set({
+      start: { x: 10, y: 20 },
+      waypoints: [{ x: 30, y: 40 }],
+      destination: { x: 50, y: 60 },
+    });
+    fixture.detectChanges();
+    fixture.nativeElement.querySelectorAll('.map-view-actions button')[1].click();
+    expect(leaflet.latLngBounds).toHaveBeenCalledWith([
+      [20, 10],
+      [40, 30],
+      [60, 50],
+    ]);
+    expect(leaflet.mapInstance.fitBounds).toHaveBeenLastCalledWith(
+      {
+        points: [
+          [20, 10],
+          [40, 30],
+          [60, 50],
+        ],
+      },
+      { padding: [32, 32], maxZoom: 2 },
+    );
+  });
+
+  it('caps zoom when focusing a route whose points coincide', () => {
+    const point = { x: 25, y: 35 };
+    state.route.set({ start: point, waypoints: [], destination: { ...point } });
+    fixture.detectChanges();
+    component.focusRoute();
+    expect(leaflet.mapInstance.fitBounds).toHaveBeenLastCalledWith(
+      {
+        points: [
+          [35, 25],
+          [35, 25],
+        ],
+      },
+      { padding: [32, 32], maxZoom: 2 },
+    );
   });
 
   it('renders route line in start, waypoint, destination order', () => {
