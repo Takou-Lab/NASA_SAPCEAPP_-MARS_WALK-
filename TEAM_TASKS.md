@@ -8,7 +8,9 @@ Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offl
 
 [REVIEW.md](REVIEW.md) records all remote branch tips inspected against main `f24f6fc`. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's published contributions are accepted and integrated. Gaddielle's latest verifier correction `094d042` passes technical checks but overlaps with main in three files; resolve those branch conflicts before treating the new commit as merge-ready. `Tablet-App` exactly matches the reviewed main and contains no separate implementation.
 
-Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle synchronizes the equivalent fixes before the queued Data Passport. No Enzo or Royce/Longla feature branch was visible at the review snapshot; local progress is unknown.
+Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle synchronizes the equivalent fixes before the queued Data Passport. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+
+**Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
 
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 

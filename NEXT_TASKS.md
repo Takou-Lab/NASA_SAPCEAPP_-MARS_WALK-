@@ -2,6 +2,19 @@
 
 Based on [REVIEW.md](REVIEW.md), dated **14 November 2026**. Preserve existing branches, completed work and learning. These are bounded follow-ups, not restarts. Named briefs contain the full coding-agent prompts.
 
+## Enzo — correct the reviewed UI branch before a new task
+
+Review of `feat/enzo-ui-planner-notebook` at `15b1666`: **changes required**. The 47 branch tests pass, but the production build fails here on the Google Fonts request. Keep his UI work and stay on the same branch; do not start another app or task branch yet.
+
+1. Reconcile the older branch with current main while preserving the canonical models, MissionService, validators, persistence, dependencies and map. Do not replace main with the duplicate foundation.
+2. Mount the existing MapComponent once in the shell and wire the UI to the existing service/helper APIs.
+3. Use local/system fonts so production builds and essential rendering do not depend on Google Fonts.
+4. Add contextual science selection for all three unlocated records without inventing positions.
+5. Preserve unsaved/failed-save notebook drafts across tab changes and clamp sidebar sizing to the viewport for all input paths.
+6. Run the integrated regressions, adapted UI tests, production build and real browser mission/error checks; push the corrected same branch for re-review.
+
+Full findings: [docs/reviews/ENZO.md](docs/reviews/ENZO.md). Agent instructions: [docs/team/ENZO.md](docs/team/ENZO.md).
+
 ## Willy — viewport navigation
 
 Original map `094fce2`: **accepted and integrated**.
@@ -47,7 +60,7 @@ Agent instructions: [GADDIELLE.md](docs/team/GADDIELLE.md).
 
 ## Other contributors and branch
 
-- **Enzo:** continue existing UI work and publish his current feature commit for review; no Enzo branch was visible at this snapshot. Do not restart or infer missing local progress.
+- **Enzo:** his published `15b1666` is now reviewed; follow the corrective assignment above. Do not discard his UI or move to a new branch before re-review.
 - **Royce/Longla:** preserve the ongoing slice, then follow the existing QA/optional-3D brief; provide a published branch/commit for source review. No corresponding feature branch was visible at this snapshot.
 - **Coordinator:** review later submissions, integrate the UI and implement/test installable offline PWA behavior. Do not call it complete from unit/build results alone.
 - **Tablet-App:** duplicates the reviewed main. Keep main as the integration reference unless the team explicitly chooses another branch strategy; do not infer a separate implementation or owner.

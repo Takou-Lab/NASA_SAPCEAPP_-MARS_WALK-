@@ -4,6 +4,8 @@ Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users,
 
 Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. In particular, Gaddielle's latest technically passing correction overlaps with an equivalent fix on main and needs branch conflict resolution rather than another implementation of the same fix.
 
+**Current Enzo review exception:** repair `15b1666` on `feat/enzo-ui-planner-notebook` using [the review](../reviews/ENZO.md). Preserve his UI but retain main's canonical core, validation, persistence and dependencies while reconciling the older bootstrap. He may make only the root `app.ts`/HTML/SCSS/spec changes needed to mount his shell and the existing MapComponent once while preserving root initialization. Adapt global theme styling while retaining Leaflet CSS and local/system fonts; do not replace package/core ownership or create another mission store. No new PWA implementation or task branch is assigned until this revision passes re-review.
+
 Preserve work already underway. Complete or hand off the current small slice before starting a new charter follow-up; do not repeat completed assignments or learning checkpoints. Emma (he/him) has delivered science/evidence/demo work at `8a947a4` and the usability protocol at `b0640d9` on his feature branch. These contributions are now integrated and must not be recreated. The user reports his subsequent presentation task completed too; obtain its published handoff rather than reassigning it. Actual user sessions remain a later phase.
 
 ## Status and scope

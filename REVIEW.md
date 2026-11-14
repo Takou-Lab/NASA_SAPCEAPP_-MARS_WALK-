@@ -2,6 +2,8 @@
 
 Review date: **14 November 2026**. Baseline: `main` at **`f24f6fc68750f3bfd735132a8e62d3c7fa4f8914`**. This report covers the remote branch tips fetched for this review, not unseen local work. Later commits need a fresh review.
 
+**Supplemental Enzo review:** `15b1666` was subsequently reviewed against main `ee9f6ae` (the same application code with the published review documents). **Changes required:** 47 branch tests pass, but the production build fails on remote Google Fonts; duplicate core/bootstrap, placeholder map, inaccessible unlocated science, draft loss and sidebar sizing need correction. See the [full Enzo review](docs/reviews/ENZO.md). No Enzo feature code has been merged.
+
 See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named briefs for ready-to-paste coding-agent instructions. Passing a technical review is distinct from integration, external scientific verification and installed-PWA acceptance.
 
 ## All published branches
@@ -12,9 +14,10 @@ See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named brief
 | `feature/willy-map-development` | `094fce2` | Accepted and already integrated; tip is an ancestor of main | Sync main and continue the existing Reset View / Focus Route task |
 | `feature/emma-science-provenance` | `b0640d9` | Accepted and already integrated; tip is an ancestor of main | Publish the presentation work reported finished locally; do not recreate science or protocol |
 | `feature/gaddielle-data-preparation` | `094d042` | Verifier fixes pass; equivalent runtime behavior already on main; three merge conflicts remain | Resolve overlaps against main, preserve regression tests and correct two documentation statements |
+| `feat/enzo-ui-planner-notebook` | `15b1666` | Changes required; 47 tests pass, production build blocked by external fonts, UI/core integration and behavior issues reproduced | Preserve the UI and repair the same branch using [ENZO.md](docs/reviews/ENZO.md); no new assignment/branch yet |
 | `Tablet-App` | `f24f6fc` | Exactly matches the reviewed main: zero unique commits/diff | No independent contribution or branch owner can be inferred; no separate correctness claim |
 
-No Enzo or Royce/Longla feature branch was visible in the fetched remote heads. This does not establish whether they have completed or in-progress local work. Preserve that work and obtain a published commit before reviewing it.
+No Royce/Longla feature branch was visible in the original fetched remote heads. Enzo's branch became available later and is covered by the supplemental review above. Remote visibility does not establish whether other local work is complete; preserve it and obtain a published commit before reviewing it.
 
 ## Willy — accepted original contribution
 
