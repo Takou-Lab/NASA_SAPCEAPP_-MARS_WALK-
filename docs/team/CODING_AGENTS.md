@@ -2,6 +2,8 @@
 
 Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
 
+Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. In particular, Gaddielle's latest technically passing correction overlaps with an equivalent fix on main and needs branch conflict resolution rather than another implementation of the same fix.
+
 Preserve work already underway. Complete or hand off the current small slice before starting a new charter follow-up; do not repeat completed assignments or learning checkpoints. Emma (he/him) has delivered science/evidence/demo work at `8a947a4` and the usability protocol at `b0640d9` on his feature branch. These contributions are now integrated and must not be recreated. The user reports his subsequent presentation task completed too; obtain its published handoff rather than reassigning it. Actual user sessions remain a later phase.
 
 ## Status and scope

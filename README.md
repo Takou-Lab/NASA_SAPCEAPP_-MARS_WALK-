@@ -2,6 +2,8 @@
 
 Read [SOUL.MD](SOUL.MD) for the product purpose and installable offline PWA goals. [Team assignments](TEAM_TASKS.md) and [personal agent briefs](docs/team/) describe the next work.
 
+See [the published branch review](REVIEW.md) for accepted contributions and integration findings, and [NEXT_TASKS.md](NEXT_TASKS.md) for each contributor's next action. Completed work should not be restarted.
+
 ## Current integration
 
 Willy's standalone Leaflet map is mounted in the Angular root with Gaddielle's prepared Mount Sharp boxwork image and Emma's three contextual science records. The image uses bottom-left pixels, not geographic coordinates or a verified metric scale.

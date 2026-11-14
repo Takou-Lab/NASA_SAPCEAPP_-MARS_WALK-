@@ -1,5 +1,7 @@
 # Willy — Angular Map Developer
 
+**Published review:** `094fce2` is accepted and already integrated into reviewed main `f24f6fc`; no unmerged Willy commit was present. See [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md). The existing Reset View/Focus Route assignment below remains the next task, not a correction to the original delivery.
+
 ## Current follow-up — Reset View and Focus Route
 
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md), [the shared coding contract](CODING_AGENTS.md) and [the image handoff](../data/IMAGE_CONTRACT.md). Preserve your completed map; this assignment adds a small navigation improvement rather than restarting development.

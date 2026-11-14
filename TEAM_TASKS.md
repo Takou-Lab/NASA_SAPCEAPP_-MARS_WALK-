@@ -4,6 +4,12 @@ Product: **installable offline PWA built with Angular and TypeScript**. Region: 
 
 Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offline mission and acceptance criteria. Education, mission rehearsal and analogue-workflow research are near-term use cases; operational astronaut navigation remains a long-term vision.
 
+## Latest published review and next actions
+
+[REVIEW.md](REVIEW.md) records all remote branch tips inspected against main `f24f6fc`. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's published contributions are accepted and integrated. Gaddielle's latest verifier correction `094d042` passes technical checks but overlaps with main in three files; resolve those branch conflicts before treating the new commit as merge-ready. `Tablet-App` exactly matches the reviewed main and contains no separate implementation.
+
+Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle synchronizes the equivalent fixes before the queued Data Passport. No Enzo or Royce/Longla feature branch was visible at the review snapshot; local progress is unknown.
+
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
 ## Coding-agent instructions
@@ -21,7 +27,7 @@ This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | `feature/willy-map-development` | Sync the published integration without resetting work; add Reset View/Focus Route and targeted tests only |
-| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Image package integrated; preserve exact derivative/reference and use the integrated required-Pillow verifier |
+| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Latest fix passes; resolve three overlaps against main, correct handoff wording, then finish the queued Data Passport without reprocessing imagery |
 | [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New presentation work reported complete; hand off its published commit, reuse integrated evidence/protocol, record sessions only when conducted |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
