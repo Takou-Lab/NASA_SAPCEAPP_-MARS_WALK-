@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-This is an implementation specification for future coding work. At this revision the repository contains documentation, not an Angular application. Do not assume files, dependencies, scripts, verified data or passing tests exist. Inspect the checkout first. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
+The Angular foundation now implements the v1 models and MissionService API below, with Leaflet dependencies and noninteractive test/build scripts. Feature components and verified scientific assets remain pending. Inspect the checkout and actual scripts before starting. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
 
 Use Angular standalone components, strict TypeScript, plain CSS/SCSS and a small root-provided mission service. Use Leaflet with `CRS.Simple` for the first local-image implementation. Add geographic mapping only after verified data and an agreed migration. Three.js is exclusive to the optional 3D component. No backend, authentication, UI framework or extra state framework is required.
 
@@ -23,7 +23,7 @@ Do not overwrite another person's changes. Request shared model/API changes from
 
 ## Version 1 models
 
-Coordinator creates `src/app/core/models.ts` with these contracts before feature integration. These are proposed APIs to implement, not currently available imports. Extend them centrally when evidence requires it.
+These interfaces are implemented in `src/app/core/models.ts`. The service is implemented in `src/app/core/mission.service.ts`. Extend them centrally when evidence requires it. The root calls the additional idempotent `initialize(): Promise<void>` method once. See [image handoff](../data/IMAGE_CONTRACT.md) for current data-loading behavior.
 
 ```ts
 export interface Point { x: number; y: number }
