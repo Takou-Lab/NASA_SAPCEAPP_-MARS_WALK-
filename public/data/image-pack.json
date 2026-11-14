@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "imageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
+  "files": [
+    {
+      "path": "data/manifest.json",
+      "bytes": 1200,
+      "sha256": "40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82"
+    },
+    {
+      "path": "data/imagery/PIA26306_derived_2048.jpg",
+      "bytes": 523272,
+      "sha256": "7b814497d98d7e5fb89dd122c65b01c32e5c2099b039ef62887a606af199bfa8"
+    }
+  ],
+  "totalBytes": 524472
+}
