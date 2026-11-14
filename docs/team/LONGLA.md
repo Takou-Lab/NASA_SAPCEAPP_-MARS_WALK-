@@ -1,95 +1,88 @@
-# Longla — 3D Rehearsal and Optional VR
+# Longla — PWA Quality Checks and Optional 3D Rehearsal
 
-## Your mission
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work). If a 3D change is already underway, preserve and finish or hand off that bounded change before the next QA slice; do not discard it or recreate it.
 
-Create a small Three.js rehearsal view showing the same route and markers as the Angular map. This is a labeled prototype; VR is optional. You hold the 3D role called Royce in the original PDF, following the latest team naming used in the allocation.
+## Current priority — prove the core mission works
 
-Read [the team allocation](../../TEAM_TASKS.md). This repository contained documentation only when these briefs were written. No terrain model or implemented viewer is assumed to exist.
+Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). Reliable offline mission rehearsal is the priority. While the map/PWA are integrated and terrain remains unavailable, own an independent QA plan and device checks. Build optional 3D after the core acceptance check; VR must not block the release.
 
-## Deliverables and ownership
+The Angular foundation, Willy's mounted map and the data/science contributions are now integrated; see [map integration checks](../qa/MAP_INTEGRATION.md). Installation, a complete offline workflow and 3D are not proven by foundation tests. Inspect the actual revision and report actual outcomes only.
 
-- A viewer component, proposed under `src/app/viewer3d/`.
-- Terrain/imagery rendering when validated aligned products are available.
-- Route and marker rendering using shared mission records.
-- Visible provenance, terrain limitations and vertical exaggeration.
-- Optional WebXR entry and fixed viewpoints or teleport movement.
+## Ownership and deliverables
 
-Gaddielle supplies terrain and imagery metadata. Willy supplies map-coordinate integration details. The coordinator owns shared contracts; do not invent a separate coordinate interpretation.
+- `docs/qa/`: reproducible PWA/device scenarios, actual results, failures and retest evidence.
+- Technical observations for the coordinator's outsider usability check; Emma owns the consolidated usability summary.
+- Optional `src/app/viewer3d/`: a labeled Three.js rehearsal view using shared mission data.
+
+The coordinator owns core state, root assembly, package dependencies and service-worker/PWA logic. Enzo owns interface controls, Willy the map, and Gaddielle the imagery/terrain preparation. Report defects with reproduction steps instead of independently rewriting their implementation.
 
 ## Work in this order
 
-1. Inspect existing code and learn scene, camera and renderer with one clearly labeled practice scene.
-2. Integrate a canvas into Angular after its container exists. Handle resize and component cleanup.
-3. Confirm the exact coordinate transform, terrain units, axis directions and origin with Gaddielle and Willy.
-4. If verified terrain exists, create a height surface and align the corresponding imagery. Preserve NoData as missing rather than zero-height terrain.
-5. Add the route and science markers using the agreed transform. Check known points against the 2D map.
-6. Add simple orbit controls and useful fixed views. Keep the model small enough for the demonstration device.
-7. Display **Prototype: 3D training view**, data source, coverage and vertical exaggeration.
-8. Only after the viewer works, add Three.js WebXR support and test an actual supported runtime.
+1. Inspect the actual app and write `docs/qa/PWA_ACCEPTANCE.md` with scenario, prerequisites, expected behavior, device/browser, revision, actual result and evidence. Mark unrun scenarios pending.
+2. Plan checks for installation/standalone launch, image loading, route editing, science-source visibility, note persistence/export and failure feedback. Account for unavailable calibration/terrain and unlocated science records.
+3. When the coordinator's PWA implementation is ready, prepare essential assets online, install on the demonstration device, disconnect, close the app, reopen from its icon and repeat the complete mission. Check the image and science content, route editing, note recovery and JSON export.
+4. Check failed/interrupted preparation, unavailable storage, update behavior and wrong-image records with safe test data. Do not clear another person's browser records; export any needed mission before controlled destructive storage tests.
+5. Support the coordinator's three outsider task checks: can each person draw a route, explain unknown distance/slope and save/recover a note? Record anonymous observed behavior, errors and actual explanations. Do not invent participants, answers, completion counts or contact anyone without authorization.
+6. Report reproducible defects to the coordinator in the QA document and retest affected scenarios after fixes. Distinguish blocked, failed, passed and unrun outcomes.
+7. Only after core readiness is demonstrated, implement optional 3D with the agreed shared route/image reference. Keep an optional experiment from degrading PWA startup, caching or the main mission flow.
 
-## Terrain and coordinate rules
+## Optional 3D scope
 
-- Never infer real elevation from image brightness.
-- A visually plausible surface is not a measured DEM.
-- Do not assume pixels are meters or geography is an Earth coordinate system.
-- Keep horizontal/vertical units explicit and explain any exaggeration.
-- Image crop/resize and terrain transforms must agree with the prepared-data reference.
-- For unavailable terrain, use a flat imagery plane or clearly illustrative demonstration; do not report terrain measurements from it.
+You hold the 3D role called Royce in the original PDF. Use a standalone Angular component with Three.js, coordinated dependency declarations and shared MissionService signals. The v1 contract has no verified terrain model. Begin with a flat imagery plane labeled **Prototype: 3D training view — no verified terrain**.
 
-## Checks before handoff
-
-- Route endpoints and markers agree with the 2D map at several known positions.
-- Missing terrain regions remain visibly unavailable.
-- Resizing and reopening the viewer work without duplicate render loops.
-- Dispose of controls, geometry, materials, textures and renderer resources on teardown.
-- The main Angular app still works when WebXR is unsupported.
-- VR controls use fixed views or teleport; test headset/emulator behavior before claiming VR works.
-- Record the device/browser and what was actually tested.
-
-## Time limit and fallback
-
-The plan's VR gate is Sunday at 12:00 local time. If VR is incomplete, keep the working 3D prototype and prepare a short screen recording. If no verified terrain is available, explicitly label the flat/illustrative fallback and its limitations.
+- Use the agreed pixel convention: scene X = x − width/2, Y = 0, Z = height/2 − y. Verify texture orientation at the four corners against the 2D image.
+- A small route display offset to prevent z-fighting is not real elevation.
+- Render only markers with a compatible image reference and a supplied display position; never invent locations for unlocated science records.
+- Keep actual terrain unavailable unless Gaddielle and the coordinator supply a verified terrain contract, units, coverage, transform and NoData handling. Never derive elevation from image brightness.
+- Use simple orbit controls/reset view. Display source, coverage limitations and any genuine vertical exaggeration.
+- Stop animation and dispose of observers, listeners, controls, geometry, materials, textures and renderer resources on teardown.
+- Test alignment, resize, reopening and fallback on the actual device. WebXR is optional after all earlier checks and must leave the normal app usable when unsupported. Use fixed views or teleport.
 
 ## Completion and handoff
 
-You are done when the rehearsal view shows shared routes and markers with clear data status. VR is a bonus. Send changed files, data/transform assumptions, tested runtime, performance observations and known limitations. Explain scene/camera/renderer and the route-to-3D conversion in your own words.
+Your required outcome is a trustworthy QA record of the core mission, with failures and retests made visible. A written plan alone does not demonstrate readiness. Hand off the exact tested revision/device/browser, evidence, outstanding defects and reproducible scenarios. An optional 3D deliverable is additional; no terrain or VR claim should exceed what was tested.
+
+Learn and explain the difference between installation, cache readiness, online status and local record persistence. If implementing 3D, also explain scene/camera/renderer and coordinate conversion. Follow the shared learner checkpoint one slice at a time.
 
 ## Copy-paste coding-agent prompt
 
-Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
-
 ```text
-You are Longla's coding tutor and implementation agent for MARSWALK.
-Read docs/team/LONGLA.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
-Own src/app/viewer3d/ only. VR is optional; preserve the core map workflow.
+You are Longla's coding tutor and QA/optional-3D agent for MARSWALK.
+Read SOUL.MD, docs/team/LONGLA.md, docs/team/CODING_AGENTS.md and
+TEAM_TASKS.md. Prioritize an evidenced offline PWA mission before 3D/VR.
 
-1. Inspect real code and available data. If the shared Angular app/API is
-   absent, report the dependency instead of creating a separate app.
-2. Implement a standalone Viewer3dComponent. Ask the coordinator to add
-   Three.js and required declarations through package files if needed.
-3. Inject MissionService for image(), route() and markers(). Initialize
-   renderer/camera/scene only after the view container exists.
-4. The version 1 contract has no verified DEM input. Start with a flat
-   imagery plane labeled No verified terrain; elevation unavailable.
-   Map image pixels consistently: scene X=x-width/2, Y=0, Z=height/2-y.
-   Align texture orientation and verify all four corners against the map.
-   Place route/markers slightly above the plane to prevent z-fighting;
-   this display offset is not elevation. Do not calculate terrain metrics.
-5. Reuse shared route ordering. Filter markers by matching imageRef and
-   available position; retain illustrative-position labels.
-6. Add orbit controls and reset view. Label Prototype: 3D training view,
-   show source/limitations, and describe the flat view explicitly.
-7. If validated terrain arrives, ask the coordinator and Gaddielle for a
-   versioned terrain contract and verified transform before implementation.
-   Do not invent height data or interpret image brightness as elevation.
-8. Add optional WebXR only after the base viewer works. Unsupported XR
-   must leave the ordinary viewer usable. Use fixed views or teleport.
-9. On destroy, stop animation, remove listeners/observers and dispose of
-   controls, geometry, textures, materials and renderer resources.
-10. Verify route alignment at corners/known points, resize, repeated opening,
-    unsupported XR and actual build/relevant tests. Record XR runtime and
-    outcome only if actually tested. Use a recording if VR misses the gate.
+1. Inspect actual app, branch, scripts and data. Preserve work. Angular
+   foundation exists; do not create another application or assume PWA
+   installation/offline behavior works from the unit test results.
+2. Own docs/qa/ and optional src/app/viewer3d/. Create a reproducible PWA
+   acceptance plan with prerequisites, expected behavior, device/browser,
+   revision, actual result and evidence. Unrun checks remain pending.
+3. As the coordinator integrates features, verify image load, route modes,
+   undo/clear, evidence/unknown-data display, note save/recovery and export.
+   Confirm unlocated records do not appear at invented map coordinates.
+4. When supported, prepare assets online and install on the target device.
+   Disconnect, close, reopen from installed icon, inspect image/science,
+   edit route, recover/save a note and export. Check incomplete preparation,
+   storage failures and update feedback using safe isolated test data.
+   Separate connectivity, verified cache readiness and persistence.
+5. Support the coordinator's three outsider task checks. Record anonymous
+   actual route completion, understanding of unknown distance/slope, and
+   note recovery; hand observations to Emma's usability summary.
+   Do not fabricate results or contact participants through tools without
+   authorization. Report defects and retest affected scenarios.
+6. Only after core acceptance, implement optional standalone Viewer3dComponent
+   using MissionService and coordinator-managed Three.js dependencies.
+   V1 has no DEM: use a labeled flat image plane. Transform X=x-width/2,
+   Y=0,Z=height/2-y; verify corners/texture orientation. Small line offsets
+   are display adjustments, not elevation. Use shared route order.
+7. Render only positioned, matching-reference markers and preserve their
+   verification labels. Keep source/limitations visible. Do not fabricate
+   terrain, coordinates or measurements. Ask for a verified terrain contract
+   before any real height integration. Dispose all graphics resources.
+8. VR is optional after the core and viewer work. Unsupported WebXR must
+   leave the normal app usable. Record actual runtime/outcomes only.
 
-Follow the learner checkpoint in CODING_AGENTS.md. Report transforms,
-files, checks and limitations. Do not push or merge without authorization.
+Follow the learner checkpoint. Report files, real checks, evidence, blockers
+and optional transforms. Do not rewrite another person's map/UI/core/worker.
+No push, merge, deployment or messaging without applicable authorization.
 ```

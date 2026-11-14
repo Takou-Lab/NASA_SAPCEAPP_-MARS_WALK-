@@ -1,3 +1,4 @@
-# Required dependency for tools/data/verify_pack.py to ensure full pixel buffer
-# decoding (.load()) and strict truncation/corruption verification.
+# Required on every platform for full image verification with verify_pack.py.
+# Other preparation tools may also support native Windows GDI+ independently.
 Pillow>=10.0.0
+

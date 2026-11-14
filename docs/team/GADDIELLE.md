@@ -1,23 +1,55 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+
 ## Current follow-up — offline image-data package
 
-Continue on **`feature/gaddielle-data-preparation`**. Your initial imagery and manifest have been reviewed for technical compatibility: both images decode and the prepared image is **2048 × 1042**, matching the manifest. The committed file checksums match the processing log. Scientific product/coverage claims still require authoritative evidence.
+Read [the published review](../../REVIEW.md), [next tasks](../../NEXT_TASKS.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md). Preserve completed work and continue on **`feature/gaddielle-data-preparation`**.
 
-The Angular foundation is on `main`, but your imagery files remain on your feature branch until integration. Update your existing branch from `main` while preserving work; do not start a second data branch, redownload the same files or regenerate the derivative unnecessarily. The current assignment below takes precedence over the initial acquisition checklist retained later in this brief.
+### Technical signoff — `094d042`
 
-### Deliver these next
+The latest reviewed branch commit is **`094d04251602d26277ec1ddf0959e3a860a15594`**. The original image/package assignment and requested verifier corrections pass the reviewed checks:
 
-1. Review `docs/data/README.md`, `PROCESSING_LOG.md` and `TERRAIN_EVALUATION.md`. Qualify or remove unsupported claims about exact AOI overlap, projection, orientation and DEM coverage. Keep terrain and metric calibration unavailable; record inaccessible sources rather than claiming verification.
-2. Create **`docs/data/OFFLINE_DATA_PACK.md`**. List the manifest and prepared runtime image with relative paths, byte sizes, SHA-256 values, total required image-pack size, provenance, credits and limitations. Identify the original master image as archival rather than required for offline caching. This inventory covers image data only, not the full PWA or its readiness.
-3. Add **`tools/data/verify_pack.py`**. Read the manifest without changing files, validate its local asset reference, decode the image, compare actual dimensions to the manifest, and report byte size and SHA-256 for the manifest and referenced image. It must work without network access and exit nonzero for an invalid manifest, missing/unreadable files or inconsistent dimensions. Use explicit arguments such as `--manifest public/data/manifest.json --public-root public` and document the actual command.
-4. Run the verifier against the committed data and demonstrate a failure using temporary test files for a missing image or wrong dimensions. Do not corrupt repository assets for a negative check. Reuse the declared Pillow dependency if needed; coordinate any new dependency declaration with the coordinator.
-5. Preserve the committed derivative. GDI+ and Pillow can produce different bytes from the same source; changing the derivative or its coordinate interpretation requires deliberate `imageRef` versioning and a coordinated migration.
-6. Give Willy a short written handoff: image path, manifest path, imageRef, bounds, bottom-left pixel convention, Leaflet `[y, x]` conversion, and expected feedback for failed image loading or mismatched dimensions. Do not implement Willy's map.
+- The real package fully decodes with Pillow in text and JSON modes.
+- Missing Pillow, a missing manifest and a truncated JPEG fail with nonzero exit codes in both modes; wrong dimensions also fail.
+- The prepared image is **2048 × 1042**; the master is **7488 × 3813**. File sizes and SHA-256 values match the inventory.
+- The required image pack remains **524,472 bytes**. Image bytes and `imageRef` are unchanged.
+- Inventory, qualified regional-coverage documentation and Willy's image/coordinate handoff are delivered.
 
-### Completion and publication
+**Do not repeat image preparation, rewrite the verifier or reopen the earlier Pillow fixes.** `main` at `f24f6fc` already implements the equivalent mandatory-Pillow correction and includes four regression tests. This signoff covers technical package behavior, not independently reverified scientific source claims or complete offline PWA readiness.
 
-Done means the image-data inventory is accurate, offline verification passes, a controlled failure is detected, and the handoff and unsupported-claim corrections are committed. Report the commands and outcomes. Commit and push **your feature branch**; this follow-up authorizes that push. Do not merge into or push `main`, deploy the app, create a second service worker, or change shared Angular models.
+### New action — synchronize the parallel fixes
+
+A merge-tree check between `094d042` and `main` at `f24f6fc` reports conflicts in exactly these files:
+
+- `tools/data/verify_pack.py`
+- `tools/data/requirements.txt`
+- `docs/data/OFFLINE_DATA_PACK.md`
+
+The conflicts come from parallel implementations of the same fix. Preserve local work, fetch the latest `main` and merge it into your existing feature branch. Resolve these overlaps by keeping the canonical integrated main verifier, required-Pillow dependency and regression coverage. Preserve any new useful documentation; do not replace the main version with an older fallback implementation.
+
+In the inventory, say the verifier **calculates/reports SHA-256 values for comparison**. It does not compare against an independently trusted expected-hash inventory. Keep the full-PWA versus image-pack boundary clear.
+
+Correct the existing image-failure guidance in `docs/data/README.md`: a failed image load or dimension mismatch belongs to MapComponent's image-display error state. Core `dataStatus` reports manifest/data loading and may remain ready when valid metadata exists but the image cannot display. Do not ask Willy to mutate the shared core status for a rendering failure.
+
+After resolving the merge, run the existing verifier and its regressions. This is confirmation that the integration preserved the accepted behavior, not a request to implement another verifier:
+
+```sh
+python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public --json
+PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_verify_pack.py' -v
+```
+
+Use the required Pillow dependency. Keep the committed images and manifest unchanged, and run the project's actual tests/build if the integration affects application files.
+
+### Queued next deliverable — Data Passport
+
+After synchronization, prepare **`docs/data/DATA_PASSPORT.md`** using the metadata and evidence already collected. It is a separate follow-up, not unfinished prior work. Include source/credit, date when verified, coverage/resolution when known, exact image reference, preparation steps, checksums, verification status and limitations. Map existing manifest fields to readable labels for Enzo. Document unknowns explicitly and propose extra runtime fields to the coordinator before changing a shared schema.
+
+Do not reacquire data or regenerate the derivative for this document. Metric calibration and terrain remain unavailable. An image-pack pass cannot establish installation, complete offline reopening or mission persistence.
+
+### Handoff and publication
+
+Report the conflict resolutions, documentation corrections, actual verification commands/results, and whether the queued Data Passport is delivered or still pending. Commit and push **only your feature branch**; this assignment authorizes that push. Do not merge/push `main`, deploy, create another service worker, alter shared Angular models or send messages to teammates through tools without applicable authorization.
 
 ## Initial assignment reference
 
@@ -38,7 +70,7 @@ Read [the team allocation](../../TEAM_TASKS.md) and [shared contract](CODING_AGE
 
 Coordinate scientific findings with Emma and shared schemas with the coordinator. Do not change application logic to disguise missing data.
 
-## Work in this order
+## Original workflow reference — do not repeat accepted delivery
 
 1. Confirm the exact proposed AOI using actual product footprints and rover-localization evidence. General Gale coverage does not prove boxwork overlap.
 2. Open Mars Trek and check available imagery/elevation products for that area. Verify usable layer requests rather than copying an untested service URL.
@@ -86,51 +118,50 @@ You are done when usable imagery is supplied with honest coverage information, a
 
 ## Copy-paste coding-agent prompt
 
-Paste this into your coding-agent session for the current follow-up assignment.
-
 ```text
-You are Gaddielle's data-preparation agent for the Angular MARSWALK PWA.
-Read docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md,
-docs/data/IMAGE_CONTRACT.md and TEAM_TASKS.md.
+You are Gaddielle's data-integration agent for the Angular MARSWALK PWA.
+Read REVIEW.md, NEXT_TASKS.md, docs/team/GADDIELLE.md,
+docs/team/CODING_AGENTS.md, SOUL.MD and docs/data/IMAGE_CONTRACT.md.
 
-Continue on feature/gaddielle-data-preparation. Inspect Git status and
-preserve local work before updating from main. The Angular foundation is
-on main; the prepared image and manifest are on your existing feature
-branch pending integration. Do not create a competing app or reacquire
-already delivered data unnecessarily.
+The previous package/verifier work is technically accepted at 094d042
+(full SHA 094d04251602d26277ec1ddf0959e3a860a15594).
+The equivalent mandatory-Pillow fix already exists in main at f24f6fc.
+Do not repeat image preparation, reacquire files, replace imageRef or
+implement the same verifier correction again.
 
-1. Inspect your existing manifest, images and processing records. Qualify
-   unsupported AOI overlap, projection/orientation and DEM claims in
-   docs/data/README.md, PROCESSING_LOG.md and TERRAIN_EVALUATION.md.
-   Keep terrain and metric calibration unavailable. If authoritative source
-   access is blocked, record the limitation rather than claiming verification.
-2. Create docs/data/OFFLINE_DATA_PACK.md with the required manifest and
-   prepared image paths, byte sizes, SHA-256 values, total image-pack size,
-   sources, credits and limitations. Distinguish archival master imagery
-   from required runtime files. This is an image-data inventory, not the
-   complete offline PWA pack or a claim of offline readiness.
-3. Implement tools/data/verify_pack.py with explicit manifest/public-root
-   arguments. Validate the manifest and local asset reference, confirm the
-   image exists and decodes, compare actual dimensions with the manifest,
-   and calculate/report bytes and SHA-256 for both required files.
-   Read files only; do not download or modify data. Exit nonzero for invalid
-   metadata, missing/unreadable files or wrong dimensions. Run offline.
-4. Document and execute the verifier command. Check one valid package and
-   a controlled failure using temporary files; never damage real assets.
-   Reuse existing Pillow support. Coordinate new dependencies centrally.
-5. Keep the committed derivative unchanged. Different image libraries can
-   produce different bytes; a changed derivative/coordinate interpretation
-   needs a new imageRef and coordinated record migration.
-6. Write Willy's image handoff: paths, imageRef, 2048x1042 dimensions,
-   bounds [[0,0],[1042,2048]], bottom-left pixel convention, Leaflet [y,x]
-   conversion, unavailable calibration/terrain and load/dimension error
-   expectations. These dimensions apply only while the committed image
-   and manifest remain the inspected version.
+1. Inspect Git status and preserve local work. Continue on the existing
+   feature/gaddielle-data-preparation branch. Fetch and merge the latest
+   main into it without resetting, force-pushing or overwriting other work.
+2. Resolve the known parallel-fix conflicts in tools/data/verify_pack.py,
+   tools/data/requirements.txt and docs/data/OFFLINE_DATA_PACK.md. Keep the
+   canonical main verifier, required Pillow dependency and existing
+   tools/data/test_verify_pack.py regressions. Preserve useful new docs.
+   Never restore a header-only success fallback.
+3. Make inventory wording accurate: the tool calculates/reports hashes
+   for comparison; it does not compare to an independently trusted list.
+   Preserve runtime/archival distinctions and the image-data-only scope.
+4. In docs/data/README.md, correct the image-load/dimension failure handoff:
+   MapComponent owns its image-display error state; core dataStatus is
+   metadata/data readiness and may remain ready. Do not change core or map
+   code merely to force a rendering failure into the core status.
+5. Confirm accepted behavior survived the merge by running:
+   python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public --json
+   PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_verify_pack.py' -v
+   Report real outcomes. The package remains 2048x1042 and 524472 bytes;
+   image bytes/reference must stay unchanged. Missing Pillow/files,
+   truncation and wrong dimensions must fail. No repeated implementation.
+6. After synchronization, the queued NEW deliverable is
+   docs/data/DATA_PASSPORT.md, using existing metadata only. Supply source,
+   credit, verified date, coverage/resolution when known, imageRef,
+   processing, checksums, verification status and limitations for Enzo.
+   Map current manifest fields to labels; propose schema changes centrally.
+   No new downloads or image regeneration are needed.
+7. Keep metric calibration/terrain unavailable and unknowns explicit.
+   Package validation does not prove installation or full offline mission
+   readiness. Do not alter another person's application/PWA work.
 
-Own docs/data/, tools/data/ and your existing data files. Do not alter
-Willy's Angular map, shared models, service-worker logic or another
-teammate's records. Report files, commands, results and unresolved source
-verification. Commit and push feature/gaddielle-data-preparation; that
-feature-branch push is authorized for this follow-up. Do not merge or push
-to main, deploy, or send messages to teammates on the user's behalf.
+Own the data-tool/docs integration only. Commit and push the existing
+feature branch; that push is authorized. Handoff commit, conflicts resolved,
+files, actual checks, documentation fixes and next-deliverable status.
+No main merge/push, deployment or messaging without applicable authorization.
 ```

@@ -74,7 +74,7 @@ These specifications apply strictly while the committed image and manifest remai
 - **Error & Dimension Validation Expectations:**
   - Load the image asset via `new URL(manifest.assetPath, document.baseURI).href`.
   - Compare the image element's decoded natural dimensions (`img.naturalWidth`, `img.naturalHeight`) with `manifest.width` (2048) and `manifest.height` (1042).
-  - If the image fails to load or dimensions diverge from the manifest, display an explicit error state (`dataStatus === 'error'`); do not silently rescale or invent coordinate bounds.
+  - MapComponent owns its image-display error state (`imageDisplayState === 'error'`); core `dataStatus` reports metadata/data readiness and may remain `ready` when valid metadata exists. If the image fails to load or dimensions diverge from the manifest, display an explicit image-display error in MapComponent; do not alter or force a rendering failure into the core `dataStatus`, and do not silently rescale or invent coordinate bounds.
 - **Calibration & Terrain Status:**
   - Calibration is unverified (`calibration.verified === false`). Do not derive metric distances.
   - Terrain is unavailable (`terrainStatus === 'unavailable'`). Do not compute elevation or slope.
