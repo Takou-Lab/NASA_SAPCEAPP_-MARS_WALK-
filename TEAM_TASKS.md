@@ -8,12 +8,12 @@ This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle 
 
 | Person | Responsibility | Deliverable |
 | --- | --- | --- |
-| Willy | Angular map and map interactions | Map with layer toggles and clickable sourced markers |
-| Gaddielle | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
-| Emma | Science, provenance and presentation | Three verified observations, references and submission text |
-| Enzo | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
-| Longla | 3D rehearsal and optional VR | Labeled prototype showing the route and markers |
-| YOU — coordinator | Integration, assessment and offline operation | Integrated mission flow, confidence panel and tested offline pack |
+| [Willy](docs/team/WILLY.md) | Angular map and map interactions | Map with layer toggles and clickable sourced markers |
+| [Gaddielle](docs/team/GADDIELLE.md) | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
+| [Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three verified observations, references and submission text |
+| [Enzo](docs/team/ENZO.md) | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
+| [Longla](docs/team/LONGLA.md) | 3D rehearsal and optional VR | Labeled prototype showing the route and markers |
+| [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and offline operation | Integrated mission flow, confidence panel and tested offline pack |
 
 ## Willy — Angular map
 
