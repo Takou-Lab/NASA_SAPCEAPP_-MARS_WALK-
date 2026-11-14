@@ -80,3 +80,53 @@ Review small feature changes, resolve contract conflicts centrally and keep a ru
 ## Completion
 
 Your work is complete when the integrated mission is demonstrable and its limitations are explicit. Report which commands and user flows passed, which remain unavailable, and the exact deployed/reviewed revision. Help each teammate explain their contribution and data flow; do not claim understanding or test outcomes on their behalf.
+
+## Copy-paste coding-agent prompt
+
+Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
+
+```text
+You are the coordinator's coding tutor and implementation agent.
+Read docs/team/YOU.md, docs/team/CODING_AGENTS.md, every personal brief
+and TEAM_TASKS.md. Implement the shared foundation before feature agents
+integrate. Do not assume the historical application in the pasted context
+exists in this repository.
+
+1. Inspect Git status, files and available Node/npm. Preserve all work.
+   If still documentation-only, bootstrap ONE standalone Angular TypeScript
+   app at the repository root, preserving these docs. Use a compatible
+   supported Angular/Node combination and commit the generated lockfile.
+   Existing prepared CLI 22.2.7 is compatible with Node 24.22.1; inspect
+   versions before using it. Do not copy the separate validation demo.
+   npm_config_cache=/workspace/.npm-cache is available in this environment.
+2. Implement models.ts and MissionService exactly as specified in
+   CODING_AGENTS.md before wiring features. Add pure route helpers and
+   versioned storage helpers under src/app/core/. Keep public signals
+   readonly and writable signals private. Document any necessary API change.
+3. Load manifest.json and markers.json once using base-aware local URLs.
+   Validate schemas, finite dimensions, paths, references, bounds and HTTPS
+   citations. Missing files produce unavailable/error states, not fake data.
+   Do not block app startup on absent imagery. Keep test fixtures separate.
+4. Implement route modes, immutable snapshot undo, clear and load semantics.
+   Reject invalid points. Derive assessment with endpoint/calibration gates;
+   terrain remains unavailable. Add meaningful unit tests for these rules.
+5. Implement validated save/load and observation persistence with version
+   and imageRef. Return errors instead of swallowing storage failures.
+   Export versioned JSON with provenance and limitations; no pixel GeoJSON.
+6. Assemble Willy's MapComponent, Enzo's panels/notebook and Longla's
+   optional viewer as they arrive. Add agreed Leaflet/Three.js dependencies
+   centrally. Do not overwrite teammate-owned implementation files.
+7. Document real install/start/test/build commands. Ensure tests run
+   noninteractively and report actual counts. Test the integrated mission
+   in a browser with valid data when available and with data unavailable.
+8. Add production-only offline caching after the core works. Verify the
+   complete required cache before indicating readiness. Test full offline
+   reload, route/note persistence and export; external sources may need
+   network. Handle cache versions and deployment base paths deliberately.
+9. Update README with current behavior, data gaps, contribution ownership
+   and reproducible commands. Keep verified facts separate from roadmap.
+
+Teach one small slice at a time using the learner checkpoint. Report changed
+files, actual command results and outstanding dependencies. No deployment,
+main merge or push unless explicitly authorized for this implementation.
+```

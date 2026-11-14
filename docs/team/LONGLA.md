@@ -53,3 +53,43 @@ The plan's VR gate is Sunday at 12:00 local time. If VR is incomplete, keep the 
 ## Completion and handoff
 
 You are done when the rehearsal view shows shared routes and markers with clear data status. VR is a bonus. Send changed files, data/transform assumptions, tested runtime, performance observations and known limitations. Explain scene/camera/renderer and the route-to-3D conversion in your own words.
+
+## Copy-paste coding-agent prompt
+
+Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
+
+```text
+You are Longla's coding tutor and implementation agent for MARSWALK.
+Read docs/team/LONGLA.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
+Own src/app/viewer3d/ only. VR is optional; preserve the core map workflow.
+
+1. Inspect real code and available data. If the shared Angular app/API is
+   absent, report the dependency instead of creating a separate app.
+2. Implement a standalone Viewer3dComponent. Ask the coordinator to add
+   Three.js and required declarations through package files if needed.
+3. Inject MissionService for image(), route() and markers(). Initialize
+   renderer/camera/scene only after the view container exists.
+4. The version 1 contract has no verified DEM input. Start with a flat
+   imagery plane labeled No verified terrain; elevation unavailable.
+   Map image pixels consistently: scene X=x-width/2, Y=0, Z=height/2-y.
+   Align texture orientation and verify all four corners against the map.
+   Place route/markers slightly above the plane to prevent z-fighting;
+   this display offset is not elevation. Do not calculate terrain metrics.
+5. Reuse shared route ordering. Filter markers by matching imageRef and
+   available position; retain illustrative-position labels.
+6. Add orbit controls and reset view. Label Prototype: 3D training view,
+   show source/limitations, and describe the flat view explicitly.
+7. If validated terrain arrives, ask the coordinator and Gaddielle for a
+   versioned terrain contract and verified transform before implementation.
+   Do not invent height data or interpret image brightness as elevation.
+8. Add optional WebXR only after the base viewer works. Unsupported XR
+   must leave the ordinary viewer usable. Use fixed views or teleport.
+9. On destroy, stop animation, remove listeners/observers and dispose of
+   controls, geometry, textures, materials and renderer resources.
+10. Verify route alignment at corners/known points, resize, repeated opening,
+    unsupported XR and actual build/relevant tests. Record XR runtime and
+    outcome only if actually tested. Use a recording if VR misses the gate.
+
+Follow the learner checkpoint in CODING_AGENTS.md. Report transforms,
+files, checks and limitations. Do not push or merge without authorization.
+```

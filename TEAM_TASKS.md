@@ -4,6 +4,10 @@ Framework: **Angular and TypeScript**. Region: **Mount Sharp boxwork formations,
 
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
+## Coding-agent instructions
+
+Each personal brief below includes a ready-to-paste agent prompt. Read the [shared coding contract](docs/team/CODING_AGENTS.md) first. The coordinator implements the foundation before feature integration; research/data preparation can proceed independently.
+
 ## Task overview
 
 | Person | Responsibility | Deliverable |

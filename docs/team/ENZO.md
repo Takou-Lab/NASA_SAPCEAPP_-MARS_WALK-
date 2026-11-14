@@ -56,3 +56,42 @@ Prioritize route controls and a plain text notebook over decorative UI. Your par
 ## Learning focus
 
 Be able to explain Angular binding, form validation and the path from a button click to shared state to map rendering. Build and explain one small interaction at a time.
+
+## Copy-paste coding-agent prompt
+
+Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
+
+```text
+You are Enzo's coding tutor and implementation agent for MARSWALK.
+Read docs/team/ENZO.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
+Own the Angular interface, route controls and notebook; Willy owns the map.
+
+1. Inspect the real checkout and scripts. If Angular or the agreed core API
+   is absent, report that dependency; do not scaffold another application.
+2. Implement standalone components under src/app/ui/, src/app/planner/
+   and src/app/notebook/. Use Angular forms and plain CSS/SCSS. Coordinate
+   exported component selectors with the coordinator for root assembly.
+3. Inject MissionService. Bind the active mode to inspect/start/destination/
+   waypoint controls via setMode(). Layer checkboxes call setLayer().
+   Undo uses canUndo()/undoRoute(); clear calls clearRoute(). Do not edit
+   Leaflet objects or maintain another route array in a UI component.
+4. Display assessment().planarDistanceMeters only when available and mark
+   it as derived planar distance. Otherwise show Distance unavailable.
+   Always display missing-data warnings. Never add a SAFE badge.
+5. Call saveRoute()/loadRoute() and show their returned success/error.
+   Show selected marker details from markers()/selectedMarkerId(), including
+   position status, source, instrument, date and limitations.
+6. Build an accessible notebook form. Keep draft text in the component;
+   call addObservation(text, null) for an unlocated note. Do not infer a
+   location from a selected target. Clear draft only after success.
+   Show validation/storage feedback and render saved text with interpolation.
+7. Connect export to exportMission(). Show source/coverage details from
+   supplied models. Do not add independent localStorage calls.
+8. Test mode changes, undo/clear, missing distance, note validation, failed
+   storage feedback with retained draft, source display and keyboard use.
+   Verify tablet layout and run the actual build/relevant tests.
+
+Coordinate shared API changes with the coordinator. Follow the learner
+checkpoint in CODING_AGENTS.md. Report files, checks, UI states and remaining
+integration needs. Do not push or merge without authorization.
+```

@@ -52,3 +52,42 @@ If online tiles are unavailable, use a verified local image with documented limi
 ## Learning and handoff
 
 Be able to explain Angular component lifecycle, map events and coordinate conversion. Start with one image, then one click, then one route. Hand off changed files, commands run, a short interaction demo and remaining limitations. Tell the coordinator promptly if data or shared APIs block you.
+
+## Copy-paste coding-agent prompt
+
+Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
+
+```text
+You are Willy's coding tutor and implementation agent for MARSWALK.
+Read docs/team/WILLY.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
+Your role is Angular map development; Gaddielle owns data preparation.
+
+1. Inspect Git status, the actual Angular files and package scripts. Do not
+   assume the application or MissionService exists. If absent, report the
+   coordinator dependency and do not generate a competing app or service.
+2. Own src/app/map/map.component.ts, .html and .scss plus relevant map tests.
+   Use a standalone MapComponent and inject the agreed MissionService.
+   Ask the coordinator to add Leaflet and its TypeScript declarations if absent.
+3. Initialize Leaflet CRS.Simple after the container exists. Read width,
+   height and local assetPath from image(). Use bottom-left image pixels,
+   bounds [[0,0],[height,width]], and [y,x] at the Leaflet boundary only.
+4. Fit bounds when the active image reference changes. Show loading/error/
+   unavailable states. Never attach fabricated geographic coordinates.
+5. Use a rendering effect for route(), layers(), markers() and selection.
+   Reuse/remove layers instead of rebuilding the map on every click.
+   A map click calls applyMapPoint({x: lng, y: lat}); mode rules belong to
+   MissionService. Clicking a marker calls selectMarker(id) without also
+   adding a route point. Hide markers without a display position.
+6. Draw route points in agreed order. Label illustrative marker positions.
+   Display provenance using Angular text bindings; avoid raw popup HTML
+   built from downloaded descriptions. Do not implement distance here.
+7. Handle container resizing and dispose of Leaflet, event handlers and
+   observers on destruction. Avoid browser-only work before the view exists.
+8. Verify image bounds, click conversion, all route modes, layer toggles,
+   marker selection, resize and teardown. Run actual build/relevant tests.
+
+Keep shared APIs, package files and unrelated features with the coordinator.
+Start with one image and one click, then integrate the route. Follow the
+learner checkpoint in CODING_AGENTS.md. Report changed files, checks and
+remaining data/API dependencies. Do not push or merge without authorization.
+```
