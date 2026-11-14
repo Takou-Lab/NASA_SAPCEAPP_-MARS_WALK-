@@ -1,0 +1,115 @@
+<section class="map-panel" aria-label="Mars image map">
+  <div class="map-toolbar" aria-label="Map layers">
+    <label>
+      <input
+        type="checkbox"
+        [checked]="mission.layers().imagery"
+        (change)="setLayerVisible('imagery', $event)"
+      />
+      Imagery
+    </label>
+    <label>
+      <input
+        type="checkbox"
+        [checked]="mission.layers().markers"
+        (change)="setLayerVisible('markers', $event)"
+      />
+      Science markers
+    </label>
+    <span class="unavailable-layer" title="No grid product is supplied">Grid unavailable</span>
+    <span class="unavailable-layer" title="No coverage product is supplied"
+      >Coverage unavailable</span
+    >
+  </div>
+
+  <div class="map-frame">
+    <div
+      #mapContainer
+      class="map-container"
+      role="application"
+      aria-label="Pan and zoom image map"
+    ></div>
+    <div class="map-zoom-controls" aria-label="Map zoom controls">
+      <button type="button" aria-label="Zoom in" (click)="zoomIn()">+</button>
+      <button type="button" aria-label="Zoom out" (click)="zoomOut()">−</button>
+    </div>
+
+    @if (
+      mission.dataStatus() === 'loading' ||
+      (mission.dataStatus() === 'ready' && imageDisplayState() === 'loading')
+    ) {
+      <div class="map-state" role="status">Loading Mars imagery…</div>
+    } @else if (mission.dataStatus() === 'unavailable') {
+      <div class="map-state" role="status">
+        Imagery is unavailable. No verified image manifest was loaded.
+      </div>
+    } @else if (mission.dataStatus() === 'error') {
+      <div class="map-state map-state-error" role="alert">
+        {{ mission.dataError() || 'Image metadata could not be loaded.' }}
+      </div>
+    } @else if (imageDisplayState() === 'error') {
+      <div class="map-state map-state-error" role="alert">
+        {{ imageDisplayError() || 'The image could not be displayed.' }}
+      </div>
+    }
+  </div>
+
+  @if (mission.image(); as image) {
+    <div class="image-provenance">
+      <p>
+        <a [href]="image.source.url" target="_blank" rel="noopener noreferrer">{{
+          image.source.title
+        }}</a>
+      </p>
+      <p>
+        {{ image.source.credit }} · {{ image.width }} × {{ image.height }} pixels ·
+        {{ image.coverageStatus }}
+      </p>
+      <ul>
+        @for (limitation of image.limitations; track $index) {
+          <li>{{ limitation }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+  @if (selectedMarker; as marker) {
+    <aside class="marker-details" aria-live="polite" aria-label="Selected science marker">
+      <button
+        class="close-details"
+        type="button"
+        aria-label="Close marker details"
+        (click)="mission.selectMarker(null)"
+      >
+        ×
+      </button>
+      <h2>{{ marker.name }}</h2>
+      <p>{{ marker.finding }}</p>
+      <dl>
+        <dt>Source</dt>
+        <dd>
+          <a [href]="marker.source.url" target="_blank" rel="noopener noreferrer">{{
+            marker.source.title
+          }}</a>
+          — {{ marker.source.credit }}
+        </dd>
+        <dt>Instrument</dt>
+        <dd>{{ marker.instrument || 'Unavailable' }}</dd>
+        <dt>Date</dt>
+        <dd>{{ marker.date || 'Unavailable' }}</dd>
+        <dt>Position status</dt>
+        <dd>{{ marker.positionStatus }}</dd>
+        <dt>Evidence type</dt>
+        <dd>{{ marker.evidenceType }}</dd>
+      </dl>
+      @if (marker.limitations.length) {
+        <h3>Limitations</h3>
+        <ul>
+          @for (limitation of marker.limitations; track $index) {
+            <li>{{ limitation }}</li>
+          }
+        </ul>
+      }
+    </aside>
+  }
+</section>
