@@ -1,61 +1,163 @@
-<section class="science-context" aria-label="Contextual science records">
+<section class="science-context stack" aria-label="Contextual science records">
   <div class="science-context-header">
-    <h2>Contextual Science Records</h2>
+    <div class="header-top flex-row">
+      <h2>Contextual Science Records</h2>
+      @if (
+        mission.dataStatus() !== 'loading' &&
+        mission.dataStatus() !== 'unavailable' &&
+        mission.dataStatus() !== 'error'
+      ) {
+        <p class="record-badge pill">{{ recordBadge() }}</p>
+      }
+    </div>
     <p class="science-context-note">
       Regional Curiosity and orbital findings remain readable here as exploration context when pixel
       coordinates on the active image are unavailable.
     </p>
+    @if (
+      mission.dataStatus() !== 'loading' &&
+      mission.dataStatus() !== 'unavailable' &&
+      mission.dataStatus() !== 'error' &&
+      positionBreakdown().located > 0
+    ) {
+      @let breakdown = positionBreakdown();
+      <p class="pos-breakdown">
+        Located coordinates breakdown: {{ breakdown.verified }} verified,
+        {{ breakdown.illustrative }} illustrative (located includes illustrative positions and does
+        not mean verified coordinates).
+      </p>
+    }
   </div>
 
   @if (mission.dataStatus() === 'loading') {
-    <p class="science-state" role="status">Loading contextual science records…</p>
+    <p class="science-state box" role="status">Loading contextual science records…</p>
   } @else if (mission.dataStatus() === 'unavailable') {
-    <p class="science-state" role="status">
+    <p class="science-state box" role="status">
       Contextual science records are unavailable because image metadata has not been supplied yet.
     </p>
   } @else if (mission.dataStatus() === 'error') {
-    <p class="science-state science-state-error" role="alert">
+    <p class="science-state science-state-error box" role="alert">
       {{ mission.dataError() || 'Contextual science records could not be loaded.' }}
     </p>
   } @else {
     @if (mission.dataError(); as errorMessage) {
-      <p class="science-banner-error" role="alert">{{ errorMessage }}</p>
+      <p class="science-banner-error box" role="alert">{{ errorMessage }}</p>
     }
 
     @if (mission.markers().length === 0) {
-      <p class="science-empty" role="status">No contextual science records are available.</p>
+      <p class="science-empty box" role="status">No contextual science records are available.</p>
     } @else {
-      <ul class="science-record-list" aria-label="Science records">
-        @for (record of mission.markers(); track record.id) {
-          <li>
-            <button
-              type="button"
-              class="science-record-button"
-              [class.selected]="isSelected(record.id)"
-              [attr.aria-pressed]="isSelected(record.id)"
-              (click)="selectRecord(record.id)"
+      <div class="controls stack" aria-label="Filter science records">
+        <div class="filters">
+          <div class="filter-field">
+            <label [attr.for]="'science-search-' + instanceId">Search records</label>
+            <input
+              [id]="'science-search-' + instanceId"
+              type="search"
+              placeholder="Name, finding, instrument, or source"
+              [value]="searchQuery()"
+              (input)="onSearchInput($event)"
+            />
+          </div>
+
+          <div class="filter-field">
+            <label [attr.for]="'science-evidence-' + instanceId">Evidence type</label>
+            <select
+              [id]="'science-evidence-' + instanceId"
+              [value]="evidenceFilter()"
+              (change)="onEvidenceFilterChange($event)"
             >
-              <span class="record-title">{{ record.name }}</span>
-              <span class="record-badges">
-                <span class="record-evidence">{{ record.evidenceType }}</span>
-                <span class="record-position-badge">{{
-                  record.positionStatus === 'unavailable' || !record.position
-                    ? 'Contextual (unlocated)'
-                    : record.positionStatus
-                }}</span>
-              </span>
-            </button>
-          </li>
-        }
-      </ul>
+              <option value="all">All</option>
+              <option value="measured">Measured</option>
+              <option value="derived">Derived</option>
+              <option value="interpreted">Interpreted</option>
+              <option value="simulated">Simulated</option>
+            </select>
+          </div>
+
+          <div class="filter-field">
+            <label [attr.for]="'science-position-' + instanceId">Position availability</label>
+            <select
+              [id]="'science-position-' + instanceId"
+              [value]="positionFilter()"
+              (change)="onPositionFilterChange($event)"
+            >
+              <option value="all">All positions</option>
+              <option value="located">Located (verified or illustrative)</option>
+              <option value="verified">Verified only</option>
+              <option value="illustrative">Illustrative only</option>
+              <option value="unavailable">Contextual / unavailable</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-bar flex-row">
+          <p class="results-count" role="status">
+            Showing {{ filteredMarkers().length }} of {{ mission.markers().length }}
+          </p>
+          <button
+            type="button"
+            class="clear-filters"
+            [disabled]="!hasActiveFilters()"
+            (click)="clearFilters()"
+          >
+            Clear filters
+          </button>
+        </div>
+      </div>
+
+      @if (filteredMarkers().length === 0) {
+        <div class="no-matches box flex-row" role="status">
+          <p>No science records match the current search or filters.</p>
+          <button type="button" class="clear-filters" (click)="clearFilters()">
+            Clear filters
+          </button>
+        </div>
+      } @else {
+        <ul class="science-record-list stack" aria-label="Science records">
+          @for (record of filteredMarkers(); track record.id) {
+            <li>
+              <button
+                type="button"
+                class="science-record-button"
+                [class.selected]="isSelected(record.id)"
+                [attr.aria-pressed]="isSelected(record.id)"
+                (click)="selectRecord(record.id)"
+              >
+                <span class="record-title">{{ record.name }}</span>
+                <span class="record-badges">
+                  <span class="record-evidence pill">{{ record.evidenceType }}</span>
+                  <span class="record-position-badge pill">{{
+                    record.positionStatus === 'unavailable' || record.position === null
+                      ? 'Contextual (unlocated)'
+                      : record.positionStatus
+                  }}</span>
+                </span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
 
       @if (selectedRecord(); as record) {
         <article
-          class="science-record-details"
+          class="science-record-details box stack"
           aria-live="polite"
           aria-label="Selected science record details"
         >
-          <div class="details-header">
+          @if (isSelectedHiddenByFilter()) {
+            <div class="hidden-notice box flex-row" role="status">
+              <p>
+                This selected record is outside the current filter results and is hidden from the
+                list above. Selection stays active until you clear it.
+              </p>
+              <button type="button" class="clear-filters" (click)="clearFilters()">
+                Clear filters
+              </button>
+            </div>
+          }
+
+          <div class="details-header flex-row">
             <h3>{{ record.name }}</h3>
             <button
               type="button"
@@ -69,7 +171,7 @@
 
           <p class="record-finding">{{ record.finding }}</p>
 
-          <dl class="record-metadata">
+          <dl class="record-metadata stack">
             <div class="metadata-row">
               <dt>Evidence type</dt>
               <dd>{{ record.evidenceType }}</dd>
@@ -119,7 +221,7 @@
           </div>
         </article>
       } @else {
-        <p class="science-no-selection" role="status">
+        <p class="science-no-selection box" role="status">
           Select a science record to view its finding, source, instrument attribution, and
           limitations.
         </p>

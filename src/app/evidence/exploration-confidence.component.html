@@ -1,0 +1,121 @@
+<section class="confidence-panel" aria-label="Exploration confidence">
+  <header class="confidence-header">
+    <div class="header-title-row">
+      <h2>Exploration Confidence</h2>
+      <span class="badge badge-caution">Visual review only</span>
+    </div>
+    <p class="safety-boundary">
+      <strong>Visual review only.</strong> Missing hazard or terrain information does not establish
+      route safety; MARSWALK never assigns a safety rating, percentage, or pass classification.
+    </p>
+  </header>
+
+  @if (mission.dataStatus() === 'loading') {
+    <p class="confidence-state" role="status">Loading image metadata and exploration assessment…</p>
+  } @else if (mission.dataStatus() === 'unavailable') {
+    <p class="confidence-state" role="status">
+      {{
+        mission.dataError() ||
+          'Image metadata has not been supplied yet. Coverage, metric distance, and terrain remain unavailable.'
+      }}
+    </p>
+  } @else if (mission.dataStatus() === 'error') {
+    <p class="confidence-state confidence-state-error" role="alert">
+      {{ mission.dataError() || 'Image metadata could not be loaded or validated.' }}
+    </p>
+  } @else {
+    @if (mission.dataError(); as errorMessage) {
+      <p class="confidence-banner-error" role="alert">{{ errorMessage }}</p>
+    }
+
+    <div class="confidence-grid">
+      <article class="confidence-card" aria-label="Route summary">
+        <div class="card-head">
+          <h3>Route Summary</h3>
+          <span
+            class="badge"
+            [class.badge-ok]="endpointsStatus().complete"
+            [class.badge-neutral]="!endpointsStatus().complete"
+          >
+            {{ endpointsStatus().label }}
+          </span>
+        </div>
+        <dl class="metric-list">
+          <div class="metric-row">
+            <dt>Start</dt>
+            <dd>{{ startStatus() }}</dd>
+          </div>
+          <div class="metric-row">
+            <dt>Destination</dt>
+            <dd>{{ destinationStatus() }}</dd>
+          </div>
+          <div class="metric-row">
+            <dt>Waypoints</dt>
+            <dd>{{ waypointsCount() }}</dd>
+          </div>
+        </dl>
+        <p class="card-note">{{ endpointsStatus().detail }}</p>
+      </article>
+
+      <article class="confidence-card" aria-label="Planar distance">
+        <div class="card-head">
+          <h3>Planar Distance</h3>
+          <span
+            class="badge"
+            [class.badge-ok]="distanceSummary().derived"
+            [class.badge-neutral]="!distanceSummary().derived"
+          >
+            {{ distanceSummary().derived ? 'Derived' : 'Unavailable' }}
+          </span>
+        </div>
+        <p class="metric-value">{{ distanceSummary().formatted }}</p>
+        <p class="card-note">{{ distanceSummary().basis }}</p>
+      </article>
+
+      <article class="confidence-card" aria-label="Terrain status">
+        <div class="card-head">
+          <h3>Terrain Model</h3>
+          <span class="badge badge-caution">{{ terrainStatusLabel() }}</span>
+        </div>
+        <p class="card-note">
+          Elevation, slope, and terrain-following distance are unavailable (even when planar metric
+          calibration is verified). Route or image display offsets and image brightness are not
+          elevation.
+        </p>
+      </article>
+
+      <article class="confidence-card" aria-label="Coverage status">
+        <div class="card-head">
+          <h3>Coverage Status</h3>
+          <span
+            class="badge"
+            [class.badge-ok]="coverageSummary().status === 'verified-aoi'"
+            [class.badge-caution]="coverageSummary().status === 'regional-context'"
+            [class.badge-neutral]="coverageSummary().status === 'missing'"
+          >
+            {{ coverageSummary().label }}
+          </span>
+        </div>
+        <p class="card-note">{{ coverageSummary().detail }}</p>
+      </article>
+    </div>
+
+    <div class="warnings-block">
+      <h3>Assessment Warnings</h3>
+      @if (uniqueWarnings().length > 0) {
+        <ul class="confidence-warnings">
+          @for (warning of uniqueWarnings(); track warning) {
+            <li>{{ warning }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="card-note">No assessment warnings recorded.</p>
+      }
+    </div>
+  }
+
+  <p class="pwa-boundary">
+    Metadata and assessment checks do not establish offline cache completeness or PWA installation
+    readiness.
+  </p>
+</section>

@@ -32,6 +32,8 @@ it('mounts the map once and keeps the missing-data shell usable', async () => {
   await fixture.whenStable();
   fixture.detectChanges();
   expect(fixture.nativeElement.querySelectorAll('app-map')).toHaveLength(1);
+  expect(fixture.nativeElement.querySelectorAll('app-image-passport')).toHaveLength(1);
+  expect(fixture.nativeElement.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
   expect(fixture.nativeElement.textContent).toContain('unavailable');
   expect(fixture.nativeElement.textContent).toContain('Waiting for a verified local image');
   http.verify();
@@ -57,6 +59,12 @@ it('loads the delivered image and three unlocated science records through the re
       .every((marker) => marker.position === null && marker.positionStatus === 'unavailable'),
   ).toBe(true);
   expect(mission.assessment().planarDistanceMeters).toBeNull();
+  expect(fixture.nativeElement.querySelector('app-image-passport').textContent).toContain(
+    manifest.imageRef,
+  );
+  expect(fixture.nativeElement.querySelector('app-exploration-confidence').textContent).toContain(
+    'Metric distance unavailable',
+  );
   expect(fixture.nativeElement.textContent).toContain('3 contextual science records');
   const buttons = fixture.nativeElement.querySelectorAll(
     'app-science-context .science-record-button',

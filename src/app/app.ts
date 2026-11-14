@@ -2,10 +2,17 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { MAX_MISSION_IMPORT_BYTES, MissionService } from './core/mission.service';
 import { MapComponent } from './map/map.component';
 import { ScienceContextComponent } from './science/science-context.component';
+import { ExplorationConfidenceComponent } from './evidence/exploration-confidence.component';
+import { ImagePassportComponent } from './evidence/image-passport.component';
 
 @Component({
   selector: 'app-root',
-  imports: [MapComponent, ScienceContextComponent],
+  imports: [
+    MapComponent,
+    ScienceContextComponent,
+    ExplorationConfidenceComponent,
+    ImagePassportComponent,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
