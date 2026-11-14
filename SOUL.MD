@@ -6,7 +6,7 @@ Updated: **14 November 2026**. This is the team's product charter and scope guid
 
 Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
 
-Emmanuelle's prior evidence audit, revised records/citations, PWA status summary and internal demo script are delivered on `feature/emma-science-provenance` at `8a947a4`. Review/integration remains separate; do not ask her to recreate those deliverables. The usability protocol is a new later task, not overdue prior work. Gaddielle and the other teammates should continue their existing branches and in-progress work; apply new extras after that handoff.
+Emma (he/him) delivered the evidence audit, revised records/citations, PWA status summary and internal demo script on `feature/emma-science-provenance` at `8a947a4`, then the usability protocol at `b0640d9`. Review/integration remains separate; do not ask him to recreate those deliverables. His new task is the presentation and judges' Q&A pack; actual usability sessions wait for the integrated PWA. Willy reports his map completed locally; his next tasks are branch publication, narrow root mounting and viewport usability. Preserve other teammates' current work and completed results.
 
 ## Why we exist
 
@@ -71,7 +71,7 @@ Do not present an unrun step as complete. An unlocated science record must not b
 
 ## Data passports
 
-Every displayed product has a readable provenance record: source and credit, product/image reference, observation date when verified, coverage, resolution when known, preparation steps, verification status and limitations. Gaddielle supplies imagery/processing evidence, Emmanuelle supplies scientific evidence, Enzo presents it, and the coordinator agrees any shared model/API extension.
+Every displayed product has a readable provenance record: source and credit, product/image reference, observation date when verified, coverage, resolution when known, preparation steps, verification status and limitations. Gaddielle supplies imagery/processing evidence, Emma supplies scientific evidence, Enzo presents it, and the coordinator agrees any shared model/API extension.
 
 Do not invent fields absent from inspected evidence. Preserve the prepared image's bottom-left pixel contract and version reference. Neither image brightness nor a scientific interpretation supplies measured terrain. A new derivative or coordinate interpretation requires deliberate versioning and handling of saved positions.
 
@@ -80,8 +80,8 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 | Priority | Owner | Outcome |
 | --- | --- | --- |
 | Essential | Gaddielle | Stable image/manifest, qualified coverage claims, offline image-pack inventory, reproducible validation and Willy handoff |
-| Essential | Emmanuelle (EMMA.md) | Claim-level citations, science evidence audit, honest product summary and user-test/demo scripts |
-| Essential | Willy | Real local-image map, robust loading, route rendering and correct map-to-mission actions |
+| Essential | Emma (EMMA.md) | Preserve delivered science/demo/protocol; prepare source-backed presentation and judges' Q&A, then record actual user-test outcomes |
+| Essential | Willy | Publish and integrate the reported completed map, add viewport reset/focus and verify without rebuilding his earlier work |
 | Essential | Enzo | Tablet controls, readable confidence/data passports, contextual science list, notebook, recovery/export and PWA status UI |
 | Essential | Coordinator (YOU.md) | Shared state, reviewed integration, confidence calculations, installation, complete verified offline pack and end-to-end release checks |
 | Essential before optional 3D | Longla | Independent target-device/offline QA and support for usability observation, working with the coordinator |
@@ -91,7 +91,7 @@ Keep existing role ownership and completed work. The Willy/Gaddielle swap remain
 
 ## Evidence that people can use it
 
-The coordinator arranges a small test with **three people outside the team**. Emmanuelle prepares the protocol and records anonymized outcomes in `docs/USABILITY.md`; Longla supports observation and device checks. Do not fabricate participants, timings or results.
+The coordinator arranges a small test with **three people outside the team**. Emma prepares the protocol and records anonymized outcomes in `docs/USABILITY.md`; Longla supports observation and device checks. Do not fabricate participants, timings or results.
 
 Ask each person to:
 

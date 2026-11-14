@@ -1,102 +1,128 @@
 # Willy — Angular Map Developer
 
-**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+## Current follow-up — publish, integrate and improve map navigation
 
-## Current priority — the offline exploration workspace
+Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md), [the shared coding contract](CODING_AGENTS.md) and [the image handoff](../data/IMAGE_CONTRACT.md). Preserve the map you already built; this assignment does not restart development.
 
-Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared coding contract](CODING_AGENTS.md). MARSWALK is an installable Angular PWA for mission rehearsal, science learning and analogue-workflow research. The map is part of one complete mission: inspect imagery and evidence, sketch a route, understand uncertainty, save a note, reopen offline and export.
+### Previous work reported complete
 
-The Angular foundation, shared models, MissionService, Leaflet and its declarations are already on `main`. Reuse them; do not create another app or state store. Gaddielle's real regional imagery and manifest are on her data branch pending integration. Inspect actual files and branch status before starting. You own map development after the Willy/Gaddielle swap.
+You reported four files under `src/app/map/`: `map.component.ts`, `map.component.html`, `map.component.scss` and `map.component.spec.ts`. The report includes imagery, pan/zoom, route interactions/rendering, science-marker support and layer controls, with **26 tests and a production build passing**.
 
-## Deliverables and ownership
+Those are your reported results. At the last remote check, `feature/willy-map-development` was not available in the selected GitHub repository, so the coordinator has not independently reviewed the source or reproduced those results. Publishing the existing branch is the first handoff step; do not regenerate the app or replace your completed map.
 
-- A standalone map component under `src/app/map/`, with relevant map tests.
-- Local imagery, pan/zoom, layer visibility, route rendering and selection events.
-- Loading, missing-data, image-load and dimension-mismatch states.
-- Clear regional-context and pixel-coordinate limitations.
+## New tasks in order
 
-The coordinator owns root assembly, core state, package files, service-worker caching and PWA installation. Enzo owns panels and controls; Gaddielle owns image preparation; Emmanuelle owns scientific evidence. Coordinate shared API changes instead of editing their work independently.
+### 1. Publish the existing map branch
 
-## Work in this order
+1. Inspect local Git status and preserve all current work.
+2. Verify that `origin` points to `boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-`. If it points elsewhere, resolve the intended destination with the coordinator before pushing; do not silently rewrite an unrelated remote.
+3. Commit any intended map changes still local, then publish the existing branch normally:
 
-1. Inspect the actual Angular files and the implemented MissionService API. Read [the image handoff](../data/IMAGE_CONTRACT.md) and [foundation handoff](WILLY_HANDOFF.md).
-2. Create the Leaflet map after its container exists. Give the container an explicit height and use `CRS.Simple`.
-3. Load `image().assetPath` relative to the application base, not the domain root. Confirm image decoding and natural width/height against the active manifest before presenting it as loaded.
-4. Fit bounds when the image reference changes. Show honest loading/unavailable/error feedback and distinguish valid metadata from a successfully decoded image.
-5. Convert map clicks into shared actions using the agreed pixel contract. Route rules belong to MissionService.
-6. Render start, ordered waypoints and destination from shared route state. Update existing layers rather than reconstructing the map on every interaction.
-7. Render only science markers with a position on the active image. Keep null-position records available through Enzo's science list, without assigning them invented coordinates.
-8. Implement layer toggles, resize handling and complete destruction cleanup. Keep the map independent of live tile services so prepared local imagery can work offline.
+   ```sh
+   git push -u origin feature/willy-map-development
+   ```
 
-## Coordinate and evidence contract
+4. Report the pushed commit and branch. Use no force push, reset, replacement project or duplicate feature branch. If the push is rejected, inspect the remote changes and preserve both contributions before resolving it.
 
-- Image origin: bottom-left; x increases right and y increases up.
-- Bounds: `[[0, 0], [height, width]]`; convert `{x, y}` to Leaflet `[y, x]` only at the map boundary.
-- Click conversion: `applyMapPoint({ x: event.latlng.lng, y: event.latlng.lat })`.
-- Pixels are not longitude/latitude or meters. Do not assume north-up or attach a metric scale bar to uncalibrated imagery.
-- A route is a visual sketch. Distance/calibration assessment belongs to core state; never calculate a separate map safety score.
-- Current data is regional context; exact exploration-area coverage, calibration and terrain may remain unverified/unavailable.
-- Clicking a located marker calls `selectMarker(id)` without also adding a route point. Label illustrative positions when any are explicitly supplied.
-- Show descriptions through Angular text bindings; do not construct raw popup HTML from external content.
+### 2. Mount the existing map in the Angular root
 
-## Acceptance checks
+For this task, you have a **narrow root-integration exception** in addition to ownership of `src/app/map/`:
 
-- The prepared image matches its manifest dimensions and all four image corners align with the documented bounds.
-- Failed image loads and incorrect dimensions show an error rather than a misleading blank or apparently ready map.
-- Inspect/start/destination/waypoint modes affect shared state correctly; route ordering, undo and clear remain consistent.
-- Null-position science records never appear at a guessed location. Their absence on the map does not remove their list entries.
-- Layers toggle independently. Keyboard-accessible controls are coordinated with Enzo.
-- Tablet resizing and repeated opening do not create duplicate maps, listeners or observers.
-- Once coordinator-owned caching is integrated, close and reopen the installed PWA offline and repeat image viewing and route editing. Report pending offline verification until it is actually tested.
-- Run `npm test`, `npm run build` and relevant existing checks. Record actual commands and outcomes.
+- `src/app/app.ts`: import your existing standalone `MapComponent` and add it to the root component imports.
+- `src/app/app.html`: mount its **actual declared selector exactly once** in the main workspace, preserving existing data-status and confidence content.
+- `src/app/app.scss`: only the container sizing/layout needed to keep the map visible and responsive.
+- `src/app/app.spec.ts`: verify the mounted component and honest missing-data shell, using the project's existing test approach.
 
-## Learning and handoff
+Inspect your implementation and the latest root files before editing. Keep this integration change small. The coordinator retains ownership of core state, package/configuration files, PWA lifecycle and unrelated root behavior. Do not change shared APIs, copy another person's data files or add a second initialization/store. The root already calls `MissionService.initialize()` once.
 
-Start with one image and one click, then one route. Explain Angular lifecycle, coordinate conversion and map events. Follow the learner checkpoint in the shared contract. Hand off files, supported actions/events, an interaction demo and remaining limitations to the coordinator. Support the team's three outside-user checks by showing whether users can sketch a route and understand that its distance/slope may be unknown; never claim tests that were not run.
+Coordinate use of Gaddielle's prepared image and Emma's records with the coordinator's data integration. Missing data must show a usable unavailable/error state; a null-position science record remains available through Enzo's list without an invented map location.
+
+### 3. Add map navigation polish where missing
+
+Inspect existing controls first and reuse any equivalent behavior already implemented:
+
+- **Reset View:** fit the active image bounds after panning or zooming away.
+- **Focus Route:** fit the available ordered route points when at least two points exist. Disable the action when fewer than two points are available. Handle coincident points without excessive zoom.
+- Use keyboard-accessible, clearly labeled buttons with touch-friendly targets inside the map component.
+- These actions change only the viewport. They must preserve the route, interaction mode, observations and selected science record.
+- Do not duplicate Enzo's start/destination/waypoint, notebook or mission save/load controls.
+
+Keep Leaflet `CRS.Simple`, local imagery and the agreed image reference. Do not add external tiles, a metric scale bar, automatic routing or safety classifications.
+
+## Ownership and interfaces
+
+Own `src/app/map/` and relevant map tests, plus the limited root files above solely for mounting/sizing/testing the map. All other root behavior, `src/app/core/`, package files, data integration and installation/service-worker work remain with the coordinator. Enzo owns panels and route/notebook controls; Gaddielle owns imagery preparation; Emma owns science evidence.
+
+Use the existing `MissionService` readonly signals and actions. Map points are bottom-left image pixels: x increases right, y increases up; bounds are `[[0, 0], [height, width]]`. Convert `{x, y}` ↔ Leaflet `[y, x]` only at the map boundary. Pixels do not establish meters, north-up orientation or geographic coordinates.
+
+Runtime imagery must load relative to the application base. Check image decoding and natural dimensions against the manifest; valid metadata alone does not mean an image has loaded. Maintain regional-context and unavailable-calibration/terrain messages. Render only markers with a supplied position and matching image reference; never position records whose position is null.
+
+## Acceptance checks for this follow-up
+
+- The remote branch exists at the reported commit and contains the completed map files.
+- The Angular root mounts one instance of the actual `MapComponent`; missing imagery does not crash the shell.
+- Reset View fits the image and Focus Route fits the available route; disabled/no-image states work.
+- Viewport actions leave route, mode, selected record and observations unchanged.
+- Buttons work by keyboard and touch; resizing leaves the map usable.
+- Relevant existing checks still cover bad/missing imagery, dimension mismatches, route modes, null-position markers and cleanup. Add only missing regression coverage for the new integration/navigation behavior.
+- Run `npm test` and `npm run build`; report actual current counts and outcomes rather than copying the earlier 26-test result.
+- Run a browser interaction check where the environment supports it. Report unrun or blocked checks separately.
+- Installed/offline PWA behavior remains pending until the coordinator's caching/install work is integrated and tested on the target device. Tests/build alone do not establish that outcome.
+
+Use clearly synthetic fixtures in tests only, never fabricated mission data in `public/data/`. Preserve the real derivative and its `imageRef`; your task does not require replacing the image.
+
+## Completion and handoff
+
+Commit and push only `feature/willy-map-development`, then give the coordinator the commit, root mounting changes, navigation behavior, test results and remaining integration dependencies. This assignment authorizes your own feature-branch push; do not merge/push `main`, deploy or contact teammates through tools without applicable authorization.
+
+Follow the learner checkpoint for new substantive work. Explain one integration or viewport change at a time; do not repeat completed map lessons or claim the learner's understanding on their behalf.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Willy's coding tutor and implementation agent for MARSWALK.
+You are Willy's coding tutor and map-integration agent for MARSWALK.
 Read SOUL.MD, TEAM_TASKS.md, docs/team/WILLY.md,
-docs/team/CODING_AGENTS.md, docs/data/IMAGE_CONTRACT.md and
-docs/team/WILLY_HANDOFF.md.
+docs/team/CODING_AGENTS.md and docs/data/IMAGE_CONTRACT.md.
 
-Your task is the local-image map for a tablet-first, installable Angular
-PWA used for mission rehearsal and science learning. The Angular foundation,
-MissionService, Leaflet and declarations already exist on main. Inspect
-actual Git status/files and preserve work. Do not recreate the app.
+Willy reports the four map files completed, 26 tests passing and production
+build passing. Preserve that work; do not rebuild the map or Angular app.
+At the last remote check feature/willy-map-development was not available,
+so those results have not yet been independently reproduced.
 
-1. Own src/app/map/ and relevant map tests. Implement a standalone
-   MapComponent using inject(MissionService). Keep core/root/package/PWA
-   changes with the coordinator; panels belong to Enzo.
-2. Use Leaflet CRS.Simple after the view container exists. Load the real
-   regional image when Gaddielle's data is integrated. If absent, show
-   unavailable data; only use clearly synthetic fixtures in tests.
-3. Resolve assetPath with new URL(manifest.assetPath, document.baseURI).
-   Check actual image loading and natural dimensions against the manifest.
-   Show failures or mismatches. Valid metadata alone is not a loaded image.
-4. Use bottom-left image pixels, bounds [[0,0],[height,width]] and [y,x]
-   at the Leaflet boundary. Emit applyMapPoint({x: lng, y: lat}). The shared
-   service owns route modes, point validation and undo. Never assume metric
-   scale, north-up or geographic coordinates.
-5. Render shared route() in start/ordered-waypoints/destination order.
-   Use effects for layers(), markers() and selection; reuse/remove layers
-   without rebuilding the map on each click.
-6. Do not position records with position:null. Enzo exposes those through
-   a science list. A marker click selects without adding a route point.
-   Label illustrative positions and render sourced text safely.
-7. Show regional-context limits and support honest uncertainty. Do not add
-   a metric scale bar, safety score or terrain inference from image pixels.
-8. Handle resize and dispose map/listeners/observers on destruction.
-   Keep runtime imagery local and compatible with the coordinator's cache;
-   do not implement your own service worker or depend on live tiles.
-9. Verify bounds, bad image/dimensions, modes, route rendering, null marker
-   handling, resize and teardown. Run actual tests/build. After the PWA
-   cache is integrated, verify reopening and route editing offline; do not
-   report this before it works. Support the team's outside-user checks.
+1. Inspect local Git status and completed map implementation. Verify origin
+   is boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-. Preserve current work.
+   Commit intended local changes, then publish the existing branch with:
+   git push -u origin feature/willy-map-development
+   No force push, reset, duplicate branch or silent unrelated-remote change.
+2. Continue on that same branch. Inspect latest root files and the map's
+   actual selector before integrating. Your narrow root exception permits
+   src/app/app.ts/.html/.scss/.spec.ts only to import the standalone
+   MapComponent, mount it once, size its container and test root mounting.
+   Preserve existing status/confidence content. Keep core, unrelated root,
+   package/PWA/config and data-file changes with their owners.
+3. Reuse existing MissionService; root initializes it once. Missing image
+   data must not crash the shell. Coordinate real asset/record integration
+   with the coordinator; do not fabricate public/data fixtures or position
+   Emma's unlocated records.
+4. Inspect existing map navigation first. Add only missing equivalents of
+   Reset View (fit image) and Focus Route (fit ordered shared route points,
+   enabled only with at least two points; handle coincident points safely).
+   Provide labeled keyboard/touch-friendly map-owned buttons. Viewport
+   actions must not mutate route, mode, selected record or observations.
+   Do not duplicate Enzo's route/notebook controls.
+5. Preserve CRS.Simple, bottom-left pixels and [y,x] boundary conversion.
+   Keep imagery local/base-relative; validate load and natural dimensions.
+   No metric scale, invented coordinates, external tiles or safety score.
+6. Add meaningful regression checks for root mounting, navigation enabled/
+   disabled behavior and unchanged mission state. Keep existing relevant
+   image-failure/dimension/mode/cleanup tests working. Use synthetic test
+   fixtures only. Run npm test and npm run build and report actual counts.
+7. Check browser interactions when available. Mark unavailable checks and
+   installed/offline PWA verification pending until actually tested with
+   the coordinator's implementation. A build/test pass is not PWA proof.
 
-Follow the learner checkpoint in CODING_AGENTS.md. Report changed files,
-commands/outcomes, one acceptance scenario and remaining dependencies.
-Do not push, merge or deploy without the user's authorization.
+Follow learner checkpoints only for new work. Commit and push your own
+feature/willy-map-development branch; that push is authorized here.
+Report commit, changed files, checks, mounting selector and dependencies.
+No main merge/push, deployment or messaging without applicable authority.
 ```

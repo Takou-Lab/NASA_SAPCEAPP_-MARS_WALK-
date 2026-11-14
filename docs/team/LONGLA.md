@@ -11,7 +11,7 @@ The Angular foundation exists on `main`, with data contributions on feature bran
 ## Ownership and deliverables
 
 - `docs/qa/`: reproducible PWA/device scenarios, actual results, failures and retest evidence.
-- Technical observations for the coordinator's outsider usability check; Emmanuelle owns the consolidated usability summary.
+- Technical observations for the coordinator's outsider usability check; Emma owns the consolidated usability summary.
 - Optional `src/app/viewer3d/`: a labeled Three.js rehearsal view using shared mission data.
 
 The coordinator owns core state, root assembly, package dependencies and service-worker/PWA logic. Enzo owns interface controls, Willy the map, and Gaddielle the imagery/terrain preparation. Report defects with reproduction steps instead of independently rewriting their implementation.
@@ -67,7 +67,7 @@ TEAM_TASKS.md. Prioritize an evidenced offline PWA mission before 3D/VR.
    Separate connectivity, verified cache readiness and persistence.
 5. Support the coordinator's three outsider task checks. Record anonymous
    actual route completion, understanding of unknown distance/slope, and
-   note recovery; hand observations to Emmanuelle's usability summary.
+   note recovery; hand observations to Emma's usability summary.
    Do not fabricate results or contact participants through tools without
    authorization. Report defects and retest affected scenarios.
 6. Only after core acceptance, implement optional standalone Viewer3dComponent

@@ -10,16 +10,19 @@ This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle 
 
 Each personal brief below includes a ready-to-paste agent prompt. Read [SOUL.MD](SOUL.MD) and the [shared coding contract](docs/team/CODING_AGENTS.md) first. The Angular foundation is already implemented; reuse it. The next work is reviewed data integration, the 2D mission, installability and verified offline operation.
 
-**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emmanuelle's previous science assignment is delivered at `8a947a4` and awaits coordinator integration, not repeated research.
+**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emma's previous science assignment is delivered at `8a947a4` and awaits coordinator integration, not repeated research.
+
+**Latest task update:** Emma uses **he/him**. His usability protocol is also delivered at `b0640d9`; actual participant sessions remain pending. His new work is presentation and judges' Q&A preparation. Willy reports his four map files and successful tests/build complete locally; the map branch was not available on GitHub at the latest check, so publication and independent review are still required. Neither person should restart earlier work.
 
 ## Current follow-up assignments — 14 November 2026
 
-The Angular foundation is on `main`. The last joint review of Gaddielle's imagery and Emmanuelle's science records passed image dimensions and shared record contracts, along with the foundation tests/build. These branches have not yet been merged into `main`; inspect newer branch revisions before integration. Scientific source support still requires review; schema validation alone does not verify a finding.
+The Angular foundation is on `main`. The last joint review of Gaddielle's imagery and Emma's science records passed image dimensions and shared record contracts, along with the foundation tests/build. These branches have not yet been merged into `main`; inspect newer branch revisions before integration. Scientific source support still requires review; schema validation alone does not verify a finding.
 
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
+| [Willy](docs/team/WILLY.md) | `feature/willy-map-development` (reported local branch; publish first) | Publish completed map, mount it in root through the narrow integration exception, add Reset View/Focus Route and verify the integrated shell |
 | [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Offline image-pack inventory, offline verification tool, qualified metadata claims and Willy handoff |
-| [Emmanuelle / Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | Previous audit, citations, summary and demo delivered at `8a947a4`; handoff now, usability protocol as a separate later task |
+| [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New `docs/PRESENTATION.md` and `docs/JUDGES_QA.md`; reuse completed science/demo/protocol and keep untested behavior pending |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. These assignments include committing and pushing the respective feature branch; integration into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
 
@@ -27,14 +30,14 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 
 | Person | Current work | Acceptance evidence |
 | --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | Real local-image map and route rendering | Image-load/dimension failures handled; pixel conversion and route modes correct; prepared imagery works offline after PWA integration |
+| [Willy](docs/team/WILLY.md) | Publish and mount his completed map; Reset View and Focus Route | Remote branch available; root mounts actual selector once; viewport actions preserve mission state; actual tests/build pass |
 | [Enzo](docs/team/ENZO.md) | Tablet mission UI, Confidence Panel, Data Passport, science list and notebook | Users understand missing distance/slope, unlocated records remain readable, failed saves retain drafts, recovery/export work |
 | [Gaddielle](docs/team/GADDIELLE.md) | Offline image inventory/verifier and Data Passport | Actual file sizes/checksums/dimensions and provenance documented; whole-app readiness not implied |
-| [Emmanuelle](docs/team/EMMA.md) | Completed science/evidence/demo handoff; later usability support | Preserve delivered `8a947a4`; address concrete integration findings, then record actual user-test outcomes when sessions occur |
+| [Emma](docs/team/EMMA.md) | Presentation outline and judges' Q&A; later actual usability results | Preserve `8a947a4` and `b0640d9`; claims tied to source/build evidence, future features and unrun sessions labeled pending |
 | [Longla](docs/team/LONGLA.md) | Independent installed-device/offline QA first; optional 3D second | Recorded close/reopen/offline checks and observed usability issues; no untested VR claims |
 | [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |
 
-The coordinator conducts the outside-user sessions, Emmanuelle maintains `docs/USABILITY.md`, and Longla supports observation and device testing. Work towards the next complete 2D offline mission before optional 3D/VR. These are assignment updates, not a claim that the features are implemented.
+The coordinator conducts the outside-user sessions, Emma maintains `docs/USABILITY.md`, and Longla supports observation and device testing. Work towards the next complete 2D offline mission before optional 3D/VR. These are assignment updates, not a claim that the features are implemented.
 
 ## Task overview
 
@@ -42,7 +45,7 @@ The coordinator conducts the outside-user sessions, Emmanuelle maintains `docs/U
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Angular map and map interactions | Map with layer toggles and clickable sourced markers |
 | [Gaddielle](docs/team/GADDIELLE.md) | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
-| [Emmanuelle / Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three sourced observations, evidence audit, references and submission text |
+| [Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three sourced observations, evidence audit, references and submission text |
 | [Enzo](docs/team/ENZO.md) | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
 | [Longla](docs/team/LONGLA.md) | Device/offline QA, then optional 3D/VR | Recorded checks first; labeled rehearsal prototype only after the core mission |
 | [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and installable offline PWA | Integrated mission flow, confidence panel and tested installed offline pack |

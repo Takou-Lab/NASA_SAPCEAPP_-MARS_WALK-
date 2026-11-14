@@ -6,7 +6,7 @@
 
 Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). MARSWALK serves science learning, mission rehearsal and analogue-workflow research now; future astronaut support is a vision that still requires substantial validation.
 
-The Angular foundation, shared models, MissionService and Leaflet dependencies already exist on `main`. The last recorded foundation check passed 15 tests, a production build and HTTP asset checks; headless browser rendering was not verified. Gaddielle's imagery and Emmanuelle's science records remain on their feature branches until reviewed integration. Inspect the actual revision before relying on this snapshot. Do not recreate the app or duplicate implemented localStorage/export logic.
+The Angular foundation, shared models, MissionService and Leaflet dependencies already exist on `main`. The last recorded foundation check passed 15 tests, a production build and HTTP asset checks; headless browser rendering was not verified. Gaddielle's imagery and Emma's science records remain on their feature branches until reviewed integration. Inspect the actual revision before relying on this snapshot. Do not recreate the app or duplicate implemented localStorage/export logic.
 
 Your immediate outcome is an installed PWA that can prepare essential mission assets, close, reopen offline, recover its mission, support route editing and observations, and export JSON with limitations. 3D/VR comes after this core acceptance check.
 
@@ -22,13 +22,15 @@ YOU is the coordinator label retained from the project context; the original PDF
 
 Keep feature implementation with its named owner. Treat new installation/offline service APIs as additions to design and document centrally; they are not already available from MissionService.
 
+For Willy's current follow-up, the team has granted a narrow root-mount exception: he may change `app.ts`, `app.html`, `app.scss` and `app.spec.ts` only to import/mount his existing MapComponent once, size its container and verify the mounted shell. Preserve and review that contribution instead of mounting a duplicate instance. All unrelated root/core/PWA/package work remains yours; see the [shared contract](CODING_AGENTS.md).
+
 ## Team handoffs
 
 | Teammate | What you integrate |
 | --- | --- |
 | Willy | Local-image map, route rendering, layer visibility and marker interactions |
 | Gaddielle | Image manifest/assets, verified package inventory, provenance and coverage limitations |
-| Emmanuelle / Emma | Supported science records, evidence audit, references and honest pitch/demo content |
+| Emma | Supported science records, evidence audit, references and honest pitch/demo content |
 | Enzo | Tablet workspace, route controls, evidence display, notebook and export UI |
 | Longla | Independent device/offline QA and usability observations first; optional labeled 3D later |
 
@@ -39,7 +41,7 @@ Keep feature implementation with its named owner. Treat new installation/offline
 3. Connect shared route save/load, notes and export. Do not create competing component storage.
 4. Make Exploration Confidence visible throughout the workflow. Show source-backed data passports: source, credit, date/resolution when known, processing, verification and gaps.
 5. Implement installability and production offline preparation, then verify closing and reopening the installed app without a network.
-6. Conduct the outsider task check with Longla and Emmanuelle; fix the most common misunderstanding or failure.
+6. Conduct the outsider task check with Longla and Emma; fix the most common misunderstanding or failure.
 7. Integrate optional 3D only if core readiness remains reliable. Keep VR optional.
 
 ## Exploration Confidence rules
@@ -67,7 +69,7 @@ Keep feature implementation with its named owner. Treat new installation/offline
 
 Run the actual frozen-lockfile install, meaningful tests, production build and integrated browser checks. Record the exact revision, device/browser, commands, outcomes and remaining gaps. Historical tests do not establish current PWA behavior.
 
-Coordinate three people outside the implementation team to attempt drawing a proposed route, explaining whether distance/slope are known, and saving/recovering a note. Use anonymous observations, actual completion/errors and participant explanations. Longla records technical QA under `docs/qa/`; Emmanuelle maintains the usability summary. Mark planned or unavailable checks honestly. Fix observed issues and rerun the affected scenario.
+Coordinate three people outside the implementation team to attempt drawing a proposed route, explaining whether distance/slope are known, and saving/recovering a note. Use anonymous observations, actual completion/errors and participant explanations. Longla records technical QA under `docs/qa/`; Emma maintains the usability summary. Mark planned or unavailable checks honestly. Fix observed issues and rerun the affected scenario.
 
 Check official submission requirements and deadlines directly. Present one demonstrable mission and real test evidence; make fair comparisons with existing tools. Help teammates explain their data flow and contribution without claiming understanding on their behalf.
 
@@ -82,7 +84,7 @@ and each teammate's current assignment.
    Angular, models, MissionService and Leaflet already exist on main.
    Do not scaffold another app, duplicate storage/export or overwrite owners.
 2. Review and integrate the data/evidence and feature contributions within
-   the user's authorized workflow. Gaddielle's data and Emmanuelle's records
+   the user's authorized workflow. Gaddielle's data and Emma's records
    are on feature branches until merged; schema validity is not scientific
    proof. Keep unlocated records in a science list, not fictional markers.
 3. Assemble the map, route controls, notes and mission export. Use the
@@ -104,7 +106,7 @@ and each teammate's current assignment.
    Prepare, disconnect, close, reopen from installed icon, inspect the image
    and science, edit a route, save/recover a note and export JSON. Record
    exact device/browser/revision and results; do not invent browser success.
-8. Coordinate three outsider task checks with Longla and Emmanuelle. Record
+8. Coordinate three outsider task checks with Longla and Emma. Record
    real completion, misunderstandings and failures; fix the largest issue.
    Keep QA and usability evidence anonymous and status-labeled.
 9. Update README and release evidence to match working behavior. Verify

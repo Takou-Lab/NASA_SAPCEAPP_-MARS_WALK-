@@ -6,7 +6,7 @@
 
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared coding contract](CODING_AGENTS.md). Build the tablet workspace for mission rehearsal, science learning and analogue-workflow research. The complete mission is imagery → science context → route sketch → uncertainty → saved observation → offline reopening → export.
 
-The Angular foundation and MissionService are implemented on `main`; inspect the current app and reuse them. Installation and offline caching are still coordinator-owned work. Gaddielle's imagery and Emmanuelle's records are on feature branches pending integration, so represent absent data honestly.
+The Angular foundation and MissionService are implemented on `main`; inspect the current app and reuse them. Installation and offline caching are still coordinator-owned work. Gaddielle's imagery and Emma's records are on feature branches pending integration, so represent absent data honestly.
 
 ## Deliverables and ownership
 
@@ -17,7 +17,7 @@ The Angular foundation and MissionService are implemented on `main`; inspect the
 - Science context accessible as a list even when positions are unavailable.
 - Interface states for installation and verified offline preparation once the coordinator supplies their integration contract.
 
-Willy owns map rendering and map clicks. The coordinator owns shared state, persistence/export implementation, root assembly, package/config files and PWA lifecycle. Gaddielle and Emmanuelle own the evidence content. Do not create a second mission store, storage layer or service worker.
+Willy owns map rendering and map clicks. The coordinator owns shared state, persistence/export implementation, root assembly, package/config files and PWA lifecycle. Gaddielle and Emma own the evidence content. Do not create a second mission store, storage layer or service worker.
 
 ## Work in this order
 

@@ -1,37 +1,40 @@
-# Emmanuelle — Science, Provenance and Presentation
+# Emma — Science, Provenance and Presentation
 
 ## Current follow-up — scientific evidence and PWA demo
 
-Read [SOUL.MD](../../SOUL.MD) as guidance for integration and later work. It does not restart your completed assignment. Emmanuelle is listed as Emma in the existing filename and branch; keep `docs/team/EMMA.md` and `feature/emma-science-provenance`.
+**Emma uses he/him pronouns.** Keep the stable filename `docs/team/EMMA.md` and branch `feature/emma-science-provenance`.
 
-### Previous assignment completed — commit `8a947a4`
+Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared contract](CODING_AGENTS.md). Preserve completed work and any small slice already underway; the new task below builds on it.
 
-The user reported completion, and the branch inspection confirms these deliverables:
+### Completed work — do not repeat
 
-| Delivered work | Branch files |
+| Delivered work | Commit / branch files |
 | --- | --- |
-| Three science records with the agreed imageRef and unavailable positions | `public/data/markers.json` |
-| Record-level evidence audit, source passages and access log | `docs/SCIENCE_EVIDENCE.md` |
-| Revised NASA-blog citations and narrowed claims/instrument attribution | `public/data/markers.json`, `docs/REFERENCES.md` |
-| Accurate PWA-under-development status and implemented-versus-pending distinctions | `docs/SCIENCE.md` |
-| Seven-step, status-labeled 60-second internal rehearsal | `docs/DEMO_SCRIPT.md` |
-| Updated AI-use record | `docs/AI_USE.md` |
+| Science records, corrected citations, evidence audit, accurate PWA status, references, AI-use record and internal demo script | `8a947a4`; `public/data/markers.json`, `docs/SCIENCE_EVIDENCE.md`, `docs/SCIENCE.md`, `docs/REFERENCES.md`, `docs/AI_USE.md`, `docs/DEMO_SCRIPT.md` |
+| Three-user usability protocol and contextual-record handoff to Enzo | `b0640d9`; `docs/USABILITY.md`, `docs/SCIENCE.md` |
 
-**Do not recreate or repeat this research, rewrite the demo, or reopen completed tasks simply because SOUL.MD was added.** The coordinator still needs to review and integrate the branch; delivered work is distinct from a merge or a working PWA. This inspection confirms the files and recorded evidence, not an independent revalidation of every external source.
+The usability protocol is delivered. **Actual user sessions remain pending** until the coordinator's integrated PWA is ready. Neither a delivered document nor a branch inspection establishes a working installed offline PWA. Do not recreate the audit, rewrite the existing demo or prepare a second usability protocol.
 
-Keep the existing explicit limitations: null/unavailable map positions, unknown dates where appropriate, unavailable terrain/calibration, and pending UI/install/offline behavior. Preserve `imageRef: "hirise-mro-pia26306-boxwork-2048x1042-v1"` unless a coordinated data migration changes it.
+### New task — judges and presentation handoff
 
-### Handoff now
+Prepare the following now while application integration continues:
 
-1. Preserve your completed branch. Give the coordinator commit `8a947a4` and the delivered files for review; do not reset or duplicate them.
-2. Address a concrete integration finding only if one is identified. A request to update from `main` must preserve your branch work; do not overwrite the completed science files.
-3. Explain to Enzo which science records are contextual and unlocated. Existing evidence and demo content can be reused in the UI and presentation.
+1. **`docs/PRESENTATION.md`:** create an internal outline of at most seven slides. This is the team's chosen format, not a verified official submission limit. Cover one realistic science-learning or mission-rehearsal user story; the communication/evidence problem; a fair comparison with existing tools; the actual sourced datasets; the Exploration Confidence feature; the mission/demo evidence; and limitations/next steps.
+2. For each slide, include its main message, the supporting source or implementation reference, the reviewed revision, the feature status and the artifact still needed. Use explicit placeholders for screenshots, installed-device/offline evidence and user-test outcomes that are not yet available. Do not invent customers, partnerships, successful tests or images of completed features.
+3. Reuse or link the existing project summary in `docs/SCIENCE.md` and internal rehearsal in `docs/DEMO_SCRIPT.md`. Do not repeat completed research or rewrite those files merely to create new work. Their timing and format remain internal choices until official requirements are checked.
+4. **`docs/JUDGES_QA.md`:** write short factual answers to: Who can use MARSWALK now? What does it add alongside Mars Trek/JMARS? Which NASA resources and other sources are actually used? What evidence supports the science? Why are metric distance, slope and some positions unavailable? What currently works versus still needs integration, installation and offline testing? How was AI used and reviewed?
+5. Keep claims tied to evidence. Future astronaut support is a long-term vision. Do not claim existing tools lack route/terrain functions, that the route is safe, or that installation/offline reopening works before a verified demonstration. Mention only resources actually used; planned Mars Trek integration is not demonstrated use.
+6. Reuse `docs/USABILITY.md` when real sessions occur. The coordinator arranges/conducts them, Longla supports QA, and you record actual anonymized outcomes. Do not contact participants through tools or manufacture results to fill a slide.
 
-### Separate next phase — after handoff
+### Ownership, checks and handoff
 
-A usability protocol in `docs/USABILITY.md` is **new follow-up work**, not an unfinished part of your previous assignment. When this next phase begins, help the coordinator prepare three outside-user tasks: draw a route, explain whether distance/slope are known, and save/recover a note. The coordinator conducts the sessions, Longla supports QA, and you record actual anonymized outcomes. Mark unrun sessions pending; do not invent results or contact participants through tools.
+Own the two new presentation documents. Keep scientific records, shared models and teammate code unchanged unless a concrete evidence/integration issue requires a coordinated correction. Preserve the active imageRef and null/unavailable positions.
 
-Keep the current mission and scientific guidance below as standing reference. It is not an instruction to repeat completed work.
+Check every factual statement against the existing evidence, current feature status and actual revision. Verify local links and placeholders, and distinguish planned, implemented and tested behavior. Give the coordinator the two documents and a list of the missing demonstration artifacts. **Done means the presentation outline and Q&A are reviewable, traceable and honest about readiness.**
+
+Continue on your existing feature branch, preserve local work, and update from `main` without overwriting delivered science files. Commit and push only `feature/emma-science-provenance`; this assignment authorizes that feature-branch push. No merge to `main`, deployment, submission or messaging to others is included.
+
+The standing scientific guidance below remains reference, not an instruction to reopen completed assignments.
 
 ## Your mission
 
@@ -82,53 +85,66 @@ Willy displays your markers. Gaddielle validates dataset coverage and coordinate
 - Do not claim topography or chemistry coverage that the supplied files do not support.
 - Treat AI-proposed product IDs, dates and citations as unverified until checked against the real source.
 
-## Presentation tasks
+## Standing presentation guidance — reuse completed material
 
-- Draft a 50–200 word English summary, subject to the current official form's requirements.
+- Reuse the delivered English summary; adapt it only when required by verified submission fields or changed implementation status.
 - Explain the mission flow: target, route, confidence information, observation and offline reopening.
 - Credit NASA resources, other datasets, code libraries, images and text actually used.
 - Record which code/content was AI-assisted and how the team reviewed it.
 - Verify competition rules and deadlines against official pages; the planning PDF is not independent confirmation.
 - Coordinate one concise demo with the coordinator and label incomplete 3D/VR honestly.
 
-## Checks and completion
+## Original science acceptance reference — already delivered
 
 Open every source link; compare each record to its source; check that marker labels match location verification; inspect references for missing credits. You are done when the three records are usable, geological coverage is documented, and presentation claims match the integrated prototype. Hand off data files, links, credits and unresolved scientific questions.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Emmanuelle's science/provenance assistant for MARSWALK.
-Read SOUL.MD, TEAM_TASKS.md, docs/team/EMMA.md and
-docs/team/CODING_AGENTS.md. The previous science assignment is completed
-on feature/emma-science-provenance at commit 8a947a4.
+You are Emma's science/presentation assistant for MARSWALK. He uses he/him
+pronouns. Read SOUL.MD, TEAM_TASKS.md, docs/team/EMMA.md and
+docs/team/CODING_AGENTS.md.
 
-1. Inspect Git status and preserve all local work. Do not reset, recreate,
-   or repeat the completed evidence audit, record corrections, summary,
-   references, AI-use record or 60-second internal demo script.
-2. Confirm the completed files are available for coordinator review and
-   integration. Report the branch/commit and existing limitations. Do not
-   equate delivered files with a completed installed offline PWA.
-3. Keep the agreed imageRef and null/unavailable positions. Reuse the
-   existing source audit; update a specific claim only for a concrete new
-   evidence or integration issue, not because the charter was added.
-4. Finish any small slice already in progress before taking on new work.
-   Updating from main must preserve branch work; never overwrite the
-   completed data to match main's still-pending integration state.
-5. After handoff, the separate next phase is a usability protocol in
-   docs/USABILITY.md, if not already present. Three outside users attempt
-   route drawing, explanation of known/unknown distance and slope, and
-   note recovery. Coordinator conducts sessions; Longla supports QA.
-   Prepare the protocol first and label results pending until observed.
-   Record only real anonymized outcomes, failures and changes to retest.
-6. Present near-term science-learning/rehearsal use cases and future
-   astronaut support honestly. Existing demo pacing is internal, not an
-   official submission requirement. Reuse delivered science descriptions
-   to help Enzo distinguish context records from geolocated markers.
+His earlier science/evidence/demo work is delivered at 8a947a4. His
+usability protocol and Enzo contextual-record handoff are delivered at
+b0640d9. Do not repeat those assignments. Actual user sessions remain
+pending until the integrated PWA is ready.
 
-Report existing completed work, any concrete integration issue and only
-new follow-up changes. The prior branch assignment permits pushing your
-own feature branch; no main merge, deployment, submission or messaging
-without applicable authorization. Follow learner checkpoints only for
-new substantive work; do not restart a completed lesson.
+1. Inspect Git status and current branch. Continue on
+   feature/emma-science-provenance, preserve all work and finish any
+   current small slice. Update from main without overwriting completed
+   science documents or records. Do not create another science branch.
+2. Create docs/PRESENTATION.md: an internal outline of at most seven
+   slides covering a real learning/rehearsal user story, communication
+   and evidence problem, fair existing-tool comparison, sourced data,
+   Exploration Confidence, mission/demo proof, and limits/next steps.
+   This is a team format choice, not a verified official submission rule.
+3. For every slide record the message, supporting evidence/file link,
+   reviewed revision, feature status and artifact needed. Leave clear
+   pending placeholders for unavailable screenshots, installed-device
+   offline results and user-test outcomes. Invent no demonstrations,
+   participants, customers, partnerships or successful tests.
+4. Reuse/link the existing summary, evidence audit and 60-second internal
+   demo script. Do not redo research or rewrite completed deliverables
+   merely to populate the new outline.
+5. Create docs/JUDGES_QA.md with concise factual answers about near-term
+   users versus future astronaut vision; contribution alongside Mars Trek
+   and JMARS without false absence claims; actual NASA/other sources;
+   scientific evidence and missing scale/terrain/positions; current
+   implementation versus pending UI/PWA installation/offline behavior;
+   and AI assistance/review. Claim only resources and capabilities used.
+6. Keep science records and shared models unchanged unless a concrete
+   coordinated evidence/integration correction is needed. Preserve
+   imageRef and unavailable positions. Do not add another feature or
+   worker. Existing docs/USABILITY.md can record actual sessions later:
+   coordinator conducts, Longla supports QA, you record real anonymized
+   observations. Do not recreate its protocol or contact participants.
+7. Validate claims against existing evidence and the actual revision,
+   check links/placeholders, and report the two documents, missing demo
+   artifacts and unresolved questions. No application tests are required
+   for this documentation-only slice; do not invent test results.
+8. Commit and push your feature branch for review. This assignment
+   authorizes that branch push only, not main merge, deployment,
+   submission or messaging. Follow learner checkpoints for genuinely
+   new substantive work, without restarting completed lessons.
 ```
