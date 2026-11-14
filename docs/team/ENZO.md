@@ -6,7 +6,7 @@
 
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared coding contract](CODING_AGENTS.md). Build the tablet workspace for mission rehearsal, science learning and analogue-workflow research. The complete mission is imagery → science context → route sketch → uncertainty → saved observation → offline reopening → export.
 
-The Angular foundation and MissionService are implemented on `main`; inspect the current app and reuse them. Installation and offline caching are still coordinator-owned work. Gaddielle's imagery and Emma's records are on feature branches pending integration, so represent absent data honestly.
+The Angular foundation and MissionService are implemented on `main`; inspect the current app and reuse them. Installation and offline caching are still coordinator-owned work. Gaddielle's imagery and Emma's records are now integrated with Willy's mounted map. Reuse them; all science positions remain unavailable, so the contextual list must work without map pins.
 
 ## Deliverables and ownership
 

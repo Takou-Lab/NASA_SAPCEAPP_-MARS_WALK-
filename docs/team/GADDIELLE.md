@@ -4,11 +4,13 @@
 
 ## Current follow-up — offline image-data package
 
+**Integration status:** the delivered image package, inventory and verifier are integrated with Willy's map. The coordinator completed the final mandatory-Pillow guard and four verifier regressions without changing image bytes or imageRef. Do not repeat delivery or the verifier fixes; merge the published integration into your existing branch before further work. A separate future Data Passport can reuse the existing metadata instead of reacquiring data.
+
 Read [SOUL.MD](../../SOUL.MD) before continuing. Your data package supports an installable Angular PWA for science learning, mission rehearsal and analogue-workflow research. Future astronaut support is the long-term vision; this release does not establish operational navigation or route safety.
 
 Continue on **`feature/gaddielle-data-preparation`**. Your initial imagery and manifest have been reviewed for technical compatibility: both images decode and the prepared image is **2048 × 1042**, matching the manifest. The committed file checksums match the processing log. Scientific product/coverage claims still require authoritative evidence.
 
-The Angular foundation is on `main`, but your imagery files remain on your feature branch until integration. Update your existing branch from `main` while preserving work; do not start a second data branch, redownload the same files or regenerate the derivative unnecessarily. The current assignment below takes precedence over the initial acquisition checklist retained later in this brief.
+The Angular foundation and your imagery are integrated in this revision. Update your existing branch from `main` while preserving work; do not start a second data branch, redownload the same files or regenerate the derivative unnecessarily. The current assignment below takes precedence over the initial acquisition checklist retained later in this brief.
 
 ### Deliver these next
 

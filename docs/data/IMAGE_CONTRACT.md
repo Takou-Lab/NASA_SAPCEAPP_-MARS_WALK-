@@ -1,6 +1,6 @@
 # Gaddielle → Willy: image handoff
 
-The Angular foundation implements `ImageManifest` in `src/app/core/models.ts` and validates it in `validation.ts`. No real image or scientific manifest is bundled yet. Gaddielle owns delivery of the asset; the coordinator has specified this contract but has not contacted Gaddielle or independently verified an AOI.
+The Angular foundation implements `ImageManifest` in `src/app/core/models.ts` and validates it in `validation.ts`. The integrated repository includes Gaddielle's prepared regional image and manifest. The coordinator has checked file dimensions/checksums and record compatibility, not independently verified an exact exploration AOI. Gaddielle owns future image-data changes.
 
 ## Files to deliver
 

@@ -6,7 +6,7 @@
 
 Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). MARSWALK serves science learning, mission rehearsal and analogue-workflow research now; future astronaut support is a vision that still requires substantial validation.
 
-The Angular foundation, shared models, MissionService and Leaflet dependencies already exist on `main`. The last recorded foundation check passed 15 tests, a production build and HTTP asset checks; headless browser rendering was not verified. Gaddielle's imagery and Emma's science records remain on their feature branches until reviewed integration. Inspect the actual revision before relying on this snapshot. Do not recreate the app or duplicate implemented localStorage/export logic.
+The Angular foundation, shared models, MissionService and Leaflet dependencies already exist on `main`. The last recorded foundation check passed 15 tests, a production build and HTTP asset checks; headless browser rendering was not verified. Gaddielle's imagery, Emma's science records and Willy's mounted map are now integrated; see docs/qa/MAP_INTEGRATION.md for the newer integration checks. Inspect the actual revision before relying on this snapshot. Do not recreate the app or duplicate implemented localStorage/export logic.
 
 Your immediate outcome is an installed PWA that can prepare essential mission assets, close, reopen offline, recover its mission, support route editing and observations, and export JSON with limitations. 3D/VR comes after this core acceptance check.
 
@@ -22,7 +22,7 @@ YOU is the coordinator label retained from the project context; the original PDF
 
 Keep feature implementation with its named owner. Treat new installation/offline service APIs as additions to design and document centrally; they are not already available from MissionService.
 
-For Willy's current follow-up, the team has granted a narrow root-mount exception: he may change `app.ts`, `app.html`, `app.scss` and `app.spec.ts` only to import/mount his existing MapComponent once, size its container and verify the mounted shell. Preserve and review that contribution instead of mounting a duplicate instance. All unrelated root/core/PWA/package work remains yours; see the [shared contract](CODING_AGENTS.md).
+Willy's `094fce2` map is integrated and mounted once by the coordinator. His new follow-up is map-only Reset View/Focus Route; do not ask him to repeat root mounting. Root/core/PWA/package work remains yours; preserve the integrated image-readiness guard. See the [shared contract](CODING_AGENTS.md).
 
 ## Team handoffs
 

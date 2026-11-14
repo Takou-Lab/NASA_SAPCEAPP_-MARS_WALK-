@@ -4,6 +4,8 @@
 
 **Emma uses he/him pronouns.** Keep the stable filename `docs/team/EMMA.md` and branch `feature/emma-science-provenance`.
 
+**Latest status:** the user reports the presentation task below completed. Do not repeat it. The latest published commit inspected here is `b0640d9` (science/protocol now integrated); preserve any newer local presentation work and provide its published commit for review. Actual participant sessions remain pending. The task specification below is retained as a handoff checklist.
+
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared contract](CODING_AGENTS.md). Preserve completed work and any small slice already underway; the new task below builds on it.
 
 ### Completed work — do not repeat
@@ -101,6 +103,10 @@ Open every source link; compare each record to its source; check that marker lab
 ## Copy-paste coding-agent prompt
 
 ```text
+The user reports this presentation assignment completed. First inspect and
+preserve existing results; hand off the published commit. Do not recreate
+completed files. The checklist below applies only to genuinely missing work.
+
 You are Emma's science/presentation assistant for MARSWALK. He uses he/him
 pronouns. Read SOUL.MD, TEAM_TASKS.md, docs/team/EMMA.md and
 docs/team/CODING_AGENTS.md.

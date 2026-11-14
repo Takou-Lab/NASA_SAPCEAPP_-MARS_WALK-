@@ -10,27 +10,27 @@ This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle 
 
 Each personal brief below includes a ready-to-paste agent prompt. Read [SOUL.MD](SOUL.MD) and the [shared coding contract](docs/team/CODING_AGENTS.md) first. The Angular foundation is already implemented; reuse it. The next work is reviewed data integration, the 2D mission, installability and verified offline operation.
 
-**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emma's previous science assignment is delivered at `8a947a4` and awaits coordinator integration, not repeated research.
+**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emma's previous science assignment and protocol are integrated from `b0640d9`; they must not be repeated.
 
-**Latest task update:** Emma uses **he/him**. His usability protocol is also delivered at `b0640d9`; actual participant sessions remain pending. His new work is presentation and judges' Q&A preparation. Willy reports his four map files and successful tests/build complete locally; the map branch was not available on GitHub at the latest check, so publication and independent review are still required. Neither person should restart earlier work.
+**Latest task update:** Emma uses **he/him**. His science, demo and usability-protocol contributions are integrated. The user reports his new presentation work completed too; preserve it and obtain its published handoff rather than assigning it again. Actual participant sessions remain pending. Willy's published map `094fce2` has been reviewed and mounted with the delivered data; his new task is Reset View/Focus Route, not root mounting.
 
 ## Current follow-up assignments — 14 November 2026
 
-The Angular foundation is on `main`. The last joint review of Gaddielle's imagery and Emma's science records passed image dimensions and shared record contracts, along with the foundation tests/build. These branches have not yet been merged into `main`; inspect newer branch revisions before integration. Scientific source support still requires review; schema validation alone does not verify a finding.
+This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9`. The map is mounted once with the real image and three unlocated science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover the integrated tests, build and production browser behavior. Route-control/notebook UI, PWA installation and full offline reopening remain pending.
 
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | `feature/willy-map-development` (reported local branch; publish first) | Publish completed map, mount it in root through the narrow integration exception, add Reset View/Focus Route and verify the integrated shell |
-| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Offline image-pack inventory, offline verification tool, qualified metadata claims and Willy handoff |
-| [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New `docs/PRESENTATION.md` and `docs/JUDGES_QA.md`; reuse completed science/demo/protocol and keep untested behavior pending |
+| [Willy](docs/team/WILLY.md) | `feature/willy-map-development` | Sync the published integration without resetting work; add Reset View/Focus Route and targeted tests only |
+| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Image package integrated; preserve exact derivative/reference and use the integrated required-Pillow verifier |
+| [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New presentation work reported complete; hand off its published commit, reuse integrated evidence/protocol, record sessions only when conducted |
 
-Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. These assignments include committing and pushing the respective feature branch; integration into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
+Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
 
 ### Full-team priorities
 
 | Person | Current work | Acceptance evidence |
 | --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | Publish and mount his completed map; Reset View and Focus Route | Remote branch available; root mounts actual selector once; viewport actions preserve mission state; actual tests/build pass |
+| [Willy](docs/team/WILLY.md) | Reset View and Focus Route in the integrated map | Viewport-only actions preserve mission state; loading/error/short-route disabled states and actual tests/browser checks pass |
 | [Enzo](docs/team/ENZO.md) | Tablet mission UI, Confidence Panel, Data Passport, science list and notebook | Users understand missing distance/slope, unlocated records remain readable, failed saves retain drafts, recovery/export work |
 | [Gaddielle](docs/team/GADDIELLE.md) | Offline image inventory/verifier and Data Passport | Actual file sizes/checksums/dimensions and provenance documented; whole-app readiness not implied |
 | [Emma](docs/team/EMMA.md) | Presentation outline and judges' Q&A; later actual usability results | Preserve `8a947a4` and `b0640d9`; claims tied to source/build evidence, future features and unrun sessions labeled pending |

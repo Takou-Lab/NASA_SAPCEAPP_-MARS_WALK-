@@ -254,6 +254,39 @@ describe('MapComponent', () => {
     expect(applyMapPoint).toHaveBeenCalledWith({ x: 35, y: 20 });
   });
 
+  it.each(['loading', 'unavailable', 'error'] as const)(
+    'does not dispatch clicks when mission data becomes %s before rendering',
+    (status) => {
+      state.dataStatus.set(status);
+      leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
+      expect(applyMapPoint).not.toHaveBeenCalled();
+    },
+  );
+
+  it('blocks clicks until a replacement image has loaded and matched its manifest', () => {
+    state.image.set({ ...image(), imageRef: 'fixture-replacement' });
+    fixture.detectChanges();
+    leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
+    expect(applyMapPoint).not.toHaveBeenCalled();
+
+    triggerImageLoad(1);
+    fixture.detectChanges();
+    leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
+    expect(applyMapPoint).toHaveBeenCalledOnce();
+    expect(applyMapPoint).toHaveBeenCalledWith({ x: 35, y: 20 });
+  });
+
+  it('does not dispatch clicks after an image-load failure', () => {
+    state.image.set({ ...image(), imageRef: 'fixture-failed-image' });
+    fixture.detectChanges();
+    leaflet.overlays[1].events.get('error')?.();
+    fixture.detectChanges();
+    expect(component.imageDisplayState()).toBe('error');
+
+    leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
+    expect(applyMapPoint).not.toHaveBeenCalled();
+  });
+
   it('provides explicit zoom controls backed by the Leaflet map', () => {
     fixture.nativeElement.querySelector('[aria-label="Zoom in"]').click();
     fixture.nativeElement.querySelector('[aria-label="Zoom out"]').click();
@@ -337,6 +370,8 @@ describe('MapComponent', () => {
     triggerImageLoad();
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('dimensions do not match its manifest');
+    leaflet.handlers.get('click')?.({ latlng: { lat: 20, lng: 35 } });
+    expect(applyMapPoint).not.toHaveBeenCalled();
   });
 
   it('shows unavailable-data state and removes the previous overlay', () => {

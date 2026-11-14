@@ -1,128 +1,120 @@
 # Willy — Angular Map Developer
 
-## Current follow-up — publish, integrate and improve map navigation
+## Current follow-up — Reset View and Focus Route
 
-Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md), [the shared coding contract](CODING_AGENTS.md) and [the image handoff](../data/IMAGE_CONTRACT.md). Preserve the map you already built; this assignment does not restart development.
+Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md), [the shared coding contract](CODING_AGENTS.md) and [the image handoff](../data/IMAGE_CONTRACT.md). Preserve your completed map; this assignment adds a small navigation improvement rather than restarting development.
 
-### Previous work reported complete
+## Completed contribution and integration boundary
 
-You reported four files under `src/app/map/`: `map.component.ts`, `map.component.html`, `map.component.scss` and `map.component.spec.ts`. The report includes imagery, pan/zoom, route interactions/rendering, science-marker support and layer controls, with **26 tests and a production build passing**.
+Your four map files are published on **`feature/willy-map-development`** at **`094fce2`**. They implement imagery, pan/zoom, route rendering/interactions, positioned science markers and layer controls. The coordinator has reviewed the component and integrated it with the root application and delivered data in this integration revision. Your earlier report of 26 passing tests/build is historical; report new results from the actual follow-up revision.
 
-Those are your reported results. At the last remote check, `feature/willy-map-development` was not available in the selected GitHub repository, so the coordinator has not independently reviewed the source or reproduced those results. Publishing the existing branch is the first handoff step; do not regenerate the app or replace your completed map.
+**Root mounting is coordinator work in this integration. Do not mount another MapComponent or repeat the root-mount assignment.** Publication of the integration to `main` must be confirmed before updating your branch from it. A local integration in progress is not a published GitHub revision.
+
+Continue on your existing feature branch. Preserve local work; after the coordinator publishes the integration, fetch and merge the latest `origin/main` into your branch without a reset or force push. Retain the coordinator's readiness guard that prevents map clicks from changing the route before valid imagery is displayed. Do not replace the integrated map with an older copy of your files.
 
 ## New tasks in order
 
-### 1. Publish the existing map branch
+### 1. Inspect existing navigation
 
-1. Inspect local Git status and preserve all current work.
-2. Verify that `origin` points to `boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-`. If it points elsewhere, resolve the intended destination with the coordinator before pushing; do not silently rewrite an unrelated remote.
-3. Commit any intended map changes still local, then publish the existing branch normally:
+Check your current implementation and the integrated revision for equivalent controls first. Reuse already working Reset View or route-focus behavior instead of adding duplicate buttons. Own only these map files for this follow-up:
 
-   ```sh
-   git push -u origin feature/willy-map-development
-   ```
+- `src/app/map/map.component.ts`
+- `src/app/map/map.component.html`
+- `src/app/map/map.component.scss`
+- `src/app/map/map.component.spec.ts`
 
-4. Report the pushed commit and branch. Use no force push, reset, replacement project or duplicate feature branch. If the push is rejected, inspect the remote changes and preserve both contributions before resolving it.
+Root assembly, shared core, data files, package/configuration files and service-worker/PWA work stay with the coordinator. Enzo owns start/destination/waypoint controls, notebook and mission save/load UI.
 
-### 2. Mount the existing map in the Angular root
+### 2. Add Reset View where missing
 
-For this task, you have a **narrow root-integration exception** in addition to ownership of `src/app/map/`:
+- Provide a clearly labeled **Reset View** button inside the map component.
+- Fit the active image bounds `[[0, 0], [height, width]]` with suitable viewport padding.
+- Enable it only when the active image has successfully loaded and matched its manifest, and mission data is ready. Disable it for missing, loading or failed imagery.
+- Change only the viewport. Preserve route, mode, observations, selected science record and layer visibility.
 
-- `src/app/app.ts`: import your existing standalone `MapComponent` and add it to the root component imports.
-- `src/app/app.html`: mount its **actual declared selector exactly once** in the main workspace, preserving existing data-status and confidence content.
-- `src/app/app.scss`: only the container sizing/layout needed to keep the map visible and responsive.
-- `src/app/app.spec.ts`: verify the mounted component and honest missing-data shell, using the project's existing test approach.
+### 3. Add Focus Route where missing
 
-Inspect your implementation and the latest root files before editing. Keep this integration change small. The coordinator retains ownership of core state, package/configuration files, PWA lifecycle and unrelated root behavior. Do not change shared APIs, copy another person's data files or add a second initialization/store. The root already calls `MissionService.initialize()` once.
+- Provide a clearly labeled **Focus Route** button inside the map component.
+- Read available points from the actual shared `route()` signal in start → ordered waypoints → destination order. The existing pure route helper may be reused; do not create another route store.
+- Enable it only when valid imagery is displayed and at least two route points are available. Fewer than two points means disabled.
+- Fit the route's image-pixel bounds using `[y, x]` conversion and suitable padding. Handle coincident points with an explicit maximum zoom cap so a zero-size route cannot produce excessive zoom.
+- Keep this as a visual framing action. Do not mutate mission state, add automatic routing or infer route distance/safety.
 
-Coordinate use of Gaddielle's prepared image and Emma's records with the coordinator's data integration. Missing data must show a usable unavailable/error state; a null-position science record remains available through Enzo's list without an invented map location.
+### 4. Make both actions usable on tablet and keyboard
 
-### 3. Add map navigation polish where missing
+Use native buttons, readable names, visible focus and touch-friendly targets. Check layout on tablet and narrower screens; controls must not cover essential route feedback. They must work without browser navigation controls and remain local-only for eventual offline use.
 
-Inspect existing controls first and reuse any equivalent behavior already implemented:
+Do not duplicate Enzo's route/notebook controls, add external tile services, invent metric scale or position null-location science records. Keep Leaflet `CRS.Simple`, the existing base-relative image path, image reference, dimension checks and teardown behavior.
 
-- **Reset View:** fit the active image bounds after panning or zooming away.
-- **Focus Route:** fit the available ordered route points when at least two points exist. Disable the action when fewer than two points are available. Handle coincident points without excessive zoom.
-- Use keyboard-accessible, clearly labeled buttons with touch-friendly targets inside the map component.
-- These actions change only the viewport. They must preserve the route, interaction mode, observations and selected science record.
-- Do not duplicate Enzo's start/destination/waypoint, notebook or mission save/load controls.
+## Acceptance checks
 
-Keep Leaflet `CRS.Simple`, local imagery and the agreed image reference. Do not add external tiles, a metric scale bar, automatic routing or safety classifications.
-
-## Ownership and interfaces
-
-Own `src/app/map/` and relevant map tests, plus the limited root files above solely for mounting/sizing/testing the map. All other root behavior, `src/app/core/`, package files, data integration and installation/service-worker work remain with the coordinator. Enzo owns panels and route/notebook controls; Gaddielle owns imagery preparation; Emma owns science evidence.
-
-Use the existing `MissionService` readonly signals and actions. Map points are bottom-left image pixels: x increases right, y increases up; bounds are `[[0, 0], [height, width]]`. Convert `{x, y}` ↔ Leaflet `[y, x]` only at the map boundary. Pixels do not establish meters, north-up orientation or geographic coordinates.
-
-Runtime imagery must load relative to the application base. Check image decoding and natural dimensions against the manifest; valid metadata alone does not mean an image has loaded. Maintain regional-context and unavailable-calibration/terrain messages. Render only markers with a supplied position and matching image reference; never position records whose position is null.
-
-## Acceptance checks for this follow-up
-
-- The remote branch exists at the reported commit and contains the completed map files.
-- The Angular root mounts one instance of the actual `MapComponent`; missing imagery does not crash the shell.
-- Reset View fits the image and Focus Route fits the available route; disabled/no-image states work.
-- Viewport actions leave route, mode, selected record and observations unchanged.
-- Buttons work by keyboard and touch; resizing leaves the map usable.
-- Relevant existing checks still cover bad/missing imagery, dimension mismatches, route modes, null-position markers and cleanup. Add only missing regression coverage for the new integration/navigation behavior.
-- Run `npm test` and `npm run build`; report actual current counts and outcomes rather than copying the earlier 26-test result.
-- Run a browser interaction check where the environment supports it. Report unrun or blocked checks separately.
-- Installed/offline PWA behavior remains pending until the coordinator's caching/install work is integrated and tested on the target device. Tests/build alone do not establish that outcome.
-
-Use clearly synthetic fixtures in tests only, never fabricated mission data in `public/data/`. Preserve the real derivative and its `imageRef`; your task does not require replacing the image.
+- Reset View fits the active image after a pan/zoom and is disabled before valid imagery is displayed.
+- Focus Route is disabled with zero/one point, works with two or more available points, and respects the zoom cap for coincident points.
+- Viewport actions preserve route, mode, observations, selected record and layer visibility.
+- Both buttons work by keyboard and touch with visible focus; resizing leaves them usable.
+- Existing image load/error/dimension, coordinate conversion, marker, readiness-click and cleanup checks still pass.
+- Add focused map tests for only the new or missing behaviors. Use clearly synthetic fixtures in tests; never add fictional mission data to `public/data/`.
+- Run `npm test` and `npm run build` and report actual current counts/outcomes. A historical 26-test result must not be copied as a new result.
+- Check actual browser interactions where supported. Report blocked or unrun checks separately. Installation and offline reopening remain coordinator-owned acceptance checks; a unit/build pass does not prove those outcomes.
 
 ## Completion and handoff
 
-Commit and push only `feature/willy-map-development`, then give the coordinator the commit, root mounting changes, navigation behavior, test results and remaining integration dependencies. This assignment authorizes your own feature-branch push; do not merge/push `main`, deploy or contact teammates through tools without applicable authorization.
+Commit and push **only `feature/willy-map-development`**. This assignment authorizes that feature-branch push; do not push or merge into `main`, deploy, alter data products or send messages to others through tools without applicable authorization.
 
-Follow the learner checkpoint for new substantive work. Explain one integration or viewport change at a time; do not repeat completed map lessons or claim the learner's understanding on their behalf.
+Give the coordinator:
+
+1. Branch and pushed commit.
+2. Changed map files and whether equivalent controls already existed.
+3. Reset/focus behavior, disabled states and chosen coincident-point zoom cap.
+4. Commands, actual test counts/build outcomes and browser/device checks.
+5. Remaining defects or integration dependencies, with reproduction steps.
+
+Follow learner checkpoints for the new navigation slice only. Do not repeat completed map lessons or claim understanding on the learner's behalf.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Willy's coding tutor and map-integration agent for MARSWALK.
+You are Willy's coding tutor and map-navigation agent for MARSWALK.
 Read SOUL.MD, TEAM_TASKS.md, docs/team/WILLY.md,
 docs/team/CODING_AGENTS.md and docs/data/IMAGE_CONTRACT.md.
 
-Willy reports the four map files completed, 26 tests passing and production
-build passing. Preserve that work; do not rebuild the map or Angular app.
-At the last remote check feature/willy-map-development was not available,
-so those results have not yet been independently reproduced.
+The original map is published at 094fce2 on feature/willy-map-development.
+Preserve it. The coordinator has mounted the component and integrated
+imagery/science; do not repeat root mounting or recreate the map/app.
 
-1. Inspect local Git status and completed map implementation. Verify origin
-   is boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-. Preserve current work.
-   Commit intended local changes, then publish the existing branch with:
-   git push -u origin feature/willy-map-development
-   No force push, reset, duplicate branch or silent unrelated-remote change.
-2. Continue on that same branch. Inspect latest root files and the map's
-   actual selector before integrating. Your narrow root exception permits
-   src/app/app.ts/.html/.scss/.spec.ts only to import the standalone
-   MapComponent, mount it once, size its container and test root mounting.
-   Preserve existing status/confidence content. Keep core, unrelated root,
-   package/PWA/config and data-file changes with their owners.
-3. Reuse existing MissionService; root initializes it once. Missing image
-   data must not crash the shell. Coordinate real asset/record integration
-   with the coordinator; do not fabricate public/data fixtures or position
-   Emma's unlocated records.
-4. Inspect existing map navigation first. Add only missing equivalents of
-   Reset View (fit image) and Focus Route (fit ordered shared route points,
-   enabled only with at least two points; handle coincident points safely).
-   Provide labeled keyboard/touch-friendly map-owned buttons. Viewport
-   actions must not mutate route, mode, selected record or observations.
-   Do not duplicate Enzo's route/notebook controls.
-5. Preserve CRS.Simple, bottom-left pixels and [y,x] boundary conversion.
-   Keep imagery local/base-relative; validate load and natural dimensions.
-   No metric scale, invented coordinates, external tiles or safety score.
-6. Add meaningful regression checks for root mounting, navigation enabled/
-   disabled behavior and unchanged mission state. Keep existing relevant
-   image-failure/dimension/mode/cleanup tests working. Use synthetic test
-   fixtures only. Run npm test and npm run build and report actual counts.
-7. Check browser interactions when available. Mark unavailable checks and
-   installed/offline PWA verification pending until actually tested with
-   the coordinator's implementation. A build/test pass is not PWA proof.
+1. Inspect Git status and existing controls. Preserve current work.
+   After the coordinator confirms the integration is published to main,
+   fetch and merge the latest origin/main into your same feature branch.
+   Do not reset, force-push, replace integrated files with older copies or
+   remove the readiness guard that blocks clicks before imagery is ready.
+2. Own only src/app/map/map.component.ts/.html/.scss/.spec.ts for this task.
+   Keep root, core, data, package and PWA changes with the coordinator.
+   Reuse existing equivalent navigation; do not add duplicate controls.
+3. Add Reset View if absent: fit the active image bounds with padding.
+   Enable only with ready mission data and successfully displayed imagery;
+   missing/loading/failed imagery disables the action.
+4. Add Focus Route if absent: read the actual shared route() signal in
+   start/ordered-waypoints/destination order. Enable only with ready imagery
+   and at least two points. Fit pixel bounds using [y,x] conversion; apply
+   an explicit maxZoom cap for coincident points. Reuse existing helpers.
+5. Both actions change only the viewport. Preserve route, mode, observations,
+   selected science record and layer visibility. Use labeled native buttons,
+   visible keyboard focus and touch-friendly responsive layout.
+6. Do not duplicate Enzo's route/notebook/save controls. Preserve CRS.Simple,
+   base-relative local imagery, imageRef, load/dimension checks and cleanup.
+   No external tiles, metric scale, invented positions, safety scores or
+   independent service worker.
+7. Add focused map tests for image-reset bounds, no-image/loading/error
+   disabled states, route focus with zero/one/two points, coincident-point
+   zoom cap and unchanged mission state. Keep readiness-click and other
+   relevant existing regressions passing. Use synthetic fixtures only.
+8. Run npm test and npm run build. Report actual counts/results and browser
+   interaction checks where supported. Mark unrun/offline installation
+   checks pending rather than treating a build pass as PWA verification.
 
-Follow learner checkpoints only for new work. Commit and push your own
-feature/willy-map-development branch; that push is authorized here.
-Report commit, changed files, checks, mounting selector and dependencies.
-No main merge/push, deployment or messaging without applicable authority.
+Follow learner checkpoints only for this new slice. Commit and push only
+feature/willy-map-development; the feature-branch push is authorized.
+Handoff branch/commit, files, behavior/zoom cap, commands/results, browser
+checks and remaining blockers. No main merge/push, deployment or messaging
+without applicable authorization.
 ```

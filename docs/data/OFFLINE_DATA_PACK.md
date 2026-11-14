@@ -63,7 +63,13 @@ The high-resolution uncropped master downloaded from NASA is preserved in the re
 
 ## 5. Offline Verification Tool
 
-The runtime image package can be verified independently without network access using the dedicated validation script:
+Install the declared Pillow dependency before verifying the package (dependency installation requires package access):
+
+```bash
+python -m pip install -r tools/data/requirements.txt
+```
+
+Then the runtime image package can be verified without network access using the dedicated validation script. Pillow is required on every platform; without it the verifier returns failure with installation guidance instead of accepting header-only checks:
 
 ```bash
 python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public
@@ -72,6 +78,12 @@ python tools/data/verify_pack.py --manifest public/data/manifest.json --public-r
 Expected output:
 - Confirms manifest schema compliance with `ImageManifest` (`CODING_AGENTS.md`).
 - Confirms local raster exists and decodes to 2048 × 1042 px.
-- Verifies manifest SHA-256 (`40381b96...`) and image SHA-256 (`7b814497...`).
+- Reports manifest SHA-256 (`40381b96...`) and image SHA-256 (`7b814497...`) for comparison with this inventory.
 - Exits code `0` on success, `1` on failure.
+
+Regression checks:
+
+```bash
+python -m unittest discover -s tools/data -p 'test_verify_pack.py'
+```
 

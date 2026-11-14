@@ -16,36 +16,8 @@ import argparse
 import hashlib
 import json
 import os
-import struct
 import sys
 import urllib.parse
-
-def parse_jpeg_dimensions(data: bytes):
-    """Parse JPEG SOF markers to extract (width, height)."""
-    if len(data) < 2 or data[:2] != b'\xff\xd8':
-        raise ValueError("File does not start with JPEG SOI marker")
-    idx = 2
-    length = len(data)
-    while idx < length:
-        if data[idx] != 0xFF:
-            idx += 1
-            continue
-        marker = data[idx + 1]
-        # Baseline, extended, progressive DCT markers
-        if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
-            height, width = struct.unpack(">HH", data[idx + 5 : idx + 9])
-            return width, height
-        else:
-            seg_len = struct.unpack(">H", data[idx + 2 : idx + 4])[0]
-            idx += 2 + seg_len
-    raise ValueError("JPEG SOF marker not found")
-
-def parse_png_dimensions(data: bytes):
-    """Parse PNG IHDR chunk to extract (width, height)."""
-    if len(data) < 24 or data[:8] != b'\x89PNG\r\n\x1a\n':
-        raise ValueError("File does not start with valid PNG header")
-    width, height = struct.unpack(">II", data[16:24])
-    return width, height
 
 def decode_and_verify_image(file_path: str):
     """
@@ -54,31 +26,18 @@ def decode_and_verify_image(file_path: str):
     """
     try:
         from PIL import Image, ImageFile
-        # Ensure Pillow raises an error on truncated images instead of silently loading partial pixels
-        ImageFile.LOAD_TRUNCATED_IMAGES = False
-        with Image.open(file_path) as img:
-            w, h = img.size
-            img.load()  # Fully decode pixel buffer to detect truncation/corruption
-            return w, h, f"{img.format} (fully decoded via Pillow .load())"
-    except ImportError:
-        pass
+    except ImportError as exc:
+        raise RuntimeError(
+            "Pillow is required for full image verification. Install it with: "
+            "python -m pip install -r tools/data/requirements.txt"
+        ) from exc
 
-    # Fallback to standard library decoder with EOF validation
-    with open(file_path, "rb") as f:
-        full_data = f.read()
-
-    if full_data.startswith(b'\xff\xd8'):
-        if not full_data.endswith(b'\xff\xd9'):
-            raise ValueError(f"Truncated JPEG image: missing EOI (0xFFD9) marker in {file_path}")
-        w, h = parse_jpeg_dimensions(full_data)
-        return w, h, "JPEG (standard library SOF + EOI check)"
-    elif full_data.startswith(b'\x89PNG\r\n\x1a\n'):
-        if not full_data.endswith(b'IEND\xaeB`\x82'):
-            raise ValueError(f"Truncated PNG image: missing IEND chunk in {file_path}")
-        w, h = parse_png_dimensions(full_data)
-        return w, h, "PNG (standard library IHDR + IEND check)"
-    else:
-        raise ValueError(f"Unsupported image format or unrecognized header in {file_path}")
+    # Header/end markers alone cannot establish that the pixel data is intact.
+    ImageFile.LOAD_TRUNCATED_IMAGES = False
+    with Image.open(file_path) as img:
+        w, h = img.size
+        img.load()
+        return w, h, f"{img.format} (fully decoded via Pillow .load())"
 
 def is_valid_https_url(url: str) -> bool:
     try:

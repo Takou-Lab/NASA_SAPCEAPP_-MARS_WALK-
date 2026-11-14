@@ -10,12 +10,12 @@
 - **Session Ownership:**
   - **Coordinator (`YOU.md`):** Arranges and conducts the three sessions once the integrated offline PWA build is verified.
   - **Longla (`LONGLA.md`):** Supports independent target-device/offline QA and live session observation.
-  - **Emmanuelle (`EMMA.md`):** Prepares this protocol and records only observed, anonymized outcomes, misunderstandings, failures, and retest results.
+  - **Emma (`EMMA.md`):** Prepares this protocol and records only observed, anonymized outcomes, misunderstandings, failures, and retest results.
 
 ## 2. Prerequisites Before Running Sessions
 
 Before conducting any session, confirm on the demonstration device that:
-1. Gaddielle's `public/data/manifest.json` + prepared image (`hirise-mro-pia26306-boxwork-2048x1042-v1`) and Emmanuelle's `public/data/markers.json` are integrated.
+1. Gaddielle's `public/data/manifest.json` + prepared image (`hirise-mro-pia26306-boxwork-2048x1042-v1`) and Emma's `public/data/markers.json` are integrated.
 2. Willy's Leaflet `CRS.Simple` map and Enzo's tablet UI, Exploration Confidence Panel, Data Passport, contextual science list, and notebook are integrated.
 3. Coordinator's PWA manifest, service-worker caching, and production offline reopening pass independent QA checks.
 

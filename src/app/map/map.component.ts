@@ -159,6 +159,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       lineJoin: 'round',
     }).addTo(this.routeLayer);
     this.clickHandler = (event) => {
+      if (this.mission.dataStatus() !== 'ready' || this.imageDisplayState() !== 'ready') return;
       this.mission.applyMapPoint({ x: event.latlng.lng, y: event.latlng.lat });
     };
     this.map.on('click', this.clickHandler);

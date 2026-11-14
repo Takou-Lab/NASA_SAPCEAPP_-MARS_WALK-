@@ -6,7 +6,7 @@ Updated: **14 November 2026**. This is the team's product charter and scope guid
 
 Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
 
-Emma (he/him) delivered the evidence audit, revised records/citations, PWA status summary and internal demo script on `feature/emma-science-provenance` at `8a947a4`, then the usability protocol at `b0640d9`. Review/integration remains separate; do not ask him to recreate those deliverables. His new task is the presentation and judges' Q&A pack; actual usability sessions wait for the integrated PWA. Willy reports his map completed locally; his next tasks are branch publication, narrow root mounting and viewport usability. Preserve other teammates' current work and completed results.
+Emma (he/him) delivered the evidence audit, revised records/citations, PWA status summary and internal demo script on `feature/emma-science-provenance` at `8a947a4`, then the usability protocol at `b0640d9`. Those contributions are now integrated; do not ask him to recreate them. The user reports his subsequent presentation work completed; preserve it and obtain its published handoff. Actual usability sessions wait for the integrated PWA. Willy's published map `094fce2` is integrated; his next task is Reset View/Focus Route and viewport usability, not repeated root mounting. Preserve other teammates' current work and completed results.
 
 ## Why we exist
 
@@ -81,7 +81,7 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 | --- | --- | --- |
 | Essential | Gaddielle | Stable image/manifest, qualified coverage claims, offline image-pack inventory, reproducible validation and Willy handoff |
 | Essential | Emma (EMMA.md) | Preserve delivered science/demo/protocol; prepare source-backed presentation and judges' Q&A, then record actual user-test outcomes |
-| Essential | Willy | Publish and integrate the reported completed map, add viewport reset/focus and verify without rebuilding his earlier work |
+| Essential | Willy | Preserve the integrated map, add viewport reset/focus and verify without rebuilding earlier work |
 | Essential | Enzo | Tablet controls, readable confidence/data passports, contextual science list, notebook, recovery/export and PWA status UI |
 | Essential | Coordinator (YOU.md) | Shared state, reviewed integration, confidence calculations, installation, complete verified offline pack and end-to-end release checks |
 | Essential before optional 3D | Longla | Independent target-device/offline QA and support for usability observation, working with the coordinator |
@@ -115,8 +115,8 @@ Suggested pitch:
 
 > MARSWALK packages real Mars imagery and scientific context into an offline exploration rehearsal. It helps users sketch a mission, document observations, and see which decisions the available evidence cannot support.
 
-## Status when this charter was written
+## Current integration status
 
-`main` has the Angular foundation, shared models/MissionService, validation, localStorage/export service functionality, Leaflet dependencies and an honest missing-data shell. The last foundation check passed 15 tests and a production build; production HTTP assets served. A headless browser attempt stalled and did not verify browser behavior.
+The integration includes the Angular foundation, shared models/MissionService, validation, localStorage/export service functionality, Willy's mounted map, Gaddielle's prepared image and Emma's three contextual science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover 32 Angular tests, four verifier tests, a production build and desktop/tablet-sized Chromium interactions and failure states.
 
-Image and science contributions are on feature branches pending reviewed integration. Map/UI, installability and verified offline operation must be checked against the actual integration revision before being called complete. This charter and the updated assignments do not themselves implement those features.
+Enzo's route controls, science list and notebook UI, installation and verified offline reopening remain pending. Physical-device and outside-user checks are not yet complete. Follow the actual integration revision; these results do not establish a full installed offline PWA or independently validate every scientific finding.

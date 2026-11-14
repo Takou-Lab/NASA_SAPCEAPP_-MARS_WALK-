@@ -6,7 +6,7 @@
 
 Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). Reliable offline mission rehearsal is the priority. While the map/PWA are integrated and terrain remains unavailable, own an independent QA plan and device checks. Build optional 3D after the core acceptance check; VR must not block the release.
 
-The Angular foundation exists on `main`, with data contributions on feature branches pending integration. Installation, a complete offline workflow and 3D are not proven by foundation tests. Inspect the actual revision and report actual outcomes only.
+The Angular foundation, Willy's mounted map and the data/science contributions are now integrated; see [map integration checks](../qa/MAP_INTEGRATION.md). Installation, a complete offline workflow and 3D are not proven by foundation tests. Inspect the actual revision and report actual outcomes only.
 
 ## Ownership and deliverables
 
