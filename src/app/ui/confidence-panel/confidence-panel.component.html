@@ -1,0 +1,189 @@
+<div class="confidence-container">
+  <!-- 1. Exploration Assessment Card -->
+  <section class="card assessment-card">
+    <div class="card-header">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 17 12 22 22 17" />
+          <polyline points="2 12 12 17 22 12" />
+        </svg>
+        <span>Exploration Assessment</span>
+      </div>
+      <span class="badge review-badge" title="No automated safety certification">Visual Review Only</span>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-box">
+        <div class="metric-label">Planar Distance</div>
+        <div class="metric-value" [class.unavailable]="assessment().distanceStatus === 'unavailable'">
+          {{ formattedDistance() }}
+        </div>
+        <div class="metric-sub">
+          @if (assessment().distanceStatus === 'derived') {
+            <span class="derived-tag">Derived planar distance (flat 2D)</span>
+          } @else {
+            <span class="unavail-tag">Uncalibrated or missing endpoints</span>
+          }
+        </div>
+      </div>
+
+      <div class="metric-box">
+        <div class="metric-label">Terrain Elevation / Slope</div>
+        <div class="metric-value unavailable">Unavailable</div>
+        <div class="metric-sub">
+          <span class="unavail-tag">No validated DEM in v1</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Uncertainty & Constraints Warnings -->
+  @if (assessment().warnings.length > 0) {
+    <section class="card warning-card">
+      <div class="card-header">
+        <div class="card-title warning-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          <span>Limitations & Missing Data</span>
+        </div>
+      </div>
+      <ul class="warnings-list">
+        @for (warn of assessment().warnings; track warn) {
+          <li class="warning-item">
+            <span class="bullet" aria-hidden="true">•</span>
+            <span class="warn-text">{{ warn }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  <!-- 3. Active Dataset Provenance -->
+  <section class="card provenance-card">
+    <div class="card-header">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+          <path d="M6 6h10" />
+          <path d="M6 10h10" />
+        </svg>
+        <span>Data Provenance & Coverage</span>
+      </div>
+    </div>
+
+    @if (image(); as img) {
+      <div class="provenance-details">
+        <div class="prov-row">
+          <span class="prov-key">Source Product:</span>
+          <a [href]="img.source.url" target="_blank" rel="noopener noreferrer" class="prov-link">
+            {{ img.source.title }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ext-icon">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="prov-row">
+          <span class="prov-key">Credit:</span>
+          <span class="prov-val">{{ img.source.credit }}</span>
+        </div>
+
+        <div class="prov-row">
+          <span class="prov-key">Coverage:</span>
+          <span class="badge" [class.badge-verified]="img.coverageStatus === 'verified-aoi'">
+            {{ img.coverageStatus === 'verified-aoi' ? 'Verified AOI (Mount Sharp)' : 'Regional Context' }}
+          </span>
+        </div>
+
+        <div class="prov-row">
+          <span class="prov-key">Dimensions:</span>
+          <span class="prov-mono">{{ img.width }} × {{ img.height }} px (Bottom-Left Origin)</span>
+        </div>
+
+        <div class="prov-row">
+          <span class="prov-key">Calibration:</span>
+          @if (img.calibration.verified) {
+            <span class="prov-val">{{ img.calibration.metersPerPixel }} m/px ({{ img.calibration.method }})</span>
+          } @else {
+            <span class="prov-val text-muted">Unverified metric scale</span>
+          }
+        </div>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No active raster dataset loaded. Operating in fallback demonstration mode.</p>
+      </div>
+    }
+  </section>
+
+  <!-- 4. Selected Science Target Detail (when marker clicked) -->
+  @if (selectedMarker(); as marker) {
+    <section class="card marker-detail-card">
+      <div class="card-header">
+        <div class="card-title science-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <span>Selected Target: {{ marker.name }}</span>
+        </div>
+        <button type="button" class="close-btn" (click)="clearMarkerSelection()" aria-label="Deselect marker">×</button>
+      </div>
+
+      <div class="marker-body">
+        <div class="marker-badge-row">
+          <span class="badge position-badge" [class]="'pos-' + marker.positionStatus">
+            Position: {{ marker.positionStatus }}
+          </span>
+          <span class="badge evidence-badge">
+            Evidence: {{ marker.evidenceType }}
+          </span>
+        </div>
+
+        <div class="marker-finding">
+          <div class="finding-label">Observed Finding:</div>
+          <div class="finding-text">{{ marker.finding }}</div>
+        </div>
+
+        <div class="marker-meta-grid">
+          @if (marker.instrument) {
+            <div class="meta-item">
+              <span class="meta-key">Instrument:</span>
+              <span class="meta-val">{{ marker.instrument }}</span>
+            </div>
+          }
+          @if (marker.date) {
+            <div class="meta-item">
+              <span class="meta-key">Observation Date:</span>
+              <span class="meta-val">{{ marker.date }}</span>
+            </div>
+          }
+        </div>
+
+        @if (marker.limitations.length > 0) {
+          <div class="marker-limits">
+            <span class="limits-label">Target Limitations:</span>
+            <ul>
+              @for (lim of marker.limitations; track lim) {
+                <li>{{ lim }}</li>
+              }
+            </ul>
+          </div>
+        }
+
+        <div class="marker-source">
+          <a [href]="marker.source.url" target="_blank" rel="noopener noreferrer" class="prov-link">
+            Source: {{ marker.source.title }} ({{ marker.source.credit }})
+          </a>
+        </div>
+      </div>
+    </section>
+  }
+</div>

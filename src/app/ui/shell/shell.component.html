@@ -1,0 +1,139 @@
+<div class="shell-layout">
+  <app-header />
+
+  <main
+    class="main-workspace"
+    [class.panel-collapsed]="isPanelCollapsed()"
+    [class.is-resizing]="isResizing()"
+  >
+    <!-- Map / Primary Workspace Area -->
+    <section class="map-workspace" aria-label="Mars Surface Workspace">
+      <div id="map-container" class="map-container" tabindex="0" aria-label="Interactive Map Area">
+        <div class="map-placeholder">
+          <div class="placeholder-content">
+            <div class="mars-icon-ring" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                <path d="M2 12h20" />
+              </svg>
+            </div>
+            <h3>Mount Sharp Boxwork Formations</h3>
+            <p>Gale Crater, Mars — Planetary EVA Planner</p>
+
+            <div class="hud-status">
+              <div class="hud-item">
+                <span class="hud-k">Interaction Mode:</span>
+                <span class="hud-v mode-badge">{{ mode() | uppercase }}</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-k">Route Points:</span>
+                <span class="hud-v">
+                  Start: {{ route().start ? 'Set' : 'None' }} |
+                  Waypoints: {{ route().waypoints.length }} |
+                  Dest: {{ route().destination ? 'Set' : 'None' }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick status footer inside map workspace -->
+      <footer class="workspace-footer">
+        <div class="status-left">
+          <span class="footer-label">Coordinate System:</span>
+          <span class="footer-val font-mono">image-pixels-bottom-left (2D Raster)</span>
+        </div>
+        <div class="status-right">
+          <button
+            type="button"
+            class="panel-toggle-btn"
+            (click)="togglePanel()"
+            [attr.aria-expanded]="!isPanelCollapsed()"
+            aria-label="Toggle Side Panel"
+          >
+            {{ isPanelCollapsed() ? 'Show Panel ◂' : 'Collapse Panel ▸' }}
+          </button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- Resizable Splitter Handle (Drag to widen/narrow, double click to reset) -->
+    @if (!isPanelCollapsed()) {
+      <div
+        class="panel-resizer"
+        role="separator"
+        tabindex="0"
+        aria-orientation="vertical"
+        [attr.aria-valuenow]="panelWidth()"
+        aria-valuemin="300"
+        aria-valuemax="750"
+        aria-label="Resize side panel (drag or use arrow keys, double click to reset)"
+        title="Drag left/right to resize sidebar. Double-click to reset."
+        (mousedown)="startResize($event)"
+        (touchstart)="startResize($event)"
+        (dblclick)="resetPanelWidth()"
+        (keydown)="onResizerKeydown($event)"
+      >
+        <div class="resizer-bar" aria-hidden="true"></div>
+      </div>
+    }
+
+    <!-- Side Panel (Resizable & Collapsible) -->
+    <aside
+      class="side-panel"
+      [style.width.px]="isPanelCollapsed() ? 0 : panelWidth()"
+      aria-label="Mission Controls & Data Panel"
+    >
+      <nav class="panel-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'confidence'"
+          [attr.aria-selected]="activeTab() === 'confidence'"
+          (click)="setActiveTab('confidence')"
+        >
+          Confidence & Data
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'planner'"
+          [attr.aria-selected]="activeTab() === 'planner'"
+          (click)="setActiveTab('planner')"
+        >
+          Route Planner
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'notebook'"
+          [attr.aria-selected]="activeTab() === 'notebook'"
+          (click)="setActiveTab('notebook')"
+        >
+          Notebook ({{ observations().length }})
+        </button>
+      </nav>
+
+      <div class="tab-content">
+        @switch (activeTab()) {
+          @case ('confidence') {
+            <app-confidence-panel />
+          }
+          @case ('planner') {
+            <app-route-planner />
+          }
+          @case ('notebook') {
+            <app-notebook />
+          }
+        }
+      </div>
+    </aside>
+  </main>
+</div>
