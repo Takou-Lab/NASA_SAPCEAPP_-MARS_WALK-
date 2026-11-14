@@ -1,0 +1,62 @@
+[
+  {
+    "id": "curiosity-mount-sharp-boxwork",
+    "name": "Mount Sharp Boxwork Ridges",
+    "imageRef": "pending-manifest-gale-boxwork-v1",
+    "position": null,
+    "positionStatus": "unavailable",
+    "instrument": "Mastcam / MAHLI / APXS (Curiosity Rover)",
+    "date": null,
+    "finding": "Observed crisscrossing 1–2 m tall mineral-cemented ridges spanning 10–20 km on Mount Sharp; interpreted as ancient groundwater-deposited mineral veins exposed after softer surrounding rock eroded.",
+    "evidenceType": "interpreted",
+    "source": {
+      "title": "NASA Mars Exploration — Curiosity Rover & Mount Sharp Boxwork",
+      "url": "https://science.nasa.gov/mission/msl-curiosity/",
+      "credit": "NASA / JPL-Caltech"
+    },
+    "limitations": [
+      "Exact pixel coordinates on the active local raster are unavailable until public/data/manifest.json is finalized.",
+      "Ancient groundwater evidence does not establish current liquid water."
+    ]
+  },
+  {
+    "id": "curiosity-vera-rubin-ridge-hematite",
+    "name": "Vera Rubin Ridge Hematite & Calcium Sulfate Veins",
+    "imageRef": "pending-manifest-gale-boxwork-v1",
+    "position": null,
+    "positionStatus": "unavailable",
+    "instrument": "ChemCam / CheMin / Mastcam (Curiosity Rover)",
+    "date": null,
+    "finding": "Measured stratified sedimentary rocks with hematite and calcium sulfate veins on Vera Rubin Ridge; interpreted as ancient lakebed deposits altered by multiple episodes of subsurface fluid flow.",
+    "evidenceType": "measured",
+    "source": {
+      "title": "NASA Science — Curiosity's Proposed Path Up Mount Sharp / Vera Rubin Ridge",
+      "url": "https://science.nasa.gov/resource/curiositys-proposed-path-up-mount-sharp/",
+      "credit": "NASA / JPL-Caltech / MSSS"
+    },
+    "limitations": [
+      "Exact pixel coordinates on the active local raster are unavailable until public/data/manifest.json is finalized.",
+      "Regional ridge context does not establish an instrument measurement at a demonstration marker."
+    ]
+  },
+  {
+    "id": "curiosity-sulfate-bearing-unit",
+    "name": "Mount Sharp Sulfate-Bearing Unit Transition",
+    "imageRef": "pending-manifest-gale-boxwork-v1",
+    "position": null,
+    "positionStatus": "unavailable",
+    "instrument": "CheMin / SAM / Mastcam (Curiosity Rover)",
+    "date": null,
+    "finding": "Observed salty, sulfate-rich mineral strata above the clay-bearing Glen Torridon unit; interpreted as a planetary climate transition from wetter ancient lakes to drier, more arid conditions.",
+    "evidenceType": "interpreted",
+    "source": {
+      "title": "NASA Science — Mars Science Laboratory (Curiosity)",
+      "url": "https://science.nasa.gov/mission/msl-curiosity/",
+      "credit": "NASA / JPL-Caltech"
+    },
+    "limitations": [
+      "Exact pixel coordinates on the active local raster are unavailable until public/data/manifest.json is finalized.",
+      "Stratigraphic interpretation does not provide route-level hazard or traversability clearance."
+    ]
+  }
+]
