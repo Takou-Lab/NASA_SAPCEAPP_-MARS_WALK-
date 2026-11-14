@@ -7,61 +7,98 @@
 
     <div class="provenance-banner" role="status">
       <p class="terrain-notice">
-        <strong>Terrain Status:</strong> No verified terrain; elevation unavailable (flat imagery plane).
+        <strong>Terrain Status:</strong> No verified terrain; elevation unavailable (flat imagery
+        plane).
       </p>
       <p class="exaggeration-notice">
-        <strong>Vertical Exaggeration:</strong> None (route &amp; markers elevated +1px strictly for visual z-separation; not elevation).
+        <strong>Vertical Exaggeration:</strong> None. Lines, rings and marker shapes have display
+        offsets to avoid overlap; none represent measured elevation.
       </p>
       @if (mission.image(); as img) {
         <p class="imagery-info">
-          <strong>Source:</strong> {{ img.source.title }} ({{ img.width }} &times; {{ img.height }} px) &bull;
+          <strong>Source:</strong>
+          <a [href]="img.source.url" target="_blank" rel="noopener noreferrer">{{
+            img.source.title
+          }}</a>
+          — {{ img.source.credit }} ({{ img.width }} &times; {{ img.height }} pixels) &bull;
           <strong>Coverage:</strong> {{ img.coverageStatus }}
         </p>
+        <p>
+          External source pages require connectivity. Image orientation and metric scale are
+          unverified.
+        </p>
+        <ul>
+          @for (limitation of img.limitations; track $index) {
+            <li>{{ limitation }}</li>
+          }
+        </ul>
       } @else {
-        <p class="imagery-info waiting">Waiting for image manifest &mdash; displaying practice grid.</p>
+        <p class="imagery-info waiting">
+          Waiting for image manifest &mdash; displaying practice grid.
+        </p>
       }
     </div>
 
     <div class="controls-toolbar" role="toolbar" aria-label="Viewer camera controls">
       <div class="btn-group">
-        <button type="button" class="btn" (click)="setViewPreset('rehearsal')">Rehearsal View</button>
-        <button type="button" class="btn" (click)="setViewPreset('topDown')">Top-Down (Map)</button>
-        <button type="button" class="btn" (click)="setViewPreset('oblique')">Low Oblique</button>
-        <button type="button" class="btn" (click)="resetCamera()">Reset View</button>
+        <button
+          type="button"
+          class="btn"
+          [disabled]="!webglAvailable()"
+          (click)="setViewPreset('rehearsal')"
+        >
+          Rehearsal View
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [disabled]="!webglAvailable()"
+          (click)="setViewPreset('topDown')"
+        >
+          Top-Down (Map)
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [disabled]="!webglAvailable()"
+          (click)="setViewPreset('oblique')"
+        >
+          Low Oblique
+        </button>
+        <button type="button" class="btn" [disabled]="!webglAvailable()" (click)="resetCamera()">
+          Reset View
+        </button>
       </div>
 
-      <div class="vr-group">
-        @if (xrSupported()) {
-          <button type="button" class="btn btn-vr" (click)="toggleVR()">
-            {{ isPresenting() ? 'Exit VR' : 'Enter VR' }}
-          </button>
-        } @else {
-          <span class="vr-disabled-label" title="WebXR immersive-vr is not supported by your current browser or hardware">
-            WebXR VR: Unavailable
-          </span>
-        }
-      </div>
+      <p class="vr-unavailable">Immersive VR is not implemented in this prototype.</p>
     </div>
   </header>
 
   <div class="viewport-wrapper">
-    <div #canvasContainer class="canvas-viewport" tabindex="0" aria-label="Interactive 3D Mars Viewport">
+    <div
+      #canvasContainer
+      class="canvas-viewport"
+      tabindex="0"
+      aria-label="Interactive 3D Mars Viewport"
+    >
       @if (!webglAvailable()) {
-        <div class="webgl-fallback">
-          <p>WebGL is unavailable or disabled in this browser environment.</p>
+        <div class="webgl-fallback" role="status">
+          <p>{{ graphicsError() }}</p>
         </div>
       }
     </div>
 
-    <!-- Compass Orientation HUD -->
-    <div class="compass-widget" title="Camera Heading relative to Martian North (-Z)">
-      <div class="compass-dial" [style.transform]="'rotate(' + (-cameraHeading()) + 'deg)'">
-        <span class="needle-n">N</span>
-        <span class="needle-pivot"></span>
-        <span class="needle-s">S</span>
-      </div>
-      <span class="heading-text">{{ cameraHeading() }}&deg;</span>
-    </div>
+    @if (webglAvailable()) {
+      @if (imageDisplayState() === 'loading') {
+        <p class="image-state" role="status">Loading 3D imagery…</p>
+      } @else if (imageDisplayState() === 'error') {
+        <p class="image-state" role="alert">{{ imageDisplayError() }}</p>
+      } @else if (imageDisplayState() === 'waiting') {
+        <p class="image-state" role="status">
+          Practice grid only (illustrative). Image coordinates are unavailable.
+        </p>
+      }
+    }
 
     <!-- Quick Hover Tooltip for Science Markers -->
     @if (hoveredMarker(); as hov) {
@@ -79,12 +116,25 @@
       <aside class="marker-card" aria-labelledby="marker-card-title">
         <div class="card-header">
           <h3 id="marker-card-title">{{ marker.name }}</h3>
-          <button type="button" class="btn-close" (click)="closeMarkerCard()" aria-label="Close marker details">&times;</button>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeMarkerCard()"
+            aria-label="Close marker details"
+          >
+            &times;
+          </button>
         </div>
         <p class="status-tag" [class.verified]="marker.positionStatus === 'verified'">
           Position status: <strong>{{ marker.positionStatus }}</strong>
         </p>
         <p class="finding-text">{{ marker.finding }}</p>
+        <p>
+          <a [href]="marker.source.url" target="_blank" rel="noopener noreferrer">{{
+            marker.source.title
+          }}</a>
+          — {{ marker.source.credit }}
+        </p>
         @if (marker.instrument) {
           <p class="meta-item"><strong>Instrument:</strong> {{ marker.instrument }}</p>
         }
@@ -109,11 +159,17 @@
 
     <div class="coords-readout" role="status" aria-label="Cursor coordinate readout">
       @if (hoverCoords(); as c) {
-        <span class="map-coord">Map: <strong>X: {{ c.x }}px, Y: {{ c.y }}px</strong></span>
+        <span class="map-coord"
+          >Map: <strong>X: {{ c.x }}px, Y: {{ c.y }}px</strong></span
+        >
         <span class="coord-sep">&bull;</span>
         <span class="scene-coord">Scene: ({{ c.sceneX }}, 0, {{ c.sceneZ }})</span>
       } @else {
-        <span class="coord-placeholder">Hover terrain for coordinates</span>
+        <span class="coord-placeholder">{{
+          imageDisplayState() === 'ready'
+            ? 'Hover the image for pixel coordinates'
+            : 'Image coordinates unavailable'
+        }}</span>
       }
     </div>
   </footer>

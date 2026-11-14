@@ -9,12 +9,16 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { VIEWER_GRAPHICS, ViewerControls, ViewerRenderer } from './viewer3d.graphics';
 import { MissionService } from '../core/mission.service';
-import { ScienceMarker } from '../core/models';
+import { ImageManifest, ScienceMarker } from '../core/models';
 import { routePoints } from '../core/route';
+import { validPoint } from '../core/validation';
 import { DISPLAY_Y_OFFSET, mapPointTo3D } from './transform';
+
+type ImageDisplayState = 'waiting' | 'loading' | 'ready' | 'error';
 
 @Component({
   selector: 'app-viewer3d',
@@ -23,156 +27,123 @@ import { DISPLAY_Y_OFFSET, mapPointTo3D } from './transform';
   styleUrl: './viewer3d.component.scss',
 })
 export class Viewer3dComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('canvasContainer', { static: false })
-  private containerRef?: ElementRef<HTMLDivElement>;
-
+  @ViewChild('canvasContainer') private containerRef?: ElementRef<HTMLDivElement>;
   readonly mission = inject(MissionService);
-
-  readonly webglAvailable = signal<boolean>(true);
-  readonly xrSupported = signal<boolean>(false);
-  readonly isPresenting = signal<boolean>(false);
-
-  // Visual enhancements state
-  readonly cameraHeading = signal<number>(0);
-  readonly hoverCoords = signal<{ x: number; y: number; sceneX: number; sceneZ: number } | null>(null);
+  private readonly document = inject(DOCUMENT);
+  private readonly graphics = inject(VIEWER_GRAPHICS);
+  readonly webglAvailable = signal(true);
+  readonly graphicsError = signal<string | null>(null);
+  readonly imageDisplayState = signal<ImageDisplayState>('waiting');
+  readonly imageDisplayError = signal<string | null>(null);
+  readonly hoverCoords = signal<{ x: number; y: number; sceneX: number; sceneZ: number } | null>(
+    null,
+  );
   readonly hoveredMarker = signal<ScienceMarker | null>(null);
-
-  readonly selectedMarker = computed<ScienceMarker | null>(() => {
-    const id = this.mission.selectedMarkerId();
-    if (!id) return null;
-    return this.mission.markers().find((m) => m.id === id) ?? null;
-  });
-
-  // Three.js Core
+  readonly selectedMarker = computed(
+    () => this.mission.markers().find((m) => m.id === this.mission.selectedMarkerId()) ?? null,
+  );
   private scene?: THREE.Scene;
   private camera?: THREE.PerspectiveCamera;
-  private renderer?: THREE.WebGLRenderer;
-  private controls?: OrbitControls;
+  private renderer?: ViewerRenderer;
+  private controls?: ViewerControls;
   private animFrameId?: number;
   private resizeObserver?: ResizeObserver;
-
-  // Scene object groups
   private terrainMesh?: THREE.Mesh;
   private practiceGrid?: THREE.Group;
-  private northIndicator?: THREE.Group;
-  private starsMesh?: THREE.Points;
-  private routeGroup = new THREE.Group();
-  private markersGroup = new THREE.Group();
-  private markerMeshMap = new Map<THREE.Object3D, string>();
+  private currentImage: ImageManifest | null | undefined;
+  private pendingTexture?: THREE.Texture;
+  private readonly releasedTextures = new WeakSet<THREE.Texture>();
+  private imageRequest = 0;
+  private destroyed = false;
+  private readonly routeGroup = new THREE.Group();
+  private readonly markersGroup = new THREE.Group();
+  private readonly markerMeshMap = new Map<THREE.Object3D, string>();
   private hoveredObject?: THREE.Object3D;
-
-  // Raycasting for interactive marker clicks & coordinate hover
-  private raycaster = new THREE.Raycaster();
-  private mouse = new THREE.Vector2();
-  private boundOnClick = (e: MouseEvent) => this.onCanvasClick(e);
-  private boundOnMouseMove = (e: MouseEvent) => this.onCanvasMouseMove(e);
-  private boundOnMouseLeave = () => this.onCanvasMouseLeave();
+  private readonly raycaster = new THREE.Raycaster();
+  private readonly mouse = new THREE.Vector2();
+  private readonly boundOnClick = (e: MouseEvent) => this.onCanvasClick(e);
+  private readonly boundOnMouseMove = (e: MouseEvent) => this.onCanvasMouseMove(e);
+  private readonly boundOnMouseLeave = () => this.onCanvasMouseLeave();
+  private readonly boundOnContextLost = (event: Event) => {
+    event.preventDefault();
+    this.graphicsError.set(
+      '3D graphics were interrupted. Close and reopen this viewer. The 2D mission remains available.',
+    );
+    this.webglAvailable.set(false);
+    this.cleanup();
+  };
 
   constructor() {
-    // Reactive sync with MissionService signals
     effect(() => {
-      const img = this.mission.image();
+      const image = this.mission.image();
+      if (this.scene) this.rebuildTerrain(image);
+    });
+    effect(() => {
+      const image = this.mission.image();
       const route = this.mission.route();
+      const ready = this.imageDisplayState() === 'ready';
+      if (this.scene) this.rebuildRoute(route, ready ? image : null);
+    });
+    effect(() => {
+      const image = this.mission.image();
       const markers = this.mission.markers();
-
-      if (this.scene) {
-        this.rebuildTerrain(img);
-        this.rebuildRoute(route, img);
-        this.rebuildMarkers(markers, img);
-      }
+      const ready = this.imageDisplayState() === 'ready';
+      if (this.scene) this.rebuildMarkers(markers, ready ? image : null);
     });
   }
 
   ngAfterViewInit(): void {
     if (!this.containerRef) return;
-
-    if (!this.checkWebGLSupport()) {
+    try {
+      // Three.js owns WebGL2 detection. A WebGL1-only preflight is insufficient.
+      this.initThree(this.containerRef.nativeElement);
+    } catch {
+      this.cleanup();
       this.webglAvailable.set(false);
-      return;
+      this.graphicsError.set(
+        '3D graphics could not start. WebGL2 may be unavailable or disabled. The 2D mission remains available.',
+      );
     }
-
-    this.initThree(this.containerRef.nativeElement);
-    this.checkWebXRSupport();
   }
 
   ngOnDestroy(): void {
+    this.destroyed = true;
     this.cleanup();
-  }
-
-  private checkWebGLSupport(): boolean {
-    try {
-      const canvas = document.createElement('canvas');
-      return !!(
-        window.WebGLRenderingContext &&
-        (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-      );
-    } catch {
-      return false;
-    }
   }
 
   private initThree(container: HTMLDivElement): void {
     const width = container.clientWidth || 800;
     const height = container.clientHeight || 480;
-
-    // 1. Scene
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x06080d);
-
-    // 2. Camera
     this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 100000);
     this.camera.position.set(0, 1000, 1200);
-
-    // 3. Renderer
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    this.renderer = this.graphics.createRenderer();
     this.renderer.setSize(width, height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     container.appendChild(this.renderer.domElement);
-
-    // 4. OrbitControls
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls = this.graphics.createControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
     this.controls.target.set(0, 0, 0);
     this.controls.update();
-
-    // 5. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
-    this.scene.add(ambientLight);
-
-    const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.25);
-    sunLight.position.set(800, 1500, 600);
-    this.scene.add(sunLight);
-
-    // Atmospheric Starfield
-    this.starsMesh = this.createStarfield();
-    this.scene.add(this.starsMesh);
-
-    // Groups
-    this.scene.add(this.routeGroup);
-    this.scene.add(this.markersGroup);
-
-    // Initial build
+    this.scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+    const light = new THREE.DirectionalLight(0xfff5e6, 1.25);
+    light.position.set(800, 1500, 600);
+    this.scene.add(light, this.createStarfield(), this.routeGroup, this.markersGroup);
     this.rebuildTerrain(this.mission.image());
-    this.rebuildRoute(this.mission.route(), this.mission.image());
-    this.rebuildMarkers(this.mission.markers(), this.mission.image());
-
-    // 6. Interaction & Resizing
     const dom = this.renderer.domElement;
     dom.addEventListener('click', this.boundOnClick);
     dom.addEventListener('mousemove', this.boundOnMouseMove);
     dom.addEventListener('mouseleave', this.boundOnMouseLeave);
-
+    dom.addEventListener('webglcontextlost', this.boundOnContextLost);
     this.resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
-        if (entry.contentRect.width > 0 && entry.contentRect.height > 0) {
+        if (entry.contentRect.width > 0 && entry.contentRect.height > 0)
           this.onResize(entry.contentRect.width, entry.contentRect.height);
-        }
       }
     });
     this.resizeObserver.observe(container);
-
-    // 7. Render Loop
     this.animate();
   }
 
@@ -201,20 +172,7 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
   private animate = (): void => {
     this.animFrameId = requestAnimationFrame(this.animate);
     this.controls?.update();
-
-    // Update camera heading for compass
-    if (this.camera) {
-      const dir = new THREE.Vector3();
-      this.camera.getWorldDirection(dir);
-      // North is -Z direction, East is +X
-      const angleRad = Math.atan2(dir.x, -dir.z);
-      const angleDeg = THREE.MathUtils.radToDeg(angleRad);
-      this.cameraHeading.set(Math.round((angleDeg + 360) % 360));
-    }
-
-    if (this.renderer && this.scene && this.camera) {
-      this.renderer.render(this.scene, this.camera);
-    }
+    if (this.renderer && this.scene && this.camera) this.renderer.render(this.scene, this.camera);
   };
 
   private onResize(width: number, height: number): void {
@@ -224,96 +182,118 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
     this.renderer.setSize(width, height);
   }
 
-  // --- Terrain Construction (v1 Flat Fallback) ---
-  private rebuildTerrain(img: ReturnType<typeof this.mission.image>): void {
-    if (!this.scene) return;
-
-    if (this.terrainMesh) {
-      this.scene.remove(this.terrainMesh);
-      this.terrainMesh.geometry.dispose();
-      if (Array.isArray(this.terrainMesh.material)) {
-        this.terrainMesh.material.forEach((m) => m.dispose());
-      } else {
-        this.terrainMesh.material.dispose();
-      }
-      this.terrainMesh = undefined;
-    }
-
-    if (this.practiceGrid) {
-      this.scene.remove(this.practiceGrid);
-      this.practiceGrid = undefined;
-    }
-
-    if (this.northIndicator) {
-      this.scene.remove(this.northIndicator);
-      this.northIndicator = undefined;
-    }
-
-    if (img && img.width > 0 && img.height > 0) {
-      const geometry = new THREE.PlaneGeometry(img.width, img.height);
-      const textureLoader = new THREE.TextureLoader();
-
-      const texture = textureLoader.load(
-        img.assetPath,
-        () => this.renderer?.render(this.scene!, this.camera!),
-        undefined,
-        () => {
-          // Keep Mars fallback color if asset fails to load
-        }
-      );
-
-      const material = new THREE.MeshStandardMaterial({
-        map: texture,
-        color: 0x9c4125, // Mars clay fallback tint
-        roughness: 0.9,
-        metalness: 0.1,
-      });
-
-      this.terrainMesh = new THREE.Mesh(geometry, material);
-      this.terrainMesh.rotation.x = -Math.PI / 2;
-      this.terrainMesh.position.set(0, 0, 0);
-      this.scene.add(this.terrainMesh);
-
-      // Add 3D North Indicator
-      this.northIndicator = this.createNorthIndicator(img.width, img.height);
-      this.scene.add(this.northIndicator);
-
-      const maxDim = Math.max(img.width, img.height);
-      if (this.camera) {
-        this.camera.position.set(0, maxDim * 0.9, maxDim * 0.8);
-        this.camera.lookAt(0, 0, 0);
-        this.controls?.target.set(0, 0, 0);
-        this.controls?.update();
-      }
-    } else {
-      // Practice Scene
-      const group = new THREE.Group();
-      const grid = new THREE.GridHelper(1000, 20, 0xff6633, 0x334155);
-      grid.position.y = 0;
-      group.add(grid);
-
-      const axes = new THREE.AxesHelper(200);
-      axes.position.y = 1;
-      group.add(axes);
-
-      this.practiceGrid = group;
-      this.scene.add(group);
-    }
+  private releaseTexture(texture: THREE.Texture): void {
+    if (this.releasedTextures.has(texture)) return;
+    this.releasedTextures.add(texture);
+    texture.dispose();
   }
 
-  private createNorthIndicator(width: number, height: number): THREE.Group {
-    const group = new THREE.Group();
-    const dir = new THREE.Vector3(0, 0, -1); // North is -Z
-    const origin = new THREE.Vector3(-width / 2 + 50, DISPLAY_Y_OFFSET + 2, -height / 2 + 50);
-    const arrow = new THREE.ArrowHelper(dir, origin, 50, 0xef4444, 15, 10);
-    group.add(arrow);
-    return group;
+  private disposeTree(root: THREE.Object3D): void {
+    const geometries = new Set<THREE.BufferGeometry>();
+    const materials = new Set<THREE.Material>();
+    root.traverse((object) => {
+      if (!(
+        object instanceof THREE.Mesh ||
+        object instanceof THREE.Line ||
+        object instanceof THREE.Points
+      ))
+        return;
+      geometries.add(object.geometry);
+      const list = Array.isArray(object.material) ? object.material : [object.material];
+      list.forEach((material) => materials.add(material));
+    });
+    geometries.forEach((geometry) => geometry.dispose());
+    materials.forEach((material) => {
+      for (const value of Object.values(material))
+        if (value instanceof THREE.Texture) this.releaseTexture(value);
+      material.dispose();
+    });
+  }
+
+  private rebuildTerrain(image: ImageManifest | null): void {
+    if (!this.scene || this.currentImage === image) return;
+    this.currentImage = image;
+    const request = ++this.imageRequest;
+    this.onCanvasMouseLeave();
+    if (this.pendingTexture) this.releaseTexture(this.pendingTexture);
+    this.pendingTexture = undefined;
+    for (const object of [this.terrainMesh, this.practiceGrid]) {
+      if (object) {
+        this.scene.remove(object);
+        this.disposeTree(object);
+      }
+    }
+    this.terrainMesh = undefined;
+    this.practiceGrid = undefined;
+    this.imageDisplayError.set(null);
+    if (!image) {
+      this.imageDisplayState.set('waiting');
+      const group = new THREE.Group();
+      group.add(new THREE.GridHelper(1000, 20, 0xff6633, 0x334155), new THREE.AxesHelper(200));
+      this.practiceGrid = group;
+      this.scene.add(group);
+      return;
+    }
+    this.imageDisplayState.set('loading');
+    let texture: THREE.Texture | undefined;
+    const isCurrent = () => !this.destroyed && !!this.scene && request === this.imageRequest;
+    try {
+      texture = this.graphics.loadTexture(
+        new URL(image.assetPath, this.document.baseURI).href,
+        (loaded) => {
+          if (!isCurrent()) {
+            this.releaseTexture(loaded);
+            return;
+          }
+          this.pendingTexture = undefined;
+          const pixels = loaded.image as
+            | { naturalWidth?: number; naturalHeight?: number; width?: number; height?: number }
+            | undefined;
+          if (
+            (pixels?.naturalWidth ?? pixels?.width) !== image.width ||
+            (pixels?.naturalHeight ?? pixels?.height) !== image.height
+          ) {
+            this.releaseTexture(loaded);
+            this.imageDisplayError.set('The 3D image dimensions do not match the active manifest.');
+            this.imageDisplayState.set('error');
+            return;
+          }
+          loaded.colorSpace = THREE.SRGBColorSpace;
+          // A flat, unshaded texture preserves the image's colors; it is not terrain.
+          this.terrainMesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(image.width, image.height),
+            new THREE.MeshBasicMaterial({ map: loaded }),
+          );
+          this.terrainMesh.rotation.x = -Math.PI / 2;
+          this.scene!.add(this.terrainMesh);
+          this.resetCamera();
+          this.imageDisplayState.set('ready');
+        },
+        () => {
+          if (texture) this.releaseTexture(texture);
+          if (!isCurrent()) return;
+          this.pendingTexture = undefined;
+          this.imageDisplayError.set(
+            'The 3D image could not be loaded. The 2D mission state is unchanged.',
+          );
+          this.imageDisplayState.set('error');
+        },
+      );
+      this.pendingTexture = texture;
+    } catch {
+      if (texture) this.releaseTexture(texture);
+      this.pendingTexture = undefined;
+      this.imageDisplayError.set(
+        'The 3D image could not be loaded. The 2D mission state is unchanged.',
+      );
+      this.imageDisplayState.set('error');
+    }
   }
 
   // --- Route Polyline Construction ---
   private rebuildRoute(
     route: ReturnType<typeof this.mission.route>,
-    img: ReturnType<typeof this.mission.image>
+    img: ReturnType<typeof this.mission.image>,
   ): void {
     while (this.routeGroup.children.length > 0) {
       const obj = this.routeGroup.children[0];
@@ -335,7 +315,9 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
 
     // Polyline connecting points in Mars Gold
     if (points.length >= 2) {
-      const pathPoints = points.map((p) => mapPointTo3D(p, img.width, img.height, DISPLAY_Y_OFFSET));
+      const pathPoints = points.map((p) =>
+        mapPointTo3D(p, img.width, img.height, DISPLAY_Y_OFFSET),
+      );
       const lineGeom = new THREE.BufferGeometry().setFromPoints(pathPoints);
       const lineMat = new THREE.LineBasicMaterial({
         color: 0xf59e0b, // Mars gold
@@ -348,10 +330,11 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
     // Waypoint nodes with visual landing rings
     points.forEach((p, index) => {
       let color = 0x38bdf8; // waypoints: sky blue
-      const isStart = index === 0;
+      const isStart = route.start !== null && index === 0;
       const isDest = index === points.length - 1 && route.destination !== null;
 
-      if (isStart) color = 0x22c55e; // start: vibrant green
+      if (isStart)
+        color = 0x22c55e; // start: vibrant green
       else if (isDest) color = 0xef4444; // dest: red
 
       // Floating sphere
@@ -385,8 +368,9 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
   // --- Science Markers Construction ---
   private rebuildMarkers(
     markers: ReturnType<typeof this.mission.markers>,
-    img: ReturnType<typeof this.mission.image>
+    img: ReturnType<typeof this.mission.image>,
   ): void {
+    this.onCanvasMouseLeave();
     this.markerMeshMap.clear();
 
     while (this.markersGroup.children.length > 0) {
@@ -406,7 +390,10 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
     const pinHeight = pinRadius * 2.5;
 
     const activeMarkers = markers.filter(
-      (m) => m.imageRef === img.imageRef && m.position !== null
+      (m) =>
+        m.imageRef === img.imageRef &&
+        m.positionStatus !== 'unavailable' &&
+        validPoint(m.position, img),
     );
 
     for (const marker of activeMarkers) {
@@ -424,7 +411,12 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
       });
 
       const coneMesh = new THREE.Mesh(coneGeom, coneMat);
-      const pos = mapPointTo3D(marker.position!, img.width, img.height, DISPLAY_Y_OFFSET + pinHeight / 2);
+      const pos = mapPointTo3D(
+        marker.position!,
+        img.width,
+        img.height,
+        DISPLAY_Y_OFFSET + pinHeight / 2,
+      );
       coneMesh.position.copy(pos);
 
       this.markersGroup.add(coneMesh);
@@ -434,7 +426,7 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
 
   // --- Mouse & Hover Interactions ---
   private onCanvasMouseMove(event: MouseEvent): void {
-    if (!this.containerRef || !this.camera) return;
+    if (!this.containerRef || !this.camera || this.imageDisplayState() !== 'ready') return;
 
     const rect = this.containerRef.nativeElement.getBoundingClientRect();
     this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -473,8 +465,9 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
     if (terrainHits.length > 0) {
       const pt = terrainHits[0].point;
       const img = this.mission.image();
-      const w = img?.width || 1000;
-      const h = img?.height || 800;
+      if (!img) return;
+      const w = img.width;
+      const h = img.height;
       const x = Math.max(0, Math.min(w, Math.round(pt.x + w / 2)));
       const y = Math.max(0, Math.min(h, Math.round(h / 2 - pt.z)));
       this.hoverCoords.set({
@@ -499,7 +492,7 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
   }
 
   private onCanvasClick(event: MouseEvent): void {
-    if (!this.containerRef || !this.camera) return;
+    if (!this.containerRef || !this.camera || this.imageDisplayState() !== 'ready') return;
 
     const rect = this.containerRef.nativeElement.getBoundingClientRect();
     this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -535,7 +528,7 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
         break;
       case 'topDown':
         this.camera.position.set(0, span * 1.2, 0);
-        this.camera.up.set(0, 0, -1); // North (-Z) at top
+        this.camera.up.set(0, 0, -1); // Image +y (-Z) at top; geographic orientation is unverified
         this.controls.target.set(0, 0, 0);
         break;
       case 'oblique':
@@ -551,73 +544,37 @@ export class Viewer3dComponent implements AfterViewInit, OnDestroy {
     this.setViewPreset('rehearsal');
   }
 
-  // --- Optional WebXR Fallback Check ---
-  private checkWebXRSupport(): void {
-    if ('xr' in navigator && (navigator as any).xr?.isSessionSupported) {
-      (navigator as any).xr
-        .isSessionSupported('immersive-vr')
-        .then((supported: boolean) => this.xrSupported.set(supported))
-        .catch(() => this.xrSupported.set(false));
-    } else {
-      this.xrSupported.set(false);
-    }
-  }
-
-  toggleVR(): void {
-    if (!this.xrSupported()) return;
-    this.isPresenting.update((p) => !p);
-  }
-
-  // --- Lifecycle Teardown & Resource Disposal ---
   private cleanup(): void {
-    if (this.animFrameId !== undefined) {
-      cancelAnimationFrame(this.animFrameId);
-      this.animFrameId = undefined;
-    }
-
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = undefined;
-    }
-
-    if (this.renderer?.domElement) {
-      const dom = this.renderer.domElement;
-      dom.removeEventListener('click', this.boundOnClick);
-      dom.removeEventListener('mousemove', this.boundOnMouseMove);
-      dom.removeEventListener('mouseleave', this.boundOnMouseLeave);
-    }
-
-    if (this.controls) {
-      this.controls.dispose();
-      this.controls = undefined;
-    }
-
+    ++this.imageRequest;
+    if (this.pendingTexture) this.releaseTexture(this.pendingTexture);
+    this.pendingTexture = undefined;
+    if (this.animFrameId !== undefined) cancelAnimationFrame(this.animFrameId);
+    this.animFrameId = undefined;
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = undefined;
+    const dom = this.renderer?.domElement;
+    dom?.removeEventListener('click', this.boundOnClick);
+    dom?.removeEventListener('mousemove', this.boundOnMouseMove);
+    dom?.removeEventListener('mouseleave', this.boundOnMouseLeave);
+    dom?.removeEventListener('webglcontextlost', this.boundOnContextLost);
+    this.onCanvasMouseLeave();
+    this.controls?.dispose();
+    this.controls = undefined;
+    this.markerMeshMap.clear();
     if (this.scene) {
-      this.scene.traverse((object) => {
-        if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.Points) {
-          object.geometry?.dispose();
-          if (Array.isArray(object.material)) {
-            object.material.forEach((mat) => {
-              if ((mat as any).map) (mat as any).map.dispose();
-              mat.dispose();
-            });
-          } else if (object.material) {
-            if ((object.material as any).map) (object.material as any).map.dispose();
-            object.material.dispose();
-          }
-        }
-      });
+      this.disposeTree(this.scene);
+      this.scene.clear();
     }
-
-    if (this.renderer) {
-      this.renderer.dispose();
-      if (this.renderer.domElement && this.renderer.domElement.parentNode) {
-        this.renderer.domElement.parentNode.removeChild(this.renderer.domElement);
-      }
-      this.renderer = undefined;
-    }
-
+    this.routeGroup.clear();
+    this.markersGroup.clear();
+    this.renderer?.dispose();
+    this.renderer?.forceContextLoss();
+    dom?.remove();
+    this.renderer = undefined;
     this.scene = undefined;
     this.camera = undefined;
+    this.terrainMesh = undefined;
+    this.practiceGrid = undefined;
+    this.currentImage = undefined;
   }
 }

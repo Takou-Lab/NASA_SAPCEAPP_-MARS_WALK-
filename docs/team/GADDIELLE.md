@@ -1,23 +1,31 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
-## Current follow-up — offline image-data package
+## Current follow-up — correct the submitted image-pack index
 
-Continue on **`feature/gaddielle-data-preparation`**. Your initial imagery and manifest have been reviewed for technical compatibility: both images decode and the prepared image is **2048 × 1042**, matching the manifest. The committed file checksums match the processing log. Scientific product/coverage claims still require authoritative evidence.
+Latest reviewed branch: **`feature/gaddielle-data-preparation`** at **`bf9689b`**. Verdict: **changes required**. Read [the exact review](../reviews/GADDIELLE.md), [original index specification](tasks/GADDIELLE_IMAGE_PACK.md), [shared contract](CODING_AGENTS.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md).
 
-The Angular foundation is on `main`, but your imagery files remain on your feature branch until integration. Update your existing branch from `main` while preserving work; do not start a second data branch, redownload the same files or regenerate the derivative unnecessarily. The current assignment below takes precedence over the initial acquisition checklist retained later in this brief.
+Your image package, verifier and corrected passport through `c887286` remain accepted and integrated. The new generator/index/tests/documentation are delivered: all **14 Python tests pass**, and the real index matches **524,472 bytes**. Preserve that work. The generator is not yet approved or merged.
 
-### Deliver these next
+### Correction 1 — manifest and browser-safe paths
 
-1. Review `docs/data/README.md`, `PROCESSING_LOG.md` and `TERRAIN_EVALUATION.md`. Qualify or remove unsupported claims about exact AOI overlap, projection, orientation and DEM coverage. Keep terrain and metric calibration unavailable; record inaccessible sources rather than claiming verification.
-2. Create **`docs/data/OFFLINE_DATA_PACK.md`**. List the manifest and prepared runtime image with relative paths, byte sizes, SHA-256 values, total required image-pack size, provenance, credits and limitations. Identify the original master image as archival rather than required for offline caching. This inventory covers image data only, not the full PWA or its readiness.
-3. Add **`tools/data/verify_pack.py`**. Read the manifest without changing files, validate its local asset reference, decode the image, compare actual dimensions to the manifest, and report byte size and SHA-256 for the manifest and referenced image. It must work without network access and exit nonzero for an invalid manifest, missing/unreadable files or inconsistent dimensions. Use explicit arguments such as `--manifest public/data/manifest.json --public-root public` and document the actual command.
-4. Run the verifier against the committed data and demonstrate a failure using temporary test files for a missing image or wrong dimensions. Do not corrupt repository assets for a negative check. Reuse the declared Pillow dependency if needed; coordinate any new dependency declaration with the coordinator.
-5. Preserve the committed derivative. GDI+ and Pillow can produce different bytes from the same source; changing the derivative or its coordinate interpretation requires deliberate `imageRef` versioning and a coordinated migration.
-6. Give Willy a short written handoff: image path, manifest path, imageRef, bounds, bottom-left pixel convention, Leaflet `[y, x]` conversion, and expected feedback for failed image loading or mismatched dimensions. Do not implement Willy's map.
+Keep the manifest at the selected public root's `data/manifest.json`; reject other locations even when contained. Validate emitted app-relative paths: forward slashes, no URL/query/fragment/backslash, absolute path, empty/dot/traversal segment or resolved symlink escape. The review reproduces successful generation for an alternate manifest and filenames with `?`/`#`/backslash; these must fail with exit 1 and leave existing output untouched.
 
-### Completion and publication
+### Correction 2 — strict read-only index checking
 
-Done means the image-data inventory is accurate, offline verification passes, a controlled failure is detected, and the handoff and unsupported-claim corrections are committed. Report the commands and outcomes. Commit and push **your feature branch**; this follow-up authorizes that push. Do not merge into or push `main`, deploy the app, create a second service worker, or change shared Angular models.
+Before comparing values, validate the root and entry objects, exact v1 keys and JSON types. Integer fields must exclude booleans and floats. The current checker accepts `schemaVersion: true`, float sizes and extra fields; `[]` crashes with a traceback. Reject these cleanly with exit 1, preserve output bytes/mtime and retain meaningful errors for stale content. Keep ordering, full lowercase SHA-256 and exact payload comparison.
+
+Add temporary-fixture regressions for both corrections. Preserve all 14 current tests, alias protection, full-image validation and atomic writing. Confirm missing targets are not created by `--check`; update documentation and report the new actual test count. See R1/R2 in [the review](../reviews/GADDIELLE.md) for exact acceptance cases.
+
+### Scope and handoff
+
+Continue on the **same feature branch**. Preserve local work; merge latest main without reset or force push. Edit only `tools/data/build_image_pack.py`, `tools/data/test_build_image_pack.py` and `docs/data/IMAGE_PACK_INDEX.md`; regenerate `public/data/image-pack.json` only if necessary, with identical output for unchanged assets. Keep ImageManifest, source files, accepted verifier, dependencies, app/core and service-worker work unchanged.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tools/data -p 'test_*.py' -v
+python3 tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json --check
+```
+
+Commit/push only `feature/gaddielle-data-preparation`, then report the commit, files, R1/R2 fixes, actual commands/results and remaining limits. That feature-branch push is authorized. No new task, main merge/push, deployment, environment publication or external messaging is assigned. This remains an image-only inventory, not complete PWA readiness.
 
 ## Initial assignment reference
 
@@ -38,7 +46,7 @@ Read [the team allocation](../../TEAM_TASKS.md) and [shared contract](CODING_AGE
 
 Coordinate scientific findings with Emma and shared schemas with the coordinator. Do not change application logic to disguise missing data.
 
-## Work in this order
+## Original workflow reference — do not repeat accepted delivery
 
 1. Confirm the exact proposed AOI using actual product footprints and rover-localization evidence. General Gale coverage does not prove boxwork overlap.
 2. Open Mars Trek and check available imagery/elevation products for that area. Verify usable layer requests rather than copying an untested service URL.
@@ -86,51 +94,36 @@ You are done when usable imagery is supplied with honest coverage information, a
 
 ## Copy-paste coding-agent prompt
 
-Paste this into your coding-agent session for the current follow-up assignment.
-
 ```text
-You are Gaddielle's data-preparation agent for the Angular MARSWALK PWA.
-Read docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md,
-docs/data/IMAGE_CONTRACT.md and TEAM_TASKS.md.
+You are Gaddielle's MARSWALK coding agent. Continue the SAME branch:
+feature/gaddielle-data-preparation. Reviewed commit bf9689b has changes
+required; do not restart the generator or repeat accepted image/passport work.
 
-Continue on feature/gaddielle-data-preparation. Inspect Git status and
-preserve local work before updating from main. The Angular foundation is
-on main; the prepared image and manifest are on your existing feature
-branch pending integration. Do not create a competing app or reacquire
-already delivered data unnecessarily.
+Read docs/reviews/GADDIELLE.md (R1/R2), docs/team/GADDIELLE.md,
+docs/team/tasks/GADDIELLE_IMAGE_PACK.md and docs/team/CODING_AGENTS.md.
+Preserve local work and merge latest main without reset or force push.
 
-1. Inspect your existing manifest, images and processing records. Qualify
-   unsupported AOI overlap, projection/orientation and DEM claims in
-   docs/data/README.md, PROCESSING_LOG.md and TERRAIN_EVALUATION.md.
-   Keep terrain and metric calibration unavailable. If authoritative source
-   access is blocked, record the limitation rather than claiming verification.
-2. Create docs/data/OFFLINE_DATA_PACK.md with the required manifest and
-   prepared image paths, byte sizes, SHA-256 values, total image-pack size,
-   sources, credits and limitations. Distinguish archival master imagery
-   from required runtime files. This is an image-data inventory, not the
-   complete offline PWA pack or a claim of offline readiness.
-3. Implement tools/data/verify_pack.py with explicit manifest/public-root
-   arguments. Validate the manifest and local asset reference, confirm the
-   image exists and decodes, compare actual dimensions with the manifest,
-   and calculate/report bytes and SHA-256 for both required files.
-   Read files only; do not download or modify data. Exit nonzero for invalid
-   metadata, missing/unreadable files or wrong dimensions. Run offline.
-4. Document and execute the verifier command. Check one valid package and
-   a controlled failure using temporary files; never damage real assets.
-   Reuse existing Pillow support. Coordinate new dependencies centrally.
-5. Keep the committed derivative unchanged. Different image libraries can
-   produce different bytes; a changed derivative/coordinate interpretation
-   needs a new imageRef and coordinated record migration.
-6. Write Willy's image handoff: paths, imageRef, 2048x1042 dimensions,
-   bounds [[0,0],[1042,2048]], bottom-left pixel convention, Leaflet [y,x]
-   conversion, unavailable calibration/terrain and load/dimension error
-   expectations. These dimensions apply only while the committed image
-   and manifest remain the inspected version.
+14 Python tests and the real index check pass, but review reproduced gaps:
+1. Enforce manifest app-relative path data/manifest.json inside public root.
+   Reject emitted paths containing URL/query/fragment/backslash, absolute
+   paths, empty/dot/traversal segments or resolved escapes/symlinks.
+   Alternate contained manifest and image filenames with ?/#/backslash
+   currently succeed; make them exit 1 before writing, preserving old output.
+2. Validate complete v1 index shape/types before comparing payload values.
+   Require object root and entries, exact keys, integer fields excluding bool
+   and floats, correct strings/digests and ordered two-file payload.
+   schemaVersion:true, float bytes and extra keys currently pass --check.
+   [] currently crashes. Reject all cleanly, exit 1 with useful errors and no
+   traceback; --check must preserve bytes/mtime and never create missing paths.
+3. Add temporary-fixture regressions, retaining every current test, alias
+   protections, deterministic atomic generation and full Pillow validation.
+   Update tool documentation and actual test count. Keep the index identical
+   for unchanged real assets; compute hashes/sizes from inputs, not constants.
+4. Run the complete tools/data Python suite and real --check command from
+   the brief. Report actual results, R1/R2 closure and the new commit.
 
-Own docs/data/, tools/data/ and your existing data files. Do not alter
-Willy's Angular map, shared models, service-worker logic or another
-teammate's records. Report files, commands, results and unresolved source
-verification. Commit and push feature/gaddielle-data-preparation; that
-feature-branch push is authorized for this follow-up. Do not merge or push
-to main, deploy, or send messages to teammates on the user's behalf.
+Edit only generator, its tests and tooling document; generated index only
+if needed. No source image/manifest/verifier/schema/dependency/app/PWA edits.
+Commit/push only this feature branch (authorized), then request re-review.
+No main integration, deployment, publication or external messaging.
 ```

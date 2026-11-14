@@ -40,4 +40,3 @@ describe('Viewer3D Coordinate Transforms', () => {
     expect(pos.y).toBe(customOffset);
   });
 });
-

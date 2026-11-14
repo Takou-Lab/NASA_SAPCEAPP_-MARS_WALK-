@@ -1,6 +1,6 @@
 <main>
   <header>
-    <p class="eyebrow">MARSWALK · Development foundation</p>
+    <p class="eyebrow">MARSWALK · Exploration rehearsal</p>
     <h1>Explore with evidence.</h1>
     <p>Mount Sharp boxwork region · Gale Crater · Mars</p>
   </header>
@@ -17,6 +17,76 @@
       <p>Waiting for a verified local image and manifest from the data team.</p>
     }
   </section>
+  <app-map />
+  <app-science-context />
+  <section aria-labelledby="viewer-title">
+    <h2 id="viewer-title">Optional 3D rehearsal</h2>
+    <p>A flat image view. No verified terrain or immersive VR is supplied.</p>
+    <button
+      type="button"
+      aria-controls="viewer-panel"
+      [attr.aria-expanded]="viewerOpen()"
+      (click)="viewerOpen.set(!viewerOpen())"
+    >
+      {{ viewerOpen() ? 'Close 3D viewer' : 'Open 3D viewer' }}
+    </button>
+    <div id="viewer-panel">
+      @if (viewerOpen()) {
+        @defer (on immediate) {
+          <app-viewer3d />
+        } @loading {
+          <p role="status">Loading optional 3D viewer…</p>
+        } @error {
+          <p role="alert">
+            The optional viewer could not be loaded. You can keep using the 2D mission. Export your
+            work before reloading the app to retry the download.
+          </p>
+        }
+      }
+    </div>
+  </section>
+  <section aria-labelledby="transfer-title">
+    <h2 id="transfer-title">Carry your mission between devices</h2>
+    <p>Export a mission here, then import it on another device using the same image version.</p>
+    <p id="import-help">
+      Import replaces the current route and saved notes. Export your current work first. Maximum
+      file size: 1 MiB.
+    </p>
+    <div class="transfer-actions">
+      <button
+        type="button"
+        (click)="mission.exportMission()"
+        [disabled]="mission.dataStatus() !== 'ready'"
+      >
+        Export mission
+      </button>
+      <label for="mission-file">Choose a mission JSON file</label>
+      <input
+        id="mission-file"
+        type="file"
+        accept=".json,application/json"
+        aria-describedby="import-help"
+        (change)="selectMissionFile($event)"
+      />
+      <button
+        type="button"
+        (click)="importSelectedMission()"
+        [disabled]="!hasMissionFile() || readingMission() || mission.dataStatus() !== 'ready'"
+      >
+        Import selected mission
+      </button>
+    </div>
+    @if (missionFileName()) {
+      <p>Selected: {{ missionFileName() }}</p>
+    }
+    @if (readingMission()) {
+      <p role="status">Reading mission file…</p>
+    }
+    @if (transferMessage()) {
+      <p role="status">{{ transferMessage() }}</p>
+    }
+    <p>Coordinates stay tied to this image. Distance and terrain limits remain visible below.</p>
+  </section>
   <section aria-labelledby="assessment">
     <h2 id="assessment">Exploration confidence</h2>
     <p>Visual review only. No verified terrain model is supplied.</p>
@@ -26,16 +96,13 @@
       }
     </ul>
   </section>
-  <section aria-labelledby="viewer3d-heading">
-    <h2 id="viewer3d-heading">3D Mission Rehearsal</h2>
-    <app-viewer3d />
-  </section>
-
   <section>
     <h2>Team integration</h2>
     <p>
-      Angular and shared mission state are available. Map, route controls, notebook and optional 3D
-      components are the next contributions.
+      The map, regional imagery and {{ mission.markers().length }} contextual science records are
+      integrated, with a selectable science list and source details. Route controls and the notebook
+      interface are the next contributions. PWA installation and verified offline reopening remain
+      pending.
     </p>
   </section>
   <footer>Research prototype. Not a certified navigation or astronaut safety system.</footer>

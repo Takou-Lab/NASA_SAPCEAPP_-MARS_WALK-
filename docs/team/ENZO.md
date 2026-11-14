@@ -1,97 +1,145 @@
 # Enzo — Angular Interface, Route Controls and Notebook
 
-## Your mission
+**Ownership split:** Emma's `ScienceContextComponent` (`4efcb5a`, `app-science-context`) is now accepted and mounted on main. Keep one instance when porting the shell. The user also transfers future read-only **Exploration Confidence and Image Data Passport presentation** to Emma, alongside science filters/counts: [new task](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). You retain shell, canonical-core reconciliation, map/root integration, planner, notebook/draft retention, fonts/sidebar and later real PWA-status UI. Preserve related UI you already drafted as reference for integration; do not discard it or develop competing components. Integrate future evidence components only after implementation/review, without importing nonexistent files or editing Emma's ownership.
 
-Build the tablet-friendly interface that connects the map, route planning, data sources and local observation notebook. Use Angular and TypeScript, keeping the mission flow understandable.
+## Current review — changes required before integration
 
-Read [the team allocation](../../TEAM_TASKS.md). The repository contained documentation only when these briefs were written. Proposed paths are ownership suggestions; inspect the actual app before adding or moving components.
+Reviewed branch: **`feat/enzo-ui-planner-notebook`**, commit **`15b1666`**. Read [the detailed review](../reviews/ENZO.md), [published branch review](../../REVIEW.md), [SOUL.MD](../../SOUL.MD), [team allocation](../../TEAM_TASKS.md) and [shared contract](CODING_AGENTS.md).
 
-## Deliverables and ownership
+Your UI, planner, notebook, themes and tests are useful work to preserve. **Do not restart or discard them.** The branch began from documentation commit `015c022`, before the shared Angular foundation was added. It therefore contains a second app/core implementation and a placeholder map. It is not ready to replace the integrated application.
 
-- Layout and interface components, proposed under `src/app/ui/` and `src/app/planner/`.
-- Start, destination and waypoint controls, undo and clear actions.
-- Source/coverage display using Emma and Gaddielle's metadata.
-- Notebook form and observation list, proposed under `src/app/notebook/`.
-- Local route/note persistence connected to coordinator-owned contracts.
+The isolated branch suite passed **47 tests**. Its production build failed in the review environment when the external Google Fonts fetch returned **HTTP 403**. Passing those branch tests does not establish compatibility with main or a complete map workflow. The detailed review records browser observations and exact findings separately.
 
-Willy owns map rendering and click events. The coordinator owns mission state, assessment rules and export. Avoid creating competing stores in individual components.
+## Current task — port the UI onto the integrated foundation
 
-## Work in this order
+Continue on the **same feature branch**. This is a corrective integration slice, not a new branch or a new feature project.
 
-1. Inspect the current Angular shell and agree on shared actions and models with the coordinator.
-2. Build a responsive layout: map as the main workspace, readable side panel and comfortably sized controls.
-3. Add explicit inspect/start/destination/waypoint modes. Show which mode is active.
-4. Connect map clicks through shared actions. Route order is start, ordered waypoints, destination.
-5. Add undo and clear; make disabled states and empty-route messages clear.
-6. Display the coordinator's route assessment. Show distance as unavailable when verified calibration is missing.
-7. Add sources and coverage details without hiding missing-data messages.
-8. Add a notebook form, save status and saved-note list. Connect note positions to the same image/data reference used by the route.
-9. Add save/load controls using validated shared persistence helpers and connect mission export.
+### 1. Preserve and synchronize
 
-## Persistence requirements
+- Inspect Git status and preserve all local/unpushed work before syncing.
+- Fetch the latest `main` and merge it into your branch without reset or force push. The reviewed baseline is `ee9f6ae`; newer published documentation may follow it.
+- Expect 16 add/add conflicts from the parallel bootstrap. Preserve your useful UI files while retaining the canonical main foundation, dependencies and data.
+- Keep main's `src/app/core/models.ts`, `mission.service.ts`, `route.ts`, `validation.ts`, persistence/export semantics and existing regression tests. Do not replace them with the branch's alternate route/storage helpers or service.
+- Keep the integrated package declarations and lockfile, including Leaflet. Do not downgrade dependencies or regenerate a second Angular application.
 
-- Coordinate schema version and image reference with the coordinator.
-- Validate loaded records; handle corrupt or outdated saved data without crashing.
-- Catch storage failures and keep unsaved note text visible.
-- Render note content as plain text.
-- Explain that browser records depend on origin; a different host/port may show different records.
-- Do not silently reuse positions after the image or coordinate system changes.
+### 2. Reconnect existing components
 
-## Checks before handoff
+- Reuse standalone components under `src/app/ui/`, `src/app/planner/` and `src/app/notebook/`.
+- In the planner, use `routePoints` from `src/app/core/route.ts` instead of the duplicate `getOrderedRoutePoints` helper.
+- Components consume the existing MissionService readonly signals and actions. Root initialization remains a single call to `initialize()`; do not restore constructor-driven `initData()` or fetch data from rendering effects.
+- Preserve main's runtime data validation, image reference, unavailable calibration/terrain and versioned mission records. UI components must not read/write mission localStorage independently or invent a second mission store.
+- Keep theme preferences separate from mission state. Move the UI-only ThemeService under `src/app/ui/` and update its imports; do not replace or expand mission core to implement a theme.
 
-- Complete start → waypoint → destination using the integrated map.
-- Undo and clear produce the expected shared route state.
-- Controls work by keyboard and have labels and visible focus states.
-- The layout remains usable on a tablet-sized viewport without covering essential map controls.
-- Saving/reloading restores valid notes and routes for the same data reference.
-- Missing calibration shows unavailable distance, not a fabricated number.
-- Invalid stored JSON and storage failure produce understandable feedback; typed text survives a failed save.
-- Source links and verification labels match the supplied records.
-- Run actual project build and relevant tests once available.
+### 3. Mount the real map and complete science access
 
-## Fallback and completion
+Replace the shell's decorative map placeholder with the existing standalone **MapComponent**. Import its actual component and mount `<app-map>` exactly once. Reuse Willy's image loading, dimension checks, coordinate conversion, route rendering and readiness guard. Do not rewrite Leaflet or invent map positions.
 
-Prioritize route controls and a plain text notebook over decorative UI. Your part is complete when a user can draw/edit a proposed route, understand its assessment limits and save an observation. Hand off files, shared actions, interaction checks, persistence behavior and remaining issues.
+For this integration only, you may change `src/app/app.ts`, `app.html`, `app.scss` and `app.spec.ts` narrowly to mount your shell, provide layout space and test the integrated root. Preserve the root's one-time MissionService initialization, actual data/error states and existing capabilities. If the shell owns MapComponent, remove the old root map mount rather than displaying two maps. All unrelated root/core/package/PWA changes remain coordinator-owned.
 
-## Learning focus
+The coordinator has also added working mission-file transfer in the root: Export mission, file selection and Import selected mission, with asynchronous read guards and replacement/error messages. Preserve this capability when mounting your shell; reuse `MissionService.importMission(raw)` and the 1 MiB limit rather than replacing the service or creating another storage layer. Keep the explicit replacement warning. See [guide improvements](../GUIDE_IMPROVEMENTS.md) and [transfer verification](../qa/MISSION_TRANSFER.md).
 
-Be able to explain Angular binding, form validation and the path from a button click to shared state to map rendering. Build and explain one small interaction at a time.
+The three integrated science records have unavailable positions. Emma's reviewed `app-science-context` selector is already mounted on main. Preserve it once when mounting your shell; remove duplicate shell selected-record UI as appropriate. Selection must not set a route destination or manufacture coordinates. His future `app-exploration-confidence` and `app-image-passport` components are assigned, not implemented yet: preserve current truthful assessment/source UI until those pass review, then integrate them without duplicating implementation. Continue your existing corrections independently.
+
+### 4. Preserve drafts and usable layout
+
+- Keep an unsaved or failed-save notebook draft when switching between Confidence, Planner and Notebook tabs. The current `@switch` destroys the notebook component; retain its UI state or its mounted component deliberately.
+- Clear a draft only after `addObservation()` returns success. A storage error must preserve the exact typed draft, including after tab navigation. Render saved notes as text.
+- Use one viewport-aware sidebar sizing rule for pointer resize, keyboard resize, restored preferences and viewport changes. Narrow layouts must leave the workspace usable; do not allow keyboard/restored widths to bypass the pointer clamp.
+- Keep native controls keyboard-accessible with visible focus and readable tablet touch targets. Preserve the useful dark/light theme without allowing layout overflow.
+
+### 5. Remove the external-font dependency
+
+Remove the Google Fonts network import that blocks production building and introduces an external runtime dependency. Use system fonts or locally bundled fonts with appropriate licensing/credits. Do not bypass TLS verification or merely claim a successful build when the font fetch failed.
+
+PWA installation, service-worker caching and verified offline readiness remain coordinator work. Do not create a competing worker, simulate preparation progress or infer readiness from `navigator.onLine`. Integrate future PWA UI only after the coordinator supplies its real API.
+
+## Ownership and boundaries
+
+Own the UI, planner and notebook directories and their tests, including UI-only theme state. The narrow root shell-mount exception above is limited to the current integration. Willy owns map implementation; Gaddielle and Emma own their data/evidence. Preserve their exact image/record references and source files. Shared API or dependency changes require coordinator agreement.
+
+Use the actual existing methods: `setMode`, `setLayer`, `selectMarker`, `undoRoute`, `clearRoute`, `saveRoute`, `loadRoute`, `addObservation` and `exportMission`. Main's `loadRoute()` restores both route and observations and resets undo history. Surface real operation results rather than optimistic success messages.
+
+## Acceptance checks before requesting review again
+
+1. No unresolved merge markers; current main core, data, package/lock and existing regression coverage remain intact.
+2. The shell mounts one actual map, loads the prepared image and lets planner controls change the shared route through real map clicks.
+3. All three contextual science records can be selected and read despite null positions; selection does not modify route endpoints.
+4. Draft text survives tab changes and storage failure. A valid save, mission save/load, recovered note and JSON export work through the canonical service.
+5. Keyboard, pointer, restored sidebar width and viewport changes preserve a usable layout without horizontal page overflow at supported sizes.
+6. Missing/invalid data and unavailable distance/slope remain explicit. No invented confidence scores, geographic coordinates or safety claims.
+7. Run the existing main tests plus your meaningful UI regressions. Run a production build without external font access. Report actual commands, test counts and outcomes.
+8. Exercise the integrated mission in a browser: image, route controls, context selection, note save/recovery/export, failed-save/tab draft retention, themes and responsive sidebar. Mark unrun device/PWA checks pending.
+
+Installed offline reopening and outside-user sessions remain separate acceptance checks. Neither 47 isolated branch tests nor a build proves those outcomes.
+
+## Handoff
+
+Commit and push **only `feat/enzo-ui-planner-notebook`**, then provide the pushed commit, resolved conflicts, reused components, changed files, actual checks and remaining blockers. This corrective assignment authorizes that feature-branch push. Do not merge/push main, deploy, submit or contact others through messaging tools without applicable authorization.
+
+Use learner checkpoints for the new correction slice, not to repeat completed UI lessons. Explain one component-to-service flow at a time and report understanding honestly.
 
 ## Copy-paste coding-agent prompt
 
-Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
-
 ```text
-You are Enzo's coding tutor and implementation agent for MARSWALK.
-Read docs/team/ENZO.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
-Own the Angular interface, route controls and notebook; Willy owns the map.
+Ownership update: Emma science-context 4efcb5a is accepted/mounted on main.
+Preserve one app-science-context instance while porting the shell. He now
+also owns future readonly confidence/image-passport presentation under
+evidence/ plus science discovery. Retain related UI as integration reference;
+no duplicate implementation. You keep shell/planner/notebook/core-port/
+font/sidebar corrections and later real PWA-status UI. Future evidence
+components must pass review before importing them.
 
-1. Inspect the real checkout and scripts. If Angular or the agreed core API
-   is absent, report that dependency; do not scaffold another application.
-2. Implement standalone components under src/app/ui/, src/app/planner/
-   and src/app/notebook/. Use Angular forms and plain CSS/SCSS. Coordinate
-   exported component selectors with the coordinator for root assembly.
-3. Inject MissionService. Bind the active mode to inspect/start/destination/
-   waypoint controls via setMode(). Layer checkboxes call setLayer().
-   Undo uses canUndo()/undoRoute(); clear calls clearRoute(). Do not edit
-   Leaflet objects or maintain another route array in a UI component.
-4. Display assessment().planarDistanceMeters only when available and mark
-   it as derived planar distance. Otherwise show Distance unavailable.
-   Always display missing-data warnings. Never add a SAFE badge.
-5. Call saveRoute()/loadRoute() and show their returned success/error.
-   Show selected marker details from markers()/selectedMarkerId(), including
-   position status, source, instrument, date and limitations.
-6. Build an accessible notebook form. Keep draft text in the component;
-   call addObservation(text, null) for an unlocated note. Do not infer a
-   location from a selected target. Clear draft only after success.
-   Show validation/storage feedback and render saved text with interpolation.
-7. Connect export to exportMission(). Show source/coverage details from
-   supplied models. Do not add independent localStorage calls.
-8. Test mode changes, undo/clear, missing distance, note validation, failed
-   storage feedback with retained draft, source display and keyboard use.
-   Verify tablet layout and run the actual build/relevant tests.
+You are Enzo's UI integration and correction agent for MARSWALK.
+Read docs/reviews/ENZO.md, REVIEW.md, SOUL.MD, TEAM_TASKS.md,
+docs/team/ENZO.md and docs/team/CODING_AGENTS.md.
 
-Coordinate shared API changes with the coordinator. Follow the learner
-checkpoint in CODING_AGENTS.md. Report files, checks, UI states and remaining
-integration needs. Do not push or merge without authorization.
+Reviewed feat/enzo-ui-planner-notebook commit15b1666 needs integration
+corrections. Preserve its useful UI/planner/notebook/theme work and tests;
+do not restart, reset or create another application/feature branch.
+47 isolated branch tests passed; production build here failed fetching
+Google Fonts with HTTP403. Do not represent that as an integrated pass.
+
+1. Inspect Git status and preserve all local work. Fetch/merge latest main
+   into the SAME feat/enzo-ui-planner-notebook branch. Resolve the parallel
+   bootstrap conflicts without replacing main's integrated foundation.
+2. Keep canonical main core/models/MissionService.initialize/route.ts/
+   validation.ts, data references, versioned storage/export behavior and
+   regression tests. Keep package/lock/dependencies including Leaflet.
+   Do not retain alternate route/storage helpers as competing mission logic.
+   Adapt planner to routePoints from core/route. Root initializes once.
+3. Reuse your components under ui/, planner/ and notebook/. Keep the theme
+   service UI-only under ui/, updating imports; no mission-core replacement
+   or independent mission localStorage. Use existing readonly signals/actions.
+4. Replace the shell placeholder with existing MapComponent exactly once.
+   Preserve Willy's readiness guard, local image handling and coordinates.
+   A narrow root exception permits app.ts/html/scss/spec.ts only to mount
+   the shell, size it and test integration while preserving initialize().
+   Do not leave an old root map mount alongside the shell's map.
+5. Preserve the already-mounted app-science-context exactly once in the
+   integrated shell. Emma owns science plus future confidence/image-passport
+   components; don't duplicate them or import the future files before review.
+   Preserve truthful current warnings/source access until reviewed replacement.
+   Keep unknown-position access and no route mutation on science selection.
+6. Preserve notebook drafts across tab changes and failed saves. Current
+   @switch teardown must not erase drafts. Clear only after confirmed
+   addObservation success. Keep draft state UI-only, not another mission store.
+7. Apply one viewport-aware sidebar rule to pointer, keyboard, restored
+   widths and resize. Keep narrow/tablet layout usable, keyboard focus
+   visible and touch controls readable. Preserve dark/light styling.
+8. Remove the external Google Fonts import. Use system/local licensed fonts
+   so production build and prepared UI do not depend on that network fetch.
+   Do not disable TLS verification or invent successful build outcomes.
+9. Preserve actual assessment warnings and unavailable metric/terrain data.
+   Do not implement a separate worker or fabricate an offline readiness API;
+   installation/cache lifecycle remains coordinator-owned.
+10. Run baseline+UI tests and production build. Add meaningful regressions
+    for tab/failed-save draft retention, unlocated record selection, canonical
+    core integration, viewport sizing and single real-map mounting. Browser
+    check image, route interaction, science, notes/recovery/export, failures,
+    themes and responsive layout. Record actual results and pending checks.
+
+Commit/push only feat/enzo-ui-planner-notebook and hand off the commit,
+resolved conflicts, changed files, checks and remaining blockers. This
+feature push is authorized; no main merge, deployment, submission or
+messaging without applicable authorization. Keep completed work intact.
 ```

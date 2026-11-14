@@ -26,20 +26,19 @@ export function mapPointTo3D(
   point: Point,
   imageWidth: number,
   imageHeight: number,
-  yOffset: number = DISPLAY_Y_OFFSET
+  yOffset: number = DISPLAY_Y_OFFSET,
 ): THREE.Vector3 {
-  return new THREE.Vector3(
-    point.x - imageWidth / 2,
-    yOffset,
-    imageHeight / 2 - point.y
-  );
+  return new THREE.Vector3(point.x - imageWidth / 2, yOffset, imageHeight / 2 - point.y);
 }
 
 /**
  * Returns the four bounding box corners of the raster in 3D scene space.
  * Used to verify texture mapping and border alignment.
  */
-export function getRasterCornerPositions(width: number, height: number): {
+export function getRasterCornerPositions(
+  width: number,
+  height: number,
+): {
   bottomLeft: THREE.Vector3;
   bottomRight: THREE.Vector3;
   topLeft: THREE.Vector3;
@@ -52,4 +51,3 @@ export function getRasterCornerPositions(width: number, height: number): {
     topRight: mapPointTo3D({ x: width, y: height }, width, height, 0),
   };
 }
-

@@ -124,8 +124,114 @@ describe('MissionService', () => {
     expect(service.addObservation('  ', null).ok).toBe(false);
     expect(service.addObservation('text', { x: -1, y: 0 }).ok).toBe(false);
   });
+  it('rejects malformed, mismatched and invalid imported missions without changing current work', async () => {
+    await load();
+    service.setMode('start');
+    service.applyMapPoint({ x: 2, y: 3 });
+    expect(service.addObservation('Keep this observation', null).ok).toBe(true);
+    const beforeRoute = service.route(),
+      beforeNotes = service.observations();
+    const saved = localStorage.getItem('marswalk:v1:synthetic-test-only');
+    const valid = {
+      schemaVersion: 1,
+      imageRef: testImage().imageRef,
+      route: { start: null, destination: null, waypoints: [] },
+      observations: [],
+    };
+    const invalid = [
+      '{',
+      JSON.stringify({ ...valid, schemaVersion: 2 }),
+      JSON.stringify({ ...valid, imageRef: 'another-raster' }),
+      JSON.stringify({ ...valid, route: { ...valid.route, start: { x: 101, y: 0 } } }),
+      JSON.stringify({
+        ...valid,
+        observations: [
+          {
+            id: 'bad',
+            imageRef: testImage().imageRef,
+            createdAt: 'not-a-date',
+            text: 'Invalid date',
+            position: null,
+          },
+        ],
+      }),
+      JSON.stringify({ ...valid, observations: [...beforeNotes, ...beforeNotes] }),
+    ];
+    for (const raw of invalid) {
+      expect(service.importMission(raw).ok).toBe(false);
+      expect(service.route()).toBe(beforeRoute);
+      expect(service.observations()).toBe(beforeNotes);
+      expect(service.canUndo()).toBe(true);
+      expect(localStorage.getItem('marswalk:v1:synthetic-test-only')).toBe(saved);
+    }
+  });
+  it('imports only route and notes, never scientific claims from a file', async () => {
+    await load();
+    const image = service.image(),
+      markers = service.markers();
+    service.setMode('waypoint');
+    service.applyMapPoint({ x: 1, y: 1 });
+    const result = service.importMission(
+      JSON.stringify({
+        schemaVersion: 1,
+        imageRef: testImage().imageRef,
+        route: { start: { x: 3, y: 4 }, destination: { x: 6, y: 8 }, waypoints: [] },
+        observations: [
+          {
+            id: 'imported-note',
+            imageRef: testImage().imageRef,
+            createdAt: '2026-11-14T00:00:00Z',
+            text: '<b>Plain note</b>',
+            position: null,
+          },
+        ],
+        image: { calibration: { verified: true, metersPerPixel: 999 } },
+        markers: [{ id: 'invented' }],
+        assessment: { planarDistanceMeters: 1000, terrainStatus: 'safe' },
+      }),
+    );
+    expect(result.ok).toBe(true);
+    expect(service.canUndo()).toBe(false);
+    expect(service.route().start).toEqual({ x: 3, y: 4 });
+    expect(service.observations()[0].text).toBe('<b>Plain note</b>');
+    expect(service.image()).toBe(image);
+    expect(service.markers()).toBe(markers);
+    expect(service.assessment().planarDistanceMeters).toBeNull();
+    expect(service.mode()).toBe('waypoint');
+    expect(Object.isFrozen(service.route())).toBe(true);
+  });
+  it('leaves the active mission unchanged when imported records cannot be saved', async () => {
+    await load();
+    service.setMode('start');
+    service.applyMapPoint({ x: 1, y: 2 });
+    const route = service.route(),
+      notes = service.observations();
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new Error('full');
+    });
+    const result = service.importMission(
+      JSON.stringify({
+        schemaVersion: 1,
+        imageRef: testImage().imageRef,
+        route: { start: { x: 9, y: 9 }, destination: null, waypoints: [] },
+        observations: [],
+      }),
+    );
+    expect(result.ok).toBe(false);
+    expect(service.route()).toBe(route);
+    expect(service.observations()).toBe(notes);
+    expect(service.canUndo()).toBe(true);
+  });
+  it('requires an active image and rejects oversized mission files', async () => {
+    expect(service.importMission('{}').ok).toBe(false);
+    await load();
+    expect(service.importMission(' '.repeat(1024 * 1024 + 1)).ok).toBe(false);
+  });
   it('exports versioned mission JSON with provenance and limitations', async () => {
     await load();
+    service.setMode('start');
+    service.applyMapPoint({ x: 1, y: 2 });
+    expect(service.addObservation('Exported note', null).ok).toBe(true);
     let blob: Blob | undefined;
     vi.spyOn(URL, 'createObjectURL').mockImplementation((value) => {
       blob = value as Blob;
@@ -140,5 +246,12 @@ describe('MissionService', () => {
     expect(result.image.source).toEqual(testImage().source);
     expect(result.assessment.terrainStatus).toBe('unavailable');
     expect(result.type).toBeUndefined();
+    service.clearRoute();
+    expect(service.importMission(JSON.stringify(result)).ok).toBe(true);
+    expect(service.route().start).toEqual({ x: 1, y: 2 });
+    expect(service.observations()[0].text).toBe('Exported note');
+    service.clearRoute();
+    expect(service.loadRoute().ok).toBe(true);
+    expect(service.route().start).toEqual({ x: 1, y: 2 });
   });
 });
