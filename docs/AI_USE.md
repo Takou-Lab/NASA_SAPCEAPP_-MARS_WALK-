@@ -2,8 +2,8 @@
 
 ## Scope of AI Assistance
 - **Files:** `public/data/markers.json`, `docs/SCIENCE.md`, `docs/REFERENCES.md`, `docs/AI_USE.md`.
-- **Use:** An AI coding assistant was used to structure the `ScienceMarker[]` JSON according to `docs/team/CODING_AGENTS.md`, draft the geological coverage notes, separate observations from interpretations, and draft the English project summary and demo text.
+- **Use:** An AI coding assistant was used to update `ScienceMarker[]` with the active manifest `imageRef` (`hirise-mro-pia26306-boxwork-2048x1042-v1`), ensure position coordinates remain `null` and `unavailable`, align instrument attributions with primary NASA mission releases, and clearly describe unfinished map and offline features as planned.
 - **Verification & Review:**
-  - All source URLs were checked against live `nasa.gov` / `usgs.gov` search results.
-  - Unverified coordinates, dates, and `manifest.json` references were explicitly set to `null` / `"unavailable"` rather than fabricated.
-  - JSON syntax and schema fields were validated against `ScienceMarker` in `docs/team/CODING_AGENTS.md`.
+  - `public/data/markers.json` validated against `validMarkers` schema and `ScienceMarker` interface in `src/app/core/models.ts` and `validation.ts`.
+  - All source URLs verified against real, authoritative `jpl.nasa.gov`, `science.nasa.gov`, and `usgs.gov` entries.
+  - No coordinates were fabricated.
