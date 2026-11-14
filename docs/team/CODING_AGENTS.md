@@ -2,7 +2,7 @@
 
 ## Status and scope
 
-The Angular foundation now implements the v1 models and MissionService API below, with Leaflet dependencies and noninteractive test/build scripts. Feature components and verified scientific assets remain pending. Inspect the checkout and actual scripts before starting. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
+The Angular foundation now implements the v1 models and MissionService API below, with Leaflet dependencies and noninteractive test/build scripts. MARSWALK's target is an installable offline PWA; installation and offline caching are not yet implemented in the foundation. Imagery and science records are on Gaddielle's and Emmanuelle's feature branches pending integration and evidence follow-up. Inspect the checkout and actual scripts before starting. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
 
 Use Angular standalone components, strict TypeScript, plain CSS/SCSS and a small root-provided mission service. Use Leaflet with `CRS.Simple` for the first local-image implementation. Add geographic mapping only after verified data and an agreed migration. Three.js is exclusive to the optional 3D component. No backend, authentication, UI framework or extra state framework is required.
 
@@ -17,9 +17,11 @@ The coding prompts in personal briefs are intended to be pasted into the relevan
 | Enzo | `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` | Shared models/service; coordinate map integration with Willy |
 | Longla | `src/app/viewer3d/` | Shared route and image reference; verified terrain optional |
 | Gaddielle | `public/data/imagery/`, `public/data/terrain/`, `public/data/manifest.json`, `docs/data/`, optional `tools/data/` | Coordinator-approved manifest schema |
-| Emma | `public/data/markers.json`, `docs/SCIENCE.md`, `docs/REFERENCES.md`, `docs/AI_USE.md` | Coordinator-approved science-record schema |
+| Emmanuelle / Emma | `public/data/markers.json`, `docs/SCIENCE.md`, `docs/SCIENCE_EVIDENCE.md`, `docs/DEMO_SCRIPT.md`, `docs/REFERENCES.md`, `docs/AI_USE.md` | Coordinator-approved science-record schema |
 
 Do not overwrite another person's changes. Request shared model/API changes from the coordinator. The coordinator adds dependency declarations and lockfile changes for Leaflet/Three.js or processing tools. Do not scaffold a second Angular project in a feature directory. Use the existing checkout; create a feature branch only when useful and preserve local work. Do not push, merge, deploy or contact teammates unless the user explicitly authorizes that action.
+
+The current Gaddielle and Emmanuelle follow-up assignments explicitly include committing and pushing their own feature branches. This does not authorize merging into `main`, deployment or contacting teammates. Gaddielle owns the image-data inventory and verification tool; the coordinator owns service-worker caching, app installation and complete offline readiness. Emmanuelle owns the evidence audit and presentation content; shared models stay unchanged unless coordinated.
 
 ## Version 1 models
 

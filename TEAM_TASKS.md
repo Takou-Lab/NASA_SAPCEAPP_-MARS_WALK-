@@ -1,6 +1,6 @@
 # MARSWALK — Team Tasks
 
-Framework: **Angular and TypeScript**. Region: **Mount Sharp boxwork formations, Gale Crater, Mars**; exact area of interest still needs verification.
+Product: **installable offline PWA built with Angular and TypeScript**. Region: **Mount Sharp boxwork formations, Gale Crater, Mars**; exact area of interest still needs verification.
 
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
@@ -8,13 +8,24 @@ This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle 
 
 Each personal brief below includes a ready-to-paste agent prompt. Read the [shared coding contract](docs/team/CODING_AGENTS.md) first. The coordinator implements the foundation before feature integration; research/data preparation can proceed independently.
 
+## Current follow-up assignments — 14 November 2026
+
+The Angular foundation is on `main`. Gaddielle's imagery and Emmanuelle's science records have been reviewed together on their feature branches: image dimensions and shared record contracts pass, along with the foundation tests/build. These branches have not yet been merged into `main`. Scientific source support still requires review; schema validation alone does not verify a finding.
+
+| Person | Continue on | Next deliverables |
+| --- | --- | --- |
+| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Offline image-pack inventory, offline verification tool, qualified metadata claims and Willy handoff |
+| [Emmanuelle / Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | Record-level evidence audit, corrected scientific citations, accurate PWA status and demo rehearsal script |
+
+Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. These assignments include committing and pushing the respective feature branch; integration into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
+
 ## Task overview
 
 | Person | Responsibility | Deliverable |
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Angular map and map interactions | Map with layer toggles and clickable sourced markers |
 | [Gaddielle](docs/team/GADDIELLE.md) | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
-| [Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three verified observations, references and submission text |
+| [Emmanuelle / Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three sourced observations, evidence audit, references and submission text |
 | [Enzo](docs/team/ENZO.md) | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
 | [Longla](docs/team/LONGLA.md) | 3D rehearsal and optional VR | Labeled prototype showing the route and markers |
 | [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and offline operation | Integrated mission flow, confidence panel and tested offline pack |

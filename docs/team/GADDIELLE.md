@@ -1,10 +1,33 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
+## Current follow-up — offline image-data package
+
+Continue on **`feature/gaddielle-data-preparation`**. Your initial imagery and manifest have been reviewed for technical compatibility: both images decode and the prepared image is **2048 × 1042**, matching the manifest. The committed file checksums match the processing log. Scientific product/coverage claims still require authoritative evidence.
+
+The Angular foundation is on `main`, but your imagery files remain on your feature branch until integration. Update your existing branch from `main` while preserving work; do not start a second data branch, redownload the same files or regenerate the derivative unnecessarily. The current assignment below takes precedence over the initial acquisition checklist retained later in this brief.
+
+### Deliver these next
+
+1. Review `docs/data/README.md`, `PROCESSING_LOG.md` and `TERRAIN_EVALUATION.md`. Qualify or remove unsupported claims about exact AOI overlap, projection, orientation and DEM coverage. Keep terrain and metric calibration unavailable; record inaccessible sources rather than claiming verification.
+2. Create **`docs/data/OFFLINE_DATA_PACK.md`**. List the manifest and prepared runtime image with relative paths, byte sizes, SHA-256 values, total required image-pack size, provenance, credits and limitations. Identify the original master image as archival rather than required for offline caching. This inventory covers image data only, not the full PWA or its readiness.
+3. Add **`tools/data/verify_pack.py`**. Read the manifest without changing files, validate its local asset reference, decode the image, compare actual dimensions to the manifest, and report byte size and SHA-256 for the manifest and referenced image. It must work without network access and exit nonzero for an invalid manifest, missing/unreadable files or inconsistent dimensions. Use explicit arguments such as `--manifest public/data/manifest.json --public-root public` and document the actual command.
+4. Run the verifier against the committed data and demonstrate a failure using temporary test files for a missing image or wrong dimensions. Do not corrupt repository assets for a negative check. Reuse the declared Pillow dependency if needed; coordinate any new dependency declaration with the coordinator.
+5. Preserve the committed derivative. GDI+ and Pillow can produce different bytes from the same source; changing the derivative or its coordinate interpretation requires deliberate `imageRef` versioning and a coordinated migration.
+6. Give Willy a short written handoff: image path, manifest path, imageRef, bounds, bottom-left pixel convention, Leaflet `[y, x]` conversion, and expected feedback for failed image loading or mismatched dimensions. Do not implement Willy's map.
+
+### Completion and publication
+
+Done means the image-data inventory is accurate, offline verification passes, a controlled failure is detected, and the handoff and unsupported-claim corrections are committed. Report the commands and outcomes. Commit and push **your feature branch**; this follow-up authorizes that push. Do not merge into or push `main`, deploy the app, create a second service worker, or change shared Angular models.
+
+## Initial assignment reference
+
+The following mission, acquisition checklist and rules describe the original role. Keep them as reference; continue with the current assignment above rather than repeating completed acquisition work.
+
 ## Your mission
 
 Find and prepare credible Mars data for the selected Mount Sharp boxwork area in Gale Crater. You own the imagery/terrain role after the swap with Willy. Your name also appears as Gaddiel/Daddiel in earlier requests.
 
-Read [the team allocation](../../TEAM_TASKS.md). This repository contained documentation only when these briefs were created. Proposed files below are deliverables to create as needed, not verified existing assets.
+Read [the team allocation](../../TEAM_TASKS.md) and [shared contract](CODING_AGENTS.md). The original brief was written before the Angular foundation and data branch were available; inspect the current checkout before applying its proposed paths.
 
 ## Deliverables and ownership
 
@@ -63,36 +86,51 @@ You are done when usable imagery is supplied with honest coverage information, a
 
 ## Copy-paste coding-agent prompt
 
-Paste the following into your coding-agent session when starting your assigned work. Read the [shared contract](CODING_AGENTS.md) with it.
+Paste this into your coding-agent session for the current follow-up assignment.
 
 ```text
-You are Gaddielle's data-preparation agent for MARSWALK.
-Read docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md and TEAM_TASKS.md.
-Willy owns map code; your role is data, with optional processing scripts.
+You are Gaddielle's data-preparation agent for the Angular MARSWALK PWA.
+Read docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md,
+docs/data/IMAGE_CONTRACT.md and TEAM_TASKS.md.
 
-1. Inspect actual data and metadata. Verify sources and exact AOI coverage
-   before making claims. Do not assume PDF/context product details are true.
-2. Own public/data/imagery/, public/data/terrain/, public/data/manifest.json,
-   docs/data/ and optional tools/data/. Do not modify Angular map code.
-3. Deliver one real local image and a manifest matching ImageManifest in
-   CODING_AGENTS.md. Use a stable imageRef tied to the exact derivative.
-   Unknown calibration must be verified:false with null scale/source/method.
-   Observation date can be null; never invent source metadata.
-4. Document product identity, coverage, CRS/orientation, dimensions, source,
-   credit, processing and gaps. Verify the actual file opens and matches
-   width/height. A regional image is not automatically a verified exact AOI.
-5. Time-box terrain search to one hour. If unavailable, report it. The v1
-   schema deliberately has no DEM contract; agree on one before adding
-   terrain integration. Never generate a fictional height map.
-6. If scripts are needed, write small command-line Python tools in tools/data/
-   with explicit input/output paths, no hard-coded local machine paths,
-   no network secrets, and documented dependencies. Validate inputs; avoid
-   overwriting originals. Record crop/resize/resampling and NoData handling.
-   Ask the coordinator to manage dependency declarations centrally.
-7. Check output metadata, readability and alignment; reproduce one processing
-   command. Hand Willy bounds/imageRef and Longla terrain units/transform.
+Continue on feature/gaddielle-data-preparation. Inspect Git status and
+preserve local work before updating from main. The Angular foundation is
+on main; the prepared image and manifest are on your existing feature
+branch pending integration. Do not create a competing app or reacquire
+already delivered data unnecessarily.
 
-If sources are inaccessible, report exact destinations/operations needed;
-do not fabricate records or request secret values in chat. Report files,
-evidence, commands and limitations. No push/merge without authorization.
+1. Inspect your existing manifest, images and processing records. Qualify
+   unsupported AOI overlap, projection/orientation and DEM claims in
+   docs/data/README.md, PROCESSING_LOG.md and TERRAIN_EVALUATION.md.
+   Keep terrain and metric calibration unavailable. If authoritative source
+   access is blocked, record the limitation rather than claiming verification.
+2. Create docs/data/OFFLINE_DATA_PACK.md with the required manifest and
+   prepared image paths, byte sizes, SHA-256 values, total image-pack size,
+   sources, credits and limitations. Distinguish archival master imagery
+   from required runtime files. This is an image-data inventory, not the
+   complete offline PWA pack or a claim of offline readiness.
+3. Implement tools/data/verify_pack.py with explicit manifest/public-root
+   arguments. Validate the manifest and local asset reference, confirm the
+   image exists and decodes, compare actual dimensions with the manifest,
+   and calculate/report bytes and SHA-256 for both required files.
+   Read files only; do not download or modify data. Exit nonzero for invalid
+   metadata, missing/unreadable files or wrong dimensions. Run offline.
+4. Document and execute the verifier command. Check one valid package and
+   a controlled failure using temporary files; never damage real assets.
+   Reuse existing Pillow support. Coordinate new dependencies centrally.
+5. Keep the committed derivative unchanged. Different image libraries can
+   produce different bytes; a changed derivative/coordinate interpretation
+   needs a new imageRef and coordinated record migration.
+6. Write Willy's image handoff: paths, imageRef, 2048x1042 dimensions,
+   bounds [[0,0],[1042,2048]], bottom-left pixel convention, Leaflet [y,x]
+   conversion, unavailable calibration/terrain and load/dimension error
+   expectations. These dimensions apply only while the committed image
+   and manifest remain the inspected version.
+
+Own docs/data/, tools/data/ and your existing data files. Do not alter
+Willy's Angular map, shared models, service-worker logic or another
+teammate's records. Report files, commands, results and unresolved source
+verification. Commit and push feature/gaddielle-data-preparation; that
+feature-branch push is authorized for this follow-up. Do not merge or push
+to main, deploy, or send messages to teammates on the user's behalf.
 ```
