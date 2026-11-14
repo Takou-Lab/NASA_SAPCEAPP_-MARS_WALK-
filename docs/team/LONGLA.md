@@ -1,5 +1,7 @@
 # Longla — PWA Quality Checks and Optional 3D Rehearsal
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work). If a 3D change is already underway, preserve and finish or hand off that bounded change before the next QA slice; do not discard it or recreate it.
+
 ## Current priority — prove the core mission works
 
 Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). Reliable offline mission rehearsal is the priority. While the map/PWA are integrated and terrain remains unavailable, own an independent QA plan and device checks. Build optional 3D after the core acceptance check; VR must not block the release.

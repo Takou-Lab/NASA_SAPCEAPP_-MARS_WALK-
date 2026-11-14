@@ -1,5 +1,7 @@
 # YOU — Project Coordinator and Integrator
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+
 ## Current priority — one complete offline PWA mission
 
 Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). MARSWALK serves science learning, mission rehearsal and analogue-workflow research now; future astronaut support is a vision that still requires substantial validation.

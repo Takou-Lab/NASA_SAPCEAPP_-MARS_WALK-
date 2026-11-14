@@ -2,6 +2,12 @@
 
 Updated: **14 November 2026**. This is the team's product charter and scope guide, not evidence that a feature already works or an official competition rulebook. Read it with [TEAM_TASKS.md](TEAM_TASKS.md), [the shared coding contract](docs/team/CODING_AGENTS.md) and your named brief.
 
+## Apply this charter without restarting work
+
+Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
+
+Emmanuelle's prior evidence audit, revised records/citations, PWA status summary and internal demo script are delivered on `feature/emma-science-provenance` at `8a947a4`. Review/integration remains separate; do not ask her to recreate those deliverables. The usability protocol is a new later task, not overdue prior work. Gaddielle and the other teammates should continue their existing branches and in-progress work; apply new extras after that handoff.
+
 ## Why we exist
 
 Help people rehearse a scientific exploration when communication and evidence are incomplete. MARSWALK brings a small Mars study area, sourced scientific context, a proposed route and field observations into one installable offline **Angular PWA**.

@@ -1,5 +1,7 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+
 ## Current follow-up — offline image-data package
 
 Read [SOUL.MD](../../SOUL.MD) before continuing. Your data package supports an installable Angular PWA for science learning, mission rehearsal and analogue-workflow research. Future astronaut support is the long-term vision; this release does not establish operational navigation or route safety.

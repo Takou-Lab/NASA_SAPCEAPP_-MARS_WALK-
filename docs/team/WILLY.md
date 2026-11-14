@@ -1,5 +1,7 @@
 # Willy — Angular Map Developer
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+
 ## Current priority — the offline exploration workspace
 
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared coding contract](CODING_AGENTS.md). MARSWALK is an installable Angular PWA for mission rehearsal, science learning and analogue-workflow research. The map is part of one complete mission: inspect imagery and evidence, sketch a route, understand uncertainty, save a note, reopen offline and export.

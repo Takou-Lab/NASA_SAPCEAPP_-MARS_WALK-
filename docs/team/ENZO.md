@@ -1,5 +1,7 @@
 # Enzo — Angular Interface, Route Controls and Notebook
 
+**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+
 ## Current priority — one understandable PWA mission
 
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared coding contract](CODING_AGENTS.md). Build the tablet workspace for mission rehearsal, science learning and analogue-workflow research. The complete mission is imagery → science context → route sketch → uncertainty → saved observation → offline reopening → export.

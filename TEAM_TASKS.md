@@ -10,6 +10,8 @@ This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle 
 
 Each personal brief below includes a ready-to-paste agent prompt. Read [SOUL.MD](SOUL.MD) and the [shared coding contract](docs/team/CODING_AGENTS.md) first. The Angular foundation is already implemented; reuse it. The next work is reviewed data integration, the 2D mission, installability and verified offline operation.
 
+**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emmanuelle's previous science assignment is delivered at `8a947a4` and awaits coordinator integration, not repeated research.
+
 ## Current follow-up assignments — 14 November 2026
 
 The Angular foundation is on `main`. The last joint review of Gaddielle's imagery and Emmanuelle's science records passed image dimensions and shared record contracts, along with the foundation tests/build. These branches have not yet been merged into `main`; inspect newer branch revisions before integration. Scientific source support still requires review; schema validation alone does not verify a finding.
@@ -17,7 +19,7 @@ The Angular foundation is on `main`. The last joint review of Gaddielle's imager
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Offline image-pack inventory, offline verification tool, qualified metadata claims and Willy handoff |
-| [Emmanuelle / Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | Record-level evidence audit, corrected scientific citations, accurate PWA status and demo rehearsal script |
+| [Emmanuelle / Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | Previous audit, citations, summary and demo delivered at `8a947a4`; handoff now, usability protocol as a separate later task |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. These assignments include committing and pushing the respective feature branch; integration into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
 
@@ -28,7 +30,7 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 | [Willy](docs/team/WILLY.md) | Real local-image map and route rendering | Image-load/dimension failures handled; pixel conversion and route modes correct; prepared imagery works offline after PWA integration |
 | [Enzo](docs/team/ENZO.md) | Tablet mission UI, Confidence Panel, Data Passport, science list and notebook | Users understand missing distance/slope, unlocated records remain readable, failed saves retain drafts, recovery/export work |
 | [Gaddielle](docs/team/GADDIELLE.md) | Offline image inventory/verifier and Data Passport | Actual file sizes/checksums/dimensions and provenance documented; whole-app readiness not implied |
-| [Emmanuelle](docs/team/EMMA.md) | Scientific evidence, accurate pitch, demo and usability protocol | Supported claims, explicit unknown positions, actual rather than invented user-test outcomes |
+| [Emmanuelle](docs/team/EMMA.md) | Completed science/evidence/demo handoff; later usability support | Preserve delivered `8a947a4`; address concrete integration findings, then record actual user-test outcomes when sessions occur |
 | [Longla](docs/team/LONGLA.md) | Independent installed-device/offline QA first; optional 3D second | Recorded close/reopen/offline checks and observed usability issues; no untested VR claims |
 | [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |
 

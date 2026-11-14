@@ -2,6 +2,8 @@
 
 Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
 
+Preserve work already underway. Complete or hand off the current small slice before starting a new charter follow-up; do not repeat completed assignments or learning checkpoints. Emmanuelle's earlier science/evidence/demo work is delivered at `8a947a4` on her feature branch. It needs coordinator integration, not recreation. Later usability support is a separate phase.
+
 ## Status and scope
 
 The Angular foundation now implements the v1 models and MissionService API below, with Leaflet dependencies and noninteractive test/build scripts. MARSWALK's target is an installable offline PWA; installation and offline caching are not yet implemented in the foundation. Imagery and science records are on Gaddielle's and Emmanuelle's feature branches pending integration and evidence follow-up. Inspect the checkout and actual scripts before starting. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
