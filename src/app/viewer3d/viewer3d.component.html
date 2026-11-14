@@ -1,0 +1,120 @@
+<section class="viewer3d-container" aria-label="3D Rehearsal Viewer">
+  <header class="viewer3d-header">
+    <div class="title-group">
+      <span class="badge prototype-badge">Prototype: 3D training view</span>
+      <h2>3D Mission Rehearsal</h2>
+    </div>
+
+    <div class="provenance-banner" role="status">
+      <p class="terrain-notice">
+        <strong>Terrain Status:</strong> No verified terrain; elevation unavailable (flat imagery plane).
+      </p>
+      <p class="exaggeration-notice">
+        <strong>Vertical Exaggeration:</strong> None (route &amp; markers elevated +1px strictly for visual z-separation; not elevation).
+      </p>
+      @if (mission.image(); as img) {
+        <p class="imagery-info">
+          <strong>Source:</strong> {{ img.source.title }} ({{ img.width }} &times; {{ img.height }} px) &bull;
+          <strong>Coverage:</strong> {{ img.coverageStatus }}
+        </p>
+      } @else {
+        <p class="imagery-info waiting">Waiting for image manifest &mdash; displaying practice grid.</p>
+      }
+    </div>
+
+    <div class="controls-toolbar" role="toolbar" aria-label="Viewer camera controls">
+      <div class="btn-group">
+        <button type="button" class="btn" (click)="setViewPreset('rehearsal')">Rehearsal View</button>
+        <button type="button" class="btn" (click)="setViewPreset('topDown')">Top-Down (Map)</button>
+        <button type="button" class="btn" (click)="setViewPreset('oblique')">Low Oblique</button>
+        <button type="button" class="btn" (click)="resetCamera()">Reset View</button>
+      </div>
+
+      <div class="vr-group">
+        @if (xrSupported()) {
+          <button type="button" class="btn btn-vr" (click)="toggleVR()">
+            {{ isPresenting() ? 'Exit VR' : 'Enter VR' }}
+          </button>
+        } @else {
+          <span class="vr-disabled-label" title="WebXR immersive-vr is not supported by your current browser or hardware">
+            WebXR VR: Unavailable
+          </span>
+        }
+      </div>
+    </div>
+  </header>
+
+  <div class="viewport-wrapper">
+    <div #canvasContainer class="canvas-viewport" tabindex="0" aria-label="Interactive 3D Mars Viewport">
+      @if (!webglAvailable()) {
+        <div class="webgl-fallback">
+          <p>WebGL is unavailable or disabled in this browser environment.</p>
+        </div>
+      }
+    </div>
+
+    <!-- Compass Orientation HUD -->
+    <div class="compass-widget" title="Camera Heading relative to Martian North (-Z)">
+      <div class="compass-dial" [style.transform]="'rotate(' + (-cameraHeading()) + 'deg)'">
+        <span class="needle-n">N</span>
+        <span class="needle-pivot"></span>
+        <span class="needle-s">S</span>
+      </div>
+      <span class="heading-text">{{ cameraHeading() }}&deg;</span>
+    </div>
+
+    <!-- Quick Hover Tooltip for Science Markers -->
+    @if (hoveredMarker(); as hov) {
+      <div class="hover-tooltip" aria-live="polite">
+        <span class="hov-name">{{ hov.name }}</span>
+        <span class="hov-status" [class.verified]="hov.positionStatus === 'verified'">
+          {{ hov.positionStatus }}
+        </span>
+        <span class="hov-hint">Click to inspect</span>
+      </div>
+    }
+
+    <!-- Detailed Marker Inspection Card -->
+    @if (selectedMarker(); as marker) {
+      <aside class="marker-card" aria-labelledby="marker-card-title">
+        <div class="card-header">
+          <h3 id="marker-card-title">{{ marker.name }}</h3>
+          <button type="button" class="btn-close" (click)="closeMarkerCard()" aria-label="Close marker details">&times;</button>
+        </div>
+        <p class="status-tag" [class.verified]="marker.positionStatus === 'verified'">
+          Position status: <strong>{{ marker.positionStatus }}</strong>
+        </p>
+        <p class="finding-text">{{ marker.finding }}</p>
+        @if (marker.instrument) {
+          <p class="meta-item"><strong>Instrument:</strong> {{ marker.instrument }}</p>
+        }
+        @if (marker.evidenceType) {
+          <p class="meta-item"><strong>Evidence:</strong> {{ marker.evidenceType }}</p>
+        }
+        @if (marker.limitations.length) {
+          <ul class="limitations-list">
+            @for (lim of marker.limitations; track $index) {
+              <li>{{ lim }}</li>
+            }
+          </ul>
+        }
+      </aside>
+    }
+  </div>
+
+  <footer class="viewer3d-footer">
+    <p class="instructions">
+      <strong>Controls:</strong> Left-drag rotate &bull; Right-drag pan &bull; Scroll zoom.
+    </p>
+
+    <div class="coords-readout" role="status" aria-label="Cursor coordinate readout">
+      @if (hoverCoords(); as c) {
+        <span class="map-coord">Map: <strong>X: {{ c.x }}px, Y: {{ c.y }}px</strong></span>
+        <span class="coord-sep">&bull;</span>
+        <span class="scene-coord">Scene: ({{ c.sceneX }}, 0, {{ c.sceneZ }})</span>
+      } @else {
+        <span class="coord-placeholder">Hover terrain for coordinates</span>
+      }
+    </div>
+  </footer>
+</section>
