@@ -2,7 +2,14 @@ import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { type Mock, vi } from 'vitest';
 import { MissionService } from '../core/mission.service';
-import type { ImageManifest, Mode, Observation, Route, ScienceMarker } from '../core/models';
+import type {
+  ImageManifest,
+  LayerId,
+  Mode,
+  Observation,
+  Route,
+  ScienceMarker,
+} from '../core/models';
 import { ScienceContextComponent } from './science-context.component';
 
 const imageFixture = (): ImageManifest => ({
@@ -98,6 +105,7 @@ describe('ScienceContextComponent', () => {
     dataError: ReturnType<typeof signal<string | null>>;
     route: ReturnType<typeof signal<Route>>;
     mode: ReturnType<typeof signal<Mode>>;
+    layers: ReturnType<typeof signal<Readonly<Record<LayerId, boolean>>>>;
     observations: ReturnType<typeof signal<readonly Observation[]>>;
   };
   let selectMarker: Mock<(id: string | null) => void>;
@@ -117,6 +125,12 @@ describe('ScienceContextComponent', () => {
         waypoints: [{ x: 100, y: 150 }],
       }),
       mode: signal<Mode>('waypoint'),
+      layers: signal<Readonly<Record<LayerId, boolean>>>({
+        imagery: true,
+        markers: true,
+        grid: false,
+        coverage: true,
+      }),
       observations: signal<readonly Observation[]>([
         {
           id: 'obs-1',
@@ -139,6 +153,7 @@ describe('ScienceContextComponent', () => {
       dataError: state.dataError.asReadonly(),
       route: state.route.asReadonly(),
       mode: state.mode.asReadonly(),
+      layers: state.layers.asReadonly(),
       observations: state.observations.asReadonly(),
       selectMarker,
       initialize,
@@ -403,5 +418,358 @@ describe('ScienceContextComponent', () => {
     );
     expect(component.safeExternalUrl('http://mars.nasa.gov/example')).toBeNull();
     expect(component.safeExternalUrl('javascript:alert(1)')).toBeNull();
+  });
+
+  const setSearchInput = (value: string): HTMLInputElement => {
+    const input = fixture.nativeElement.querySelector('input[type="search"]') as HTMLInputElement;
+    input.value = value;
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    return input;
+  };
+
+  const setSelectValue = (labelText: string, value: string): HTMLSelectElement => {
+    const labels = Array.from(
+      fixture.nativeElement.querySelectorAll('label') as NodeListOf<HTMLLabelElement>,
+    );
+    const label = labels.find((el) => el.textContent?.includes(labelText));
+    expect(label).toBeDefined();
+    const id = label!.getAttribute('for');
+    expect(id).toBeTruthy();
+    const select = fixture.nativeElement.querySelector(`#${id}`) as HTMLSelectElement;
+    expect(select).not.toBeNull();
+    select.value = value;
+    select.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    return select;
+  };
+
+  const mixedPositionRecords = (): ScienceMarker[] => [
+    makeRecord({
+      id: 'mix-verified',
+      name: 'Synthetic Verified Vein',
+      evidenceType: 'measured',
+      positionStatus: 'verified',
+      position: { x: 0, y: 0 },
+      instrument: 'ChemCam',
+      finding: 'Synthetic calcium sulfate vein located at bottom-left pixel origin.',
+      source: {
+        title: 'Synthetic Origin Tie',
+        url: 'https://example.test/origin',
+        credit: 'Synthetic Team',
+      },
+    }),
+    makeRecord({
+      id: 'mix-illustrative',
+      name: 'Synthetic Illustrative Ridge',
+      evidenceType: 'simulated',
+      positionStatus: 'illustrative',
+      position: { x: 420, y: 180 },
+      instrument: null,
+      finding: 'Synthetic simulated rover traverse ridge placement.',
+      source: {
+        title: 'Synthetic Traverse Simulation',
+        url: 'https://example.test/sim',
+        credit: 'Synthetic Team',
+      },
+    }),
+    makeRecord({
+      id: 'mix-unlocated',
+      name: 'Synthetic Regional Basin',
+      evidenceType: 'derived',
+      positionStatus: 'unavailable',
+      position: null,
+      instrument: 'CRISM',
+      finding: 'Synthetic orbital hydration map.',
+      source: {
+        title: 'Synthetic Basin Survey',
+        url: 'https://example.test/basin',
+        credit: 'Synthetic Team',
+      },
+    }),
+    makeRecord({
+      id: 'mix-null-coords',
+      name: 'Synthetic Missing Coords With Verified Tag',
+      evidenceType: 'interpreted',
+      positionStatus: 'verified',
+      position: null,
+      instrument: 'HiRISE',
+      finding: 'Synthetic edge case with null position.',
+      source: {
+        title: 'Synthetic Null Coords',
+        url: 'https://example.test/null-coords',
+        credit: 'Synthetic Team',
+      },
+    }),
+  ];
+
+  it('computes live recordBadge and distinguishes verified vs illustrative counts from located', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    expect(component.recordBadge()).toBe('3 records (0 located on image)');
+    expect(root.textContent).toContain('3 records (0 located on image)');
+    expect(root.querySelector('.pos-breakdown')).toBeNull();
+
+    state.markers.set(mixedPositionRecords());
+    fixture.detectChanges();
+
+    expect(component.recordBadge()).toBe('4 records (2 located on image)');
+    expect(root.textContent).toContain('4 records (2 located on image)');
+    const breakdown = root.querySelector('.pos-breakdown') as HTMLElement;
+    expect(breakdown).not.toBeNull();
+    expect(breakdown.textContent).toContain('1 verified');
+    expect(breakdown.textContent).toContain('1 illustrative');
+    expect(breakdown.textContent).toContain('does not mean verified');
+
+    state.markers.set([
+      makeRecord({
+        id: 'ill-1',
+        positionStatus: 'illustrative',
+        position: { x: 50, y: 60 },
+      }),
+      makeRecord({
+        id: 'ill-2',
+        positionStatus: 'illustrative',
+        position: { x: 100, y: 120 },
+      }),
+    ]);
+    fixture.detectChanges();
+    expect(component.recordBadge()).toBe('2 records (2 located on image)');
+    expect(root.querySelector('.pos-breakdown')?.textContent).toContain('0 verified');
+    expect(root.querySelector('.pos-breakdown')?.textContent).toContain('2 illustrative');
+
+    state.markers.set([]);
+    fixture.detectChanges();
+    expect(component.recordBadge()).toBe('0 records (0 located on image)');
+    expect(root.textContent).toContain('0 records (0 located on image)');
+    expect(root.querySelector('.pos-breakdown')).toBeNull();
+  });
+
+  it('filters case-insensitively across name, finding, instrument, and source title with trimmed search', () => {
+    const root = fixture.nativeElement as HTMLElement;
+
+    const searchInput = setSearchInput('  boxwork  ');
+    const searchLabel = root.querySelector(`label[for="${searchInput.id}"]`);
+    expect(searchLabel?.textContent).toContain('Search records');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Boxwork Fracture Pattern']);
+    expect(root.textContent).toContain('Showing 1 of 3');
+
+    setSearchInput('HYDRATED CLAY');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Clay Transition']);
+
+    setSearchInput('apxs');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Sulfate Zone']);
+
+    setSearchInput('orbital survey');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Boxwork Fracture Pattern']);
+
+    // Null instrument record does not crash search and matches by source title.
+    state.markers.set(mixedPositionRecords());
+    fixture.detectChanges();
+    setSearchInput('traverse simulation');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Illustrative Ridge']);
+    expect(root.textContent).toContain('Showing 1 of 4');
+  });
+
+  it('composes evidenceType and positionStatus filters and shows Showing N of M without mutating markers', () => {
+    const records = mixedPositionRecords();
+    const snapshot = structuredClone(records);
+    state.markers.set(records);
+    fixture.detectChanges();
+
+    const root = fixture.nativeElement as HTMLElement;
+    expect(root.textContent).toContain('Showing 4 of 4');
+
+    setSelectValue('Position availability', 'located');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Verified Vein', 'Synthetic Illustrative Ridge']);
+    expect(root.textContent).toContain('Showing 2 of 4');
+
+    setSelectValue('Evidence type', 'simulated');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Illustrative Ridge']);
+    expect(root.textContent).toContain('Showing 1 of 4');
+
+    setSelectValue('Evidence type', 'all');
+    setSelectValue('Position availability', 'verified');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Verified Vein']);
+
+    setSelectValue('Position availability', 'illustrative');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Illustrative Ridge']);
+
+    setSelectValue('Position availability', 'unavailable');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Regional Basin', 'Synthetic Missing Coords With Verified Tag']);
+
+    setSelectValue('Evidence type', 'derived');
+    setSearchInput('basin');
+    expect(
+      Array.from(root.querySelectorAll('.science-record-button .record-title')).map((el) =>
+        el.textContent?.trim(),
+      ),
+    ).toEqual(['Synthetic Regional Basin']);
+    expect(root.textContent).toContain('Showing 1 of 4');
+
+    expect(state.markers()).toEqual(snapshot);
+  });
+
+  it('shows a distinct no-match state and Clear filters resets controls without touching mission state', () => {
+    const initialRoute = structuredClone(missionMock.route!());
+    const initialMode = missionMock.mode!();
+    const initialObservations = structuredClone(missionMock.observations!());
+    const initialLayers = structuredClone(missionMock.layers!());
+    const initialImageRef = missionMock.image!()?.imageRef;
+
+    const root = fixture.nativeElement as HTMLElement;
+    const toolbarClearBtn = root.querySelector(
+      '.results-bar button.clear-filters',
+    ) as HTMLButtonElement;
+    expect(toolbarClearBtn.disabled).toBe(true);
+
+    // Select a record before filtering to zero matches.
+    const buttons = root.querySelectorAll(
+      'button.science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+    buttons[0].click();
+    fixture.detectChanges();
+    selectMarker.mockClear();
+
+    const searchInput = setSearchInput('nonexistent-mineral-xyz');
+    const evidenceSelect = setSelectValue('Evidence type', 'simulated');
+
+    expect(toolbarClearBtn.disabled).toBe(false);
+    expect(root.textContent).toContain('Showing 0 of 3');
+    expect(root.querySelector('ul.science-record-list')).toBeNull();
+    expect(root.querySelector('.science-empty')).toBeNull();
+    expect(root.querySelector('.science-state')).toBeNull();
+    expect(root.querySelector('.science-state-error')).toBeNull();
+
+    const noMatches = root.querySelector('.no-matches') as HTMLElement;
+    expect(noMatches).not.toBeNull();
+    expect(noMatches.getAttribute('role')).toBe('status');
+
+    const allButtons = Array.from(root.querySelectorAll('button')) as HTMLButtonElement[];
+    allButtons.forEach((btn) => expect(btn.getAttribute('type')).toBe('button'));
+
+    const noMatchClearBtn = noMatches.querySelector('button.clear-filters') as HTMLButtonElement;
+    expect(noMatchClearBtn).not.toBeNull();
+    noMatchClearBtn.click();
+    fixture.detectChanges();
+
+    expect(component.searchQuery()).toBe('');
+    expect(component.evidenceFilter()).toBe('all');
+    expect(component.positionFilter()).toBe('all');
+    expect(component.hasActiveFilters()).toBe(false);
+    expect(searchInput.value).toBe('');
+    expect(evidenceSelect.value).toBe('all');
+    expect(toolbarClearBtn.disabled).toBe(true);
+    expect(root.querySelector('.no-matches')).toBeNull();
+    expect(
+      root.querySelectorAll('ul.science-record-list button.science-record-button'),
+    ).toHaveLength(3);
+
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-1');
+    expect(selectMarker).not.toHaveBeenCalled();
+    expect(initialize).not.toHaveBeenCalled();
+    expect(missionMock.route!()).toEqual(initialRoute);
+    expect(missionMock.mode!()).toBe(initialMode);
+    expect(missionMock.observations!()).toEqual(initialObservations);
+    expect(missionMock.layers!()).toEqual(initialLayers);
+    expect(missionMock.image!()?.imageRef).toBe(initialImageRef);
+  });
+
+  it('keeps selected record details accessible with notice when hidden by filters and restores list button on clear', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const buttons = root.querySelectorAll(
+      'button.science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+    buttons[0].click();
+    fixture.detectChanges();
+
+    expect(component.selectedRecord()?.id).toBe('synthetic-rec-1');
+    expect(component.isSelectedHiddenByFilter()).toBe(false);
+    expect(root.querySelector('.hidden-notice')).toBeNull();
+
+    setSelectValue('Evidence type', 'interpreted');
+
+    const visibleButtons = root.querySelectorAll(
+      'ul.science-record-list button.science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+    expect(visibleButtons).toHaveLength(1);
+    expect(visibleButtons[0].textContent).toContain('Synthetic Boxwork Fracture Pattern');
+    expect(visibleButtons[0].textContent).not.toContain('Synthetic Sulfate Zone');
+
+    expect(component.isSelectedHiddenByFilter()).toBe(true);
+    const details = root.querySelector('article.science-record-details') as HTMLElement;
+    expect(details).not.toBeNull();
+    expect(details.textContent).toContain('Synthetic Sulfate Zone');
+    expect(details.textContent).toContain(
+      'Synthetic elevated sulfate signature detected across fracture fill.',
+    );
+
+    const notice = details.querySelector('.hidden-notice') as HTMLElement;
+    expect(notice).not.toBeNull();
+    expect(notice.getAttribute('role')).toBe('status');
+    expect(notice.textContent).toContain('outside the current filter results');
+
+    const revealBtn = notice.querySelector('button.clear-filters') as HTMLButtonElement;
+    expect(revealBtn).not.toBeNull();
+    expect(revealBtn.getAttribute('type')).toBe('button');
+    revealBtn.click();
+    fixture.detectChanges();
+
+    expect(component.isSelectedHiddenByFilter()).toBe(false);
+    expect(root.querySelector('.hidden-notice')).toBeNull();
+    const restoredButtons = root.querySelectorAll(
+      'ul.science-record-list button.science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+    expect(restoredButtons).toHaveLength(3);
+    expect(restoredButtons[0].classList.contains('selected')).toBe(true);
+    expect(restoredButtons[0].getAttribute('aria-pressed')).toBe('true');
+
+    // If the selected record is removed from markers while a filter is active, fallback cleanly.
+    setSelectValue('Evidence type', 'interpreted');
+    state.markers.set(threeUnlocatedRecords().slice(1));
+    fixture.detectChanges();
+    expect(component.selectedRecord()).toBeNull();
+    expect(component.isSelectedHiddenByFilter()).toBe(false);
+    expect(root.querySelector('article.science-record-details')).toBeNull();
+    expect(root.querySelector('p.science-no-selection')).not.toBeNull();
   });
 });

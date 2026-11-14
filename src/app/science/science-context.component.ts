@@ -1,6 +1,27 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MissionService } from '../core/mission.service';
 import type { ScienceMarker } from '../core/models';
+
+export type EvidenceFilter = 'all' | ScienceMarker['evidenceType'];
+export type PositionFilter = 'all' | 'located' | 'verified' | 'illustrative' | 'unavailable';
+
+const EVIDENCE_FILTER_OPTIONS: readonly EvidenceFilter[] = [
+  'all',
+  'measured',
+  'derived',
+  'interpreted',
+  'simulated',
+];
+
+const POSITION_FILTER_OPTIONS: readonly PositionFilter[] = [
+  'all',
+  'located',
+  'verified',
+  'illustrative',
+  'unavailable',
+];
+
+let nextInstanceId = 0;
 
 @Component({
   selector: 'app-science-context',
@@ -10,10 +31,104 @@ import type { ScienceMarker } from '../core/models';
 })
 export class ScienceContextComponent {
   readonly mission = inject(MissionService);
+  protected readonly instanceId = ++nextInstanceId;
+
+  readonly searchQuery = signal('');
+  readonly evidenceFilter = signal<EvidenceFilter>('all');
+  readonly positionFilter = signal<PositionFilter>('all');
 
   readonly selectedRecord = computed<ScienceMarker | null>(
     () => this.mission.markers().find((m) => m.id === this.mission.selectedMarkerId()) ?? null,
   );
+
+  readonly recordBadge = computed(() => {
+    const records = this.mission.markers();
+    const located = records.filter(
+      (record) => record.position !== null && record.positionStatus !== 'unavailable',
+    ).length;
+    return `${records.length} records (${located} located on image)`;
+  });
+
+  readonly positionBreakdown = computed(() => {
+    const records = this.mission.markers();
+    let located = 0;
+    let verified = 0;
+    let illustrative = 0;
+    for (const record of records) {
+      if (record.position === null || record.positionStatus === 'unavailable') {
+        continue;
+      }
+      if (record.positionStatus === 'verified') {
+        located += 1;
+        verified += 1;
+      } else if (record.positionStatus === 'illustrative') {
+        located += 1;
+        illustrative += 1;
+      }
+    }
+    return { located, verified, illustrative };
+  });
+
+  readonly filteredMarkers = computed<readonly ScienceMarker[]>(() => {
+    const query = this.searchQuery().trim().toLowerCase();
+    const evidence = this.evidenceFilter();
+    const position = this.positionFilter();
+
+    return this.mission.markers().filter((record) => {
+      if (evidence !== 'all' && record.evidenceType !== evidence) {
+        return false;
+      }
+      if (!this.matchesPositionFilter(record, position)) {
+        return false;
+      }
+      if (!query) {
+        return true;
+      }
+      return [record.name, record.finding, record.instrument ?? '', record.source.title].some(
+        (field) => field.toLowerCase().includes(query),
+      );
+    });
+  });
+
+  readonly hasActiveFilters = computed(
+    () =>
+      this.searchQuery().trim().length > 0 ||
+      this.evidenceFilter() !== 'all' ||
+      this.positionFilter() !== 'all',
+  );
+
+  readonly isSelectedHiddenByFilter = computed(() => {
+    const selected = this.selectedRecord();
+    if (!selected) {
+      return false;
+    }
+    return !this.filteredMarkers().some((record) => record.id === selected.id);
+  });
+
+  onSearchInput(event: Event): void {
+    const target = event.target as HTMLInputElement | null;
+    this.searchQuery.set(target?.value ?? '');
+  }
+
+  onEvidenceFilterChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement | null)?.value as EvidenceFilter | undefined;
+    if (value && EVIDENCE_FILTER_OPTIONS.includes(value)) {
+      this.evidenceFilter.set(value);
+    }
+  }
+
+  onPositionFilterChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement | null)?.value as PositionFilter | undefined;
+    if (value && POSITION_FILTER_OPTIONS.includes(value)) {
+      this.positionFilter.set(value);
+    }
+  }
+
+  clearFilters(): void {
+    this.searchQuery.set('');
+    this.evidenceFilter.set('all');
+    this.positionFilter.set('all');
+  }
 
   selectRecord(id: string): void {
     this.mission.selectMarker(id);
@@ -48,5 +163,22 @@ export class ScienceContextComponent {
     } catch {
       return null;
     }
+  }
+
+  private matchesPositionFilter(record: ScienceMarker, filter: PositionFilter): boolean {
+    if (filter === 'all') {
+      return true;
+    }
+    const hasCoords = record.position !== null;
+    if (filter === 'unavailable') {
+      return !hasCoords || record.positionStatus === 'unavailable';
+    }
+    if (!hasCoords) {
+      return false;
+    }
+    if (filter === 'located') {
+      return record.positionStatus === 'verified' || record.positionStatus === 'illustrative';
+    }
+    return record.positionStatus === filter;
   }
 }
