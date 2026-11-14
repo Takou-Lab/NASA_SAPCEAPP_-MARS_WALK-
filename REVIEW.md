@@ -6,6 +6,8 @@ Review date: **14 November 2026**. Baseline: `main` at **`f24f6fc68750f3bfd73513
 
 **Latest Emma review:** his branch advanced to `ee9f6ae`, incorporating the existing integration/review history. Compared with main `6c78ebe`, it has zero unique commits and no runtime changes. Earlier work remains accepted; presentation/Q&A publication is still pending. See [Emma's review](docs/reviews/EMMA.md). No new task is assigned before those reported completed files can be reviewed.
 
+**Latest Gaddielle review:** `f265407` resolves the prior three conflicts and passes all four verifier regressions. Runtime/assets/tools match main `aeb0e9e`, and the merge preview is clean. The new Data Passport needs three documentation corrections: recorded processing/actual 4:2:0 subsampling, intended rather than already-precached status, and parent-versus-release/derivative scale. See [Gaddielle's review](docs/reviews/GADDIELLE.md). No image or verifier rework is requested.
+
 See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named briefs for ready-to-paste coding-agent instructions. Passing a technical review is distinct from integration, external scientific verification and installed-PWA acceptance.
 
 ## All published branches
@@ -15,7 +17,7 @@ See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named brief
 | `main` | `f24f6fc` | Tests/build pass; integrated map and data baseline | Continue Enzo's UI and coordinator PWA work; do not claim the full offline mission is finished |
 | `feature/willy-map-development` | `094fce2` | Accepted and already integrated; tip is an ancestor of main | Sync main and continue the existing Reset View / Focus Route task |
 | `feature/emma-science-provenance` | `ee9f6ae` | Synchronization confirmed; original contribution accepted/integrated; zero unique commits against reviewed main `6c78ebe` | Publish the presentation work reported finished locally; no new assignment or repeated research |
-| `feature/gaddielle-data-preparation` | `094d042` | Verifier fixes pass; equivalent runtime behavior already on main; three merge conflicts remain | Resolve overlaps against main, preserve regression tests and correct two documentation statements |
+| `feature/gaddielle-data-preparation` | `f265407` | Previous fixes/conflicts accepted and resolved; four verifier tests pass; new passport needs wording corrections | Correct processing, cache status and scale distinctions on the same branch; do not redo image/verifier work |
 | `feat/enzo-ui-planner-notebook` | `15b1666` | Changes required; 47 tests pass, production build blocked by external fonts, UI/core integration and behavior issues reproduced | Preserve the UI and repair the same branch using [ENZO.md](docs/reviews/ENZO.md); no new assignment/branch yet |
 | `Tablet-App` | `f24f6fc` | Exactly matches the reviewed main: zero unique commits/diff | No independent contribution or branch owner can be inferred; no separate correctness claim |
 
@@ -46,7 +48,9 @@ Original accepted contribution: `b0640d9c7f423eb066ed133e63e4366de981e20c`. Late
 
 This review validated records and inspected evidence documentation; it did not independently refetch every external scientific source or certify the underlying scientific interpretations.
 
-## Gaddielle — technical fixes pass; integration overlap remains
+## Gaddielle — earlier technical review, now resolved by `f265407`
+
+The findings below describe the earlier `094d042` review. The latest `f265407` synchronization resolves all three overlaps and the handoff wording; see [the current passport review](docs/reviews/GADDIELLE.md) for the only remaining corrections. Do not repeat the old merge/verifier assignment.
 
 Reviewed tip: `094d04251602d26277ec1ddf0959e3a860a15594`.
 

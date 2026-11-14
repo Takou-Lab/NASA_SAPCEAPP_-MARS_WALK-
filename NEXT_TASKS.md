@@ -45,20 +45,17 @@ This is a publication handoff, not a new research or presentation assignment. Em
 
 Agent instructions: [EMMA.md](docs/team/EMMA.md).
 
-## Gaddielle — resolve overlap, then Data Passport
+## Gaddielle — correct the delivered Data Passport wording
 
-Verifier correction `094d042`: **technical checks pass**; equivalent behavior is already on main. Three conflicts need branch synchronization.
+Latest review: **`f265407`** against main `aeb0e9e`. The previous merge conflicts are resolved, the merge preview is clean and four verifier regressions pass. The new Data Passport is delivered; no repeated implementation or image preparation is required.
 
-1. Preserve local work and merge the latest main into `feature/gaddielle-data-preparation`.
-2. Resolve `verify_pack.py`, `requirements.txt` and `OFFLINE_DATA_PACK.md` without losing the mandatory-Pillow implementation, nonzero failure exits, regression tests or accurate hash-reporting wording.
-3. Correct the branch's map handoff to use image-display errors for failed decoding/dimensions, separately from core manifest readiness.
-4. Run the integrated verifier regressions and real-package check. Confirm no conflict markers remain and image/manifest bytes are unchanged.
-5. Complete the already-queued `docs/data/DATA_PASSPORT.md` using existing provenance and processing records. Separate verified facts from unknown coverage/calibration. Propose extra runtime fields to the coordinator rather than changing shared models independently.
-6. Commit and push the same feature branch, reporting resolved files and checks.
+1. In `docs/data/DATA_PASSPORT.md`, replace the unsupported “quality 85, no subsampling” statement with documented GDI+ bicubic processing and actual file evidence. The committed JPEG uses 4:2:0 chroma subsampling; encoder quality is unrecorded unless retained evidence establishes it.
+2. Change “precached” to required/intended offline asset. PWA caching and installed offline reopening remain pending.
+3. Separate nominal parent-observation scale from the unverified public-release JPEG and prepared derivative scales. Keep current calibration unverified; do not claim all known resizes require new ground control points.
+4. Check existing manifest/UI labels, pixel bounds, byte counts, hashes and limits. Keep image bytes, imageRef, verifier, dependencies and runtime schema unchanged.
+5. Commit and push the same `feature/gaddielle-data-preparation` branch for re-review. Do not start a new assignment until these small documentation corrections pass.
 
-No new source download, image processing or repeated verifier implementation is needed.
-
-Agent instructions: [GADDIELLE.md](docs/team/GADDIELLE.md).
+Full findings: [docs/reviews/GADDIELLE.md](docs/reviews/GADDIELLE.md). Ready-to-paste agent instructions: [GADDIELLE.md](docs/team/GADDIELLE.md).
 
 ## Other contributors and branch
 
