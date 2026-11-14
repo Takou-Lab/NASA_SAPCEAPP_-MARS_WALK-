@@ -65,13 +65,19 @@ The high-resolution uncropped master downloaded from NASA is preserved in the re
 
 The runtime image package can be verified independently without network access using the dedicated validation script:
 
+### Prerequisite
+Pillow is strictly required by the verification tool to perform full pixel buffer `.load()` decoding and reject truncated or corrupted files:
+```bash
+python -m pip install -r tools/data/requirements.txt
+```
+
+### Execution
 ```bash
 python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public
 ```
 
 Expected output:
 - Confirms manifest schema compliance with `ImageManifest` (`CODING_AGENTS.md`).
-- Confirms local raster exists and decodes to 2048 × 1042 px.
+- Fully decodes the raster via Pillow (`img.load()`), verifying pixel integrity and dimensions (2048 × 1042 px).
 - Verifies manifest SHA-256 (`40381b96...`) and image SHA-256 (`7b814497...`).
-- Exits code `0` on success, `1` on failure.
-
+- Exits code `0` on success, `1` on failure (in both text and `--json` modes).

@@ -6,8 +6,10 @@ raster exists, verifies that it fully decodes cleanly (detecting truncated files
 via Pillow's .load()), compares actual dimensions to the manifest, and calculates
 file sizes and SHA-256 checksums.
 
-This tool runs completely offline, performs read-only operations, and does not
-modify or download any data.
+Prerequisite:
+  Pillow is strictly required to verify pixel integrity and catch truncated images.
+  Install prerequisites using:
+    python -m pip install -r tools/data/requirements.txt
 
 Usage:
   python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public [--json]
@@ -16,69 +18,38 @@ import argparse
 import hashlib
 import json
 import os
-import struct
 import sys
 import urllib.parse
 
-def parse_jpeg_dimensions(data: bytes):
-    """Parse JPEG SOF markers to extract (width, height)."""
-    if len(data) < 2 or data[:2] != b'\xff\xd8':
-        raise ValueError("File does not start with JPEG SOI marker")
-    idx = 2
-    length = len(data)
-    while idx < length:
-        if data[idx] != 0xFF:
-            idx += 1
-            continue
-        marker = data[idx + 1]
-        # Baseline, extended, progressive DCT markers
-        if marker in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
-            height, width = struct.unpack(">HH", data[idx + 5 : idx + 9])
-            return width, height
-        else:
-            seg_len = struct.unpack(">H", data[idx + 2 : idx + 4])[0]
-            idx += 2 + seg_len
-    raise ValueError("JPEG SOF marker not found")
-
-def parse_png_dimensions(data: bytes):
-    """Parse PNG IHDR chunk to extract (width, height)."""
-    if len(data) < 24 or data[:8] != b'\x89PNG\r\n\x1a\n':
-        raise ValueError("File does not start with valid PNG header")
-    width, height = struct.unpack(">II", data[16:24])
-    return width, height
+def check_pillow_available():
+    """Checks if Pillow is importable, returning (is_available, error_message)."""
+    try:
+        import PIL
+        from PIL import Image, ImageFile
+        return True, None
+    except ImportError:
+        return False, (
+            "Pillow is required for full image decoding and truncation verification. "
+            "Please install prerequisites using: python -m pip install -r tools/data/requirements.txt"
+        )
 
 def decode_and_verify_image(file_path: str):
     """
-    Decodes the image and verifies its full integrity.
-    Uses Pillow's .load() to fully decode pixel data and catch truncated or corrupted files.
+    Decodes the image and verifies its full integrity using Pillow.
+    Calls img.load() with ImageFile.LOAD_TRUNCATED_IMAGES = False so that any
+    truncated, partial, or corrupted raster bitstream is strictly rejected.
+    Header-only decoding is prohibited.
     """
-    try:
-        from PIL import Image, ImageFile
-        # Ensure Pillow raises an error on truncated images instead of silently loading partial pixels
-        ImageFile.LOAD_TRUNCATED_IMAGES = False
-        with Image.open(file_path) as img:
-            w, h = img.size
-            img.load()  # Fully decode pixel buffer to detect truncation/corruption
-            return w, h, f"{img.format} (fully decoded via Pillow .load())"
-    except ImportError:
-        pass
+    is_avail, err_msg = check_pillow_available()
+    if not is_avail:
+        raise RuntimeError(err_msg)
 
-    # Fallback to standard library decoder with EOF validation
-    with open(file_path, "rb") as f:
-        full_data = f.read()
-
-    if full_data.startswith(b'\xff\xd8'):
-        if not full_data.endswith(b'\xff\xd9'):
-            raise ValueError(f"Truncated JPEG image: missing EOI (0xFFD9) marker in {file_path}")
-        w, h = parse_jpeg_dimensions(full_data)
-        return w, h, "JPEG (standard library SOF + EOI check)"
-    elif full_data.startswith(b'\x89PNG\r\n\x1a\n'):
-        if not full_data.endswith(b'IEND\xaeB`\x82'):
-            raise ValueError(f"Truncated PNG image: missing IEND chunk in {file_path}")
-        w, h = parse_png_dimensions(full_data)
-        return w, h, "PNG (standard library IHDR + IEND check)"
-    else:
-        raise ValueError(f"Unsupported image format or unrecognized header in {file_path}")
+    from PIL import Image, ImageFile
+    ImageFile.LOAD_TRUNCATED_IMAGES = False
+    with Image.open(file_path) as img:
+        w, h = img.size
+        img.load()  # Fully decode pixel buffer to detect truncation/corruption
+        return w, h, f"{img.format} (fully decoded via Pillow .load())"
 
 def is_valid_https_url(url: str) -> bool:
     try:
@@ -188,7 +159,12 @@ def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
         "totalRequiredBytes": None,
     }
 
-    # 1. Read manifest file
+    # 1. Check Pillow prerequisite immediately
+    is_avail, err_msg = check_pillow_available()
+    if not is_avail:
+        results["errors"].append(err_msg)
+
+    # 2. Read manifest file
     if not os.path.isfile(manifest_path):
         results["errors"].append(f"Manifest file not found: {manifest_path}")
         return False, results
@@ -207,13 +183,13 @@ def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
         results["errors"].append(f"Failed to read manifest: {e}")
         return False, results
 
-    # 2. Validate manifest schema
+    # 3. Validate manifest schema
     schema_errors = validate_manifest_schema(manifest_data)
     if schema_errors:
         results["errors"].extend(schema_errors)
         return False, results
 
-    # 3. Resolve local image path
+    # 4. Resolve local image path
     asset_rel = manifest_data["assetPath"]
     resolved_image_path = os.path.normpath(os.path.join(public_root, asset_rel))
     results["imagePath"] = resolved_image_path
@@ -222,7 +198,7 @@ def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
         results["errors"].append(f"Referenced image file does not exist: {resolved_image_path}")
         return False, results
 
-    # 4. Check image size & sha256
+    # 5. Check image size & sha256
     try:
         results["imageBytes"] = os.path.getsize(resolved_image_path)
         results["imageSha256"] = sha256_file(resolved_image_path)
@@ -231,7 +207,11 @@ def verify_package(manifest_path: str, public_root: str) -> tuple[bool, dict]:
         results["errors"].append(f"Failed to compute image size/checksum: {e}")
         return False, results
 
-    # 5. Decode image and compare dimensions (fully decoding with .load())
+    # If Pillow is missing, we stop here (no header-only fallback)
+    if not is_avail:
+        return False, results
+
+    # 6. Decode image with Pillow .load() and compare dimensions
     try:
         dec_w, dec_h, decoder_name = decode_and_verify_image(resolved_image_path)
         results["decodedDimensions"] = (dec_w, dec_h)

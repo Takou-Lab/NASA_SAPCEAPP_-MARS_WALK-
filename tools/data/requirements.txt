@@ -1,4 +1,3 @@
-# Optional dependencies for MARSWALK data preparation tools on non-Windows platforms.
-# On Windows, tools/data/ uses built-in GDI+ via ctypes (zero external dependencies).
+# Required dependency for tools/data/verify_pack.py to ensure full pixel buffer
+# decoding (.load()) and strict truncation/corruption verification.
 Pillow>=10.0.0
-

@@ -100,7 +100,9 @@ These specifications apply strictly while the committed image and manifest remai
 1. **Inventory Document:**
    See [OFFLINE_DATA_PACK.md](OFFLINE_DATA_PACK.md) for full byte counts, SHA-256 hashes, and runtime vs. archival distinctions.
 2. **Offline Package Verifier:**
-   A dedicated read-only verification script is available under `tools/data/verify_pack.py`:
+   A dedicated read-only verification script is available under `tools/data/verify_pack.py`.
+   Pillow is required for strict byte-level `.load()` pixel decoding:
    ```bash
+   python -m pip install -r tools/data/requirements.txt
    python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public
    ```
