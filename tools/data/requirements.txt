@@ -1,0 +1,4 @@
+# Optional dependencies for MARSWALK data preparation tools on non-Windows platforms.
+# On Windows, tools/data/ uses built-in GDI+ via ctypes (zero external dependencies).
+Pillow>=10.0.0
+
