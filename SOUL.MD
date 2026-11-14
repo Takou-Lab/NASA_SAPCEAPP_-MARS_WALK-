@@ -79,7 +79,7 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 
 | Priority | Owner | Outcome |
 | --- | --- | --- |
-| Essential | Gaddielle | Preserve the accepted package/passport; generate/check a machine-readable image-pack inventory for the coordinator without changing source assets |
+| Essential | Gaddielle | Preserve accepted package/passport and merged index; close the focused runtime/browser-path compatibility gap without changing source assets |
 | Essential | Emma (EMMA.md) | Preserve accepted science UI/evidence/presentation; add science discovery and readonly confidence/image-passport presentation, then support actual user-test outcomes |
 | Essential | Willy | Preserve approved map/navigation, add explicit safe image retry and verify without rebuilding earlier work |
 | Essential | Enzo | Tablet shell/route controls, integration of Emma's reviewed science/evidence components, notebook/draft retention, recovery/export and real future PWA status UI |

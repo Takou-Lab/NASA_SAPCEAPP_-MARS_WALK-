@@ -44,7 +44,7 @@ Preserve Royce/Longla's ongoing viewer slice. A ground plane or illustrative pro
 | Enzo | Correct existing shell/planner/notebook branch | Preserve mission transfer UI and service behavior while mounting the shell; avoid duplicate storage |
 | Emma | Standalone contextual science component | All three unlocated records accessible, sourced and clearly distinguished from spatial evidence |
 | Willy | Guarded image retry | Preserve imported route/notes and current navigation behavior |
-| Gaddielle | Existing image-pack inventory assignment | Deterministic verified image inventory; no complete-app offline claim |
+| Gaddielle | Preserve merged inventory; close R3 browser-path compatibility | Same declared filesystem/browser asset; no complete-app offline claim |
 | Royce/Longla | Current slice, independent device QA, optional viewer | Record actual device outcomes; gate measured terrain claims on aligned DTM evidence |
 
 These are acceptance clarifications, not replacement assignments or claims that later features are implemented. The strongest demonstration is a complete, honest mission that users can carry and recover, supported by visible scientific evidence.

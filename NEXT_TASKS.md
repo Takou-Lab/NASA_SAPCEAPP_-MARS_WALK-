@@ -4,20 +4,13 @@ Based on [REVIEW.md](REVIEW.md), dated **14 November 2026**. Preserve existing b
 
 **Guide improvement:** the coordinator has implemented validated mission-file import alongside export, with 44 tests, production build and isolated-browser transfer checks passing. Preserve this capability in shell integration. [Adopted guide priorities](docs/GUIDE_IMPROVEMENTS.md) keep Gale and existing assignments; complete installed offline operation is next, followed by compatible layers and evidence-gated optional 3D. No teammate needs to restart work.
 
-## Enzo — correct the reviewed UI branch before a new task
+## Enzo — final current-main reconciliation after functional pass
 
-Review of `feat/enzo-ui-planner-notebook` at `15b1666`: **changes required**. The 47 branch tests pass, but the production build fails here on the Google Fonts request. Keep his UI work and stay on the same branch; do not start another app or task branch yet.
+New tip **`bcac915`** passes **57 tests**, production build and actual browser route/science/notebook/draft/resize checks. Earlier core/map/font/draft/clamp defects are closed; do not repeat them or restart the UI.
 
-1. Reconcile the older branch with current main while preserving the canonical models, MissionService, validators, persistence, dependencies and map. Do not replace main with the duplicate foundation.
-2. Mount the existing MapComponent once in the shell and wire the UI to the existing service/helper APIs.
-3. Use local/system fonts so production builds and essential rendering do not depend on Google Fonts.
-4. Integrate Emma's reviewed `app-science-context` component for all three unlocated records; do not duplicate its implementation or invent positions.
-5. Preserve unsaved/failed-save notebook drafts across tab changes and clamp sidebar sizing to the viewport for all input paths.
-6. Run the integrated regressions, adapted UI tests, production build and real browser mission/error checks; push the corrected same branch for re-review.
+Stay on **`feat/enzo-ui-planner-notebook`**. Merge latest main and resolve four root TS/HTML/SCSS/spec conflicts, preserving canonical core, one map/initialize, mission-file import/export and its guards, navigation and the accepted `app-science-context`. Replace the interim science list with Emma's component; don't implement her future evidence components. Keep unsupported grid controls honest and use a neutral notebook example. Run complete reconciled checks, push the same branch and request re-review before a new task.
 
-Full findings: [docs/reviews/ENZO.md](docs/reviews/ENZO.md). Agent instructions: [docs/team/ENZO.md](docs/team/ENZO.md).
-
-Emma's science component `4efcb5a` is now accepted/mounted on main. Preserve one instance when porting the shell. His next assignment also owns future confidence/image-passport presentation; retain current warnings and do not import those new components until reviewed. Enzo keeps planner/notebook/draft/layout/font/core-port fixes.
+[Current review](docs/reviews/ENZO.md). [Exact agent prompt](docs/team/ENZO.md).
 
 ## Willy — Retry Image after accepted navigation
 
@@ -37,20 +30,13 @@ The user explicitly transfers Enzo's future read-only confidence/image-passport 
 
 Specification and computed-badge answer: [EMMA_SCIENCE_EVIDENCE_WORKSPACE.md](docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). Ready-to-paste prompt: [EMMA.md](docs/team/EMMA.md). Accepted review: [EMMA.md](docs/reviews/EMMA.md).
 
-## Gaddielle — correct the submitted image-pack index
+## Gaddielle — one browser-path compatibility follow-up
 
-Corrected passport **`c887286`** remains **approved and integrated**. Latest index submission **`bf9689b`** is reviewed: **changes required**. All 14 Python tests and the real index check pass, but alternate/URL-unsafe paths and incomplete index shape/type validation need correction. The feature code is not merged. Image preparation, verifier fixes, conflict resolution and passport corrections remain complete.
+**`a53724a`** is reviewed and already merged through PR #4. **25 Python tests** and the real index check pass; previous literal-path and schema/type/read-only fixes are complete. Preserve all image/verifier/passport/index work.
 
-The four submitted deliverables are:
+New **R3**: reject percent escapes and whitespace/control characters to match runtime asset-path syntax. Browser-normalized encoded traversal/filenames and trailing spaces currently pass generation/check. Add focused temporary regressions, preserve output bytes/mtime on failure, keep every current test and leave the real index unchanged. No new dataset, calibration, schema, dependency or PWA assignment.
 
-- `tools/data/build_image_pack.py`: verify existing inputs and generate the index deterministically; `--check` detects stale/missing/tampered indexes without writing.
-- `public/data/image-pack.json`: versioned two-file inventory with imageRef, app-relative paths, actual byte counts, SHA-256 and summed payload bytes.
-- `tools/data/test_build_image_pack.py`: generation, deterministic output, check mode and safe failure regressions.
-- `docs/data/IMAGE_PACK_INDEX.md`: schema, commands and handoff to the coordinator.
-
-Keep the implementation and correct **R1/R2** from [the latest review](docs/reviews/GADDIELLE.md): enforce canonical/browser-safe paths and strict index object/keys/types, with clean read-only failure. Add temporary-fixture regressions, retain all current tests and preserve source assets, verifier and runtime schema. Stay on the same feature branch, merge latest main, commit/push the corrections and request re-review before a new task. The image-only inventory does not establish complete offline readiness.
-
-Exact specification: [GADDIELLE_IMAGE_PACK.md](docs/team/tasks/GADDIELLE_IMAGE_PACK.md). Ready-to-paste prompt: [GADDIELLE.md](docs/team/GADDIELLE.md).
+Continue the same `feature/gaddielle-data-preparation` branch, merge current main without reset/force push, commit/push R3 and request re-review. [Reproductions](docs/reviews/GADDIELLE.md), [agent prompt](docs/team/GADDIELLE.md).
 
 ## Royce / Longla — actual-device QA after verified corrections
 
@@ -60,7 +46,7 @@ Next: test the actual demonstration/available physical device, record online 2D/
 
 ## Other contributors and branch
 
-- **Enzo:** his published `15b1666` is now reviewed; follow the corrective assignment above. Do not discard his UI or move to a new branch before re-review.
+- **Enzo:** latest `bcac915` passes functional review; complete the four-root-conflict integration above on the same branch, preserving current main features.
 - **Royce/Longla:** corrections `2a6dbba` are verified on the feature branch. Continue actual-device QA above; physical/PWA acceptance remains pending, not proven by automated checks.
 - **Coordinator:** review later submissions, integrate the UI and implement/test installable offline PWA behavior. Do not call it complete from unit/build results alone.
 - **Tablet-App:** duplicates the reviewed main. Keep main as the integration reference unless the team explicitly chooses another branch strategy; do not infer a separate implementation or owner.

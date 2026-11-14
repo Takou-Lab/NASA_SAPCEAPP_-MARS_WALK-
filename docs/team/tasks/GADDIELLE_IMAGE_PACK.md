@@ -1,6 +1,6 @@
 # Gaddielle — Generate the offline image-pack index
 
-**Current review:** the implementation is delivered at `bf9689b`; 14 tests and the real index check pass. Before approval, fix R1/R2 in [the review](../../reviews/GADDIELLE.md) and use [the updated agent prompt](../GADDIELLE.md). Preserve existing work and this contract; do not restart the task.
+**Current review:** `a53724a` is delivered/merged, with 25 Python tests and real index check passing. Previous R1/R2 fixes are complete. Continue only the R3 runtime/browser-path compatibility correction in [the latest review](../../reviews/GADDIELLE.md) and [updated prompt](../GADDIELLE.md); preserve this original contract and all completed work.
 
 ## Why this is the next task
 

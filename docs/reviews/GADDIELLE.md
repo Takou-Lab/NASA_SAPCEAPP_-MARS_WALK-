@@ -1,4 +1,40 @@
-# Gaddielle review — image-pack index needs corrections
+# Gaddielle review — original fixes pass; one browser-path follow-up
+
+Reviewed **14 November 2026 (Africa/Douala)**. Tip **`a53724a43990319f44ca54e3d8693d0f821587ee`**, **`feature/gaddielle-data-preparation`**. This code is **already on main**, merged through PR #4 at `d814ec4`. Main review baseline: **`584f24b`**.
+
+## Completed work retained
+
+**25 Python tests passed** (21 generator cases and four verifier regressions); the real index passes `--check` and still describes exactly **524,472 bytes**. Previous canonical-manifest, literal query/fragment/backslash, symlink escape, strict object/keys/integer/digest and clean read-only error cases are fixed. The shipped manifest/image/index remain valid. Preserve those fixes, source bytes and imageRef.
+
+## R3 — match the runtime's browser-path syntax before generation
+
+Location: `validate_browser_asset_path`, approximately lines 58–96 of the reviewed generator. The check rejects literal `..`, `?`, `#` and backslashes, but still accepts percent escapes and trailing whitespace that the browser normalizes differently. Temporary copies of the real JPEG reproduced:
+
+| Manifest assetPath | Generate / check | Browser interpretation |
+| --- | --- | --- |
+| `data/imagery/%2e%2e/texture.jpg` | Both exit 0 | Resolves to `data/texture.jpg`, outside the declared imagery path |
+| `data/imagery/texture%23image.jpg` | Both exit 0 | HTTP URL decoding targets `texture#image.jpg`, rather than the literal percent-named file hashed by the tool |
+| `data/imagery/texture.jpg ` (trailing space) | Both exit 0 | URL parsing drops the space and targets a different filename |
+
+For each case the generator replaced the temporary sentinel output. Runtime `validManifest()` already rejects these paths with its restricted asset-path syntax. A generated index must not declare success for a manifest that the app rejects or a browser URL that identifies different bytes.
+
+**One bounded correction:** align generated/indexed image-path syntax with the implemented runtime contract (`data/imagery/` plus allowed letters/digits/underscore/dot/forward-slash/hyphen, retaining nonempty segments and no dot/traversal). Reject percent escapes, whitespace and control characters; retain realpath containment/symlink checks. Share the tool's path-syntax logic where useful instead of weakening runtime validation or changing the accepted verifier.
+
+Add temporary-fixture regressions for encoded traversal, percent-encoded filenames and trailing/control whitespace. Generation must exit **1** before writing, preserving existing bytes/mtime; `--check` stays read-only and fails cleanly. Keep every current test and the real index byte-identical. Update the tool document with actual new checks/counts.
+
+No real asset is corrupted and no source download/regeneration, schema change, new dependency or worker assignment is required. Do not repeat R1/R2 or the passport work.
+
+## Verification scope
+
+Full Python suite and real `--check` were run on main's identical committed tool. Additional CLI probes used temporary roots/filenames only, with JavaScript `new URL()` confirming normalization. No feature code or source assets were edited by this review. Angular suites were not rerun for this isolated tool change; PWA/device readiness is not established.
+
+## Next step
+
+Keep **`feature/gaddielle-data-preparation`**, merge current main without reset/force push, implement R3 only, commit/push that branch and request re-review with actual commands/results. No new task until this small compatibility gap is closed. [Updated agent prompt](../team/GADDIELLE.md).
+
+---
+
+# Historical review — `bf9689b` (R1 literal cases / R2 now closed)
 
 Reviewed tip: **`bf9689bc2e50974b4a7bc2bc6cbe893de9e6605e`** on `feature/gaddielle-data-preparation`, **14 November 2026**. Compared with main **`c897a70`**. Verdict: **changes required before integration**. Her earlier image package, verifier and corrected passport remain accepted; do not repeat them.
 

@@ -1,31 +1,33 @@
-# Gaddielle — Mars Imagery and Terrain Data
+# Gaddielle — Image-pack browser-path compatibility follow-up
 
-## Current follow-up — correct the submitted image-pack index
+## Latest reviewed delivery — keep completed work
 
-Latest reviewed branch: **`feature/gaddielle-data-preparation`** at **`bf9689b`**. Verdict: **changes required**. Read [the exact review](../reviews/GADDIELLE.md), [original index specification](tasks/GADDIELLE_IMAGE_PACK.md), [shared contract](CODING_AGENTS.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md).
+Published **`a53724a`** on **`feature/gaddielle-data-preparation`** is reviewed. It is already merged into main via PR #4 (`d814ec4`). **25 Python tests and the real index check pass**; image payload remains **524,472 bytes**. Previous literal-path/manifest/symlink fixes and strict schema/type/read-only errors are complete. Preserve them and all earlier imagery/verifier/passport work.
 
-Your image package, verifier and corrected passport through `c887286` remain accepted and integrated. The new generator/index/tests/documentation are delivered: all **14 Python tests pass**, and the real index matches **524,472 bytes**. Preserve that work. The generator is not yet approved or merged.
+[The current review](../reviews/GADDIELLE.md) finds one additional compatibility gap, **R3**. Do not repeat R1/R2 or start a new dataset/task.
 
-### Correction 1 — manifest and browser-safe paths
+## Current bounded correction — browser normalization
 
-Keep the manifest at the selected public root's `data/manifest.json`; reject other locations even when contained. Validate emitted app-relative paths: forward slashes, no URL/query/fragment/backslash, absolute path, empty/dot/traversal segment or resolved symlink escape. The review reproduces successful generation for an alternate manifest and filenames with `?`/`#`/backslash; these must fail with exit 1 and leave existing output untouched.
+The generator currently accepts percent-escaped traversal/filenames and trailing whitespace although runtime `validManifest()` rejects them and browsers resolve them differently. Temporary fixtures using these paths produce exit 0 in generation and check mode:
 
-### Correction 2 — strict read-only index checking
+- `data/imagery/%2e%2e/texture.jpg` resolves in the browser to `data/texture.jpg`.
+- `data/imagery/texture%23image.jpg` hashes a literal percent-named file but HTTP decoding targets a different filename.
+- `data/imagery/texture.jpg ` loses its trailing space during URL parsing.
 
-Before comparing values, validate the root and entry objects, exact v1 keys and JSON types. Integer fields must exclude booleans and floats. The current checker accepts `schemaVersion: true`, float sizes and extra fields; `[]` crashes with a traceback. Reject these cleanly with exit 1, preserve output bytes/mtime and retain meaningful errors for stale content. Keep ordering, full lowercase SHA-256 and exact payload comparison.
+Align tool path syntax with the existing runtime image-path contract: `data/imagery/` followed only by permitted letters/digits/underscore/dot/forward-slash/hyphen, retaining nonempty segments, no dot/traversal and resolved containment. Reject percent escapes, whitespace/control characters and all previously forbidden forms. Reuse a tool-local syntax helper where useful; do not weaken runtime or accepted verifier behavior.
 
-Add temporary-fixture regressions for both corrections. Preserve all 14 current tests, alias protection, full-image validation and atomic writing. Confirm missing targets are not created by `--check`; update documentation and report the new actual test count. See R1/R2 in [the review](../reviews/GADDIELLE.md) for exact acceptance cases.
+Add temporary-fixture regressions for these cases, asserting exit 1, no traceback, unchanged existing output bytes/mtime and read-only `--check`. Keep all 25 tests, atomic/alias protection and unchanged real index. Update the tooling document with actual added checks/counts.
 
-### Scope and handoff
+## Files, branch and handoff
 
-Continue on the **same feature branch**. Preserve local work; merge latest main without reset or force push. Edit only `tools/data/build_image_pack.py`, `tools/data/test_build_image_pack.py` and `docs/data/IMAGE_PACK_INDEX.md`; regenerate `public/data/image-pack.json` only if necessary, with identical output for unchanged assets. Keep ImageManifest, source files, accepted verifier, dependencies, app/core and service-worker work unchanged.
+Continue **`feature/gaddielle-data-preparation`**; preserve local work and merge current main without reset/force push. Own `tools/data/build_image_pack.py`, its test file and `docs/data/IMAGE_PACK_INDEX.md`. No source bytes, manifest/imageRef, shared models, verifier, dependency, app/worker or new calibration changes. The existing real index should stay byte-identical.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tools/data -p 'test_*.py' -v
 python3 tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json --check
 ```
 
-Commit/push only `feature/gaddielle-data-preparation`, then report the commit, files, R1/R2 fixes, actual commands/results and remaining limits. That feature-branch push is authorized. No new task, main merge/push, deployment, environment publication or external messaging is assigned. This remains an image-only inventory, not complete PWA readiness.
+Commit/push only this feature branch; that correction push is authorized. Report the new commit, R3 closure and actual commands/results for re-review. No main merge/push, deployment, environment publication, submission or external messaging is included. Complete-app offline preparation remains coordinator-owned.
 
 ## Initial assignment reference
 
@@ -95,35 +97,31 @@ You are done when usable imagery is supplied with honest coverage information, a
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Gaddielle's MARSWALK coding agent. Continue the SAME branch:
-feature/gaddielle-data-preparation. Reviewed commit bf9689b has changes
-required; do not restart the generator or repeat accepted image/passport work.
-
-Read docs/reviews/GADDIELLE.md (R1/R2), docs/team/GADDIELLE.md,
+You are Gaddielle's MARSWALK image-pack tooling agent.
+Read docs/reviews/GADDIELLE.md (latest R3), docs/team/GADDIELLE.md,
 docs/team/tasks/GADDIELLE_IMAGE_PACK.md and docs/team/CODING_AGENTS.md.
-Preserve local work and merge latest main without reset or force push.
 
-14 Python tests and the real index check pass, but review reproduced gaps:
-1. Enforce manifest app-relative path data/manifest.json inside public root.
-   Reject emitted paths containing URL/query/fragment/backslash, absolute
-   paths, empty/dot/traversal segments or resolved escapes/symlinks.
-   Alternate contained manifest and image filenames with ?/#/backslash
-   currently succeed; make them exit 1 before writing, preserving old output.
-2. Validate complete v1 index shape/types before comparing payload values.
-   Require object root and entries, exact keys, integer fields excluding bool
-   and floats, correct strings/digests and ordered two-file payload.
-   schemaVersion:true, float bytes and extra keys currently pass --check.
-   [] currently crashes. Reject all cleanly, exit 1 with useful errors and no
-   traceback; --check must preserve bytes/mtime and never create missing paths.
-3. Add temporary-fixture regressions, retaining every current test, alias
-   protections, deterministic atomic generation and full Pillow validation.
-   Update tool documentation and actual test count. Keep the index identical
-   for unchanged real assets; compute hashes/sizes from inputs, not constants.
-4. Run the complete tools/data Python suite and real --check command from
-   the brief. Report actual results, R1/R2 closure and the new commit.
+a53724a is already merged. 25 Python tests and the real index pass;
+previous R1 literal-path cases and R2 schema/type cases are closed.
+Preserve all delivered work. Do not repeat passport/image/verifier work.
 
-Edit only generator, its tests and tooling document; generated index only
-if needed. No source image/manifest/verifier/schema/dependency/app/PWA edits.
-Commit/push only this feature branch (authorized), then request re-review.
-No main integration, deployment, publication or external messaging.
+1. Preserve local work and merge current main into the SAME existing
+   feature/gaddielle-data-preparation branch without reset/force push.
+2. Fix only R3: make tool image paths match runtime validManifest syntax.
+   Reject percent escapes (including %2e%2e), whitespace/control characters,
+   and previously forbidden forms. Keep canonical manifest path, permitted
+   runtime characters, nonempty segments, no dot/traversal and realpath
+   containment/symlink checks. Share tool syntax logic if useful.
+3. Add temporary-fixture regressions for encoded traversal, percent-encoded
+   filename and trailing/control whitespace. Generation must fail exit 1
+   before writing and preserve old bytes/mtime; check stays read-only with
+   useful errors and no traceback. Keep every current test and protections.
+4. Update tooling documentation and actual test count. Run the complete
+   tools/data suite and real --check. Keep the real index byte-identical.
+5. Commit/push only this same feature branch (authorized) and report commit,
+   R3 closure and actual results for re-review; no new unrelated task.
+
+Own generator, its tests and tooling doc only. Do not change image/manifest/
+imageRef/core/schema/verifier/dependencies/worker or reacquire data.
+No main integration, deployment, environment publication or messaging.
 ```
