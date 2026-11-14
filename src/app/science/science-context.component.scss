@@ -1,0 +1,235 @@
+:host {
+  display: block;
+  min-width: 0;
+  color: #edf2f7;
+}
+
+.science-context {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid #44505c;
+  border-radius: 0.75rem;
+  background: #18232e;
+  color: #edf2f7;
+}
+
+.science-context-header h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  overflow-wrap: anywhere;
+}
+
+.science-context-note {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.92rem;
+  overflow-wrap: anywhere;
+}
+
+.science-state,
+.science-empty,
+.science-no-selection,
+.science-banner-error {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #3f4d5c;
+  border-radius: 0.5rem;
+  background: #101820;
+  color: #edf2f7;
+  overflow-wrap: anywhere;
+}
+
+.science-state-error,
+.science-banner-error {
+  border-color: #e07a7a;
+  background: #2b161b;
+  color: #ffd7d7;
+}
+
+.science-record-list {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.science-record-list li {
+  min-width: 0;
+}
+
+.science-record-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  width: 100%;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #526171;
+  border-radius: 0.55rem;
+  background: #101820;
+  color: #edf2f7;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.science-record-button:hover {
+  border-color: #849bb3;
+  background: #1c2a38;
+}
+
+.science-record-button.selected {
+  border: 2px solid #f0ab7d;
+  background: #233344;
+}
+
+.science-record-button:focus-visible,
+.clear-selection-button:focus-visible,
+.science-record-details a:focus-visible {
+  outline: 3px solid #f0ab7d;
+  outline-offset: 2px;
+}
+
+.record-title {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.record-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.record-evidence,
+.record-position-badge {
+  padding: 0.15rem 0.5rem;
+  border: 1px solid #4d5d6e;
+  border-radius: 999px;
+  background: #18232e;
+  color: #dbe6f0;
+  overflow-wrap: anywhere;
+}
+
+.science-record-details {
+  display: grid;
+  gap: 0.9rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #526171;
+  border-radius: 0.6rem;
+  background: #101820;
+}
+
+.details-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.details-header h3 {
+  flex: 1 1 12rem;
+  min-width: 0;
+  margin: 0;
+  font-size: 1.1rem;
+  overflow-wrap: anywhere;
+}
+
+.clear-selection-button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #65748a;
+  border-radius: 0.45rem;
+  background: #202a38;
+  color: #edf2f7;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-selection-button:hover {
+  background: #2a394b;
+}
+
+.record-finding {
+  margin: 0;
+  color: #edf2f7;
+  overflow-wrap: anywhere;
+}
+
+.record-metadata {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.metadata-row {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.record-metadata dt {
+  color: #b8c7d6;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.record-metadata dd {
+  min-width: 0;
+  margin: 0;
+  color: #edf2f7;
+  overflow-wrap: anywhere;
+}
+
+.record-metadata a {
+  color: #9fd4ff;
+  overflow-wrap: anywhere;
+}
+
+.source-credit {
+  color: #cbd5e1;
+}
+
+.connectivity-note {
+  display: block;
+  margin-top: 0.2rem;
+  color: #b8c7d6;
+  font-size: 0.82rem;
+}
+
+.record-limitations h4 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+.limitations-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.limitations-list li {
+  margin-bottom: 0.35rem;
+  color: #dce5ef;
+  overflow-wrap: anywhere;
+}
+
+.limitations-empty {
+  margin: 0;
+  color: #cbd5e1;
+}

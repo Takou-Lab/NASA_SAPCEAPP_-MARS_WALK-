@@ -1,5 +1,9 @@
 # MARSWALK — Image Data Passport
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Purpose & Scope
 
 This Data Passport provides an authoritative, human-readable and machine-traceable provenance record for the primary raster imagery delivered to the MARSWALK Angular PWA. It is designed to support:

@@ -1,4 +1,62 @@
-# Enzo branch review — changes required
+# Enzo review — functionality passes; final main integration required
+
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
+
+Reviewed **14 November 2026 (Africa/Douala)**. Published tip **`bcac915644ec58853033879184773564f50bb738`** on **`feat/enzo-ui-planner-notebook`**, compared with main **`584f24b`**. Verdict: **retain the corrected UI; finish the bounded integration below before merging or starting a new task**.
+
+## Previous findings closed
+
+| Earlier finding | Verified result in `bcac915` |
+| --- | --- |
+| Duplicate mission foundation/storage | Canonical core/models/validators/route helpers retained from main; alternate route/storage helpers removed; theme stays under UI |
+| Decorative map placeholder | One actual MapComponent mounted; real delivered JPEG and click-to-draw route work |
+| External Google Fonts build failure | Removed network font import; frozen install and production build succeed |
+| Inaccessible unlocated science | All three records selectable with source/limits; selection preserves route/notes. Replace this branch's interim list with the accepted shared science component during current-main integration |
+| Draft loss on tabs / failed save | Notebook remains mounted; exact draft survives both cases. Successful save clears and exports the note |
+| Keyboard/restored sidebar width | At 820px, End/ArrowLeft clamp to 520px and reserve 300px for the workspace. Reloaded width remains clamped |
+
+**Do not repeat those fixes or rebuild the UI.** They are useful completed work.
+
+## Remaining integration gate
+
+This revision merged main only through **`f65778d`**. Current main adds accepted map navigation, guarded mission-file transfer and Emma's mounted science component. A read-only merge preview against `584f24b` has **four conflicts**, all in root `src/app/app.ts`, `app.html`, `app.scss`, `app.spec.ts`. No feature code was merged during this review.
+
+1. Preserve local work and merge latest main into the **same feature branch**, without reset or force push. Resolve the four root conflicts while preserving current canonical core, dependencies, source assets and every accepted regression.
+2. Keep single `initialize()` and one actual map. Preserve main's file import/export capability, 1 MiB limit, asynchronous file-read guard, replacement warning, actual error feedback and `MissionService.importMission()` semantics. Make it reachable in the shell; do not simply replace the root with the older `<app-shell />` and lose transfer.
+3. Use main's reviewed **ScienceContextComponent** (`app-science-context`) exactly once instead of the interim list/details in your confidence component. Do not edit Emma's files or implement her newly assigned discovery/confidence/image-passport components. Future evidence components are not yet implemented; retain truthful current warnings/provenance until reviewed replacements exist.
+4. Preserve map Reset View/Focus Route, readiness checks, shared note/route recovery and drafts. Adapt root/shell tests to actual mounting without dropping current mission-import/science regressions. Run the full reconciled suite/build and repeat the normal route → science → note → save/load/export/import workflow.
+5. Keep unsupported grid data labeled unavailable instead of offering an enabled control that implies a supplied grid. Remove the notebook placeholder's unverified `15m NW` example; use descriptive notes without invented distance/direction. These are small interface corrections inside your ownership.
+
+The branch build passes with **547.84 kB** initial assets, exceeding the 500 kB warning budget; four component styles also exceed their warning budgets, all below error thresholds. Reduce avoidable duplication/styles during integration where practical; do not raise budgets or claim these warnings are failures. The existing Leaflet CommonJS warning remains.
+
+## Actual verification
+
+Isolated extraction of the published branch; no teammate files or branches changed:
+
+```sh
+NG_CLI_ANALYTICS=false npm_config_cache=/workspace/.npm-cache npm ci --no-audit --no-fund
+NG_CLI_ANALYTICS=false npm test
+NG_CLI_ANALYTICS=false npm run build
+python3 -m http.server 8019 --bind 127.0.0.1 --directory dist/marswalk/browser
+```
+
+- **57 tests passed across 10 files**; production build passed with warnings above.
+- Production Chromium: one real map, no placeholder; all three unlocated science records selectable without route/note mutation.
+- Actual map clicks set start/waypoint/destination. Save → clear → load restores the route; export preserves unavailable metric distance.
+- Exact unsaved draft survives a tab round trip and simulated storage failure plus tab round trip. Restoring storage and saving clears the draft and exports one note.
+- Keyboard End/ArrowLeft at 820px reserves 300px of workspace. Restored width remains clamped; 390px viewport has no page overflow. Normal run had no page errors.
+
+Browser checks used the branch's actual local data, not intercepted scientific fixtures. A controlled storage-failure shim was limited to temporary mission storage in an isolated profile. These checks do not prove current-main reconciliation, physical-device behavior, installation or disconnected reopening.
+
+## Next action
+
+Finish the integration gate on **`feat/enzo-ui-planner-notebook`**, then commit/push only that branch and provide the new commit, resolved conflicts and actual integrated checks. Do not start another task branch yet. [Updated prompt](../team/ENZO.md). Main integration, deployment and external messaging remain separate.
+
+---
+
+# Historical review — `15b1666` (superseded by the review above)
 
 Reviewed **14 November 2026**. Branch: `feat/enzo-ui-planner-notebook`. Tip: **`15b166656b78236c4b3462e274ac81eb583e33b6`**. Integration baseline: `main` at **`ee9f6ae860a76d96baa9eb80828d2a98c3fa9e6e`**.
 
@@ -36,6 +94,8 @@ In Chromium with the real manifest and records supplied through intercepted requ
 **Correction:** use a system-font stack or properly licensed local font assets. Preserve Leaflet's stylesheet and the desired theme variables. Do not merely disable font inlining while leaving required runtime fonts remote; essential PWA rendering must work without that external request. Rerun the actual production build.
 
 ## 4. High priority — unlocated science records cannot be opened
+
+**Assignment update:** implementation of the contextual list/details is now transferred to Emma under `src/app/science/`. Enzo retains integration of her reviewed component and removal of duplicate selected-record UI. This finding remains open until that component is available and mounted; do not have both contributors implement the same feature.
 
 `src/app/ui/confidence-panel/confidence-panel.component.html:125` displays only an already-selected marker. No UI action selects a non-null science ID. All three real records have unavailable positions and therefore correctly produce no map pins.
 

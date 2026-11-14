@@ -1,58 +1,61 @@
-# Emma review — synchronization confirmed; presentation publication pending
+# Emma science-context review — approved and integrated
 
-Reviewed **14 November 2026**. Branch: `feature/emma-science-provenance`. Published tip: **`ee9f6ae860a76d96baa9eb80828d2a98c3fa9e6e`**. Main baseline: **`6c78ebec093e5ddc737dd2046df4ff2c06310f36`**.
+<!-- CURRENT_WORK_PLAN -->
+> **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
+<!-- /CURRENT_WORK_PLAN -->
 
-**Verdict:** the branch synchronization is correct. Emma's earlier science and usability-protocol contribution remains accepted and integrated. There is no new published presentation content to approve or reject. Do not assign another task or recreate completed local work; finish the publication handoff on the same branch.
+Reviewed **14 November 2026**: **`feature/emma-science-context-ui`**, tip **`4efcb5ac9b4af5e0838552d1a4269f56352e0f55`**, against main **`91a1eaf`**. Emma uses he/him. Verdict: **approved**. GitHub PR #3 merged the component at `52f5764` while this review was underway; the coordinator preserves that merge and mounts it in this integration.
 
-Emma uses he/him pronouns.
+## Accepted implementation
 
-## What changed since the last review
+All four assigned science files are delivered. The standalone `ScienceContextComponent` (`app-science-context`) uses the existing MissionService without fetching, initializing, storage or route edits. Three unlocated records stay accessible through native buttons, shared selection and safe text/source details. Loading/error/empty/removed-selection states, missing fields, safe URLs and long/plain-text content are covered.
 
-The branch moved from `b0640d9` to `ee9f6ae`, incorporating the existing map/data integration and review history. At the inspected refs it is **one commit behind main and has zero unique commits**. The missing main commit contains Enzo's review documentation, not a runtime change.
+No changes to core, source records, map, dependencies or another contributor's files were included in his submission. The merge preview was clean, and the published PR contains the same reviewed files. The coordinator mounted the component once, preserved the map and mission transfer, updated readiness text and extended the real-service root regression to prove selection leaves route/mode/observations unchanged.
 
-This confirms synchronization with published project work. It does not constitute a new presentation submission.
+## Verification
 
-## Existing accepted work
+- Isolated current-main-plus-component suite: **51 tests passed across five files**, production build passed.
+- After root mounting: **51 tests passed**, production build passed; initial output **438.42 kB** remains below the configured warning budget. The existing Leaflet CommonJS warning remains.
+- Production Chromium: keyboard-select all three real records, read correct finding/source/unknown-position details and clear selection. Mission export before/after confirms unchanged route, observations and image. No science map pins were fabricated.
+- Desktop/tablet-sized and narrow-panel checks plus a failed science request are recorded in [SCIENCE_INTEGRATION.md](../qa/SCIENCE_INTEGRATION.md).
 
-- Three science records with the correct imageRef and explicitly unavailable positions.
-- Record-level scientific evidence audit, revised citations and references.
-- Accurate implemented-versus-pending product wording and internal demo script.
-- AI-use record and three-user usability protocol.
+These checks establish the assigned UI behavior, not independent scientific-source verification, physical-device behavior, PWA installation/offline reopening or actual outside-user outcomes.
 
-The original contribution at `b0640d9` is retained in the branch history and in main. Do not repeat that research, prepare another protocol or rewrite the accepted demo merely to create a new commit. Real participant sessions remain pending.
+## Next substantial assignment
 
-## Publication finding
+The user explicitly transfers Enzo's future read-only **Exploration Confidence and Image Data Passport presentation** to Emma, alongside enhancements to his own science explorer. Scope: computed counts, search/filters/retained details; two standalone evidence panels; behavioral tests and an integration handoff. Existing core calculations and Enzo's shell/planner/notebook remain owned as before.
 
-These required presentation deliverables are absent from both the inspected feature tip and main:
+Detailed task: [EMMA_SCIENCE_EVIDENCE_WORKSPACE.md](../team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). Agent prompt and computed-badge answer: [EMMA.md](../team/EMMA.md). Use proposed `feature/emma-science-evidence-workspace` from the published integration; do not repeat the accepted component, research or presentation.
 
-1. `docs/PRESENTATION.md`
-2. `docs/JUDGES_QA.md`
+---
 
-A filename search of the published branch found no apparent renamed presentation, slides or judges' Q&A alternative. The user reports this work completed locally. Therefore, this review records **publication pending**, not proof that Emma failed to do the work.
+# Previous accepted presentation review — retained
 
-Without the files, the reviewer cannot assess their claims, sources, feature-status labels or readiness for judges. There is no content-level rejection and no reason to restart the earlier assignment.
+Reviewed **14 November 2026**. Branch `feature/emma-science-provenance`, tip **`947ff1a5ae641fe6fd8c3cdd8247609d787426ab`**, compared with main `f65778d`. Emma uses he/him pronouns.
 
-## Required handoff on the same branch
+## Delivered and retained
 
-1. Inspect local Git status, branch and origin. Preserve all work.
-2. Locate the existing completed presentation and Q&A. If they are in another folder or branch, identify and preserve that location first.
-3. Update from current main without overwriting uncommitted or local-only files. Do not reset or force-push.
-4. Commit the intended existing files if needed and push `feature/emma-science-provenance` normally.
-5. Provide the pushed commit and both file paths. If another published branch holds them, provide its name and exact commit instead.
-6. If they cannot be located, report that precise gap and the last known location. Do not fabricate replacement results or silently recreate the assignment.
+- `docs/PRESENTATION.md`: seven-slide internal outline with evidence, revision/status and missing artifacts.
+- `docs/JUDGES_QA.md`: user/value/source/uncertainty/readiness/AI-use answers.
+- `docs/AI_USE.md`: records the new documentation assistance.
 
-The handoff is complete when those files can be inspected at a published commit. Their content can then be reviewed, followed by approval or targeted corrections and only then a new task.
+The assignment is delivered. Internal timing is clearly distinguished from official competition requirements; comparisons with Mars Trek/JMARS are fair; no customers, partnerships or participant results are invented. Local document links resolve. Earlier science, source audit, demo and usability protocol remain accepted.
 
-## Evidence checked
+## Coordinator wording updates in this integration
 
-| Check | Observed result |
-| --- | --- |
-| Published branch tip | `ee9f6ae` |
-| `git rev-list --left-right --count main...feature` at the inspected refs | `1 0`: one main-only commit, zero feature-only commits |
-| Ancestry | Original `b0640d9` retained; current feature tip is an ancestor of inspected main |
-| File tree and filename search | Presentation/Q&A files and apparent renamed equivalents not found |
-| Runtime/config comparison | No differences in `src`, `public`, package/lock, Angular config or TypeScript config |
+The presentation is integrated with small factual updates, without reassigning the whole writing task:
 
-No new tests/build or scientific-source fetches were needed for this synchronization/publication check: there are no new application changes. The [previous integration evidence](../qa/MAP_INTEGRATION.md) remains historical evidence for that code, not a new physical-device or user-session result.
+- Contextual science access is described as planned until its component is integrated, rather than already readable in the app.
+- Installation is explicitly pending; the current prototype is not called already installable.
+- Broad statements that every AI artifact/source was independently verified are replaced with the specific contributor and coordinator checks actually recorded.
+- Gaddielle's approved passport and Willy's approved navigation are no longer described as unfinished; historical test counts remain tied to the original revision.
 
-No feature code was merged or changed by this review. Ready-to-paste handoff: [EMMA.md](../team/EMMA.md). Project status: [REVIEW.md](../../REVIEW.md).
+No application code was changed by Emma's presentation submission. Scientific sources were not independently re-fetched in this document review. Real user sessions, installation and offline reopening remain pending.
+
+## Previous coding assignment — delivered at `4efcb5a`
+
+Emma will implement a standalone **contextual science list and selected-record details** under `src/app/science/`, using the existing MissionService. This small read/selection component fits his familiarity with the data and can be built with his coding agent one slice at a time.
+
+Enzo keeps the shell, route controls, notebook/draft retention, fonts, sidebar and canonical-core integration. He will import Emma's reviewed component instead of duplicating it. Neither person should edit the other's owned files.
+
+Specification: [EMMA_SCIENCE_CONTEXT_UI.md](../team/tasks/EMMA_SCIENCE_CONTEXT_UI.md). Agent handoff: [EMMA.md](../team/EMMA.md). No repeated research, presentation rewrite or new project scaffold is required.

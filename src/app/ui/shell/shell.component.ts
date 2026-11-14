@@ -6,7 +6,7 @@ import { RoutePlannerComponent } from '../../planner/route-planner.component';
 import { ConfidencePanelComponent } from '../confidence-panel/confidence-panel.component';
 import { HeaderComponent } from '../header/header.component';
 
-export type ActiveTab = 'confidence' | 'planner' | 'notebook';
+export type ActiveTab = 'confidence' | 'planner' | 'notebook' | 'transfer';
 
 @Component({
   selector: 'app-shell',

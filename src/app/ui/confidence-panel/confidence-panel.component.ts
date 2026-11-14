@@ -1,9 +1,11 @@
 import { Component, computed, inject } from '@angular/core';
 import { MissionService } from '../../core/mission.service';
+import { ScienceContextComponent } from '../../science/science-context.component';
 
 @Component({
   selector: 'app-confidence-panel',
   standalone: true,
+  imports: [ScienceContextComponent],
   templateUrl: './confidence-panel.component.html',
   styleUrl: './confidence-panel.component.scss',
 })
@@ -12,15 +14,6 @@ export class ConfidencePanelComponent {
 
   readonly image = this.missionService.image;
   readonly assessment = this.missionService.assessment;
-  readonly selectedMarkerId = this.missionService.selectedMarkerId;
-  readonly markers = this.missionService.markers;
-
-  readonly selectedMarker = computed(() => {
-    const id = this.selectedMarkerId();
-    if (!id) return null;
-    return this.markers().find((m) => m.id === id) ?? null;
-  });
-
   readonly formattedDistance = computed(() => {
     const meters = this.assessment().planarDistanceMeters;
     if (meters === null) {
@@ -32,11 +25,4 @@ export class ConfidencePanelComponent {
     return `${meters.toFixed(1)} m`;
   });
 
-  clearMarkerSelection(): void {
-    this.missionService.selectMarker(null);
-  }
-
-  selectMarker(id: string): void {
-    this.missionService.selectMarker(id);
-  }
 }

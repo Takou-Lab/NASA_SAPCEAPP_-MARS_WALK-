@@ -1,5 +1,9 @@
 # Science Evidence Audit — MARSWALK
 
+<!-- CURRENT_WORK_PLAN -->
+> **Evidence/credit record.** Current product stage and ownership follow [the team plan](../TEAM_TASKS.md). This alignment preserves prior source audits; it does not claim a new independent scientific verification.
+<!-- /CURRENT_WORK_PLAN -->
+
 This document audits every record in `public/data/markers.json`, linking each retained claim to an accessible primary NASA/USGS source inspected directly, separating **Observation**, **Derivation**, and **Interpretation**, and documenting access blocks or missing precision.
 
 ## 1. Record-Level Evidence Table

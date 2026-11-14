@@ -1,144 +1,83 @@
-# MARSWALK — Team Tasks
+# MARSWALK — Current team work plan
 
-Product: **installable offline PWA built with Angular and TypeScript**. Region: **Mount Sharp boxwork formations, Gale Crater, Mars**; exact area of interest still needs verification.
+Updated **14 November 2026 (Africa/Douala)** after checking all advertised GitHub branches. Review baseline: **`0043bae`**. This is the canonical assignment plan; [REVIEW.md](REVIEW.md) contains verdicts and [NEXT_TASKS.md](NEXT_TASKS.md) is the short handoff. Personal briefs contain the coding-agent prompts.
 
-Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offline mission and acceptance criteria. Education, mission rehearsal and analogue-workflow research are near-term use cases; operational astronaut navigation remains a long-term vision.
+Product: **Angular PWA for Mars exploration rehearsal**, focused on the current Mount Sharp/Gale image. Read [SOUL.MD](SOUL.MD). The Willy/Gaddielle role swap remains in force. Emma uses he/him; Royce is the original-plan name for the role documented as Longla.
 
-## Latest published review and next actions
+<a id="current-state"></a>
+## Delivered work and current state
 
-[REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's corrected `c887286` passport is approved and integrated; her new task is a deterministic image-pack index/generator for future PWA caching. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
+Main includes the real 2048 × 1042 image, map/navigation, three selectable contextual science records, shared assessment/persistence and guarded mission JSON import/export. The science positions, metric calibration, terrain and exact AOI overlap remain unavailable/unverified as documented.
 
-Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle implements the [image-pack index task](docs/team/tasks/GADDIELLE_IMAGE_PACK.md) after the accepted passport review. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+Enzo's functional shell/planner/notebook passes on his branch but still needs final current-main reconciliation. Longla's corrected optional flat viewer is verified on his branch and remains separate from main. Gaddielle's image index is merged; one path-compatibility correction remains. Installation, complete offline preparation/reopening and actual outside-user outcomes remain pending.
 
-**Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
-
-**Emma update:** his branch is now `ee9f6ae`, synchronized with the earlier integration/review history. [His review](docs/reviews/EMMA.md) confirms no unique new content against inspected main `6c78ebe`. His earlier contribution remains accepted; he should publish the completed presentation/Q&A files rather than repeat research or start a new assignment.
-
-This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
-
-## Coding-agent instructions
-
-Each personal brief below includes a ready-to-paste agent prompt. Read [SOUL.MD](SOUL.MD) and the [shared coding contract](docs/team/CODING_AGENTS.md) first. The Angular foundation is already implemented; reuse it. The next work is reviewed data integration, the 2D mission, installability and verified offline operation.
-
-**No restart:** teammates already working should preserve their current branch and finish or hand off their current small slice. New priorities guide the next phase; they do not reopen completed tasks. Emma's previous science assignment and protocol are integrated from `b0640d9`; they must not be repeated.
-
-**Latest task update:** Emma uses **he/him**. His science, demo and usability-protocol contributions are integrated. The user reports his new presentation work completed too; preserve it and obtain its published handoff rather than assigning it again. Actual participant sessions remain pending. Willy's published map `094fce2` has been reviewed and mounted with the delivered data; his new task is Reset View/Focus Route, not root mounting.
-
-## Current follow-up assignments — 14 November 2026
-
-This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9`. The map is mounted once with the real image and three unlocated science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover the integrated tests, build and production browser behavior. Route-control/notebook UI, PWA installation and full offline reopening remain pending.
-
-| Person | Continue on | Next deliverables |
+| Published contribution | Latest reviewed tip | Evidence / integration |
 | --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | `feature/willy-map-development` | Sync the published integration without resetting work; add Reset View/Focus Route and targeted tests only |
-| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Approved `c887286` integrated; implement image-pack index/generator/check mode and focused tests using existing assets |
-| [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New presentation work reported complete; hand off its published commit, reuse integrated evidence/protocol, record sessions only when conducted |
+| Willy map/navigation | `21cf6f0` | Approved and integrated; navigation's recorded 38-test/build/browser review retained |
+| Emma research/presentation and science UI | `947ff1a`, `4efcb5a` | Accepted/integrated; mounted science integration recorded 51 tests/build/browser checks |
+| Gaddielle pack/index | `a53724a` | Merged through PR #4; 25 Python tests and real index check pass; R3 below remains |
+| Enzo shell/planner/notebook | `bcac915` | 57 branch tests/build and production workflow checks pass; four root conflicts remain |
+| Longla optional viewer | `9d794e2` (code `2a6dbba`) | Feature branch verified with 70 tests/build/browser/resource/orientation checks; physical-device evidence pending |
 
-Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
+Counts belong to their tested revisions/scopes; do not add them together or present them as newly rerun checks. No new remote retry/evidence-workspace branch is advertised. Preserve unseen local progress.
 
-### Full-team priorities
+## Six consistent pieces of work
 
-| Person | Current work | Acceptance evidence |
-| --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | Reset View and Focus Route in the integrated map | Viewport-only actions preserve mission state; loading/error/short-route disabled states and actual tests/browser checks pass |
-| [Enzo](docs/team/ENZO.md) | Tablet mission UI, Confidence Panel, Data Passport, science list and notebook | Users understand missing distance/slope, unlocated records remain readable, failed saves retain drafts, recovery/export work |
-| [Gaddielle](docs/team/GADDIELLE.md) | Machine-readable image-pack index and validation tool | Deterministic paths/bytes/hashes, stale-index rejection and safe failures; complete-app readiness remains coordinator-owned |
-| [Emma](docs/team/EMMA.md) | Presentation outline and judges' Q&A; later actual usability results | Preserve `8a947a4` and `b0640d9`; claims tied to source/build evidence, future features and unrun sessions labeled pending |
-| [Longla](docs/team/LONGLA.md) | Independent installed-device/offline QA first; optional 3D second | Recorded close/reopen/offline checks and observed usability issues; no untested VR claims |
-| [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |
+| Piece | Owner | Current deliverable | Branch | Exact scope / acceptance |
+| --- | --- | --- | --- | --- |
+| [W1](#w1) | Willy | Safe Retry Image | Proposed `feature/willy-image-retry` | Four map files; explicit retry, stale-callback safety and preserved mission |
+| [W2](#w2) | Gaddielle | R3 browser-path compatibility | Existing `feature/gaddielle-data-preparation` | Generator/tests/tooling doc; encoded/whitespace paths fail without writes |
+| [W3](#w3) | Emma | Science discovery and two evidence panels | Proposed `feature/emma-science-evidence-workspace` | Science files, two standalone evidence components and QA handoff |
+| [W4](#w4) | Enzo | Final shell/current-main reconciliation | Existing `feat/enzo-ui-planner-notebook` | Owned UI/planner/notebook plus narrow root integration; retain working main capabilities |
+| [W5](#w5) | Longla | Actual-device QA and defect evidence | Existing `feature/longla-3d-rehearsal` | QA documents only for the current slice; actual hardware/build/outcomes |
+| [W6](#w6) | Coordinator / YOU | Reviewed integration and real PWA lifecycle | Current main integration workflow | Shared core/root/packages/worker/install contract; complete installed offline mission |
 
-The coordinator conducts the outside-user sessions, Emma maintains `docs/USABILITY.md`, and Longla supports observation and device testing. Work towards the next complete 2D offline mission before optional 3D/VR. These are assignment updates, not a claim that the features are implemented.
+<a id="w1"></a>
+## W1 — Willy: map recovery
 
-## Task overview
+Preserve the accepted map, Reset View and Focus Route. Add explicit image retry only when metadata is valid and image display failed. Recreate the overlay safely, validate natural dimensions, ignore obsolete events, block duplicate attempts and keep route/mode/notes/selection/layers unchanged. No metadata reinitialization, cache/storage clearing, image regeneration or worker code.
 
-| Person | Responsibility | Deliverable |
-| --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | Angular map and map interactions | Map with layer toggles and clickable sourced markers |
-| [Gaddielle](docs/team/GADDIELLE.md) | Imagery and terrain data | Verified data files and documented coverage, coordinates and limitations |
-| [Emma](docs/team/EMMA.md) | Science, provenance and presentation | Three sourced observations, evidence audit, references and submission text |
-| [Enzo](docs/team/ENZO.md) | Interface, route drawing and notebook | Tablet layout, drawable route and locally saved observations |
-| [Longla](docs/team/LONGLA.md) | Device/offline QA, then optional 3D/VR | Recorded checks first; labeled rehearsal prototype only after the core mission |
-| [YOU — coordinator](docs/team/YOU.md) | Integration, assessment and installable offline PWA | Integrated mission flow, confidence panel and tested installed offline pack |
+Own `src/app/map/map.component.{ts,html,scss,spec.ts}` only. Test failure → retry → success, repeated failure, wrong dimensions, stale events, teardown and navigation/readiness regressions. Report actual tests/build/browser results. [Prompt](docs/team/WILLY.md), [spec](docs/team/tasks/WILLY_IMAGE_RETRY.md).
 
-## Willy — Angular map
+<a id="w2"></a>
+## W2 — Gaddielle: one remaining tool compatibility fix
 
-- Build one map component and coordinate its events with Enzo's route controls.
-- Load a verified Mars Trek layer if usable; integrate Gaddielle's prepared imagery when available.
-- Add layer toggles and Emma's sourced science markers.
-- Show source, instrument, date and location limitations when a marker is selected.
-- Initialize the map after its container exists and clean it up when the component is destroyed.
+Keep all imagery, verifier/passport and merged index work. Fix **R3 only**: tool paths must match runtime image-path syntax, rejecting percent escapes, whitespace/control characters and prior forbidden forms. Preserve realpath/symlink checks. Add temporary fixtures asserting nonzero exit, no traceback and unchanged output bytes/mtime. Keep all 25 current tests and the real index byte-identical.
 
-**Done when:** the map displays the available imagery, layers can be toggled, and route interactions work. Sourced science remains accessible through Enzo's list; marker interaction is required only for records with supplied display positions.
+Own `tools/data/build_image_pack.py`, `tools/data/test_build_image_pack.py` and `docs/data/IMAGE_PACK_INDEX.md`. No new data, calibration, schema, dependencies or worker. [Prompt](docs/team/GADDIELLE.md), [reproductions](docs/reviews/GADDIELLE.md).
 
-## Gaddielle — Imagery and terrain data
+<a id="w3"></a>
+## W3 — Emma: science and evidence presentation
 
-- Verify the selected boxwork area against actual NASA coverage and rover-location evidence.
-- Inspect Mars Trek imagery and elevation coverage; give Willy usable layer details.
-- Open one real image and, if available, one terrain product covering the area.
-- Check coordinate conventions, alignment, units, resolution and NoData before integration.
-- Record product IDs, source links, coverage, date, format, processing and gaps.
-- Supply verified files and metadata to Willy and Longla.
-- Time-box the terrain search to one hour; report unavailable terrain so the coordinator can use the visual-review fallback.
+Preserve the accepted science list/details. Add computed counts, search, evidence/position filters, showing/total count and selected details retained when filtered out. Build read-only `ExplorationConfidenceComponent` (`app-exploration-confidence`) and `ImagePassportComponent` (`app-image-passport`) using current service/model fields, plus behavioral tests and `docs/qa/EMMA_EVIDENCE_UI.md`.
 
-**Done when:** imagery and its limitations are documented, and terrain is either verified and aligned or explicitly recorded as unavailable.
+Own existing `src/app/science/` files, those two component sets under `src/app/evidence/` and the handoff record. No root/Enzo/core/data/package/worker edits or new mission store. Unknown scale/terrain stays unavailable; no safety scores. These future evidence panels transfer from Enzo; they are not already implemented. [Prompt and badge answer](docs/team/EMMA.md), [full spec](docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md).
 
-## Emma — Science and references
+<a id="w4"></a>
+## W4 — Enzo: integrate the already-working UI
 
-- Check whether a suitable USGS geological map covers the chosen area and document its scale and legend.
-- Collect three real Curiosity observations with instrument, date, finding and primary source.
-- Supply coordinates only when verified; otherwise label positions as illustrative or unavailable.
-- Maintain the data/library references and AI-use record.
-- Draft the English project summary and presentation text; verify current official submission requirements separately.
+Preserve `bcac915` and its closed functional fixes. Merge current main on the same branch and resolve the four root TS/HTML/SCSS/spec conflicts. Keep canonical core/assets/dependencies, one initialization/map, accepted navigation and reachable guarded mission import/export. Replace the interim science list with existing reviewed `app-science-context` once. Retain draft and viewport-clamp fixes, mark unsupported grid unavailable and use a neutral notebook example.
 
-**Done when:** three sourced observations, geological coverage information and the references list are ready.
+Own UI/planner/notebook, the existing global-theme styling scope and the narrow root integration exception; no core/package/source/worker rewrite. Complete integrated tests/build and real route/science/note/recovery/export/import/failure checks. **This can finish now using the existing science component; it does not wait for W3's future panels.** Integrate W3 later after review without competing implementation. [Prompt](docs/team/ENZO.md), [review](docs/reviews/ENZO.md).
 
-## Enzo — Interface, route and notebook
+<a id="w5"></a>
+## W5 — Longla: actual-device evidence
 
-- Build a tablet-friendly Angular layout with clear controls and a side panel.
-- Connect start, destination and waypoint controls to Willy's map.
-- Add undo and clear actions, plus route save/load through the shared contracts.
-- Show distance only when the active coordinate system has verified metric calibration; otherwise show it as unavailable.
-- Add a data-sources panel and a notebook that saves observations locally.
-- Preserve note text on storage failure and render notes as text.
+The coordinator completed the viewer corrections; do not repeat them or add terrain/VR. Run the corrected build on a physical device and record commit/URL, hardware, OS/browser/input, image/science/unknown labels, safe mission transfer and optional viewer behavior/defects. Update `docs/qa/PWA_ACCEPTANCE.md`; use isolated temporary records and report reproducible issues instead of editing teammates' code.
 
-**Done when:** a user can draw and edit a route, inspect its limitations and save an observation.
+Online/device checks for available features can start now. Full route/notebook acceptance needs W4; installed cache/disconnect/reopen/update checks need W6. Mark absent prerequisites blocked and unrun checks pending. Coordinate real outside-user observation only when arranged; Emma maintains the consolidated usability record. [Prompt](docs/team/LONGLA.md), [existing evidence](docs/qa/VIEWER3D_REVIEW.md).
 
-## Longla — Device/offline QA and optional 3D/VR
+<a id="w6"></a>
+## W6 — Coordinator: integration and installable offline release
 
-- First support the coordinator with installed-device/offline QA and outside-user observation as described in [Longla's current brief](docs/team/LONGLA.md). Defer optional 3D until the essential mission is accepted.
-- After core acceptance, optionally build a small Three.js rehearsal prototype connected to the agreed route and marker format.
-- Use verified aligned terrain and imagery if available; state vertical exaggeration.
-- If terrain is unavailable, label any illustrative view clearly and do not present invented relief as measured terrain.
-- Add optional WebXR support with fixed viewpoints or teleport movement.
-- Label the feature **Prototype: 3D training view**.
-- At the team's feature freeze, omit unfinished VR; a recording of a working optional 3D view is a fallback, not a core release requirement.
+Review and integrate corrected W2/W4 and later W1/W3 submissions, preserving current main and each contributor's history. Optional viewer integration stays explicit/deferred and must preserve the core mission. Define/document the actual PWA lifecycle contract before assigning Enzo status UI; the existing MissionService has no install/cache API.
 
-**Done when:** independent QA records actual installed-device/offline results, defects and affected retests. Optional 3D may show the shared route and any positioned markers with provenance and limitations; neither 3D nor VR blocks the core release.
+Implement manifest/icons/start URL/scope/standalone support, production caching and versioned complete-pack validation, separate connection/readiness states, real preparation/storage/update failures and mission-safe recovery. Include required shell/data/index/science bytes deliberately; the 524,472-byte image payload is not full app size. Perform actual production/install/disconnected reopening tests with W5, then arrange three outside-user sessions and record actual outcomes with Emma. [Coordinator prompt](docs/team/YOU.md), [acceptance plan](docs/qa/PWA_ACCEPTANCE.md).
 
-## YOU — Coordinator, assessment and integration
+## Dependencies and finish rules
 
-- Follow [SOUL.MD](SOUL.MD): complete the installed offline mission before integrating optional 3D/VR. Reuse the implemented foundation and coordinate Data Passport/PWA state contracts before UI integration.
-- Define shared data contracts and coordinate changes across components.
-- Integrate small reviewed changes regularly and keep the Angular app runnable.
-- Build the Exploration Confidence Panel: supported route information, data coverage, missing information and assessment limits.
-- Use Mars-specific geographic distance calculations only for verified geographic coordinates; never apply Earth defaults or treat image pixels as longitude/latitude.
-- Add offline preparation after the core mission flow works; verify required cached assets and a full offline reload.
-- Coordinate local persistence and mission export with Enzo.
-- Trigger the imagery-only **visual review only** fallback when verified terrain is unavailable.
-- Check the complete demo, references, AI-use declaration and submission materials.
+W1, W2, W3 and W4 can progress independently from the published main; W5 can test currently available features. W4's integrated core mission enables the full normal route/notebook workflow. W6 can design its lifecycle contract now, then verify final assets/integration before claiming offline readiness. W5's installed/offline pass follows W6. Presentation claims follow the actual tested revision.
 
-**Done when:** one integrated installed PWA can inspect science context, choose a visual destination, draw a route, explain uncertainty, save/recover/export observations and reopen its prepared assets offline.
+Preserve any task already underway locally. Proposed branch names apply when no task branch exists; do not reset, discard work or create a duplicate implementation just to match a name. Existing branches are kept for W2/W4/W5. Each personal task authorizes a normal push to its feature branch. Coordinator main integration follows the user's existing authorized workflow. Deployment, environment publication, competition submission and external messaging are separate.
 
-## Shared checkpoints and rules
-
-- **Day 1:** imagery, sourced markers and route drawing integrated.
-- **Day 2 morning:** finish the notebook, offline workflow and available 3D prototype.
-- **Sunday 12:00 local time:** feature freeze; remaining work is fixes, verification and presentation.
-- Verify the actual competition submission deadline against the official event page.
-- Never invent coordinates, measurements, coverage or safety classifications. Missing data remains unknown.
-- Agree on coordinate and record contracts before integrating data. A local pixel route is not geographic GeoJSON.
-- Keep scientific values labeled as measured, derived, interpreted or simulated.
-- This is a research prototype, not a certified navigation or astronaut safety system.
-- Angular is the selected framework. Choose the map library based on verified data and existing code; avoid an unnecessary framework or map rewrite.
-
-Sources: the user-supplied **MARSWALK Full Team Plan.pdf**, the latest **MARSWALK — Project Context**, and the user's Angular choice and explicit Willy/Gaddielle assignment swap. Repository and implementation claims in those documents must be checked against actual code before being treated as current status.
+Hand off **commit, files/selectors, actual commands/results, one observed workflow and blockers**. No feature is done merely because its plan exists. Official competition rules/deadline must be checked separately; earlier internal rehearsal/freeze timings are not official submission requirements.

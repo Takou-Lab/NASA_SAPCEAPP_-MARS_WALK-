@@ -1,119 +1,71 @@
-# YOU — Project Coordinator and Integrator
+# YOU — Coordinator: integration and installed offline mission
 
-**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
+<!-- CURRENT_WORK_PLAN -->
+> **Current assignment: [W6](../../TEAM_TASKS.md#w6).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+<!-- /CURRENT_WORK_PLAN -->
 
-## Current priority — one complete offline PWA mission
+Current piece: **[W6](../../TEAM_TASKS.md#w6)**. Read [the current team plan](../../TEAM_TASKS.md), [review](../../REVIEW.md), [shared API](CODING_AGENTS.md) and [SOUL.MD](../../SOUL.MD). YOU retains the coordinator role called Dinang in the original PDF. Preserve completed work; no new application scaffold or competing state store.
 
-Read [SOUL.MD](../../SOUL.MD), [the shared contract](CODING_AGENTS.md) and [the team allocation](../../TEAM_TASKS.md). MARSWALK serves science learning, mission rehearsal and analogue-workflow research now; future astronaut support is a vision that still requires substantial validation.
+## Starting point
 
-The Angular foundation, shared models, MissionService and Leaflet dependencies already exist on `main`. The last recorded foundation check passed 15 tests, a production build and HTTP asset checks; headless browser rendering was not verified. Gaddielle's imagery, Emma's science records and Willy's mounted map are now integrated; see docs/qa/MAP_INTEGRATION.md for the newer integration checks. Inspect the actual revision before relying on this snapshot. Do not recreate the app or duplicate implemented localStorage/export logic.
+Main already contains the real image, map/navigation, shared persistence/assessment, guarded mission import/export, image inventory and Emma's mounted science UI. Main's recorded Angular integration has 51 tests; this is historical evidence for its source revision, not an installed-PWA pass. Enzo `bcac915` passes 57 branch tests/build/browser checks but needs final reconciliation. Longla `9d794e2` contains corrected viewer code `2a6dbba` with 70-test/build/browser evidence; its feature integration and physical-device QA are separate. Gaddielle has only R3 path compatibility left. [Current verdicts](../../REVIEW.md).
 
-Your immediate outcome is an installed PWA that can prepare essential mission assets, close, reopen offline, recover its mission, support route editing and observations, and export JSON with limitations. 3D/VR comes after this core acceptance check.
+## Ownership and immediate deliverables
 
-## Your mission and ownership
+Own root/core/shared models, package/lockfile and build config, app install/worker/readiness/update lifecycle, reviewed main integration and release evidence. Keep map/science/evidence/UI/data implementation with the named owners.
 
-YOU is the coordinator label retained from the project context; the original PDF called this role Dinang. Own:
+1. Review W2/W4 follow-ups, retain main's accepted map/science/mission transfer and integrate the corrected shell without weakening validation or dropping tests. W4 can complete with the existing science component; W3's future panels do not block that reconciliation.
+2. Review later W1/W3 submissions and integrate their components without competing stores. Emma implements science discovery/confidence/image-passport presentation; Enzo integrates it in the shell. Keep service assessment calculations coordinator-owned.
+3. Decide the actual production PWA approach and document its implemented lifecycle contract before asking Enzo to consume status/progress APIs. No install/cache/readiness API currently exists in MissionService; do not publish invented signals or simulated progress as working.
+4. Implement app manifest/icons/start URL/scope/standalone behavior and a supported production worker/cache strategy, preserving subpath deployment. Use HTTPS or supported localhost for installation/worker tests.
+5. Define and verify the **complete** required shell/data pack, versions, hashes where appropriate and failure behavior. Gaddielle's 524,472-byte image inventory excludes itself, science and built shell. Exclude archival originals from essentials unless deliberately justified. W2 must be resolved before treating the generator as the final browser-path gate.
+6. Implement truthful connection/preparation/ready/error/update states and recovery. Registration or network status alone is not offline readiness. Handle interrupted preparation, missing/stale data, storage failures and updates without silently replacing unsaved work or the last usable mission.
+7. Run actual integrated tests/build/browser checks. With W5, prepare online, install on the target device, disconnect, close, reopen from icon, inspect image/science, edit route, save/recover a note and export. Record exact commit/device/browser and actual outcomes in the QA record.
+8. Arrange three outside-user sessions using Emma's protocol, coordinate observation with Longla and record anonymized actual outcomes through Emma. Fix the observed main obstacle and retest. Do not invent participants/timings or message people without authorization.
 
-- Root application assembly, package declarations/lockfile and reproducible commands.
-- `src/app/core/`, shared models, MissionService and pure assessment rules.
-- PWA manifest, icons, service-worker/build configuration and readiness/update coordination.
-- Integration of teammates' components, data and evidence into one workflow.
-- Release verification, usability testing coordination and accurate status reporting.
+## Optional viewer integration
 
-Keep feature implementation with its named owner. Treat new installation/offline service APIs as additions to design and document centrally; they are not already available from MissionService.
+Preserve Longla's corrected flat viewer and explicit lazy activation if integrating it. Verify that initial core loading, map/mission transfer, bundle budgets and worker asset selection remain sound. Optional viewer bytes are distinct from essentials unless deliberately included. No measured terrain, geographic heading or immersive VR is implemented. Do not reopen completed viewer corrections or let optional features replace W6's core offline gate.
 
-Willy's `094fce2` map is integrated and mounted once by the coordinator. His new follow-up is map-only Reset View/Focus Route; do not ask him to repeat root mounting. Root/core/PWA/package work remains yours; preserve the integrated image-readiness guard. See the [shared contract](CODING_AGENTS.md).
+## Product and evidence limits
 
-## Team handoffs
+Keep visual review only, unavailable metric scale/terrain and regional coverage limitations visible. Use service-derived planar distance only with verified calibration; it does not supply slope/terrain safety. No confidence percentage or SAFE label. Unlocated science stays readable without invented pins. External citations may need connectivity. Source/schema validation is distinct from scientific-source verification.
 
-| Teammate | What you integrate |
-| --- | --- |
-| Willy | Local-image map, route rendering, layer visibility and marker interactions |
-| Gaddielle | Image manifest/assets, verified package inventory, provenance and coverage limitations |
-| Emma | Supported science records, evidence audit, references and honest pitch/demo content |
-| Enzo | Tablet workspace, route controls, evidence display, notebook and export UI |
-| Longla | Independent device/offline QA and usability observations first; optional labeled 3D later |
-
-## Integration order
-
-1. Inspect Git state and preserve work. Review data branches, runtime schema compatibility and remaining citation/metadata limitations before merging under the user's authorized workflow.
-2. Integrate regional imagery, sourced science context, Willy's map and Enzo's route controls. Unlocated science records remain accessible as list/context items rather than invented map positions.
-3. Connect shared route save/load, notes and export. Do not create competing component storage.
-4. Make Exploration Confidence visible throughout the workflow. Show source-backed data passports: source, credit, date/resolution when known, processing, verification and gaps.
-5. Implement installability and production offline preparation, then verify closing and reopening the installed app without a network.
-6. Conduct the outsider task check with Longla and Emma; fix the most common misunderstanding or failure.
-7. Integrate optional 3D only if core readiness remains reliable. Keep VR optional.
-
-## Exploration Confidence rules
-
-- Use the actual mission state and supported data, never invented confidence percentages or a SAFE badge.
-- Current regional imagery does not establish exact exploration-area coverage. Unverified metric scale means unavailable distance.
-- The exact prepared raster needs independently verified positive calibration, source and method before planar distance is derived.
-- Neither calibration nor route drawing enables elevation, slope, terrain distance or hazard clearance.
-- Route-specific data-coverage claims require verified coverage geometry; do not imply analysis that does not exist.
-- Keep unavailable terrain and unknown scientific positions explicit. Distinguish measured, derived, interpreted and simulated content.
-- Maintain the **visual review only** fallback. A research rehearsal is not validated operational navigation.
-
-## Required PWA implementation and acceptance
-
-- Provide a valid web app manifest with name/short name, suitable icons including a maskable option where appropriate, start URL, scope and `display: standalone`. Verify deployment paths.
-- Use HTTPS for deployed installation and service-worker operation; supported localhost development is acceptable for local checks.
-- Choose a supported Angular-compatible production worker/caching approach. Cache the actual built shell, required local imagery, manifest and bundled science records. Do not cache archival originals merely because they are in the repository.
-- Use Gaddielle's inventory/checksums for data integrity and define build/data versions. Readiness requires the complete expected asset set to be available and verified, not merely a registered worker or `navigator.onLine`.
-- Expose connection status separately from offline-pack preparation/readiness. Specify proposed UI APIs with Enzo before implementation; avoid competing workers or cache owners.
-- Handle failed preparation, insufficient storage, missing/corrupt data, updates and changed image references. Do not discard the last usable mission silently. Offer clear retry/update feedback; avoid forcing a reload over unsaved work.
-- Verify a clean preparation and installation on the demonstration device, then disconnect, close the app, reopen from its installed icon, inspect imagery/science context, draw/edit the route, save/recover a note and export JSON.
-- State that external citation links can require internet. Do not promise guaranteed browser storage durability; support mission export.
-
-## Evidence and release checks
-
-Run the actual frozen-lockfile install, meaningful tests, production build and integrated browser checks. Record the exact revision, device/browser, commands, outcomes and remaining gaps. Historical tests do not establish current PWA behavior.
-
-Coordinate three people outside the implementation team to attempt drawing a proposed route, explaining whether distance/slope are known, and saving/recovering a note. Use anonymous observations, actual completion/errors and participant explanations. Longla records technical QA under `docs/qa/`; Emma maintains the usability summary. Mark planned or unavailable checks honestly. Fix observed issues and rerun the affected scenario.
-
-Check official submission requirements and deadlines directly. Present one demonstrable mission and real test evidence; make fair comparisons with existing tools. Help teammates explain their data flow and contribution without claiming understanding on their behalf.
+Update user-facing docs to the actually served revision and stage; main, unmerged branch and future assignment must remain distinguishable. Official competition submission rules/deadline require separate checking. Environment publication, deployment, submission and external messaging are separate from normal repository work.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are the coordinator's coding tutor and implementation agent for MARSWALK.
-Read SOUL.MD, docs/team/YOU.md, docs/team/CODING_AGENTS.md, TEAM_TASKS.md
-and each teammate's current assignment.
+You are the MARSWALK coordinator's implementation/integration agent.
+Read TEAM_TASKS.md (W6 and dependencies), REVIEW.md, docs/team/YOU.md,
+docs/team/CODING_AGENTS.md, SOUL.MD and docs/qa/PWA_ACCEPTANCE.md.
 
-1. Inspect Git status, branches, actual scripts and data. Preserve all work.
-   Angular, models, MissionService and Leaflet already exist on main.
-   Do not scaffold another app, duplicate storage/export or overwrite owners.
-2. Review and integrate the data/evidence and feature contributions within
-   the user's authorized workflow. Gaddielle's data and Emma's records
-   are on feature branches until merged; schema validity is not scientific
-   proof. Keep unlocated records in a science list, not fictional markers.
-3. Assemble the map, route controls, notes and mission export. Use the
-   existing readonly signals/actions. Expose supported data passports and
-   honest Exploration Confidence: unavailable distance/calibration, terrain,
-   slope and unverified coverage must remain visible. No SAFE label or score.
-4. Implement the installable Angular PWA: web manifest/name/icons/start_url/
-   scope/standalone behavior and a supported production worker strategy.
-   Use HTTPS deployment and handle subpath URLs correctly.
-5. Cache the built shell and essential local mission data. Coordinate with
-   Gaddielle's inventory/checksums; version build/data and verify the full
-   required cache before showing readiness. Worker registration and online
-   status alone are insufficient. Design/document proposed readiness APIs
-   with Enzo; they do not yet exist in the shared core contract.
-6. Handle failed/incomplete preparation, cache/storage failures and updates
-   without silently discarding usable data or unsaved work. Keep connectivity
-   and offline readiness separate. External sources may require internet.
-7. Run actual tests/build and verify installation on the target device.
-   Prepare, disconnect, close, reopen from installed icon, inspect the image
-   and science, edit a route, save/recover a note and export JSON. Record
-   exact device/browser/revision and results; do not invent browser success.
-8. Coordinate three outsider task checks with Longla and Emma. Record
-   real completion, misunderstandings and failures; fix the largest issue.
-   Keep QA and usability evidence anonymous and status-labeled.
-9. Update README and release evidence to match working behavior. Verify
-   official submission rules separately. Add optional 3D only after the
-   complete offline mission is reliable; VR remains optional.
+Main already has map/navigation, real data/science UI, shared state and
+mission transfer. Preserve it. Do not scaffold another app/store or repeat
+completed teammate tasks. Feature-branch passes are not main/PWA passes.
 
-Teach one small slice at a time using the learner checkpoint. Report actual
-commands, files, results and remaining blockers. No deployment, main merge,
-push or messaging to others without the user's applicable authorization.
+1. Review/integrate corrected W2/W4, keeping canonical core, one map/science/
+   initialization, guarded import/export and all regressions. W4 does not
+   wait for W3's future cards. Integrate W1/W3 separately after review.
+2. Own shared/root/package/worker work only. Emma implements readonly
+   evidence UI; Enzo mounts it. Define/document a real lifecycle contract
+   before Enzo uses install/preparation/readiness/update APIs; none exist yet.
+3. Implement Angular-compatible production install manifest/icons/start URL/
+   scope/standalone and worker/caching with correct HTTPS/subpath behavior.
+4. Verify the full required shell/data pack and build/data versions. Image
+   payload bytes alone exclude index/science/shell and do not prove readiness.
+   Handle interrupted/stale/missing/storage/update cases with truthful states.
+   Separate connection, metadata, image display, persistence and cache readiness.
+5. Preserve mission/drafts and last usable data on failure/update. No forced
+   reload over unsaved work. Keep external citations' connectivity limits clear.
+6. Run actual tests/build/browser checks and target-device installed offline
+   close/reopen mission with W5. Record actual commit/device/results/blockers.
+7. Arrange actual outside-user sessions; Emma consolidates, Longla observes.
+   No invented outcomes or unauthorized external messages. Fix observed defects.
+8. Optional corrected viewer integration must stay lazy/flat and preserve core
+   loading/cache budgets; no new terrain/VR. Update docs to actual stage.
+
+Use the user's authorized Git workflow. Deployment, environment publication,
+submission and external messaging are separate. Report real files/checks,
+remaining dependencies and evidence; no installation claim from unit tests.
 ```

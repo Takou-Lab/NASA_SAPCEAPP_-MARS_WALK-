@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { By } from '@angular/platform-browser';
 import { MissionService } from '../../core/mission.service';
 import { NotebookComponent } from '../../notebook/notebook.component';
@@ -9,9 +9,14 @@ import { ShellComponent } from './shell.component';
 describe('ShellComponent', () => {
   let fixture: ComponentFixture<ShellComponent>;
   let component: ShellComponent;
+  const originalViewportWidth = window.innerWidth;
 
   beforeEach(async () => {
     localStorage.clear();
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      value: originalViewportWidth,
+    });
     await TestBed.configureTestingModule({
       imports: [ShellComponent],
       providers: [MissionService, provideHttpClient()],
@@ -20,6 +25,13 @@ describe('ShellComponent', () => {
     fixture = TestBed.createComponent(ShellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      value: originalViewportWidth,
+    });
   });
 
   it('creates shell layout and defaults to confidence tab', () => {
@@ -80,6 +92,21 @@ describe('ShellComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.panelWidth()).toBe(520);
+  });
+
+  it('resizes the sidebar with pointer input and persists the viewport-clamped width', () => {
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 820 });
+    component.onViewportResize();
+    component.startResize(new MouseEvent('mousedown', { clientX: 440 }));
+
+    window.dispatchEvent(new MouseEvent('mousemove', { clientX: 360 }));
+    expect(component.panelWidth()).toBe(460);
+    window.dispatchEvent(new MouseEvent('mousemove', { clientX: 0 }));
+    expect(component.panelWidth()).toBe(520);
+    window.dispatchEvent(new MouseEvent('mouseup'));
+
+    expect(localStorage.getItem('marswalk_panel_width')).toBe('520');
+    expect(component.isResizing()).toBe(false);
   });
 
   it('keeps unsaved and failed-save notebook drafts while tabs change', () => {

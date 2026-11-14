@@ -1,5 +1,9 @@
 # Gaddielle → Willy: image handoff
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 The Angular foundation implements `ImageManifest` in `src/app/core/models.ts` and validates it in `validation.ts`. The integrated repository includes Gaddielle's prepared regional image and manifest. The coordinator has checked file dimensions/checksums and record compatibility, not independently verified an exact exploration AOI. Gaddielle owns future image-data changes.
 
 ## Files to deliver

@@ -1,5 +1,9 @@
 # MARSWALK — Terrain Evaluation & Search Report
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Executive Summary
 
 - **Task:** Time-boxed search (1 hour) for overlapping digital elevation/terrain models covering the Mount Sharp boxwork formations in Gale Crater.

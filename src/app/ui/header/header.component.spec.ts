@@ -30,11 +30,13 @@ describe('HeaderComponent', () => {
     expect(compiled.querySelector('.brand-title')?.textContent).toContain('MARSWALK');
   });
 
-  it('toggles map layers via MissionService', () => {
-    expect(service.layers().grid).toBe(false);
-    component.toggleLayer('grid');
-    expect(service.layers().grid).toBe(true);
-    component.toggleLayer('grid');
+  it('labels the unsupported coordinate grid as unavailable and keeps it disabled', () => {
+    const button = (fixture.nativeElement as HTMLElement).querySelector(
+      'button[aria-label="Coordinate grid unavailable"]',
+    ) as HTMLButtonElement;
+    expect(button.disabled).toBe(true);
+    expect(button.textContent).toContain('Grid unavailable');
+    button.click();
     expect(service.layers().grid).toBe(false);
   });
 

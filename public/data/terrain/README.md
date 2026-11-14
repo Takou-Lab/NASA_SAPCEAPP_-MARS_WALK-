@@ -1,5 +1,9 @@
 # MARSWALK — Terrain Data Status (v1)
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 ## Status: Unavailable (Visual Review Fallback Active)
 
 As specified in `docs/team/CODING_AGENTS.md` (v1 schema: `terrainStatus: 'unavailable'`) and `docs/team/GADDIELLE.md`, no validated DEM contract exists for the version 1 application. Under project safety and scientific integrity rules:

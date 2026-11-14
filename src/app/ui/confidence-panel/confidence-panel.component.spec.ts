@@ -110,14 +110,14 @@ describe('ConfidencePanelComponent', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.marker-detail-card')).toBeTruthy();
-    expect(compiled.textContent).toContain('Selected Target: Sulphate Ridge 01');
+    expect(compiled.querySelector('.science-record-details')).toBeTruthy();
+    expect(compiled.textContent).toContain('Sulphate Ridge 01');
     expect(compiled.textContent).toContain('Mastcam');
 
     // Deselect
-    component.clearMarkerSelection();
+    service.selectMarker(null);
     fixture.detectChanges();
-    expect(compiled.querySelector('.marker-detail-card')).toBeNull();
+    expect(compiled.querySelector('.science-record-details')).toBeNull();
   });
 
   it('opens an unlocated contextual record without modifying the route', () => {
@@ -129,6 +129,6 @@ describe('ConfidencePanelComponent', () => {
     expect(service.selectedMarkerId()).toBe('m2');
     expect(service.markers()[1].position).toBeNull();
     expect(service.route()).toEqual({ start: null, destination: null, waypoints: [] });
-    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Source: Curiosity Mastcam');
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Curiosity Mastcam Sol 3120');
   });
 });

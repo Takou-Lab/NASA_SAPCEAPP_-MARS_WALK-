@@ -1,5 +1,9 @@
 # MARSWALK — Data Processing & Reproducibility Log
 
+<!-- CURRENT_WORK_PLAN -->
+> **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
+<!-- /CURRENT_WORK_PLAN -->
+
 This document records the exact command-line steps executed to download, inspect, verify, and process the imagery and metadata delivered for MARSWALK.
 
 ## Environment

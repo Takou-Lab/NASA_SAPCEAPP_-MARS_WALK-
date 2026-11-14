@@ -1,100 +1,48 @@
-# MARSWALK — Published branch review
+# MARSWALK — Current published submission review
 
-Review date: **14 November 2026**. Baseline: `main` at **`f24f6fc68750f3bfd735132a8e62d3c7fa4f8914`**. This report covers the remote branch tips fetched for this review, not unseen local work. Later commits need a fresh review.
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
 
-**Supplemental Enzo review:** `15b1666` was subsequently reviewed against main `ee9f6ae` (the same application code with the published review documents). **Changes required:** 47 branch tests pass, but the production build fails on remote Google Fonts; duplicate core/bootstrap, placeholder map, inaccessible unlocated science, draft loss and sidebar sizing need correction. See the [full Enzo review](docs/reviews/ENZO.md). No Enzo feature code has been merged.
+Review date: **14 November 2026 (Africa/Douala)**. Snapshot: main **`0043bae`** (documentation update on the same reviewed application), all seven advertised remote heads and four PR heads. Branch recheck for task alignment found no new submissions. This report covers published commits, not unseen local work. Detailed older reviews remain in `docs/reviews/` as labeled history.
 
-**Latest Emma review:** his branch advanced to `ee9f6ae`, incorporating the existing integration/review history. Compared with main `6c78ebe`, it has zero unique commits and no runtime changes. Earlier work remains accepted; presentation/Q&A publication is still pending. See [Emma's review](docs/reviews/EMMA.md). No new task is assigned before those reported completed files can be reviewed.
+## Current verdicts and next actions
 
-**Latest Gaddielle review:** `c887286` closes all Data Passport findings and is approved and integrated. Processing facts, pending caching and parent/release/derivative scale distinctions are corrected; image bytes, reference, verifier and runtime code are unchanged. See [the accepted review](docs/reviews/GADDIELLE.md). Her new coding task is the [machine-readable image-pack index](docs/team/tasks/GADDIELLE_IMAGE_PACK.md), not repeated documentation or image preparation.
-
-See [NEXT_TASKS.md](NEXT_TASKS.md) for the resulting actions and the named briefs for ready-to-paste coding-agent instructions. Passing a technical review is distinct from integration, external scientific verification and installed-PWA acceptance.
-
-## All published branches
-
-| Branch | Reviewed tip | Result | Action |
+| Contributor / branch | Published tip | Review result | Next action |
 | --- | --- | --- | --- |
-| `main` | `f24f6fc` | Tests/build pass; integrated map and data baseline | Continue Enzo's UI and coordinator PWA work; do not claim the full offline mission is finished |
-| `feature/willy-map-development` | `094fce2` | Accepted and already integrated; tip is an ancestor of main | Sync main and continue the existing Reset View / Focus Route task |
-| `feature/emma-science-provenance` | `ee9f6ae` | Synchronization confirmed; original contribution accepted/integrated; zero unique commits against reviewed main `6c78ebe` | Publish the presentation work reported finished locally; no new assignment or repeated research |
-| `feature/gaddielle-data-preparation` | `c887286` | Approved and integrated; prior package/verifier/conflicts/passport findings closed | Generate/check the separate image-pack index using accepted inputs and verifier |
-| `feat/enzo-ui-planner-notebook` | `15b1666` | Changes required; 47 tests pass, production build blocked by external fonts, UI/core integration and behavior issues reproduced | Preserve the UI and repair the same branch using [ENZO.md](docs/reviews/ENZO.md); no new assignment/branch yet |
-| `Tablet-App` | `f24f6fc` | Exactly matches the reviewed main: zero unique commits/diff | No independent contribution or branch owner can be inferred; no separate correctness claim |
+| Main integration | `0043bae` | Science/map/mission transfer integrated; Gaddielle index already merged. Angular source unchanged since recorded 51-test integration; fresh data suite passes 25 tests with R3 follow-up below | Preserve current work; finish Enzo integration, then real PWA lifecycle/device acceptance |
+| Willy — `feature/willy-map-development` | `21cf6f0` | **Approved/integrated**, unchanged since navigation review | Continue guarded image-retry assignment; no newer retry submission advertised |
+| Emma — `feature/emma-science-provenance` | `947ff1a` | **Accepted/integrated**, unchanged | Preserve research/protocol/presentation; no repeat assignment |
+| Emma — `feature/emma-science-context-ui` | `4efcb5a` | **Approved/integrated/mounted**, unchanged; recorded 51-test/build/browser integration retained | Continue science discovery and transferred confidence/image-passport work on proposed evidence-workspace branch |
+| Gaddielle — `feature/gaddielle-data-preparation` | `a53724a` | **25 tests and real index check pass; previous fixes complete. Already merged via PR #4. One additional browser-path compatibility correction required (R3)** | Same branch: reject encoded/whitespace paths that runtime rejects/browser normalizes; keep actual assets/index unchanged |
+| Enzo — `feat/enzo-ui-planner-notebook` | `bcac915` | **57 tests/build and production mission checks pass; original functional defects closed. Final current-main integration required** | Same branch: resolve four root conflicts, preserve mission transfer, reuse Emma's accepted science component and rerun integrated checks |
+| Royce / Longla — `feature/longla-3d-rehearsal` | `9d794e2` | **Corrections verified on feature branch**. Application code unchanged from tested `2a6dbba`: 70 tests/build and browser/resource/orientation checks retained; main feature integration pending | Actual-device QA; installation/offline checks stay blocked until real prerequisites exist |
 
-No Royce/Longla feature branch was visible in the original fetched remote heads. Enzo's branch became available later and is covered by the supplemental review above. Remote visibility does not establish whether other local work is complete; preserve it and obtain a published commit before reviewing it.
+A legacy local tracking reference for `Tablet-App` exists, but GitHub did not advertise that branch in this snapshot. It is not a new submission. The earlier comparison remains historical. No published evidence-workspace or image-retry branch was visible; absence does not establish whether local work is complete.
 
-## Willy — accepted original contribution
+## Enzo — substantial corrections delivered
 
-Reviewed tip: `094fce28d1004f0988d9b3a2456be4f572ab7690`.
+New review of **`bcac915`** closes duplicate foundation/storage, placeholder map, external fonts, draft loss and viewport-clamp findings. One real map and all three unlocated records work with actual local data. Actual route drawing/save/clear/load/export and notebook storage/error behavior passed in production Chromium.
 
-- All four map files are present and integrated; `<app-map>` is mounted once in the root.
-- Manifest-based image bounds, bottom-left coordinate conversion, base-relative assets, null-position filtering and source-safe text rendering are consistent with the shared contracts.
-- Main retains the coordinator's readiness guard so map clicks cannot dispatch route actions before valid imagery displays.
-- The current map suite has 16 checks, including readiness regression cases. The integrated application suite has 32 tests total.
-- Reset View and Focus Route are follow-up features. Their absence is not a failure of the original delivered assignment.
+The branch merged main only through `f65778d`; merging current main has four conflicts in root TS/HTML/SCSS/spec. Preserve current canonical core, mission JSON import/export and async guards, navigation and Emma's shared science component. His interim science list should be replaced with the accepted component; future evidence presentation remains Emma's assignment. Keep existing UI rather than restarting it. Build succeeds with initial/style warning overruns, below error thresholds; do not raise budgets.
 
-**Next:** preserve the published map, merge the latest main into the same feature branch, and implement only the bounded viewport task in [WILLY.md](docs/team/WILLY.md). Do not mount a second component or rebuild the app.
+[Full findings and completed-case evidence](docs/reviews/ENZO.md). [Ready-to-paste final integration prompt](docs/team/ENZO.md).
 
-## Emma — accepted delivered science and protocol
+## Gaddielle — original fixes pass; one focused follow-up
 
-Original accepted contribution: `b0640d9c7f423eb066ed133e63e4366de981e20c`. Latest synchronized tip: `ee9f6ae`, with zero unique commits against inspected main `6c78ebe`; see the supplemental review above. Emma uses he/him pronouns.
+New review of **`a53724a`** confirms canonical/literal path cases and strict schema/type/read-only failures are fixed. **25 tests pass**, and the current two-file index still verifies **524,472 bytes**. This code was already merged by PR #4; this review does not roll back or regenerate assets.
 
-- Science records, corrected citations, evidence audit, references, AI-use record, internal demo script and usability protocol are integrated.
-- All three real records pass the active runtime validator and use the delivered imageRef. Their positions remain null/unavailable, so they are contextual records rather than fabricated map pins.
-- Actual outside-user sessions remain pending. The protocol does not claim invented participants or results.
-- The user reports the later presentation task finished. `docs/PRESENTATION.md` and `docs/JUDGES_QA.md` are not present at either inspected published ref. Their publication is unverified; this is not a claim that his local work is unfinished.
+Temporary probes show generation/check still return success for `data/imagery/%2e%2e/texture.jpg`, a percent-encoded filename and a trailing-space filename. Browsers normalize these differently and runtime `validManifest()` rejects them. R3 aligns tool syntax with the existing runtime path contract, with negative regressions and unchanged outputs on failure. Keep all completed fixes; no new data, schema or worker work.
 
-**Next:** hand off and publish those existing presentation files on his current branch. Do not assign the evidence audit, demo, slides or usability protocol again. See [EMMA.md](docs/team/EMMA.md).
+[Exact reproductions and correction](docs/reviews/GADDIELLE.md). [Ready-to-paste prompt](docs/team/GADDIELLE.md).
 
-This review validated records and inspected evidence documentation; it did not independently refetch every external scientific source or certify the underlying scientific interpretations.
+## Evidence and limits
 
-## Gaddielle — earlier technical review, now closed by `c887286`
+Fresh checks for changed submissions:
 
-The findings below describe the historical `094d042` review. Synchronization at `f265407` resolved the overlaps, and `c887286` corrected the passport and is now approved/integrated. See [the accepted review](docs/reviews/GADDIELLE.md). Do not repeat any old merge/verifier/passport assignment.
+- Gaddielle/main-identical tools: complete Python suite **25 passed**, real `--check` passed; additional negative probes used temporary copies only.
+- Enzo isolated published branch: frozen install, **57 tests across 10 files**, production build passed; production Chromium verified real map/science, route persistence/export, exact draft retention after tabs/failed save, successful note save and keyboard/restored/narrow layout behavior.
+- Enzo read-only merge preview: **four root conflicts**; no feature code merged by this review.
+- Unchanged Emma/Willy/Longla sources were compared with accepted tested commits; their previous checks are retained rather than described as freshly rerun. Main Angular source is unchanged from `5203d60`; no unnecessary Angular rerun was used as new evidence.
 
-Reviewed tip: `094d04251602d26277ec1ddf0959e3a860a15594`.
-
-The latest commit updates the verifier, requirements and three data documents. Isolated checks against that branch confirmed:
-
-- Real data passes text and JSON output modes.
-- Missing Pillow, a missing manifest and a truncated JPEG return failure in both modes.
-- Wrong dimensions return failure.
-- Both committed JPEGs fully decode; the prepared image is **2048 × 1042**.
-- Image/manifest sizes and checksums match the inventory; required image pack totals **524,472 bytes**.
-- The header-only success fallback is removed. The assigned decoding and JSON-exit fixes are complete; do not repeat them.
-
-Main already contains the equivalent mandatory-Pillow fix and four regression tests. A read-only `git merge-tree --write-tree` check identified conflicts in:
-
-1. `tools/data/verify_pack.py`
-2. `tools/data/requirements.txt`
-3. `docs/data/OFFLINE_DATA_PACK.md`
-
-These are overlapping implementations, not a failing real image. The runtime images and imageRef must remain unchanged.
-
-Two documentation corrections remain on Gaddielle's branch:
-
-- The verifier **calculates and reports** SHA-256 values; it does not compare them automatically with a trusted expected-hash inventory. Main's inventory already uses the accurate wording.
-- Image decoding/dimension failures belong to the map's image-display error state. Valid core manifest readiness must not be rewritten merely because the image failed to display.
-
-**Next:** merge current main into his existing branch, resolve the three overlaps while preserving the tested main implementation/regressions and useful processing notes, then prepare the queued Data Passport from existing metadata. See [GADDIELLE.md](docs/team/GADDIELLE.md). No redownload, derivative regeneration or new calibration is required.
-
-## Checks rerun for this review
-
-On the reviewed main baseline:
-
-| Command | Observed result |
-| --- | --- |
-| `npm test` | 32 tests passed across four files |
-| `npm run build` | Passed; Leaflet CommonJS optimization warning remains; bundle within configured budget |
-| `PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_verify_pack.py' -v` | Four verifier tests passed |
-| Ancestry comparison | Emma and Willy tips are integrated |
-| `Tablet-App` comparison | Same commit as reviewed main, no unique changes |
-| Read-only Gaddielle merge preview | Three conflicts listed above; no branch or checkout was merged by this review |
-
-Gaddielle's latest branch was separately extracted into a temporary directory and checked through nine CLI scenarios covering successful text/JSON verification, missing dependencies/files, truncation and dimensions. Source assets were not modified.
-
-The [previous production browser checks](docs/qa/MAP_INTEGRATION.md) apply to the same main code baseline. They were not repeated as a new physical-device or installed-PWA test in this review.
-
-## Remaining product limits
-
-Enzo's route controls, contextual science list and notebook UI, PWA installation, complete verified offline reopening and actual user sessions remain pending. Technical checks do not establish those outcomes. No application code, dependency declarations, source data or feature branches are changed by publishing this review and the associated task updates.
+Physical-device checks, outside-user sessions, installability, complete cache preparation and disconnected reopening remain unproven. No scientific sources were independently re-fetched in this technical review. No teammate implementation or feature branch was changed; review/assignment documents are the output.

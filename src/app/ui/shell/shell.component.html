@@ -90,12 +90,26 @@
         >
           Notebook ({{ observations().length }})
         </button>
+
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'transfer'"
+          [attr.aria-selected]="activeTab() === 'transfer'"
+          (click)="setActiveTab('transfer')"
+        >
+          Mission Transfer
+        </button>
       </nav>
 
       <div class="tab-content">
         <app-confidence-panel [hidden]="activeTab() !== 'confidence'" />
         <app-route-planner [hidden]="activeTab() !== 'planner'" />
         <app-notebook [hidden]="activeTab() !== 'notebook'" />
+        <div [hidden]="activeTab() !== 'transfer'">
+          <ng-content select="[mission-transfer]"></ng-content>
+        </div>
       </div>
     </aside>
   </main>

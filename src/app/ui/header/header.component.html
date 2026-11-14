@@ -70,16 +70,16 @@
       <button
         type="button"
         class="layer-btn"
-        [class.active]="layers().grid"
-        (click)="toggleLayer('grid')"
-        aria-label="Toggle Coordinate Grid Layer"
-        [attr.aria-pressed]="layers().grid"
+        disabled
+        aria-label="Coordinate grid unavailable"
+        aria-disabled="true"
+        title="No coordinate grid product is supplied"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
           <rect width="18" height="18" x="3" y="3" rx="2" />
           <path d="M3 9h18M3 15h18M9 3v18M15 3v18" />
         </svg>
-        <span>Grid</span>
+        <span>Grid unavailable</span>
       </button>
     </nav>
 

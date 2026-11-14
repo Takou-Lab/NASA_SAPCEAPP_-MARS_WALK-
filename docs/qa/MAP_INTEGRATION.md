@@ -1,5 +1,11 @@
 # Map integration verification — 14 November 2026
 
+<!-- CURRENT_WORK_PLAN -->
+> **Revision-scoped evidence/acceptance record.** Keep recorded counts/outcomes tied to their revisions; current assignments and dependencies are in [the work plan](../../TEAM_TASKS.md). Unrun device/offline checks remain pending or blocked.
+<!-- /CURRENT_WORK_PLAN -->
+
+**Later navigation update:** `21cf6f0` adds Reset View/Focus Route and passes 38 tests, build and browser checks; see [Willy's navigation review](../reviews/WILLY.md). The baseline record and pending list below describe the earlier integration and are retained as historical evidence.
+
 This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9`, preserving their commits. The coordinator mounted one standalone MapComponent in the root, kept source data unchanged, blocked route actions until valid imagery displays, and required Pillow for full image-package verification.
 
 ## Automated checks
@@ -29,7 +35,7 @@ Separate network interception cases confirmed an explicit, non-crashing state fo
 
 To repeat manually: build/serve the production output, open the app in Chromium, perform the six checks above at both sizes, then use browser request blocking or isolated test data to exercise the three failure states without changing committed assets. Record a new revision and actual results; do not copy these outcomes into a later release report without retesting.
 
-## Still pending
+## Pending at this historical baseline
 
 - Enzo's route-mode controls, science list and notebook/export interface. The mounted shell starts in inspect mode; route actions/rendering are tested at the component/service level.
 - Willy's new Reset View and Focus Route buttons.

@@ -15,6 +15,8 @@ import {
 import { assessRoute, emptyRoute } from './route';
 import { validEnvelope, validManifest, validMarkers, validPoint } from './validation';
 
+export const MAX_MISSION_IMPORT_BYTES = 1024 * 1024;
+
 const clone = <T>(value: T): T => structuredClone(value);
 const frozen = <T>(value: T): T => {
   if (value && typeof value === 'object') {
@@ -184,6 +186,51 @@ export class MissionService {
     } catch {
       return { ok: false, error: 'Observation was not saved. Keep your draft and try exporting.' };
     }
+  }
+  /** Restore route/notes only; scientific data always comes from the active local pack. */
+  importMission(raw: string): OperationResult {
+    const image = this.image();
+    if (!image) return { ok: false, error: 'Load the matching image before importing a mission.' };
+    if (new TextEncoder().encode(raw).byteLength > MAX_MISSION_IMPORT_BYTES)
+      return { ok: false, error: 'Mission files must be 1 MiB or smaller.' };
+    let value: unknown;
+    try {
+      value = JSON.parse(raw);
+    } catch {
+      return { ok: false, error: 'The selected file is not valid mission JSON.' };
+    }
+    if (!validEnvelope(value, image))
+      return {
+        ok: false,
+        error: 'Invalid mission or a different image version. Current work is unchanged.',
+      };
+
+    const point = (p: Point | null): Point | null => (p === null ? null : { x: p.x, y: p.y });
+    const route: Route = {
+      start: point(value.route.start),
+      destination: point(value.route.destination),
+      waypoints: value.route.waypoints.map((p) => ({ x: p.x, y: p.y })),
+    };
+    const observations: Observation[] = value.observations.map((n) => ({
+      id: n.id,
+      imageRef: n.imageRef,
+      createdAt: n.createdAt,
+      text: n.text,
+      position: point(n.position),
+    }));
+    try {
+      // Persist before publishing state so an unsuccessful import leaves current work intact.
+      localStorage.setItem(this.key(), JSON.stringify(this.envelope(route, observations)));
+    } catch {
+      return {
+        ok: false,
+        error: 'Import could not be saved on this device. Current work is unchanged.',
+      };
+    }
+    this.routeState.set(frozen(route));
+    this.observationState.set(frozen(observations));
+    this.history.set([]);
+    return { ok: true };
   }
   exportMission(): void {
     if (!this.image()) return;

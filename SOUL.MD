@@ -1,12 +1,16 @@
 # MARSWALK — Project purpose and delivery priorities
 
+<!-- CURRENT_WORK_PLAN -->
+> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
+<!-- /CURRENT_WORK_PLAN -->
+
 Updated: **14 November 2026**. This is the team's product charter and scope guide, not evidence that a feature already works or an official competition rulebook. Read it with [TEAM_TASKS.md](TEAM_TASKS.md), [the shared coding contract](docs/team/CODING_AGENTS.md) and your named brief.
 
 ## Apply this charter without restarting work
 
 Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
 
-Emma (he/him) delivered the evidence audit, revised records/citations, PWA status summary and internal demo script on `feature/emma-science-provenance` at `8a947a4`, then the usability protocol at `b0640d9`. Those contributions are now integrated; do not ask him to recreate them. The user reports his subsequent presentation work completed; preserve it and obtain its published handoff. Actual usability sessions wait for the integrated PWA. Willy's published map `094fce2` is integrated; his next task is Reset View/Focus Route and viewport usability, not repeated root mounting. Preserve other teammates' current work and completed results.
+Emma (he/him) delivered the evidence audit, revised records/citations, PWA status summary and internal demo script on `feature/emma-science-provenance` at `8a947a4`, then the usability protocol at `b0640d9`. Those contributions are now integrated; do not ask him to recreate them. His presentation is delivered at `947ff1a`; preserve it and the coordinator readiness updates. His science component `4efcb5a` is now accepted and mounted. His next assignment is science discovery plus read-only confidence/image-passport presentation transferred from Enzo's future work. Actual usability sessions wait for the integrated PWA. Willy's published navigation `21cf6f0` is approved/integrated; his next task is guarded image retry, not repeated navigation or root mounting. Preserve other teammates' current work and completed results.
 
 ## Why we exist
 
@@ -33,7 +37,7 @@ The **Exploration Confidence Panel** explains what the current mission data supp
 
 For the currently delivered regional image and v1 contracts:
 
-- Regional optical imagery is available on the data branch; exact exploration-area overlap remains unverified.
+- Regional optical imagery is integrated in the application; exact exploration-area overlap remains unverified.
 - Metric distance stays unavailable until calibration of the exact prepared raster is independently verified.
 - Elevation, slope and terrain assessment are unavailable without validated aligned terrain data.
 - Science records without verified positions remain readable contextual records, not invented map markers.
@@ -71,7 +75,7 @@ Do not present an unrun step as complete. An unlocated science record must not b
 
 ## Data passports
 
-Every displayed product has a readable provenance record: source and credit, product/image reference, observation date when verified, coverage, resolution when known, preparation steps, verification status and limitations. Gaddielle supplies imagery/processing evidence, Emma supplies scientific evidence, Enzo presents it, and the coordinator agrees any shared model/API extension.
+Every displayed product has a readable provenance record: source and credit, product/image reference, observation date when verified, coverage, resolution when known, preparation steps, verification status and limitations. Gaddielle supplies imagery/processing evidence, Emma supplies scientific evidence and implements the assigned read-only science/confidence/image-passport components, Enzo integrates them in the shell, and the coordinator agrees any shared model/API extension.
 
 Do not invent fields absent from inspected evidence. Preserve the prepared image's bottom-left pixel contract and version reference. Neither image brightness nor a scientific interpretation supplies measured terrain. A new derivative or coordinate interpretation requires deliberate versioning and handling of saved positions.
 
@@ -79,13 +83,13 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 
 | Priority | Owner | Outcome |
 | --- | --- | --- |
-| Essential | Gaddielle | Preserve the accepted package/passport; generate/check a machine-readable image-pack inventory for the coordinator without changing source assets |
-| Essential | Emma (EMMA.md) | Preserve delivered science/demo/protocol; prepare source-backed presentation and judges' Q&A, then record actual user-test outcomes |
-| Essential | Willy | Preserve the integrated map, add viewport reset/focus and verify without rebuilding earlier work |
-| Essential | Enzo | Tablet controls, readable confidence/data passports, contextual science list, notebook, recovery/export and PWA status UI |
+| Essential | Gaddielle | Preserve accepted package/passport and merged index; close the focused runtime/browser-path compatibility gap without changing source assets |
+| Essential | Emma (EMMA.md) | Preserve accepted science UI/evidence/presentation; add science discovery and readonly confidence/image-passport presentation, then support actual user-test outcomes |
+| Essential | Willy | Preserve approved map/navigation, add explicit safe image retry and verify without rebuilding earlier work |
+| Essential | Enzo | Tablet shell/route controls, integration of Emma's reviewed science/evidence components, notebook/draft retention, recovery/export and real future PWA status UI |
 | Essential | Coordinator (YOU.md) | Shared state, reviewed integration, confidence calculations, installation, complete verified offline pack and end-to-end release checks |
-| Essential before optional 3D | Longla | Independent target-device/offline QA and support for usability observation, working with the coordinator |
-| Optional after core acceptance | Longla | Labeled 3D rehearsal; VR only if time and verified behavior permit |
+| Essential | Longla | W5 actual-device/offline QA and usability observation; corrected viewer work stays complete |
+| Preserve optional delivery | Coordinator / Longla | Keep the corrected flat viewer on its reviewed branch; integrate deliberately without adding terrain/VR or blocking the core mission |
 
 Keep existing role ownership and completed work. The Willy/Gaddielle swap remains in force. Use the personal briefs for exact files, agent prompts and checks.
 
@@ -117,6 +121,8 @@ Suggested pitch:
 
 ## Current integration status
 
-The integration includes the Angular foundation, shared models/MissionService, validation, localStorage/export service functionality, Willy's mounted map, Gaddielle's prepared image and Emma's three contextual science records. [Recorded checks](docs/qa/MAP_INTEGRATION.md) cover 32 Angular tests, four verifier tests, a production build and desktop/tablet-sized Chromium interactions and failure states.
+Main includes the real image, map/navigation, science list/details, shared assessment/persistence and guarded mission-file transfer. The [51-test science integration](docs/qa/SCIENCE_INTEGRATION.md), earlier [map](docs/qa/MAP_INTEGRATION.md) and [transfer](docs/qa/MISSION_TRANSFER.md) records retain their exact tested scopes/revisions; they are not new installed-PWA evidence.
 
-Enzo's route controls, science list and notebook UI, installation and verified offline reopening remain pending. Physical-device and outside-user checks are not yet complete. Follow the actual integration revision; these results do not establish a full installed offline PWA or independently validate every scientific finding.
+Enzo's functional shell/planner/notebook and Longla's corrected optional flat viewer pass on their published branches, with final main integration/device acceptance tracked separately. Gaddielle's real index is merged/valid; W2 fixes the remaining runtime/browser-path compatibility edge case. Emma's W3 enhancements are assigned, not implemented. [REVIEW.md](REVIEW.md) records exact published tips and [TEAM_TASKS.md](TEAM_TASKS.md) defines the six current work pieces.
+
+Complete interface integration, real installation/cache/update lifecycle, physical-device disconnected reopening and actual outside-user outcomes remain pending. Preserve the current Gale data and uncertainty boundaries; do not call the full installed offline mission complete from tests/build or branch demos.

@@ -37,6 +37,42 @@
   font-size: 0.82rem;
 }
 
+.map-view-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.map-view-actions button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid #65748a;
+  border-radius: 0.45rem;
+  color: #f1f5fa;
+  background: #202a38;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map-view-actions button:hover:not(:disabled) {
+  background: #2a394b;
+}
+
+.map-view-actions button:disabled {
+  color: #8995a5;
+  background: #171d27;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.map-view-actions button:focus-visible {
+  outline: 2px solid #8bc8ff;
+  outline-offset: 2px;
+}
+
 .map-frame {
   position: relative;
   min-height: 420px;
