@@ -1,43 +1,48 @@
 # Gaddielle — Mars Imagery and Terrain Data
 
-**Continue existing work:** preserve your current branch and completed results. Finish or hand off the small slice already underway; apply newly added charter tasks afterward. Do not restart the earlier assignment. See [the transition rule](../../SOUL.MD#apply-this-charter-without-restarting-work).
-
 ## Current follow-up — offline image-data package
 
-Read [Gaddielle's latest review](../reviews/GADDIELLE.md), [the project review](../../REVIEW.md), [next tasks](../../NEXT_TASKS.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md). Continue on **`feature/gaddielle-data-preparation`** and preserve all completed work.
+Read [the detailed task](tasks/GADDIELLE_IMAGE_PACK.md), [the accepted review](../reviews/GADDIELLE.md), [REVIEW.md](../../REVIEW.md), [NEXT_TASKS.md](../../NEXT_TASKS.md) and [SOUL.MD](../../SOUL.MD). Preserve completed work and continue on `feature/gaddielle-data-preparation`.
 
-### Accepted delivery and resolved integration — `f265407`
+### Accepted delivery — `c887286`
 
-Latest reviewed tip: **`f265407817a405bc133fb10646ff5ff5d37383fb`**. The image package and verifier remain accepted. The earlier three merge conflicts are resolved; the latest branch merges cleanly with the reviewed main. Canonical required-Pillow verification and the four regression tests are retained. Runtime code, asset bytes, manifest, dependencies and verifier behavior match the reviewed integration.
+The image package, strict Pillow verifier, conflict resolutions and corrected Data Passport are accepted and included in this integration. The passport distinguishes recorded processing, actual 4:2:0 subsampling, unrecorded encoder quality, unverified image scales and pending offline caching.
 
-Delivered follow-up:
+Do not repeat acquisition, image processing, verifier fixes, conflict resolution or passport corrections. Preserve the image, manifest and imageRef. The prepared image remains 2048 × 1042; the required two-file image payload remains 524,472 bytes. Calibration and terrain remain unavailable.
 
-- `docs/data/DATA_PASSPORT.md` with provenance, processing lineage, v1 UI field labels, limitations and a clearly proposed future schema.
-- Updated Pillow prerequisites in the processing log and data handoff.
-- Corrected distinction between MapComponent's image-display failure and core manifest/data readiness.
+### New task — machine-readable image-pack index
 
-The prepared image remains **2048 × 1042**, and the required image pack remains **524,472 bytes**. Dimensions and checksums match the inventory. Calibration and terrain stay unavailable. The review did not independently reverify every external NASA/archive metadata claim.
+Create:
 
-**Do not resolve the old conflicts again, rewrite the verifier, reacquire the data or regenerate the imagery.** The remaining work is a small documentation correction to the delivered passport, not another package or Data Passport assignment.
+- `tools/data/build_image_pack.py`
+- `public/data/image-pack.json`
+- `tools/data/test_build_image_pack.py`
+- `docs/data/IMAGE_PACK_INDEX.md`
 
-### Current task — correct the passport's recorded claims
+Follow the [exact specification](tasks/GADDIELLE_IMAGE_PACK.md):
 
-Make these targeted changes in `docs/data/DATA_PASSPORT.md` on the same branch:
+- `schemaVersion: 1`, active `imageRef`, ordered `files` and `totalBytes`.
+- Exactly two entries: manifest first, referenced prepared image second.
+- Each entry has app-base-relative `path`, actual `bytes` and full lowercase `sha256`.
+- Exclude the index itself, archival master, science records and built application. `totalBytes` sums only the two declared payloads.
+- Reuse the existing `verify_package` and Pillow/full decoding; do not duplicate validation or add dependencies.
+- Generate deterministic JSON without timestamps or absolute paths. Resolve inputs inside the public root and reject output paths aliasing an input.
+- Write atomically; failure preserves the previous output. `--check` is read-only and fails nonzero for missing, stale or mismatched indexes.
 
-1. **Processing lineage:** remove the unsupported claim “quality 85, no subsampling” near the processing arrow. The committed processing log records GDI+ HighQualityBicubic; its encoder call supplies default parameters, not an explicit quality 85 setting. The actual committed derivative has **4:2:0 chroma subsampling**, confirmed from its JPEG components. Record only supported facts, and label exact encoder quality unrecorded unless independent evidence establishes it. Do not infer a quality number or regenerate the image to match the wording.
-2. **Offline status:** replace the claim that the active texture is already “precached” with “required runtime asset” or “intended for the coordinator's offline pack.” Installation, service-worker preparation and verified full offline reopening remain pending. Keep the package-verification versus PWA-readiness boundary explicit.
-3. **Resolution scope:** distinguish the parent orbital observation's nominal scale from the public-release **7488 × 3813 JPEG** and the prepared **2048 × 1042 derivative**. The release JPEG's metric scale is not established by its dimensions or the parent's nominal resolution. Keep both public-release and active-derivative calibration unverified until supported. Do not claim that every known image resize universally requires new ground-control points; the current limitation is the missing verified scale/transform chain for these particular files.
-4. If editing latitude notation, use a signed value such as `-4.843°` or `4.843°S` consistently for documented parent-observation context. Do not turn that parent coordinate into a pixel georeference or invent science-marker positions.
+Commands:
 
-Preserve the validated v1 label mapping, exact imageRef, dimensions, bytes/checksums and unavailable terrain/calibration. The optional v2 schema remains a proposal; do not implement new fields in `models.ts` or other application code.
+```sh
+python tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json
+python tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json --check
+```
 
-### Checks, completion and handoff
+### Verification and handoff
 
-Inspect status and preserve any other local work before syncing the published review from main. No reset or force push is needed. Check the revised passport against `PROCESSING_LOG.md`, `process_image.py`, the actual JPEG metadata and the current manifest. Check that the diff contains only the intended documentation corrections and no changes to image, manifest, verifier or application files.
+Test actual sizes/hashes, exclusions, deterministic output, fresh checking, stale/tampered data, missing/corrupt inputs and preservation of prior output. Use temporary fixtures; retain the four accepted verifier regressions. Follow the detailed task for path containment, source preservation and failure cases.
 
-Retain the earlier fixes: the verifier calculates/reports hashes for comparison rather than automatically comparing against a trusted expected-hash list, and image-display errors remain separate from core metadata readiness. Existing package tests are already accepted; rerun affected checks only if data/tools change and report actual commands, not copied results.
+Document prerequisites, commands, schema and image-only scope. This index supports the coordinator's future offline pack; it does not establish installation or complete offline readiness. Do not change ImageManifest or implement the passport's proposed v2 schema.
 
-**Done means:** the passport is accurate about recorded processing, scale and pending caching, with the previous package work unchanged. Commit and push **only `feature/gaddielle-data-preparation`**, then provide the commit for re-review. This assignment authorizes that feature-branch push. No main merge/push, deployment, schema change or messages to other people is included. A new assignment follows successful re-review; do not start a new task branch now.
+After publication of this integration, fetch and merge main into the existing branch while preserving local work. Implement the bounded task, commit and push only that feature branch, then report the commit, generated paths and actual checks. No main merge/push, application/core/schema/dependency/service-worker changes, deployment, environment publication or messaging to others is included.
 
 ## Initial assignment reference
 
@@ -107,48 +112,42 @@ You are done when usable imagery is supplied with honest coverage information, a
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Gaddielle's data-documentation review agent for MARSWALK.
-Read docs/reviews/GADDIELLE.md, REVIEW.md, NEXT_TASKS.md,
-docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md and SOUL.MD.
+You are Gaddielle's image-pack indexing agent for MARSWALK.
+Read docs/team/tasks/GADDIELLE_IMAGE_PACK.md, docs/team/GADDIELLE.md,
+docs/reviews/GADDIELLE.md, REVIEW.md, NEXT_TASKS.md and SOUL.MD.
 
-The delivered passport is reviewed at f265407. Earlier package/verifier
-work is accepted, the three merge conflicts are resolved, canonical Pillow
-verification and regressions are retained, and the latest branch merges
-cleanly with reviewed main. Do not repeat those tasks or prepare a new
-passport. Preserve image bytes, manifest and imageRef.
+Work through c887286 is accepted and integrated. Do not repeat earlier
+fixes, reacquire data or regenerate imagery.
 
-1. Inspect Git status and preserve local work. Continue on
-   feature/gaddielle-data-preparation. Sync the published review from main
-   without reset, force push or overwriting completed files.
-2. Edit docs/data/DATA_PASSPORT.md only for the targeted corrections:
-   - Replace unsupported "quality 85, no subsampling" with the documented
-     GDI+ HighQualityBicubic processing facts. The actual committed JPEG
-     uses 4:2:0 chroma subsampling; exact encoder quality is unrecorded
-     unless separate evidence establishes it. Do not infer a quality value
-     or regenerate imagery to match the documentation.
-   - Replace "precached" with required/intended offline runtime asset.
-     Installation, worker preparation and complete offline reopening are
-     still pending; file verification alone cannot prove them.
-   - Separate the parent orbital observation's nominal resolution from
-     the unverified scale of the public-release JPEG and active derivative.
-     Keep calibration unverified. Avoid a universal claim that a known
-     resize always needs new GCPs; describe this product's missing verified
-     scale/transform chain instead.
-3. Preserve the existing v1 label mapping, unknown terrain/calibration,
-   2048x1042 dimensions, exact imageRef, file sizes and checksums. Any v2
-   interface remains an unapproved proposal, not a runtime schema change.
-   If normalizing parent latitude, use signed -4.843 degrees or 4.843 S;
-   never infer a pixel georeference or marker position from it.
-4. Compare the text with PROCESSING_LOG.md, process_image.py, actual JPEG
-   metadata and manifest. Confirm no asset, verifier, core or other app file
-   changed. Keep accurate hash-reporting wording and component-versus-core
-   image-error guidance. No new downloads, processing or verifier rewrite.
-5. Run relevant documentation checks. Package tests are already accepted;
-   rerun affected checks only for new data/tool changes and report actual
-   results. Do not invent external source verification or PWA success.
-6. Commit and push this same feature branch, then provide the commit,
-   corrected passages and remaining evidence limits for re-review.
+1. Preserve local work. After this integration is published, fetch and
+   merge main into feature/gaddielle-data-preparation without resetting.
+2. Create only:
+   tools/data/build_image_pack.py
+   public/data/image-pack.json
+   tools/data/test_build_image_pack.py
+   docs/data/IMAGE_PACK_INDEX.md
+3. Follow the detailed task's exact v1 schema: active imageRef, files
+   ordered manifest then prepared image, each with base-relative path,
+   actual bytes and full lowercase SHA-256; totalBytes sums those two files.
+   Exclude the index itself, archival master, science records and app build.
+4. Reuse verify_pack.verify_package and required Pillow/full decoding.
+   Keep source files unchanged; no new dependencies or duplicate verifier.
+5. Provide explicit --manifest, --public-root and --output arguments.
+   Check path containment and reject output aliasing either input.
+   Generate deterministic stable JSON without timestamps/absolute paths.
+   Write atomically and preserve previous output on failure.
+   --check must be read-only and return nonzero for missing/stale/mismatched
+   output without rewriting it.
+6. Test hashes/sizes/exclusions, repeated identical generation, fresh check,
+   stale/tampered payloads, missing/corrupt inputs and preserved old output.
+   Use temporary fixtures and retain existing verifier regressions.
+7. Document and run the real generate/check commands. Report actual test
+   counts/results, generated paths and remaining limitations.
 
-Only the own-feature-branch push is authorized. No main merge/push,
-deployment, new schema, unrelated task branch or messaging to others.
+This is an IMAGE-only index for future coordinator integration, not full
+PWA readiness. Preserve image bytes, manifest, imageRef and shared models.
+Use the learner checkpoint for this new coding slice, not completed work.
+Commit and push only the existing feature branch; that push is authorized.
+No main merge/push, deployment, environment publication, app/PWA changes or
+messaging to others.
 ```

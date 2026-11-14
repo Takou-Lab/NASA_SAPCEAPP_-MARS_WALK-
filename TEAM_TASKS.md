@@ -6,9 +6,9 @@ Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offl
 
 ## Latest published review and next actions
 
-[REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's `f265407` resolves the old three conflicts and passes the verifier checks; only the new Data Passport's processing/cache/scale wording needs correction. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
+[REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's corrected `c887286` passport is approved and integrated; her new task is a deterministic image-pack index/generator for future PWA caching. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
 
-Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle makes the small Data Passport corrections in [his review](docs/reviews/GADDIELLE.md). At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle implements the [image-pack index task](docs/team/tasks/GADDIELLE_IMAGE_PACK.md) after the accepted passport review. At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
 
 **Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
 
@@ -31,7 +31,7 @@ This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | `feature/willy-map-development` | Sync the published integration without resetting work; add Reset View/Focus Route and targeted tests only |
-| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Old fixes/conflicts resolved at `f265407`; correct the new passport's processing, caching and scale statements without touching data/code |
+| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Approved `c887286` integrated; implement image-pack index/generator/check mode and focused tests using existing assets |
 | [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New presentation work reported complete; hand off its published commit, reuse integrated evidence/protocol, record sessions only when conducted |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
@@ -42,7 +42,7 @@ Read the **current follow-up** and updated copy-paste prompt in each named brief
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Reset View and Focus Route in the integrated map | Viewport-only actions preserve mission state; loading/error/short-route disabled states and actual tests/browser checks pass |
 | [Enzo](docs/team/ENZO.md) | Tablet mission UI, Confidence Panel, Data Passport, science list and notebook | Users understand missing distance/slope, unlocated records remain readable, failed saves retain drafts, recovery/export work |
-| [Gaddielle](docs/team/GADDIELLE.md) | Offline image inventory/verifier and Data Passport | Actual file sizes/checksums/dimensions and provenance documented; whole-app readiness not implied |
+| [Gaddielle](docs/team/GADDIELLE.md) | Machine-readable image-pack index and validation tool | Deterministic paths/bytes/hashes, stale-index rejection and safe failures; complete-app readiness remains coordinator-owned |
 | [Emma](docs/team/EMMA.md) | Presentation outline and judges' Q&A; later actual usability results | Preserve `8a947a4` and `b0640d9`; claims tied to source/build evidence, future features and unrun sessions labeled pending |
 | [Longla](docs/team/LONGLA.md) | Independent installed-device/offline QA first; optional 3D second | Recorded close/reopen/offline checks and observed usability issues; no untested VR claims |
 | [YOU — coordinator](docs/team/YOU.md) | Review/integration, shared state, PWA install/cache/update lifecycle and release | Complete installed offline mission passes on the demonstration device; three outside-user sessions arranged and recorded |

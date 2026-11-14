@@ -2,7 +2,7 @@
 
 Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
 
-Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. Gaddielle resolved the prior overlapping fixes at `f265407`; his only current corrections concern Data Passport documentation, as detailed in [his review](../reviews/GADDIELLE.md). Do not repeat verifier implementation, conflict resolution or image preparation.
+Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. Gaddielle's corrected passport at `c887286` is approved and integrated, as recorded in [the accepted review](../reviews/GADDIELLE.md). Her new [image-pack index task](tasks/GADDIELLE_IMAGE_PACK.md) reuses the accepted package/verifier; do not repeat image, conflict or passport work.
 
 **Current Enzo review exception:** repair `15b1666` on `feat/enzo-ui-planner-notebook` using [the review](../reviews/ENZO.md). Preserve his UI but retain main's canonical core, validation, persistence and dependencies while reconciling the older bootstrap. He may make only the root `app.ts`/HTML/SCSS/spec changes needed to mount his shell and the existing MapComponent once while preserving root initialization. Adapt global theme styling while retaining Leaflet CSS and local/system fonts; do not replace package/core ownership or create another mission store. No new PWA implementation or task branch is assigned until this revision passes re-review.
 
@@ -24,7 +24,7 @@ The coding prompts in personal briefs are intended to be pasted into the relevan
 | Willy | `src/app/map/` | Published `094fce2` integrated; next task Reset View/Focus Route |
 | Enzo | `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` | Shared models/service; coordinate map integration with Willy |
 | Longla | `docs/qa/` for independent device/offline checks first; optional `src/app/viewer3d/` afterward | Coordinator's integrated PWA and actual target device; optional viewer depends on shared route/image reference |
-| Gaddielle | `public/data/imagery/`, `public/data/terrain/`, `public/data/manifest.json`, `docs/data/`, optional `tools/data/` | Coordinator-approved manifest schema |
+| Gaddielle | `public/data/imagery/`, `public/data/terrain/`, `public/data/manifest.json`, new `public/data/image-pack.json`, `docs/data/`, `tools/data/` | Existing manifest unchanged; separate approved image-pack index specification |
 | Emma | `public/data/markers.json`, `docs/SCIENCE.md`, `docs/SCIENCE_EVIDENCE.md`, `docs/DEMO_SCRIPT.md`, `docs/USABILITY.md`, `docs/PRESENTATION.md`, `docs/JUDGES_QA.md`, `docs/REFERENCES.md`, `docs/AI_USE.md` | Reuse completed research/protocol; actual build/evidence for presentation claims, real sessions before recording outcomes |
 
 Do not overwrite another person's changes. Request shared model/API changes from the coordinator. The coordinator adds dependency declarations and lockfile changes for Leaflet/Three.js or processing tools. Do not scaffold a second Angular project in a feature directory. Use the existing checkout; create a feature branch only when useful and preserve local work. Do not push, merge, deploy or contact teammates unless the user explicitly authorizes that action.
@@ -32,6 +32,10 @@ Do not overwrite another person's changes. Request shared model/API changes from
 The current Gaddielle, Emma and Willy follow-up assignments explicitly include committing and pushing their own feature branches. This does not authorize merging into `main`, deployment or contacting teammates. Gaddielle owns the image-data inventory and verification tool; the coordinator owns service-worker caching, app installation and complete offline readiness. Emma owns the evidence audit and presentation content; shared models stay unchanged unless coordinated.
 
 **Willy's integration handoff:** the coordinator has mounted his published `094fce2` component once. His new task is limited to Reset View/Focus Route and map tests, with no repeated root mounting. After this integration is published, merge the latest `origin/main` into his existing feature branch without resetting his work; preserve the readiness-click guard. Root/core/PWA/package work stays with the coordinator.
+
+## Image-pack index handoff
+
+The coordinator-approved [image-only inventory task](tasks/GADDIELLE_IMAGE_PACK.md) is a new tooling deliverable, not an existing app API. It must not change ImageManifest or claim offline readiness. Its total counts the manifest and prepared image only, excluding the index itself, science records and built shell; the coordinator defines and verifies the full PWA asset set separately. Enzo must not invent fields or install/readiness states from the index.
 
 ## Current product integration priorities
 

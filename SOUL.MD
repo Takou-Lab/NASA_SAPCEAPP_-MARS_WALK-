@@ -79,7 +79,7 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 
 | Priority | Owner | Outcome |
 | --- | --- | --- |
-| Essential | Gaddielle | Stable image/manifest, qualified coverage claims, offline image-pack inventory, reproducible validation and Willy handoff |
+| Essential | Gaddielle | Preserve the accepted package/passport; generate/check a machine-readable image-pack inventory for the coordinator without changing source assets |
 | Essential | Emma (EMMA.md) | Preserve delivered science/demo/protocol; prepare source-backed presentation and judges' Q&A, then record actual user-test outcomes |
 | Essential | Willy | Preserve the integrated map, add viewport reset/focus and verify without rebuilding earlier work |
 | Essential | Enzo | Tablet controls, readable confidence/data passports, contextual science list, notebook, recovery/export and PWA status UI |
