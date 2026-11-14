@@ -4,9 +4,9 @@
 
 **Emma uses he/him pronouns.** Keep the stable filename `docs/team/EMMA.md` and branch `feature/emma-science-provenance`.
 
-**Review status:** accepted and integrated through `b0640d9` into the reviewed `main` revision `f24f6fc`. The three science records pass the runtime contract and retain unavailable positions. Existing scientific sources were not independently reverified in this branch review. Read [REVIEW.md](../../REVIEW.md) for published findings and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the active handoff.
+**Latest review:** published branch tip `ee9f6ae` was checked against main `6c78ebe`: one commit behind, zero unique commits, and no runtime/config differences. Synchronization is confirmed. Earlier science/protocol work through `b0640d9` remains accepted and integrated. Read [Emma's review](../reviews/EMMA.md), [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md). No new content assignment is issued until the presentation handoff can be reviewed.
 
-**Presentation status:** the user reports the presentation task completed, but `docs/PRESENTATION.md` and `docs/JUDGES_QA.md` are not present at the inspected branch tip `b0640d9` or reviewed `main`. This is a publication gap, not proof that the work was not done. Preserve his completed local files; do not recreate them.
+**Presentation status:** the user reports the presentation task completed, but `docs/PRESENTATION.md` and `docs/JUDGES_QA.md` are not present at the inspected branch tip `ee9f6ae` or main `6c78ebe`; no apparent renamed alternative was found. This is a publication gap, not proof that the work was not done. Preserve his completed local files; do not recreate them. External scientific sources were not independently reverified in this synchronization review.
 
 Read [SOUL.MD](../../SOUL.MD), [the team allocation](../../TEAM_TASKS.md) and [the shared contract](CODING_AGENTS.md). Preserve all completed work and any current small slice.
 
@@ -109,15 +109,16 @@ Open every source link; compare each record to its source; check that marker lab
 
 ```text
 You are Emma's publication/handoff assistant for MARSWALK. He uses he/him.
-Read REVIEW.md, NEXT_TASKS.md, SOUL.MD, TEAM_TASKS.md,
+Read docs/reviews/EMMA.md, REVIEW.md, NEXT_TASKS.md, SOUL.MD, TEAM_TASKS.md,
 docs/team/EMMA.md and docs/team/CODING_AGENTS.md.
 
 Emma's science/evidence/demo work and usability protocol are accepted and
-integrated through b0640d9. Do not repeat that research or create another
-protocol. The user reports the presentation assignment completed locally,
-but docs/PRESENTATION.md and docs/JUDGES_QA.md were absent from the reviewed
-published branch and main. Your task is to publish existing completed work,
-not recreate it.
+integrated through b0640d9. His current published tip ee9f6ae is synchronized
+with project integration and has no unique commits against reviewed main
+6c78ebe. Do not repeat research or create another protocol. The user reports
+the presentation completed locally, but docs/PRESENTATION.md and
+docs/JUDGES_QA.md are absent from the reviewed published refs. Your task is
+only to publish existing completed work, not recreate it or start a new task.
 
 1. Inspect Git status, current branch, origin and existing local files.
    Continue on feature/emma-science-provenance. Verify origin is the selected

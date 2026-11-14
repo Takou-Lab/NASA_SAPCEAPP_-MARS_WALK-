@@ -4,52 +4,40 @@
 
 ## Current follow-up — offline image-data package
 
-Read [the published review](../../REVIEW.md), [next tasks](../../NEXT_TASKS.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md). Preserve completed work and continue on **`feature/gaddielle-data-preparation`**.
+Read [Gaddielle's latest review](../reviews/GADDIELLE.md), [the project review](../../REVIEW.md), [next tasks](../../NEXT_TASKS.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md). Continue on **`feature/gaddielle-data-preparation`** and preserve all completed work.
 
-### Technical signoff — `094d042`
+### Accepted delivery and resolved integration — `f265407`
 
-The latest reviewed branch commit is **`094d04251602d26277ec1ddf0959e3a860a15594`**. The original image/package assignment and requested verifier corrections pass the reviewed checks:
+Latest reviewed tip: **`f265407817a405bc133fb10646ff5ff5d37383fb`**. The image package and verifier remain accepted. The earlier three merge conflicts are resolved; the latest branch merges cleanly with the reviewed main. Canonical required-Pillow verification and the four regression tests are retained. Runtime code, asset bytes, manifest, dependencies and verifier behavior match the reviewed integration.
 
-- The real package fully decodes with Pillow in text and JSON modes.
-- Missing Pillow, a missing manifest and a truncated JPEG fail with nonzero exit codes in both modes; wrong dimensions also fail.
-- The prepared image is **2048 × 1042**; the master is **7488 × 3813**. File sizes and SHA-256 values match the inventory.
-- The required image pack remains **524,472 bytes**. Image bytes and `imageRef` are unchanged.
-- Inventory, qualified regional-coverage documentation and Willy's image/coordinate handoff are delivered.
+Delivered follow-up:
 
-**Do not repeat image preparation, rewrite the verifier or reopen the earlier Pillow fixes.** `main` at `f24f6fc` already implements the equivalent mandatory-Pillow correction and includes four regression tests. This signoff covers technical package behavior, not independently reverified scientific source claims or complete offline PWA readiness.
+- `docs/data/DATA_PASSPORT.md` with provenance, processing lineage, v1 UI field labels, limitations and a clearly proposed future schema.
+- Updated Pillow prerequisites in the processing log and data handoff.
+- Corrected distinction between MapComponent's image-display failure and core manifest/data readiness.
 
-### New action — synchronize the parallel fixes
+The prepared image remains **2048 × 1042**, and the required image pack remains **524,472 bytes**. Dimensions and checksums match the inventory. Calibration and terrain stay unavailable. The review did not independently reverify every external NASA/archive metadata claim.
 
-A merge-tree check between `094d042` and `main` at `f24f6fc` reports conflicts in exactly these files:
+**Do not resolve the old conflicts again, rewrite the verifier, reacquire the data or regenerate the imagery.** The remaining work is a small documentation correction to the delivered passport, not another package or Data Passport assignment.
 
-- `tools/data/verify_pack.py`
-- `tools/data/requirements.txt`
-- `docs/data/OFFLINE_DATA_PACK.md`
+### Current task — correct the passport's recorded claims
 
-The conflicts come from parallel implementations of the same fix. Preserve local work, fetch the latest `main` and merge it into your existing feature branch. Resolve these overlaps by keeping the canonical integrated main verifier, required-Pillow dependency and regression coverage. Preserve any new useful documentation; do not replace the main version with an older fallback implementation.
+Make these targeted changes in `docs/data/DATA_PASSPORT.md` on the same branch:
 
-In the inventory, say the verifier **calculates/reports SHA-256 values for comparison**. It does not compare against an independently trusted expected-hash inventory. Keep the full-PWA versus image-pack boundary clear.
+1. **Processing lineage:** remove the unsupported claim “quality 85, no subsampling” near the processing arrow. The committed processing log records GDI+ HighQualityBicubic; its encoder call supplies default parameters, not an explicit quality 85 setting. The actual committed derivative has **4:2:0 chroma subsampling**, confirmed from its JPEG components. Record only supported facts, and label exact encoder quality unrecorded unless independent evidence establishes it. Do not infer a quality number or regenerate the image to match the wording.
+2. **Offline status:** replace the claim that the active texture is already “precached” with “required runtime asset” or “intended for the coordinator's offline pack.” Installation, service-worker preparation and verified full offline reopening remain pending. Keep the package-verification versus PWA-readiness boundary explicit.
+3. **Resolution scope:** distinguish the parent orbital observation's nominal scale from the public-release **7488 × 3813 JPEG** and the prepared **2048 × 1042 derivative**. The release JPEG's metric scale is not established by its dimensions or the parent's nominal resolution. Keep both public-release and active-derivative calibration unverified until supported. Do not claim that every known image resize universally requires new ground-control points; the current limitation is the missing verified scale/transform chain for these particular files.
+4. If editing latitude notation, use a signed value such as `-4.843°` or `4.843°S` consistently for documented parent-observation context. Do not turn that parent coordinate into a pixel georeference or invent science-marker positions.
 
-Correct the existing image-failure guidance in `docs/data/README.md`: a failed image load or dimension mismatch belongs to MapComponent's image-display error state. Core `dataStatus` reports manifest/data loading and may remain ready when valid metadata exists but the image cannot display. Do not ask Willy to mutate the shared core status for a rendering failure.
+Preserve the validated v1 label mapping, exact imageRef, dimensions, bytes/checksums and unavailable terrain/calibration. The optional v2 schema remains a proposal; do not implement new fields in `models.ts` or other application code.
 
-After resolving the merge, run the existing verifier and its regressions. This is confirmation that the integration preserved the accepted behavior, not a request to implement another verifier:
+### Checks, completion and handoff
 
-```sh
-python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public --json
-PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_verify_pack.py' -v
-```
+Inspect status and preserve any other local work before syncing the published review from main. No reset or force push is needed. Check the revised passport against `PROCESSING_LOG.md`, `process_image.py`, the actual JPEG metadata and the current manifest. Check that the diff contains only the intended documentation corrections and no changes to image, manifest, verifier or application files.
 
-Use the required Pillow dependency. Keep the committed images and manifest unchanged, and run the project's actual tests/build if the integration affects application files.
+Retain the earlier fixes: the verifier calculates/reports hashes for comparison rather than automatically comparing against a trusted expected-hash list, and image-display errors remain separate from core metadata readiness. Existing package tests are already accepted; rerun affected checks only if data/tools change and report actual commands, not copied results.
 
-### Queued next deliverable — Data Passport
-
-After synchronization, prepare **`docs/data/DATA_PASSPORT.md`** using the metadata and evidence already collected. It is a separate follow-up, not unfinished prior work. Include source/credit, date when verified, coverage/resolution when known, exact image reference, preparation steps, checksums, verification status and limitations. Map existing manifest fields to readable labels for Enzo. Document unknowns explicitly and propose extra runtime fields to the coordinator before changing a shared schema.
-
-Do not reacquire data or regenerate the derivative for this document. Metric calibration and terrain remain unavailable. An image-pack pass cannot establish installation, complete offline reopening or mission persistence.
-
-### Handoff and publication
-
-Report the conflict resolutions, documentation corrections, actual verification commands/results, and whether the queued Data Passport is delivered or still pending. Commit and push **only your feature branch**; this assignment authorizes that push. Do not merge/push `main`, deploy, create another service worker, alter shared Angular models or send messages to teammates through tools without applicable authorization.
+**Done means:** the passport is accurate about recorded processing, scale and pending caching, with the previous package work unchanged. Commit and push **only `feature/gaddielle-data-preparation`**, then provide the commit for re-review. This assignment authorizes that feature-branch push. No main merge/push, deployment, schema change or messages to other people is included. A new assignment follows successful re-review; do not start a new task branch now.
 
 ## Initial assignment reference
 
@@ -119,49 +107,48 @@ You are done when usable imagery is supplied with honest coverage information, a
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Gaddielle's data-integration agent for the Angular MARSWALK PWA.
-Read REVIEW.md, NEXT_TASKS.md, docs/team/GADDIELLE.md,
-docs/team/CODING_AGENTS.md, SOUL.MD and docs/data/IMAGE_CONTRACT.md.
+You are Gaddielle's data-documentation review agent for MARSWALK.
+Read docs/reviews/GADDIELLE.md, REVIEW.md, NEXT_TASKS.md,
+docs/team/GADDIELLE.md, docs/team/CODING_AGENTS.md and SOUL.MD.
 
-The previous package/verifier work is technically accepted at 094d042
-(full SHA 094d04251602d26277ec1ddf0959e3a860a15594).
-The equivalent mandatory-Pillow fix already exists in main at f24f6fc.
-Do not repeat image preparation, reacquire files, replace imageRef or
-implement the same verifier correction again.
+The delivered passport is reviewed at f265407. Earlier package/verifier
+work is accepted, the three merge conflicts are resolved, canonical Pillow
+verification and regressions are retained, and the latest branch merges
+cleanly with reviewed main. Do not repeat those tasks or prepare a new
+passport. Preserve image bytes, manifest and imageRef.
 
-1. Inspect Git status and preserve local work. Continue on the existing
-   feature/gaddielle-data-preparation branch. Fetch and merge the latest
-   main into it without resetting, force-pushing or overwriting other work.
-2. Resolve the known parallel-fix conflicts in tools/data/verify_pack.py,
-   tools/data/requirements.txt and docs/data/OFFLINE_DATA_PACK.md. Keep the
-   canonical main verifier, required Pillow dependency and existing
-   tools/data/test_verify_pack.py regressions. Preserve useful new docs.
-   Never restore a header-only success fallback.
-3. Make inventory wording accurate: the tool calculates/reports hashes
-   for comparison; it does not compare to an independently trusted list.
-   Preserve runtime/archival distinctions and the image-data-only scope.
-4. In docs/data/README.md, correct the image-load/dimension failure handoff:
-   MapComponent owns its image-display error state; core dataStatus is
-   metadata/data readiness and may remain ready. Do not change core or map
-   code merely to force a rendering failure into the core status.
-5. Confirm accepted behavior survived the merge by running:
-   python tools/data/verify_pack.py --manifest public/data/manifest.json --public-root public --json
-   PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_verify_pack.py' -v
-   Report real outcomes. The package remains 2048x1042 and 524472 bytes;
-   image bytes/reference must stay unchanged. Missing Pillow/files,
-   truncation and wrong dimensions must fail. No repeated implementation.
-6. After synchronization, the queued NEW deliverable is
-   docs/data/DATA_PASSPORT.md, using existing metadata only. Supply source,
-   credit, verified date, coverage/resolution when known, imageRef,
-   processing, checksums, verification status and limitations for Enzo.
-   Map current manifest fields to labels; propose schema changes centrally.
-   No new downloads or image regeneration are needed.
-7. Keep metric calibration/terrain unavailable and unknowns explicit.
-   Package validation does not prove installation or full offline mission
-   readiness. Do not alter another person's application/PWA work.
+1. Inspect Git status and preserve local work. Continue on
+   feature/gaddielle-data-preparation. Sync the published review from main
+   without reset, force push or overwriting completed files.
+2. Edit docs/data/DATA_PASSPORT.md only for the targeted corrections:
+   - Replace unsupported "quality 85, no subsampling" with the documented
+     GDI+ HighQualityBicubic processing facts. The actual committed JPEG
+     uses 4:2:0 chroma subsampling; exact encoder quality is unrecorded
+     unless separate evidence establishes it. Do not infer a quality value
+     or regenerate imagery to match the documentation.
+   - Replace "precached" with required/intended offline runtime asset.
+     Installation, worker preparation and complete offline reopening are
+     still pending; file verification alone cannot prove them.
+   - Separate the parent orbital observation's nominal resolution from
+     the unverified scale of the public-release JPEG and active derivative.
+     Keep calibration unverified. Avoid a universal claim that a known
+     resize always needs new GCPs; describe this product's missing verified
+     scale/transform chain instead.
+3. Preserve the existing v1 label mapping, unknown terrain/calibration,
+   2048x1042 dimensions, exact imageRef, file sizes and checksums. Any v2
+   interface remains an unapproved proposal, not a runtime schema change.
+   If normalizing parent latitude, use signed -4.843 degrees or 4.843 S;
+   never infer a pixel georeference or marker position from it.
+4. Compare the text with PROCESSING_LOG.md, process_image.py, actual JPEG
+   metadata and manifest. Confirm no asset, verifier, core or other app file
+   changed. Keep accurate hash-reporting wording and component-versus-core
+   image-error guidance. No new downloads, processing or verifier rewrite.
+5. Run relevant documentation checks. Package tests are already accepted;
+   rerun affected checks only for new data/tool changes and report actual
+   results. Do not invent external source verification or PWA success.
+6. Commit and push this same feature branch, then provide the commit,
+   corrected passages and remaining evidence limits for re-review.
 
-Own the data-tool/docs integration only. Commit and push the existing
-feature branch; that push is authorized. Handoff commit, conflicts resolved,
-files, actual checks, documentation fixes and next-deliverable status.
-No main merge/push, deployment or messaging without applicable authorization.
+Only the own-feature-branch push is authorized. No main merge/push,
+deployment, new schema, unrelated task branch or messaging to others.
 ```

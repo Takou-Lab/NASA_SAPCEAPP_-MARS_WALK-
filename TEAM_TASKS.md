@@ -6,9 +6,13 @@ Read [SOUL.MD](SOUL.MD) first for the product purpose, real users, complete offl
 
 ## Latest published review and next actions
 
-[REVIEW.md](REVIEW.md) records all remote branch tips inspected against main `f24f6fc`. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's published contributions are accepted and integrated. Gaddielle's latest verifier correction `094d042` passes technical checks but overlaps with main in three files; resolve those branch conflicts before treating the new commit as merge-ready. `Tablet-App` exactly matches the reviewed main and contains no separate implementation.
+[REVIEW.md](REVIEW.md) records inspected remote tips and their review baselines. [NEXT_TASKS.md](NEXT_TASKS.md) is the resulting handoff checklist. Willy and Emma's original published contributions are accepted and integrated. Gaddielle's `f265407` resolves the old three conflicts and passes the verifier checks; only the new Data Passport's processing/cache/scale wording needs correction. `Tablet-App` matched the earlier reviewed main and contained no separate implementation.
 
-Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle synchronizes the equivalent fixes before the queued Data Passport. No Enzo or Royce/Longla feature branch was visible at the review snapshot; local progress is unknown.
+Do not recreate accepted work. Emma's reported finished presentation needs a published commit, Willy continues Reset View/Focus Route, and Gaddielle makes the small Data Passport corrections in [his review](docs/reviews/GADDIELLE.md). At the initial review snapshot no Enzo or Royce/Longla feature branch was visible; the subsequent Enzo review is recorded below. Unseen local progress remains unknown.
+
+**Enzo update:** `feat/enzo-ui-planner-notebook` at `15b1666` is now published and reviewed. Its 47 tests pass, but it needs integration and behavior corrections and a production build pass before approval. Keep the same branch and preserve his UI; see [the review](docs/reviews/ENZO.md) and [updated agent brief](docs/team/ENZO.md). A new branch/task follows successful re-review, not this submission.
+
+**Emma update:** his branch is now `ee9f6ae`, synchronized with the earlier integration/review history. [His review](docs/reviews/EMMA.md) confirms no unique new content against inspected main `6c78ebe`. His earlier contribution remains accepted; he should publish the completed presentation/Q&A files rather than repeat research or start a new assignment.
 
 This allocation follows the supplied Full Team Plan, with **Willy and Gaddielle (Gaddiel/Daddiel) swapped**. Team names follow the latest project context: Longla takes the 3D role listed as Royce in the PDF, and YOU denotes the coordinator role listed as Dinang. This is a task plan, not a claim that features or datasets already exist.
 
@@ -27,7 +31,7 @@ This integration combines Willy `094fce2`, Gaddielle `fe9cd58` and Emma `b0640d9
 | Person | Continue on | Next deliverables |
 | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | `feature/willy-map-development` | Sync the published integration without resetting work; add Reset View/Focus Route and targeted tests only |
-| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Latest fix passes; resolve three overlaps against main, correct handoff wording, then finish the queued Data Passport without reprocessing imagery |
+| [Gaddielle](docs/team/GADDIELLE.md#current-follow-up--offline-image-data-package) | `feature/gaddielle-data-preparation` | Old fixes/conflicts resolved at `f265407`; correct the new passport's processing, caching and scale statements without touching data/code |
 | [Emma](docs/team/EMMA.md#current-follow-up--scientific-evidence-and-pwa-demo) | `feature/emma-science-provenance` | New presentation work reported complete; hand off its published commit, reuse integrated evidence/protocol, record sessions only when conducted |
 
 Read the **current follow-up** and updated copy-paste prompt in each named brief before continuing. Preserve completed branch work rather than restarting the initial assignment. New follow-up changes are committed and pushed to the respective feature branch; integrating those later changes into `main` remains separate. Installation, service-worker implementation and full offline-app verification belong to the coordinator; an image-pack inventory alone does not establish PWA readiness.
