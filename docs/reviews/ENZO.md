@@ -1,5 +1,16 @@
 # Enzo review — final shell integrated
 
+## Verifier correction fc79cf8 — accepted
+
+Reviewed 15 November 2026 against main 7f6ff5d. The genuine Uint8Array brand check and local copy resolve the cross-realm rejection without accepting DataView, strings, signed/clamped or wider typed arrays. Same/foreign-realm subarrays verify only their actual byte windows. Existing index/size/hash/UTF-8/identity/fail-closed/read-only checks are preserved.
+
+**New integrated results:** `npm test` passes **193 tests across 17 files**, including all 49 verifier cases. `npm run build` and `npm run build -- --base-href /marswalk/` both pass full-pack verification, 18 assets each; initial 433.80 kB, unchanged budgets and Leaflet CommonJS warning. Root pack stays 2d175fcf490e (1,655,365 bytes), subpath 37d7e7239de0 (1,655,374 bytes): this verifier is not mounted or bundled into the current runtime. Linux coordinator checks close the integration gate; Enzo's missing local Windows Three.js install remains a local setup issue. These checks do not claim physical/device or new live-browser acceptance.
+
+Previous c35b021 correction request below is closed by fc79cf8. Accepted scope is a pure image-payload verifier, not complete offline readiness or independent scientific validation. Coordinator owns any future composition into cache lifecycle; do not wire it into root/worker without agreement. No deployment occurred.
+
+Next unblocked Enzo slice: simplify default confidence/evidence explanations in his owned templates and coordinate wording with Emma. Show route state/main limitation/next step first, keep detailed limitations and sources accessible, preserve unavailable metrics and no safety classification. Emma retains the three shared SCSS theme fixes. Environmental runtime work remains blocked on verified sources/schema. Continue presentation/mission story from actual capabilities; official challenge contents/deadline remain unverified. Preserve unpublished work and incorporate published main safely before the next slice.
+
+
 ## Current verifier review — corrections required (`c35b021`)
 
 Reviewed 15 November 2026 against main `ac79be5`, using a temporary clean merge that was aborted after verification. The branch is published, but **not accepted or merged**. Existing integrated shell work below stays accepted.
