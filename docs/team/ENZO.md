@@ -1,5 +1,9 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Immediate task — verifier integration correction
+
+Your pushed `c35b021` was reviewed. Both production build paths pass, but the full Angular suite has **11 failing verifier tests (176 passing)** although all 43 focused Node tests pass. Resolve the byte-type/realm mismatch before starting another phase. See [exact findings and required checks](../reviews/ENZO.md#current-verifier-review--corrections-required-c35b021). Continue your existing branch; no verifier merge or deployment has occurred. Earlier accepted shell work stays complete.
+
 ## Byte-verification compatibility handoff
 
 Coordinator added repository-controlled LF attributes for scientific JSON without changing canonical data or hashes. Root and `/marswalk/` builds, including pack verification, pass. See [Windows LF instructions and evidence](../qa/PWA_INSTALL_ASSETS.md#windows-lf-compatibility--coordinator-fix-15-november-2026). Preserve local work and refresh only clean affected files after incorporating main; no global Git changes or data regeneration. Enzo/Willy should rerun their own Windows build verification before claiming that handoff complete. Gaddielle should retain canonical LF in future scientific JSON deliveries; her environmental-data corrections remain a separate pending task.

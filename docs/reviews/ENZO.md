@@ -1,5 +1,18 @@
 # Enzo review — final shell integrated
 
+## Current verifier review — corrections required (`c35b021`)
+
+Reviewed 15 November 2026 against main `ac79be5`, using a temporary clean merge that was aborted after verification. The branch is published, but **not accepted or merged**. Existing integrated shell work below stays accepted.
+
+- `npm test`: **176 passed, 11 failed / 187 tests**, 16 passing files and one failing file. All failures are in the new 43-test verifier suite. The existing 144 tests pass.
+- `npx vitest run --environment node src/app/offline/image-payload-verifier.spec.ts`: **43 passed**. Node-only success does not establish Angular-suite compatibility.
+- `npm run build` and `npm run build -- --base-href /marswalk/`: **both pass**, including full pack verification (18 assets each). Locked Three.js is available in the coordinator environment; no dependency change needed. These are Linux results, not Enzo's Windows results.
+
+**Required fix:** `bytes instanceof Uint8Array` rejects the manifest bytes produced by TextEncoder in the integrated Angular/jsdom environment. Successful verification returns “The supplied asset reader did not return bytes” before hashing; corruption/manifest-identity checks also fail at the wrong stage. Resolve the realm/type mismatch using a justified byte-validation/normalization approach and/or consistent test fixtures. Do not accept strings, DataView or arbitrary typed arrays as byte payloads, and do not bypass SHA-256 or weaken failure assertions. Verify valid Uint8Array views/subarrays and rejection of invalid reader values; retain exact-size/hash/identity checks, read-only behavior and fail-closed results.
+
+Continue `feature/enzo-image-payload-verifier`, preserve local work, and rerun the focused suite, full `npm test`, root build and `/marswalk/` build after correction. Record actual platform/results and remaining local registry blockers. Push a new commit for review. No deployment was performed. Finish this correction before environmental integration; use only separately reviewed scientific datasets.
+
+
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->
