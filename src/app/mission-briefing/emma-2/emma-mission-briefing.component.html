@@ -1,0 +1,23 @@
+<section class="briefing">
+  <h1>{{ title }}</h1>
+  <ng-container *ngIf="imageSource() as img">
+    <figure>
+      <img [src]="img.url" [alt]="img.title" />
+      <figcaption>{{ img.title }} – {{ img.credit }}</figcaption>
+    </figure>
+  </ng-container>
+  <details>
+    <summary>Science Records (Markers)</summary>
+    <ul>
+      <li *ngFor="let m of markers()">{{ m.id }} – {{ m.name }}</li>
+    </ul>
+  </details>
+  <details>
+    <summary>Checklist (Read‑only)</summary>
+    <ul>
+      <li>Start & Destination selected: {{ checklist().startAndDestination }}</li>
+      <li>Marker selected: {{ checklist().markerSelected }}</li>
+      <li>Observation present: {{ checklist().observationPresent }}</li>
+    </ul>
+  </details>
+</section>
