@@ -1,5 +1,11 @@
 # Willy — Remaining map, installation and deployment work
 
+## Two-agent split
+
+**Agent 1:** continue your existing map-usability Phase 2 checklist in `src/app/map/`, with map-specific evidence in `docs/qa/WILLY_MAP_RELEASE.md`. Finish current owned work before changing slices; keep map behavior, coordinates and mission state intact. Do not concurrently edit installation assets or Agent 2's QA file.
+
+**Agent 2:** follow [WILLY 2.md](<WILLY 2.md>) for independent Windows/root/subpath installation and release verification. Use separate checkouts, branches and evidence files. The coordinator reviews/integrates both before combined release checks. Shared root/core/worker/data changes remain coordinator-owned; Emma owns shell design. Preserve unpublished progress and do not duplicate completed asset creation.
+
 ## Install-asset audit follow-up
 
 Your reported Antigravity asset audit is recorded. Coordinator added the relative iOS apple-touch-icon link and exact size/hash inventory; both production build paths pass. See [audit follow-up](../qa/PWA_INSTALL_ASSETS.md#willy-audit-follow-up--15-november-2026). No new Willy feature commit is visible, so asset work is not described as a newly merged submission. Incorporate current main safely; complete your actual Windows rerun and provide available-device installation/launcher evidence. Then continue the existing Phase 2 map-usability checklist; do not recreate icons or change scientific data. Physical/device acceptance remains pending.
