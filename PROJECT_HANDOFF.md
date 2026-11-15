@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Final 90-minute release ownership
+
+See [exact team assignments](docs/FINAL_90_MINUTES.md). Personal task files have ACTIVE overrides; Emma 1 owns new survival-brief, Enzo 2 new survival-budget, coordinator core/root/release, other owners source/review/device/demo work. Takou's older local baseline is superseded; his unpushed QA work must be handed off before acceptance. Current runtime 38ad299 adds guards against unreadable/unrestored/changed saved records; 251 tests and build pass. Stable public review URL unchanged. No raw-data or outstanding feature branch is accepted merely by this plan.
+
 ## AI-generated relief in the existing 3D section
 
 [Model and verification](docs/qa/AI_RELIEF_VIEWER.md). Runtime source 2bfbd8d is deployed on the stable review alias. Uploaded Pixal3D GLB is selectable alongside the flat view. Model-only inclination/range/area and triangle taps are implemented; they never populate real terrain/slope/safety or route assessments. Full offline pack now includes the model. Stable review URL remains https://marswalk-review-boys-band.vercel.app/. Production alias unchanged.
