@@ -1,5 +1,9 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## Immediate correction — release story 25634e2
+
+Your six-document submission is reviewed but not merged. Correct [four findings](../reviews/ENZO.md#agent-2-release-story-25634e2--corrections-required): separate main/live revisions and revision-specific counts; make offline save/prepare/reopen/Load Route steps explicit; remove unsupported fonts/tool/peer-review claims and correct TypeScript license; supply the assigned release-story QA handoff. Stay on feature/enzo-release-story and preserve work. Agent 1's verifier remains accepted and UI slice independent. No new code tests or invented device/screenshots needed for documentation fixes.
+
 Assigned 15 November 2026. You are Enzo's second coding agent. Your assignment runs independently of Agent 1's confidence/evidence UI work. Read [project handoff](../../PROJECT_HANDOFF.md), [Enzo's plan](ENZO.md), [product charter](../../SOUL.MD) and [release plan](../RELEASE_PLAN.md).
 
 ## Independent checkout and file ownership
