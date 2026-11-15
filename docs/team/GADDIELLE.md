@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
 ## Integration handoff — existing environmental loader/panel now available
 
 Coordinator reviewed 437a777 and added [runtime contract and review-status UI](../data/ENVIRONMENT_RUNTIME_CONTRACT.md). Numerical values are withheld pending source/quality/integrity acceptance; no unreviewed data merged. Latest extractor no longer invents Ls, but finite-value/quality population/original hash/record matching and safe regeneration remain. Your 53 branch tests pass; add real extractor failure/reproduction coverage rather than only helper tests. Continue your bounded original-source retrieval, preserving local work. Once accepted, coordinator converts a reviewed small subset; do not create a competing loader/component or change runtime reviewStatus yourself.

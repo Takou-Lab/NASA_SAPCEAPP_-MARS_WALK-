@@ -1,5 +1,9 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
 ## Science navigation accepted — 2b2a708
 
 Your Previous/Next submission passes review and combined checks (223 Angular tests/build). No repeat implementation needed. Safely incorporate main preserving work; next verify keyboard/bounded/filtered navigation on the designated public candidate and report exact revision/results. Coordinator supplies the environment loader/panel; do not create a duplicate. Agent 2 source-explanation corrections remain separate.
