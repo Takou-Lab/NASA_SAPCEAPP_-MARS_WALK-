@@ -1,5 +1,6 @@
 <div class="shell-layout">
   <app-header />
+  <ng-content select="[pwa-status]"></ng-content>
 
   <main
     class="main-workspace"
@@ -15,6 +16,10 @@
         <div class="status-left">
           <span class="footer-label">Coordinate System:</span>
           <span class="footer-val font-mono">image-pixels-bottom-left (2D Raster)</span>
+          <span class="footer-boundary">
+            Readiness states (metadata, map display, local storage, network, offline pack) are
+            verified independently.
+          </span>
         </div>
         <div class="status-right">
           <button
@@ -23,7 +28,7 @@
             (click)="togglePanel()"
             [attr.aria-expanded]="!isPanelCollapsed()"
             aria-controls="side-panel"
-            aria-label="Toggle Side Panel"
+            [attr.aria-label]="isPanelCollapsed() ? 'Show panel sidebar' : 'Collapse panel sidebar'"
           >
             {{ isPanelCollapsed() ? 'Show Panel ◂' : 'Collapse Panel ▸' }}
           </button>
@@ -147,7 +152,9 @@
           [hidden]="activeTab() !== 'confidence'"
           tabindex="0"
         >
-          <app-confidence-panel />
+          <app-confidence-panel
+            ><ng-content select="[environmental-context]" environmental-context></ng-content
+          ></app-confidence-panel>
         </div>
 
         <div

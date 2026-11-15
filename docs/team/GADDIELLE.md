@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## In-progress delivery cdd5b45 — continue collection and extractor validation
+
+New source catalog/FMT/extractor/observations received; 53 isolated branch tests pass but scientific/runtime approval is pending. Keep retrieving original products. Before final review resolve [latest extractor findings](../reviews/GADDIELLE.md#latest-data-delivery-cdd5b45--received-extractor-not-ready-for-scientificruntime-approval): synthetic Ls, NaN/Infinity, confidence population semantics, input/hash/record matching and safe output. These refine your existing task, not a reset/new branch. Preserve all source evidence and incorporate accepted main corrections safely. No runtime environment file/API authorized yet.
+
 ## Latest REMS handoff fe69663 — source corrections next
 
 New product inventory/label/excerpt/summary reviewed; not merged or accepted as verified data yet. Address [S1–S4](../reviews/GADDIELLE.md#rems-source-submission-fe69663--corrections-required-before-acceptance): reproducible extraction plus original format/quality documentation, inconsistent row totals/record sizes, raw-versus-LF label hashes, and safe reconciliation with accepted main C1/C2 corrections. Start with one bounded original product if needed. Preserve ongoing work and keep RAD/runtime schema unavailable; no invented replacement values. Earlier accepted converter fixes remain complete.

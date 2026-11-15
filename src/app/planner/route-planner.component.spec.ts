@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { MissionService } from '../core/mission.service';
 import { testImage } from '../core/fixtures.spec-helper';
 import { RoutePlannerComponent } from './route-planner.component';
@@ -153,7 +153,104 @@ describe('RoutePlannerComponent', () => {
     expect(actionBtns).toHaveLength(4);
     for (const btn of actionBtns) {
       expect(btn.type).toBe('button');
-      expect(btn.getAttribute('aria-label')).toBeTruthy();
+      const label = btn.getAttribute('aria-label')?.toLowerCase() ?? '';
+      const visible = btn.querySelector('span')?.textContent?.trim().toLowerCase() ?? '';
+      expect(label).toContain(visible);
     }
+  });
+
+  it('transitions nextActionHint reactively as start and destination are added and cleared', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const banner = () => compiled.querySelector('.next-step-banner')?.textContent?.trim();
+
+    expect(banner()).toBe(
+      'Next step: Select Start mode and click the map raster to set the EVA start point.',
+    );
+
+    service.setMode('start');
+    service.applyMapPoint({ x: 15, y: 25 });
+    fixture.detectChanges();
+    expect(banner()).toBe(
+      'Next step: Select Destination mode (or Waypoint) and click the map raster to complete the traverse.',
+    );
+
+    service.setMode('destination');
+    service.applyMapPoint({ x: 120, y: 140 });
+    fixture.detectChanges();
+    expect(banner()).toBe(
+      'Next step: Save Route locally for this raster or open Notebook to record field observations.',
+    );
+
+    component.clear();
+    fixture.detectChanges();
+    expect(banner()).toBe(
+      'Next step: Select Start mode and click the map raster to set the EVA start point.',
+    );
+  });
+});
+
+describe('RoutePlannerComponent metadata state banners', () => {
+  let fixture: ComponentFixture<RoutePlannerComponent>;
+  let service: MissionService;
+  let http: HttpTestingController;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [RoutePlannerComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(RoutePlannerComponent);
+    service = TestBed.inject(MissionService);
+    http = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => http.verify());
+
+  it('renders loading banner and wait hint while raster metadata is loading', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const state = compiled.querySelector('.planner-state');
+    expect(state?.getAttribute('role')).toBe('status');
+    expect(state?.classList.contains('planner-state-error')).toBe(false);
+    expect(compiled.querySelector('.next-step-banner')?.textContent?.trim()).toBe(
+      'Wait for verified raster metadata before placing or loading route points.',
+    );
+  });
+
+  it('renders unavailable status banner when manifest returns 404', async () => {
+    const initialized = service.initialize();
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('Not found', { status: 404, statusText: 'Not Found' });
+    await initialized;
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const state = compiled.querySelector('.planner-state');
+    expect(service.dataStatus()).toBe('unavailable');
+    expect(state?.getAttribute('role')).toBe('status');
+    expect(state?.textContent).toContain('Image data has not been supplied');
+    expect(compiled.querySelector('.next-step-banner')?.textContent?.trim()).toBe(
+      'Wait for verified raster metadata before placing or loading route points.',
+    );
+  });
+
+  it('renders error alert banner when manifest request fails', async () => {
+    const initialized = service.initialize();
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('Server error', { status: 500, statusText: 'Internal Server Error' });
+    await initialized;
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const state = compiled.querySelector('.planner-state-error');
+    expect(service.dataStatus()).toBe('error');
+    expect(state?.getAttribute('role')).toBe('alert');
+    expect(state?.textContent).toContain('Image manifest could not be loaded or validated.');
+    expect(compiled.querySelector('.next-step-banner')?.textContent?.trim()).toBe(
+      'Wait for verified raster metadata before placing or loading route points.',
+    );
   });
 });

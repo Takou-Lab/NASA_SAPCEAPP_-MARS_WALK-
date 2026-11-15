@@ -18,8 +18,11 @@
     </div>
   </div>
 
-  <div class="mission-meta">
-    <div class="status-pill" [class]="'status-' + dataStatus()">
+  <div class="mission-meta" role="group" aria-label="Mission and offline readiness states">
+    <div
+      [class]="'status-pill metadata-pill ' + metadataStatusClass()"
+      title="Mission manifest and marker metadata only. Separate from raster display, local persistence, connectivity, and offline pack verification."
+    >
       <span class="status-dot" aria-hidden="true"></span>
       <span class="status-text">{{ statusLabel() }}</span>
     </div>
@@ -34,6 +37,44 @@
         <span class="tag-label">Raster:</span>
         <span class="tag-val">No raster loaded</span>
       </div>
+    }
+
+    <div
+      class="status-pill network-pill"
+      [class.status-neutral]="online()"
+      [class.status-loading]="!online()"
+      title="Browser connectivity only. Being online does not mean the offline pack is verified."
+    >
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">{{ networkLabel() }}</span>
+    </div>
+
+    <div
+      [class]="'status-pill offline-pill ' + offlinePackStatusClass()"
+      [attr.title]="offlineMessage()"
+    >
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">{{ offlinePackLabel() }}</span>
+    </div>
+
+    @if (canInstall()) {
+      <span class="status-pill pwa-flag-pill status-info" role="status">Install Available</span>
+    }
+
+    @if (updateAvailable()) {
+      <span
+        class="status-pill pwa-flag-pill status-loading"
+        role="status"
+        title="Save or export routes and notes in every open tab before applying the waiting update."
+        >Update Waiting (save work first)</span
+      >
+    }
+
+    @if (offlineState() === 'error') {
+      <span class="status-pill pwa-flag-pill status-error" role="alert"
+        >{{ offlineMessage() }} — Save/export unsaved work first; retry preparation while
+        connected.</span
+      >
     }
   </div>
 

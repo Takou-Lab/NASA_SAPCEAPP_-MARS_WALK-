@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -5,6 +6,18 @@ import { By } from '@angular/platform-browser';
 import { MissionService } from '../../core/mission.service';
 import { NotebookComponent } from '../../notebook/notebook.component';
 import { ShellComponent } from './shell.component';
+
+@Component({
+  standalone: true,
+  imports: [ShellComponent],
+  template: `
+    <app-shell>
+      <div pwa-status data-testid="projected-pwa">Projected PWA status</div>
+      <div environmental-context data-testid="projected-env">Projected REMS context</div>
+    </app-shell>
+  `,
+})
+class ShellSlotHostComponent {}
 
 describe('ShellComponent', () => {
   let fixture: ComponentFixture<ShellComponent>;
@@ -313,5 +326,66 @@ describe('ShellComponent', () => {
     expect(compiled.querySelector('app-viewer3d')).toBeNull();
     expect(compiled.querySelector('app-route-planner')).toBeTruthy();
     expect(compiled.querySelector('app-notebook')).toBeTruthy();
+  });
+
+  it('keeps WCAG Label-in-Name on panel toggle and renders footer readiness boundary', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const toggleBtn = compiled.querySelector('.panel-toggle-btn') as HTMLButtonElement;
+    const boundary = compiled.querySelector('.workspace-footer .footer-boundary') as HTMLElement;
+
+    expect(toggleBtn.textContent?.trim()).toBe('Collapse Panel ▸');
+    expect(toggleBtn.getAttribute('aria-label')).toBe('Collapse panel sidebar');
+
+    toggleBtn.click();
+    fixture.detectChanges();
+    expect(toggleBtn.textContent?.trim()).toBe('Show Panel ◂');
+    expect(toggleBtn.getAttribute('aria-label')).toBe('Show panel sidebar');
+
+    expect(boundary?.textContent?.trim()).toContain(
+      'Readiness states (metadata, map display, local storage, network, offline pack) are verified independently.',
+    );
+  });
+
+  it('does not write marswalk_panel_width to localStorage in ngOnDestroy unless resized', () => {
+    localStorage.clear();
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+    fixture.destroy();
+    expect(setItemSpy).not.toHaveBeenCalledWith('marswalk_panel_width', expect.anything());
+    expect(localStorage.getItem('marswalk_panel_width')).toBeNull();
+    setItemSpy.mockRestore();
+  });
+
+  it('projects [pwa-status] and [environmental-context] slots and displays the environmental slot card notice', () => {
+    const hostFixture = TestBed.createComponent(ShellSlotHostComponent);
+    hostFixture.detectChanges();
+    const hostEl = hostFixture.nativeElement as HTMLElement;
+
+    const layout = hostEl.querySelector('.shell-layout') as HTMLElement;
+    const pwaProjected = layout.querySelector('[data-testid="projected-pwa"]') as HTMLElement;
+    const header = layout.querySelector('app-header') as HTMLElement;
+    expect(pwaProjected).toBeTruthy();
+    expect(header.nextElementSibling).toBe(pwaProjected);
+
+    const confidencePanel = hostEl.querySelector('app-confidence-panel') as HTMLElement;
+    const envProjected = confidencePanel.querySelector(
+      '[data-testid="projected-env"]',
+    ) as HTMLElement;
+    const envCard = confidencePanel.querySelector('.env-slot-card') as HTMLElement;
+    expect(envProjected).toBeTruthy();
+    expect(envCard).toBeTruthy();
+    expect(envProjected.previousElementSibling?.tagName.toLowerCase()).toBe(
+      'app-exploration-confidence',
+    );
+    expect(envProjected.nextElementSibling).toBe(envCard);
+    expect(envCard.nextElementSibling?.tagName.toLowerCase()).toBe('app-science-context');
+    expect(envCard.getAttribute('aria-label')).toBe('Environmental context integration slot');
+    expect(envCard.querySelector('h3')?.textContent).toContain(
+      'Environmental Context (REMS / RAD)',
+    );
+    expect(envCard.querySelector('.env-slot-badge')?.textContent).toContain(
+      'Pending verified dataset',
+    );
+    expect(envCard.textContent).toContain('No environmental values are estimated or simulated.');
+    hostFixture.destroy();
   });
 });

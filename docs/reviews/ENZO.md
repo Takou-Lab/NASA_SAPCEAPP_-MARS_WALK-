@@ -1,5 +1,13 @@
 # Enzo review — final shell integrated
 
+## Agent 2 AI proposal e161e41 — received; source corrections before runtime approval
+
+15 November 2026. QA-only proposal supplies three explanations, marker IDs/citations, generation metadata and explicit pending human review; no runtime file/loader/API. Architecture boundary is respected. No code tests needed for this draft. Keep as a proposal; do not treat claimed source checks as independent approval.
+
+Before approving content: entry 1 changes planned MAHLI/APXS bedrock work into completed analysis of drill cuttings/minerals; retain the documented planned versus observed distinction. Entry 2 claims surface measurements revealed mineralization differences beyond orbital observations, while the existing evidence audit supports brushing/characterization and varying orbital hematite, not that result. Entry 3 adds an evaporation/drying causal narrative and co-locates sample targets more specifically than the cited audit establishes; narrow to the documented transition and sample-delivery plan or supply exact source passages. Add sentence-to-passage mapping, remove unsupported time/causal claims, and give the actual model only if known (otherwise model unknown). Remove “100% deterministic”; claim no runtime model inference instead. Existing pending status is appropriate.
+
+Next Agent 2: correct the three short drafts and source mapping in the same QA handoff on feature/enzo-release-story. Coordinator will agree a versioned static explanation contract only after content review; no public file, API or UI integration yet. Candidate cf0ffb7 now exists (protected Vercel preview); update screenshot/rehearsal dependencies from the actual preview record, preserving unrun outcomes. No live inference or extra sources/features assigned.
+
 ## Agent 2 checklist cbddb0e — accepted with technical corrections
 
 15 November 2026: one owned QA document adds environment/source/pack fields, seven screenshot scenes, saved-note criteria and a clearly unrun rehearsal log. Coordinator corrected actual inventory URL (/offline-pack.json), exported observations field, successful-save clearing versus failed-save draft retention, visible contextual labels versus JSON position:null, full-process restart wording and non-measurement rehearsal text. No screenshots, timings, installation or rehearsal outcomes were supplied or invented. Documentation links/format/contract checked; no code tests rerun or site deployed.
