@@ -75,3 +75,6 @@ The CLI created a project **Protection Bypass for Automation** secret while chec
 - Until Git connection succeeds, use the reviewed CLI deploy/promote workflow above. The live site does not depend on that optional connection.
 - Physical phone/home-screen installation and standalone disconnected reopening remain pending; [public browser evidence](qa/VERCEL_PRODUCTION.md) is not physical-device acceptance.
 - Official event URL/deadline verification, numerical environmental data/shared contract, prepared AI explanations, immersive VR and outside-user outcomes remain separate assignments. No competition submission was made.
+
+
+Observed final anonymous response headers: entry HTML, worker and install manifest return `Cache-Control: public, max-age=0, must-revalidate` from Vercel; worker MIME is `application/javascript` and manifest MIME is `application/manifest+json`. This is the actual provider response, distinct from the config’s requested no-store values. Revalidation satisfies the current host requirement; worker registration also uses `updateViaCache: none` and preparation downloads use `cache: no-store`. No positive-TTL immutable caching of these control files was observed.
