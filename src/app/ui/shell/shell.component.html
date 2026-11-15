@@ -9,6 +9,7 @@
   >
     <!-- Map / Primary Workspace Area -->
     <section class="map-workspace" aria-label="Mars Surface Workspace">
+      <app-mission-review (navigateTab)="onWorkflowNavigate($event)" />
       <div id="map-container" class="map-container"><app-map /></div>
 
       <!-- Quick status footer inside map workspace -->

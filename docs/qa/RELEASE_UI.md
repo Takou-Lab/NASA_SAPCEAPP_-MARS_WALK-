@@ -163,8 +163,47 @@ Zero contrast failures (`contrastFailures: []`). All cards in `science-context`,
 
 ---
 
-## 6. Pending Work (Release Freeze & Deployment Responsibilities)
+## 6. Mission Decision Workspace & Guided Workflow Slice (`feature/emma-release-ui`)
 
-- **PENDING — W4 Phase 3 (Deployed interface verification)**: Acceptance checks on the public HTTPS host (`https://marswalk-jet.vercel.app/`) await coordinator deployment of this UI commit (the existing host runs older source `b6669fb`).
+### A. Summary of Changes & Owned Files
+Implemented the mission decision workspace slice (`EMMA.md` Sections A–E) on `feature/emma-release-ui` (also pushed to `feature/emma-mission-workspace`) while preserving all accepted Phase 1/2 work and keeping Agent 2's standalone `src/app/mission-briefing` slice separate on `feature/emma-2-mission-briefing` (`d4b335a`).
+
+Owned files created/updated in this slice:
+- `src/app/ui/mission-review/mission-review.component.ts`
+- `src/app/ui/mission-review/mission-review.component.html`
+- `src/app/ui/mission-review/mission-review.component.scss`
+- `src/app/ui/mission-review/mission-review.component.spec.ts`
+- `src/app/ui/shell/shell.component.ts`
+- `src/app/ui/shell/shell.component.html`
+- `src/app/ui/shell/shell.component.spec.ts`
+- `src/app/planner/route-planner.component.html`
+- `docs/qa/RELEASE_UI.md`
+
+### B. Reactive Mission Summary & Functional Workflow Actions
+1. **Reactive Mission Summary (`app-mission-review`)**:
+   - Computed directly from `MissionService` signals (`route()`, `assessment()`, `selectedMarkerId()`, `markers()`, `observations()`, `image()`).
+   - **Endpoints & Waypoints**: Distinguishes `Missing Start & Destination`, `Start set · Destination missing`, `Destination set · Start missing`, and `Start & Destination set`, alongside exact waypoint count.
+   - **Distance & Terrain Assessment**: Shows `Planar distance: unavailable (uncalibrated raster) · Terrain/slope: unavailable` by default, and renders `Derived planar: <X.X> m (<scale> · <method>) · Terrain/slope: unavailable` when `assessment().distanceStatus === 'derived'` (including `0.0 m`). Never displays a "mission complete" or "safe route" badge.
+   - **Selected Science Record**: Distinguishes `None selected`, `Verified image position`, `Illustrative pin — not exact tie-point`, and `Regional contextual record — not located on this image`, and resets cleanly if the selected record is removed from `markers()`.
+   - **Field Observations**: Shows session observation count with explicit notice `(current/imported state; save or export to persist)`.
+2. **Executable Workflow Navigation (`navigateTab`)**:
+   - Native buttons (`1. Review evidence`, `2. Edit route`, `3. Record observation`, `4. Save / export`) emit typed `MissionWorkflowTab` (`'confidence' | 'planner' | 'notebook' | 'transfer'`) handled by `ShellComponent.onWorkflowNavigate()`.
+   - Automatically expands the sidebar if collapsed (`isPanelCollapsed() === true`), switches to the requested tab, moves keyboard focus predictably to `#tab-<tab>`, and preserves exact unsaved `NotebookComponent` draft text without triggering any route, mode, layer, selection, or `localStorage` mutation.
+3. **Understandable Route & Science Boundaries**:
+   - Accessible `<details class="boundary-disclosure">` inside `app-mission-review` and inline planning hints in `app-route-planner` explain that unlocated records are regional context rather than located destinations, the REMS excerpt in *Confidence & Data* reflects historical rover observations at Curiosity's location/sol interval rather than route weather, and **Load Route** recovers both saved route and saved observations per browser origin.
+
+### C. Automated Verification & Build Output
+- **Angular Unit Tests (`npm test -- --watch=false`)**: **21 test files passed, 229 tests passed** (`0` failures), including 5 new unit tests in `mission-review.component.spec.ts` and end-to-end shell workflow/draft/collapse/focus verification in `shell.component.spec.ts`.
+- **Production Build & Offline Pack (`npm run build`)**:
+  - `main-ZM547K3P.js`: `444.98 kB` raw / `113.07 kB` transfer
+  - `styles-2WTUZKL3.css`: `13.85 kB` raw / `3.19 kB` transfer
+  - **Initial total**: **`458.82 kB` raw / `116.26 kB` transfer** (within the `500 kB` warning budget; `0` initial or component style budget warnings).
+  - Lazy chunks: `viewer3d-component` (`597.05 kB`), `route-planner-component` (`16.52 kB`), `notebook-component` (`13.68 kB`).
+  - Offline pack `7c6fc1e47294`: **19 assets, 1,686,944 bytes**.
+
+---
+
+## 7. Pending Work (Release Freeze & Deployment Responsibilities)
+
+- **PENDING — Coordinator root mount for Agent 2 briefing**: Agent 2's standalone `<app-mission-briefing />` is ready on `feature/emma-2-mission-briefing` (`d4b335a`); suggested mount is inside `Confidence & Data` top slot once reviewed by coordinator.
 - **PENDING — Physical device & outside-user sessions**: Target Android/iOS standalone testing and three-participant usability protocol (`docs/USABILITY.md`) remain to be observed on physical hardware.
-- **PENDING — Environmental data integration**: Enzo's environmental component mounting awaits verified PDS data schema agreement.

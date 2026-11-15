@@ -6,6 +6,10 @@ import { NotebookComponent } from '../../notebook/notebook.component';
 import { RoutePlannerComponent } from '../../planner/route-planner.component';
 import { ConfidencePanelComponent } from '../confidence-panel/confidence-panel.component';
 import { HeaderComponent } from '../header/header.component';
+import {
+  MissionReviewComponent,
+  type MissionWorkflowTab,
+} from '../mission-review/mission-review.component';
 
 export type ActiveTab = 'confidence' | 'planner' | 'notebook' | 'transfer' | 'rehearsal';
 
@@ -16,6 +20,7 @@ export type ActiveTab = 'confidence' | 'planner' | 'notebook' | 'transfer' | 're
     MapComponent,
     Viewer3dComponent,
     HeaderComponent,
+    MissionReviewComponent,
     ConfidencePanelComponent,
     RoutePlannerComponent,
     NotebookComponent,
@@ -98,6 +103,14 @@ export class ShellComponent implements OnDestroy {
     if (this.isPanelCollapsed()) {
       this.isPanelCollapsed.set(false);
     }
+  }
+
+  onWorkflowNavigate(tab: MissionWorkflowTab): void {
+    this.setActiveTab(tab);
+    setTimeout(() => {
+      const tabBtn = this.elementRef.nativeElement.querySelector<HTMLElement>(`#tab-${tab}`);
+      tabBtn?.focus();
+    });
   }
 
   onTabKeydown(event: KeyboardEvent): void {
