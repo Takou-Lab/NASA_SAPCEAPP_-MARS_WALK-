@@ -1,5 +1,15 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## NEXT ACTIVE SLICE — source evidence comparison (location clarity complete)
+
+Your 8855a2e and navigation 2b2a708 are accepted in b721269. Do not repeat navigation or location-label cleanup. Preserve local progress and safely incorporate main on your existing science branch.
+
+**Outcome:** help users compare NASA science evidence relevant to their mission question without claiming the records are co-located. In your owned science component TS/HTML/tests, add an optional Compare evidence mode with at most two locally chosen record IDs. This is view state only, not a new mission store or route selection. Provide native add/remove comparison buttons with explicit accessible names; choosing comparison must not call selectMarker, set route points or change existing active selection. Keep full original finding text, evidence classification, instrument/date, source/credit, limitations and position status for each record in a readable stacked layout. Do not generate an AI synopsis, mineral measurements, proximity ranking or a recommendation about a safe route.
+
+Show clearly when evidence is regional/unlocated, illustrative or verified on the current raster. A comparison means scientific context, not two route destinations. If filters hide a compared record retain it with an explanation; if the underlying record is removed, remove its comparison entry safely and announce it. Never silently replace it with another. Disable further additions at two entries, keep remove/clear actions obvious and preserve current search/navigation. Use existing classes; Emma retains SCSS theme ownership. If spacing needs a new class, send a concrete small style handoff rather than editing another owner's file.
+
+Tests: first/second/third additions and bounds, duplicate add, remove/clear, filter-hidden versus source-removed records, source URL/text safety, keyboard/native controls, unchanged route/notes/mode/layers/selected marker and no storage calls. Run integrated npm test/build and actual comparison/filter workflow on a local served production build; identify public versus local revision honestly. Record checks in a response/branch handoff; Agent 2 presentation/QA files remain exclusive. Push same branch for review. No new data model, pins, environment loader, clipboard or Notebook mutation. Limit to one focused two-hour slice, then stop for review.
+
 ## Latest team integration check
 
 Your 8855a2e location-clarity change is accepted; no repeat navigation/copy task. Preserve work and safely incorporate main. Next verify actual selected-record provenance/location labels with the mission briefing on the next candidate; any spatial mapping requires reviewed raster identity/coordinates. Agent 2 source explanations remain a different review. [Checks and limits](../qa/TEAM_SUBMISSION_CHECK.md).

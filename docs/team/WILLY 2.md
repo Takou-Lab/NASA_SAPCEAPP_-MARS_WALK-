@@ -1,5 +1,11 @@
 # Willy 2 — Installation and release verification agent
 
+## NEXT ACTIVE SLICE — reproducible installed mission acceptance
+
+Your Windows/root/subpath report 9b4093d is accepted. Do not repeat asset generation/build-only checks as the next deliverable. Test the currently designated PUBLIC candidate from PROJECT_HANDOFF.md with a unique isolated test note and route: raster load, route drawing, successful note save, route save, export observations, prepare verified pack, full app close, disconnected reopen, explicit Load Route, Notebook and export comparison. Confirm no Vercel login needed and record exact source/pack/origin, device model/OS/browser and each pass/failure. Changing preview origin does not transfer local storage.
+
+Coordinate device coverage with Royce, whose branch fix is still unmerged; do not test an asserted SHA unless actually served. If no phone is available, perform an isolated persistent-browser check and mark physical installation unrun. Save redacted before/after JSON and actual screenshots/logs with the report in your own WILLY_2_INSTALL_VERIFICATION.md. Add one short regression/bug matrix for image failure, no saved mission, storage denied and invalid import only where safely reproducible; preserve real mission data. No runtime/core/worker changes or independent deployment. Stop and hand off any actual data-loss blocker immediately.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Agent 2 priority now — actual mission acceptance

@@ -1,10 +1,20 @@
 # Emma 2 — Guided boxwork mission briefing
 
+## NEXT ACTIVE SLICE — field observation guide (briefing complete)
+
+Your d4b335a briefing is accepted and mounted in b721269. This replaces old instructions to implement the same briefing. Preserve local progress and merge published main safely into the briefing branch you actually use; the two advertised briefing names point to the same accepted tip. No reset/new competing branch.
+
+**Outcome:** help the explorer record a useful, source-aware observation, not merely type an arbitrary note. In your owned src/app/mission-briefing folder add a compact, native expandable Field observation guide to the existing component. Offer a plain-text template with distinct headings: Mission question; What I can see in this image; What the selected source reports; My interpretation/question; What remains uncertain. Prefill only active imageRef and existing selected record name/source URL where valid; all observation/interpretation fields must remain prompts, not generated geological claims. If no selection/image exists, use honest placeholders. Do not imply a source record lies at the route point.
+
+Provide an explicit Copy observation template button using browser clipboard only on user action. Include a readonly selectable text fallback; handle unavailable clipboard/denied permission with guidance and no lost content. Show copied success only after the write resolves. Do not read clipboard, change tabs, fill/save Notebook, mutate mission state, store drafts or export automatically. Clipboard support must not become a runtime dependency; the guide works offline without it. Reuse existing tokens/accessibility, keep detail collapsed and avoid crowding the map. Agent 1 owns operational workspace/navigation, Enzo owns record comparison.
+
+Test no-selection/removed-selection/stale image states, unsafe source URLs rendered as text, exact template content and clipboard success/failure without data mutation, and original briefing structural checklist. Keep local text generation deterministic from supported fields; no new AI/geographic/quantity APIs. Check keyboard, narrow both-theme layout and no secret/HTML injection. Run full tests/build; update your own QA with branch/SHA/files/results and push a reviewable slice. Coordinator integrates/deploys; no root/core/Notebook/styles outside your folder. Aim one focused reviewable slice within two hours, stop for review before more features.
+
 ## Latest team integration check
 
 Your d4b335a briefing is accepted and mounted once, with coordinator theme-token/collapsed-detail adjustments. No repeat component needed. Safely incorporate main preserving work, then check question/source/structural-checklist readability and keyboard disclosure on the next actual deployed revision; current public candidate is older. No new coordinates/calibration or mission-success claims. [Checks and limits](../qa/TEAM_SUBMISSION_CHECK.md).
 
-## Coordination with Agent 1's mission workspace
+## Historical pre-acceptance coordination — superseded by next active slice
 
 Your original standalone briefing remains your assignment; preserve any completed/unpublished work and send its actual branch/SHA. No new briefing branch is advertised in the latest check, so completion cannot yet be reviewed. Agent 1 now implements a compact operational summary and shell tab-navigation actions in src/app/ui only. You keep scientific question/background, evidence-location explanation and readonly structural checklist under src/app/mission-briefing only. Avoid duplicated route/quantity dashboards or shell edits; coordinator reconciles mounting. Deliver a small reviewable component promptly, not additional documentation in place of code. Existing no-fake-position/scale/mission-success boundaries apply.
 

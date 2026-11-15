@@ -1,5 +1,13 @@
 # Willy — Remaining map, installation and deployment work
 
+## NEXT ACTIVE SLICE — route geometry review and map interaction
+
+Existing map/navigation/retry are accepted. Preserve any ongoing map-release work and hand it off before starting overlapping edits. If current slice is complete, implement a compact **Route geometry review** in src/app/map only: clearly show current Start/Destination/Waypoint mode, identify required missing endpoints and explain whether metric scale is unavailable from the real assessment. Present existing point coordinates with readable formatting and bottom-left pixel units; keep full precision in stored mission state. Do not create a second metric distance algorithm or scale bar from nominal parent resolution.
+
+Use existing reset/focus/retry actions and typed mission API. Verify focus-route handles no route, a single point, coincident endpoints and boundary points; pan/zoom must not accidentally add points in Inspect mode. Improve specific failing behavior with tests rather than rewriting Leaflet. Keep unlocated regional science accessible through the panel, without adding pins. No root/core/science/briefing edits. Current raster identity and old saved missions remain unchanged.
+
+Deliver map-only branch/SHA, actual mouse/keyboard/touch checks, tests/build and exact blockers. When coordinator delivers verified calibration, consume that real assessment as a later small slice; do not wait idle or invent a future API. Agent 2 owns installation/device validation, not these component files.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Agent 1 priority now — calibrated-map integration readiness

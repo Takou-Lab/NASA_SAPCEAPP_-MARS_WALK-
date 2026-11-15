@@ -1,5 +1,7 @@
 # Finish the integrated Marswalk map — current priority override
 
+> **Completed-slice follow-ups:** Emma 2 briefing accepted/mounted → source-aware observation template guide; Enzo 1 navigation/location clarity accepted → readonly two-record evidence comparison; Willy 1 accepted map → route-geometry/interactions slice if prior local work complete; Willy 2 accepted Windows QA → actual installed mission recovery evidence. Personal files define ownership/bounds. Enzo 2 source corrections and Royce compilation failures stay open; they do not receive distracting replacement tasks. Coordinator/user retain raster calibration. These tasks support mission use; none replaces missing geographic calibration or permits new scientific claims.
+
 Updated 15 November 2026 after explicit user direction. This is the current priority for all personal briefs; completed work stays accepted and unpublished progress must be preserved. [Challenge wording](challenge/REQUIREMENTS.md), [public candidate](qa/PUBLIC_SCIENCE_PREVIEW.md). Product goal: one useful map/route view using multiple NASA missions to support a specific boxwork science objective. Offline notes and explanations support that goal but do not replace calibrated, spatially meaningful evidence.
 
 ## Checked branch state

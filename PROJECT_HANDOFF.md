@@ -74,6 +74,10 @@ User requested substantial objective-focused work. Published UI tip still 59e00e
 
 Emma Agent 2 d4b335a briefing accepted/mounted once (both briefing branch names same tip), coordinator theme-token/collapsed-details adjustment. Enzo Agent 1 8855a2e location clarity accepted. 229 Angular tests/build and local full-process offline recovery pass; initial 464.82 kB. See docs/qa/TEAM_SUBMISSION_CHECK.md. No redeployment: public source 38516f8 is older. Royce 6a5e351 still fails compilation; Enzo 2 38cd2b3 source corrections open; no new Willy/Gaddielle/Takou submission. Emma Agent 1 workspace not advertised. Preserve unpublished work.
 
+## Next tasks for completed slices
+
+User requested objective-related work in personal MDs. Emma 2: field observation template/copy-with-fallback in owned briefing folder, no Notebook mutation. Enzo 1: optional readonly two-record science evidence comparison in science TS/HTML/tests, no route/pin/store changes. Willy 1: route-geometry/mode/edge-case map interaction if current unpublished slice complete. Willy 2: real installed mission save/offline/load/export evidence. Existing incomplete corrections remain unchanged. All bounded to current APIs/ownership and no fake science/safety; see personal NEXT ACTIVE SLICE sections. No runtime implementation in this assignment update.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.
