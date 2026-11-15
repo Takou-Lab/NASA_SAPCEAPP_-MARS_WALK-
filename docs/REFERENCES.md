@@ -5,6 +5,7 @@
 <!-- /CURRENT_WORK_PLAN -->
 
 ## Verified Primary NASA & USGS Sources
+
 1. **NASA Science — Curiosity Blog (Sols 4804–4811)** — *Kicking Off the Final Phase of Boxwork Exploration* (`HTTP 200 OK`): https://science.nasa.gov/blog/curiosity-blog-sols-4804-4811-kicking-off-the-final-phase-of-boxwork-exploration/ (Credit: NASA/JPL-Caltech/MSSS)
 2. **NASA Photojournal PIA26306** — *HiRISE Views Mount Sharp's Boxwork (PSP_001752_1750)* (`HTTP 200 OK`): https://photojournal.jpl.nasa.gov/catalog/PIA26306 (Credit: NASA/JPL-Caltech/University of Arizona)
 3. **NASA Science — Curiosity Blog (Sol 2121)** — *Sol 2121: Blackjack!* (Vera Rubin Ridge Pettegrove Point / Ailsa Craig) (`HTTP 200 OK`): https://science.nasa.gov/blog/sol-2121-blackjack/ (Credit: NASA/JPL-Caltech)
@@ -14,9 +15,23 @@
 7. **USGS Geologic Map of Mars (SIM-3292)** — Tanaka et al. (2014), 1:20,000,000 scale global context: https://astrogeology.usgs.gov (Credit: U.S. Geological Survey)
 
 ## Inaccessible / Replaced Reference Record
+
 - **NASA/JPL News (Boxwork Feature)** — `https://www.jpl.nasa.gov/news/nasas-curiosity-rover-explores-a-spiderweb-on-mars/` returned `HTTP 403 Forbidden` during automated source verification and was replaced by accessible `science.nasa.gov` mission blogs and `PIA26306`.
 
 ## Software Frameworks & Libraries
+
 - **Angular & TypeScript** — Core application framework (MIT License)
-- **Leaflet (`CRS.Simple`)** — Implemented on main for 2D local-image map rendering (BSD-2-Clause License)
-- **Three.js** — Implemented optional flat training view on Longla's verified feature branch (`9d794e2`, code `2a6dbba`), pending main integration (MIT License)
+- **Leaflet (`CRS.Simple`)** — Implemented on main for 2D local-image map rendering with bottom-left pixel coordinates (BSD-2-Clause License)
+- **Three.js** — Implemented opt-in flat WebGL training view with orbit controls (MIT License)
+- **Vitest** — Unit test execution framework (MIT License)
+
+## Typography & Design Assets
+
+- **Inter** — UI and body typography by Rasmus Andersson (SIL Open Font License 1.1)
+- **Space Grotesk** — Headings and display titles by Florian Karsten (SIL Open Font License 1.1)
+- **JetBrains Mono** — Telemetry, coordinates, and monospace labels by JetBrains (Apache 2.0 License)
+- **PWA Application Artwork** — Original geometric raster and vector icons generated for offline application manifests (not official NASA insignia)
+
+## Deployment Platform
+
+- **Vercel** — Serverless edge hosting and static asset delivery for live application at `https://marswalk-jet.vercel.app/`.

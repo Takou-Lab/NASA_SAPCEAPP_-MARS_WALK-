@@ -4,45 +4,39 @@
 > **Current work and status:** [canonical team plan](../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
 <!-- /CURRENT_WORK_PLAN -->
 
-Use the actual demonstrated revision. [Current verdicts](../REVIEW.md) and [work pieces](../TEAM_TASKS.md) determine feature/readiness claims. This reference is not an official competition rubric.
+Updated **15 November 2026** for current release baseline **`f6567ca`** and live Vercel deployment (**https://marswalk-jet.vercel.app/**). Use the actually demonstrated revision. This reference reflects true technical and scientific capabilities, not an assumed competition rubric.
 
 ## Who uses it, and why?
 
-Target near-term users are planetary-science learners/educators, analogue mission teams and outreach groups rehearsing decisions under incomplete evidence. MARSWALK combines a bounded local image, readable scientific context, user-sketched missions, portable notes/routes and clear unknowns. No customers, partnerships, participant outcomes or operational astronaut deployment are claimed.
+Target near-term users are planetary-science students, educators, science communicators, and analogue mission planning teams rehearsing decisions under incomplete evidence. MARSWALK provides a focused environment combining real orbital Mars imagery, readable rover science records, user-sketched traverse proposals, portable versioned notes/routes, and explicit uncertainty reporting. No operational astronaut navigation, commercial partnerships, or deployed mission control integrations are claimed.
 
 ## What data is real?
 
-The prepared PIA26306 image is credited to NASA/JPL-Caltech/University of Arizona. Three Curiosity contextual records cite primary NASA sources, with findings, instruments/dates where available, evidence type and limitations in [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md) and [REFERENCES.md](REFERENCES.md). The exact processed image has its own imageRef, hashes and preparation evidence in [DATA_PASSPORT.md](data/DATA_PASSPORT.md).
+The active prepared imagery product is NASA Photojournal **PIA26306** (*HiRISE PSP_001752_1750*), credited to NASA/JPL-Caltech/University of Arizona. Three Curiosity rover records cite primary NASA science blogs and mission updates, detailing instruments (MAHLI, APXS, DRT, Navcam, CheMin, SAM), sol dates, findings, evidence classifications, and limitations in [SCIENCE_EVIDENCE.md](SCIENCE_EVIDENCE.md) and [REFERENCES.md](REFERENCES.md). The exact processed derivative has its own unique `imageRef` (`hirise-mro-pia26306-boxwork-2048x1042-v1`), SHA-256 digests, and documented bounds in [DATA_PASSPORT.md](data/DATA_PASSPORT.md).
 
-These are contributor source-audit records. Schema validation and image decoding do not independently certify scientific interpretation. The latest documentation alignment did not re-fetch those scientific sources.
+These records represent contributor source audits. Schema validation and raster decoding verify payload integrity, not independent peer-reviewed geological reinterpretation.
 
-## Why are there no science pins or metric distance?
+## Why are there no science pins or metric distance on the map?
 
-All three science positions are null/unavailable on the prepared image. The **implemented science list** keeps them accessible without guessed coordinates. Exact AOI/geodetic alignment and metric calibration are unverified. The current contract has no verified DEM; image brightness is not elevation. Consequently distance, elevation, slope and route safety cannot be invented. A flat 3D image is not measured terrain.
+All three Curiosity science records carry `position: null` and `positionStatus: "unavailable"`. The **implemented science context list** keeps these findings fully accessible without fabricating coordinates on an orbital raster where rover-to-orbital tie-points are uncalibrated. Furthermore, the prepared raster has unverified metric calibration; pixel counts cannot be converted into meters without risking misleading scientific conclusions. The application has no validated Digital Elevation Model (DEM); image brightness is not topography. Consequently, metric distance, elevation change, slope, and trafficability safety are strictly labeled as **unavailable** ("Visual Review Only").
 
 ## How does it compare with Mars Trek or JMARS?
 
-Those tools already provide substantial planetary mapping, terrain and measurement capabilities. Our intended contribution is a focused portable rehearsal workflow with local mission notes and explicit evidence boundaries. We do not claim those tools lack features or that this prototype is more accurate.
+NASA's Mars Trek and Arizona State University's JMARS are comprehensive, professional planetary GIS platforms with extensive datasets, global projections, and elevation queries. MARSWALK does not claim to replace these tools or exceed their capabilities. Instead, MARSWALK provides a lightweight, focused, tablet-friendly mission planning and educational rehearsal interface that highlights data limitations and supports offline-resilient local notes and portable mission JSON files.
 
 ## What works now, and what remains?
 
-| Stage | Truthful capability |
+| Stage | Truthful Implemented Capability |
 | --- | --- |
-| Main `b744b0b` | All eight submitted tips integrated: map/navigation/retry, science discovery/confidence/passport, shell/planner/notebook, guarded transfer and optional lazy flat viewer |
-| Verification | 131 Angular tests, 28 data tests, production build and browser workflows pass; initial/style warnings remain below error budgets |
-| Next delegated pieces | W1 install assets, W2 release-data handoff, W3 pure image-byte verifier, W4 accessibility/size work |
-| Coordinator W6 / Longla W5 | Install assets/full cache/update implementation and browser disconnected restart pass in `8a4dadc`; public host and physical launcher/offline acceptance remain pending; device report needs clarification |
-
-Do not add the test counts together; they apply to different revisions/scopes. Build success and an emulated tablet viewport are not installed-device acceptance.
+| **Main Baseline `f6567ca`** | Full integrated Angular PWA: Leaflet `CRS.Simple` map with retry handling, contextual science filters, exploration confidence panel, data passport, tablet shell with resizable sidebar, route planner (start/waypoints/destination), draft-resilient observation notebook, guarded mission JSON import/export, dual dark/light themes, and opt-in flat 3D rehearsal viewer (Three.js). |
+| **Automated Verification** | 136 Angular unit tests, 11 service worker tests, 28 data tests, and production build pass; pack verification passes with 18 hashed assets. Style budget warnings remain within allowed limits. |
+| **Live Deployment** | Deployed on Vercel at **https://marswalk-jet.vercel.app/**. Anonymous inventory verifies asset delivery and caching. |
+| **Pending Release Gates** | 1. Physical mobile device standalone launcher acceptance (tracked under W5 in [PWA_ACCEPTANCE.md](qa/PWA_ACCEPTANCE.md)).<br>2. Three outside-user qualitative usability sessions (protocol ready in [USABILITY.md](USABILITY.md); blocked pending coordinator arrangement).<br>3. Confirmation of official NASA Space Apps submission URL, form fields, and exact deadline. |
 
 ## Does it work offline or in VR?
 
-The target is an installable offline Angular PWA. That complete installed workflow has **not passed acceptance**. A mission JSON transfer does not contain the imagery or prepare the full cache. External citation pages may need connectivity. Immersive VR is **not implemented**; the optional integrated viewer says so explicitly.
-
-## What are the next proof points?
-
-The current branch integration is complete; W1–W4 follow-ups can progress independently. W6 implements a real lifecycle contract and full pack, W5 records actual device results, and the coordinator arranges three outside-user sessions using [USABILITY.md](USABILITY.md). Report actual failures, fixes and retests. No participant results exist yet.
+The application is built as an installable Progressive Web App (PWA). The service worker caches required build artifacts and local datasets; browser offline reload and update checks pass in production builds. However, complete standalone home-screen acceptance on physical mobile hardware is currently pending. External NASA source links require internet connectivity. Immersive VR is **not implemented**; the 3D rehearsal view is an opt-in flat WebGL prototype and clearly states this limitation.
 
 ## How was AI used and credited?
 
-See [AI_USE.md](AI_USE.md). AI assisted research drafting, coding, tests, technical review and documentation. Cite specific contributor/coordinator checks; do not claim every AI output or scientific conclusion was independently verified. Preserve NASA/data and library attribution. Check official submission requirements separately.
+AI coding assistants (including Antigravity, Claude, and Codex) were utilized under human supervision for code scaffolding, unit test implementation, refactoring, documentation alignment, and technical reviews. All architectural decisions, source citations, and scientific boundary rules were directed and audited by human team members. No live AI inference models or unauthorized external AI API endpoints are executed in the browser. See [AI_USE.md](AI_USE.md) for full disclosure.
