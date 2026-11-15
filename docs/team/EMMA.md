@@ -1,5 +1,13 @@
 # Emma — Remaining professional UI and deployment work
 
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Agent 1 priority now — mission flow, not another redesign
+
+Phase 2 59e00e1 is accepted and public. Focus deployed acceptance on map-first decision flow: visible science purpose, location/data confidence and next action without crowding the map. Verify phone widths, keyboard, both themes, disclosures and saved-note recovery against the exact public candidate. Report reproducible blockers before changing styles; no new decorative dashboard work.
+
+Agent 2 owns standalone mission briefing; coordinate copy/slot through coordinator and avoid its files. Preserve unreviewed local UI work, show before/after actual mission evidence and do not duplicate the briefing or invent environmental APIs. Spatial labels/metric states must consume accepted shared data only. Current measurements are a limited excerpt, not route weather or terrain. Physical/user checks need actual observations, not predicted passes.
+
 ## Current PUBLIC candidate — 38516f8
 
 Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.

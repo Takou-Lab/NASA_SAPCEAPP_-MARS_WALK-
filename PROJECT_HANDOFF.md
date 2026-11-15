@@ -46,6 +46,10 @@ Coordinator implemented src/app/core/environment.ts, EnvironmentService and proj
 
 Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is limited to Gaddielle's supplied 25-row Sol 3900 pressure/air-temperature excerpt (800.335 Pa / 204.700 K means), reproducibly processed, explicitly **not independently archive-authenticated or full-day**. See ENVIRONMENT_RUNTIME_CONTRACT.md. Other submitted data/extractor remain unmerged. 223 Angular tests, 54 data tests/build/local offline browser pass. Public preview access enabled for MARSWALK at user request; no tokens need sharing. Production promotion remains separate.
 
+## Mission-map priority reset — current user instruction
+
+[MISSION_MAP_FINISH_PLAN.md](docs/MISSION_MAP_FINISH_PLAN.md) overrides older optional work. Exact raster alignment/calibration → supported metric route context → aligned terrain if available; source/location clarity and actual recovery remain release-critical. All nine personal briefs updated with distinct tasks; pause VR/live AI/extra environmental breadth. Latest branches: Emma 59e00e1/Enzo navigation 2b2a708/Willy 9b4093d accepted; Enzo 2 e161e41 source corrections pending; Gaddielle d6ab8aa candidate spatial metadata unverified; Royce 498ee2e auto-restore/notebook changes unreviewed with checkbox toggle regression visible in diff. No new runtime feature or acceptance from this assignment update. One-hour evidence go/no-go, then honest fallback/release rather than unbounded data search.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

@@ -1,5 +1,13 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Current priority — source-backed mission evidence, AI optional
+
+Your latest e161e41 drafts remain pending source corrections; no new accepted runtime explanation exists. Pause AI expansion and spend this slice on exact source-supported claims for the boxwork science objective. For each record, give the source passage, observed versus planned work, interpretation, observation time and spatial status/footprint. Do not turn mineral interpretation into a measured result, conflate separate drill sites or assert exact route overlap.
+
+Correct your existing three drafts and map every sentence to evidence; remove unsupported causal/time claims instead of adding polished prose. Align presentation/demo to MRO imagery + Curiosity contextual science + proposed route + limited-provenance environmental excerpt + observations/offline recovery. State that calibrated route/terrain work is conditional on verified alignment. Gather actual candidate screenshots and rehearsal results; no fabricated user/hardware outcomes. Same assigned documentation files/branch, no runtime data/core/UI edits. Mission integration and submission materials outrank more AI examples.
+
 ## Current PUBLIC candidate — 38516f8
 
 Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.

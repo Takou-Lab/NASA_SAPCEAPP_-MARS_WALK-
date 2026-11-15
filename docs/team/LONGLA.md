@@ -1,5 +1,13 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Current priority — persistence blocker before terrain/VR
+
+Latest branch 498ee2e adds initialization auto-restore, notebook changes and tests; it is unreviewed and unmerged. Preliminary diff shows toggleAttachStart now set(true), preventing the checkbox from being unticked. Restore true toggle behavior and its user-event regression; preserve other work. Separate core auto-restore from notebook fixes for coordinator review, rather than treating it as an accepted device fix. Auto-restore must not overwrite newer in-memory/imported work during delayed initialization; failures need observable guidance and tests. Shared core belongs to coordinator; do not add further persistence changes without concrete handoff.
+
+Provide the actual Samsung save/success/export/reopen/Load Route/Notebook/export evidence on current public candidate, with exact source/pack and original report correction. After persistence acceptance, help verify a genuinely aligned terrain tile if coordinator provides one; do not invent elevations from image brightness or integrate a paper clipping estimate. Pause VR expansion until core route/data/phone acceptance is ready. Existing flat viewer remains accepted.
+
 ## Current PUBLIC candidate — 38516f8
 
 Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.

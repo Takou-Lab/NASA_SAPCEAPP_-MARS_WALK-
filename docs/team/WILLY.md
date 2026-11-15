@@ -1,5 +1,13 @@
 # Willy — Remaining map, installation and deployment work
 
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Agent 1 priority now — calibrated-map integration readiness
+
+Map/navigation/retry are accepted; no new map-release submission is visible. Preserve any local progress. Own map TS/HTML/SCSS/tests only. First audit whether current controls make start/destination/waypoint and visual-only route status understandable on the actual public candidate; finish existing touch/keyboard/reset/focus cases.
+
+Coordinate with Gaddielle/coordinator on exact-raster transform evidence. Implement scale/ground coordinates/metric display only after coordinator publishes accepted shared calibration APIs; use existing assessment, never a competing distance calculation. Prepare a test checklist for known image-to-ground control points, axis orientation and route distances; mark unavailable inputs blocked. Do not implement a guessed scale bar or present terrain/obstacle safety. Keep regional science distinct from located pins. Deliver exact changed files/branch/checks and mount/API needs, preserving bottom-left contract and old mission compatibility. Agent 2 owns install/device evidence separately.
+
 ## Current PUBLIC candidate — 38516f8
 
 Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
