@@ -1,5 +1,9 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Challenge product alignment — Details received
+
+User supplied official Details extract; [assessment and preserved wording](../challenge/REQUIREMENTS.md) now guide priorities. Multiple-mission integrated science/route context is central; three data kinds suggested; historical observations allowed; AI/VR/DEM/live feeds are not mandatory in the supplied text. Product wording is available, while official Resources, portal rules and deadline timezone remain pending. Prioritize tested mission recovery and one traceable useful data integration over optional effects. Do not mark the entire official-submission checklist complete from Details alone.
+
 ## Designated preview ready — cf0ffb7
 
 User-authorized preview deployed: https://marswalk-m3n37k8ne-boys-band.vercel.app/ (Vercel authentication required). [Artifact/browser evidence](../qa/VERCEL_PREVIEW_CF0FFB7.md). Fresh 194 Angular/11 worker tests and build pass; authenticated full-process offline route/note recovery passes. Production remains unchanged. Next coordinate Royce device missing-note reproduction and Willy installation/icon checks, then review Emma's new work and deploy a revised candidate if needed. No promotion/submission performed.
