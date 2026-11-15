@@ -33,7 +33,7 @@ Each personal file now contains that person's **entire ordered checklist through
 | [Willy](docs/team/WILLY.md) | Review/refine supplied install assets | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
 | [Gaddielle](docs/team/GADDIELLE.md) | Correct provenance, source protection and numerical validation in environmental prototype | Reproducible numerical converter after agreement; scale investigation later | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
 | [Enzo](docs/team/ENZO.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
-| [Emma — he/him](docs/team/EMMA.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
+| [Emma — he/him](docs/team/EMMA.md) | Phase 2 design/readiness and delegated three-file theme fixes; Phase 1 accepted | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
 | [Royce / Longla](docs/team/LONGLA.md) | Clarify device report; integrated hardware QA | Real WebXR feasibility/prototype on supported hardware, separately reviewed | HTTPS/install/full offline/update acceptance and actual device/demo evidence |
 | [YOU / coordinator](docs/team/YOU.md) | Shared contracts, official requirements, reviewed integration | Full PWA lifecycle, shared data loading, guarded AI/VR integration | Hosting/runbook, preview/production verification/rollback and final submission coordination |
 
@@ -56,7 +56,7 @@ No numerical environment dataset, AI feature or immersive VR is implemented by t
 | [W1](#w1) | Willy | Review/refine supplied install assets | Proposed `feature/willy-pwa-install-assets` | Public assets/QA only; starter discovery/worker already supplied |
 | [W2](#w2) | Gaddielle | Environmental R1–R4 corrections and source evidence | Existing `feature/gaddielle-environment-data` | Preserve prototype; source traceability/alias guard/finite values/quantity audit; no runtime approval yet |
 | [W3](#w3) | Enzo | Read-only image-payload verifier | Proposed `feature/enzo-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
-| [W4](#w4) | Emma | Release accessibility and size cleanup | Proposed `feature/emma-release-ui` | Owned UI/tests/styles; preserve mission behavior and budgets |
+| [W4](#w4) | Emma | Phase 2 visual specification/header readiness and theme-only fixes | Existing `feature/emma-release-ui` | Phase 1 accepted; three shared SCSS files delegated, logic stays Enzo-owned |
 | [W5](#w5) | Longla | Device report clarification and actual-device QA | Existing `feature/longla-3d-rehearsal` | QA records only; exact integrated build/device/outcomes |
 | [W6](#w6) | Coordinator / YOU | Real PWA install/cache/update lifecycle | Main integration workflow | Shared root/core/packages/worker and complete installed offline mission |
 
@@ -81,6 +81,8 @@ Science discovery and both evidence panels are complete. Implement the **planned
 
 <a id="w4"></a>
 ## W4 — Emma: release UI accessibility and size cleanup
+
+**Phase 1 accepted:** `cdd2417` integrated in `be4ac2b`; 144 tests/build/offline browser checks pass. Coordinator router cleanup brings initial to 433.80 kB, with no size budget warnings. Next is Phase 2 design/header consumption of real PwaService plus three named shared SCSS-only theme fixes in EMMA.md. Environmental panel is still pending; device/outside-user passes remain unrun. The older Phase 1 specification below is completed scope.
 
 The complete shell and root integration are done. Improve tab/tabpanel ARIA relationships, keyboard navigation/focus and current initial/style warning sizes without raising budgets or deleting capabilities. Preserve notebook drafts, shared components, transfer and viewer teardown. Own shell/header/planner/notebook UI/tests/styles only; root/core/packages/worker remain coordinator-owned. Record actual before/after checks in `docs/qa/RELEASE_UI.md`. PwaService now supplies the real contract in CODING_AGENTS.md; coordinate movement of existing root controls rather than duplicating them. [Prompt](docs/team/EMMA.md), [exact spec](docs/team/tasks/EMMA_RELEASE_UI.md).
 

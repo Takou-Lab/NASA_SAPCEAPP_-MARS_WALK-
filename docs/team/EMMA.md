@@ -6,6 +6,18 @@ Updated **15 November 2026**. This is your **single remaining-work checklist thr
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
+## Current W4 handoff — Phase 1 accepted, Phase 2 starts now
+
+Your `cdd2417` is approved and integrated at **`be4ac2b`**. Branch 139 tests/build pass; current integration **144 tests/build/browser offline checks pass**. Coordinator completed the unused-router bootstrap cleanup outside your ownership. Initial 433.80 kB is below 500 kB; planner/notebook style budgets pass. [Review/evidence](../reviews/EMMA.md#release-ui-cdd2417--accepted-and-integrated). Do not repeat Phase 1.
+
+1. **Agree one visual specification** with Willy/Enzo using existing tokens, typography/spacing, panel density, badges/actions and both-theme screenshots. Keep one owner per edited file and preserve unpublished work.
+2. **Readiness/header work is unblocked.** `src/app/core/pwa.service.ts` is real and documented in CODING_AGENTS.md. Read existing signals/actions; clarify mission metadata versus connection/verified offline pack. Display only supported states. Root already has PwaPanelComponent and initializes once: coordinate removal/relocation centrally before duplicating install/prepare/update controls. No new worker/model/API or pretend image/persistence-ready signals.
+3. **Narrow styling exception granted:** own light/dark fixes in `src/app/science/science-context.component.scss`, `src/app/evidence/exploration-confidence.component.scss`, and `src/app/evidence/image-passport.component.scss`. Use existing theme tokens, readable text/borders/alerts/focus and actual contrast checks. Enzo retains their TS/HTML/tests/data logic; do not rewrite those components or touch his environmental implementation.
+4. **Environmental slot:** coordinate a mounting handoff when Enzo's component and agreed data API exist. Keep this dependency explicit; complete the other design/header work now without inventing measurements or service exports.
+5. **Phase 3/4:** use the exact coordinator-deployed UI revision for HTTPS clean/existing-profile and screenshot checks. Actual Android/iOS/touch/installed standalone acceptance and outside-user sessions remain unrun until observed. Coordinator arranges users; Enzo maintains outcomes. Do not reuse browser checks as physical evidence.
+
+Continue existing **`feature/emma-release-ui`**, preserve work and incorporate published main safely. No reset/force-push or duplicate branch. Record actual results/revisions in `docs/qa/RELEASE_UI.md`. No independent deployment or main merge.
+
 ## Public host is ready for your acceptance checks
 
 Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual public browser preparation, offline full-process restart, route/note recovery/export and deferred flat 3D pass. [Evidence](../qa/VERCEL_PRODUCTION.md), [runbook](../VERCEL_SETUP.md). Target-device home-screen/standalone acceptance still needs actual observations; do not copy the browser pass as physical evidence. Automatic GitHub deployment is not connected, so a new main commit is not necessarily live until the coordinator deploys it.
@@ -26,12 +38,12 @@ Emma uses **he/him**. Your research/records/citations, usability protocol, prese
 
 ## Phase 1 — Release accessibility and size cleanup
 
-Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` and their tests/styles; named QA `docs/qa/RELEASE_UI.md`. No root/core/package/worker/data/evidence-component rewrite.
+Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` and their tests/styles; named QA `docs/qa/RELEASE_UI.md`. No root/core/package/worker/data/evidence-component rewrite. The three named SCSS-only Phase 2 theme fixes above are the explicit exception; component logic remains Enzo-owned.
 
-- [ ] Implement coherent tab/tabpanel IDs and ARIA relationships, selected state, roving focus, Left/Right/Home/End behavior. Only handle keys originating in tab controls; do not intercept notebook typing.
-- [ ] Ensure hidden/collapsed content cannot trap focus. Keep visible focus, readable contrast and usable keyboard/touch layout.
-- [ ] Reduce initial/planner/notebook style warning overruns without raising budgets or deleting features. Measure actual before/after. Any lazy splitting must preserve notebook state after first creation, retain errors/drafts and list essential chunks for offline preparation.
-- [ ] Recheck exact unsaved note across tabs/failed save, successful save, sidebar restored/keyboard clamp, mobile overflow and 3D teardown. Record actual integrated tests/build/browser results.
+- [x] Implement coherent tab/tabpanel IDs and ARIA relationships, selected state, roving focus, Left/Right/Home/End behavior. Only handle keys originating in tab controls; do not intercept notebook typing.
+- [x] Ensure hidden/collapsed content cannot trap focus. Keep visible focus, readable contrast and usable keyboard/touch layout.
+- [x] Reduce initial/planner/notebook style warning overruns without raising budgets or deleting features. Measure actual before/after. Any lazy splitting must preserve notebook state after first creation, retain errors/drafts and list essential chunks for offline preparation.
+- [x] Recheck exact unsaved note across tabs/failed save, successful save, sidebar restored/keyboard clamp, mobile overflow and 3D teardown. Record actual integrated tests/build/browser results.
 
 ## Phase 2 — Consistent professional design
 

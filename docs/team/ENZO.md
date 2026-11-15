@@ -6,6 +6,10 @@ Updated **15 November 2026**. This is your **single remaining-work checklist thr
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
+## Styling ownership clarification
+
+Emma now owns **styling only** in `science-context.component.scss`, `exploration-confidence.component.scss` and `image-passport.component.scss` to resolve fixed dark cards in light mode. You retain those components' TS/HTML/tests/scientific logic and the environment UI contract. Coordinate shared tokens; avoid concurrent edits to those three SCSS files. Your assigned verifier/environment/source-dependent work is unchanged.
+
 ## Public host is ready for your acceptance checks
 
 Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual public browser preparation, offline full-process restart, route/note recovery/export and deferred flat 3D pass. [Evidence](../qa/VERCEL_PRODUCTION.md), [runbook](../VERCEL_SETUP.md). Target-device home-screen/standalone acceptance still needs actual observations; do not copy the browser pass as physical evidence. Automatic GitHub deployment is not connected, so a new main commit is not necessarily live until the coordinator deploys it.
