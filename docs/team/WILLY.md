@@ -1,5 +1,9 @@
 # Willy — Remaining map, installation and deployment work
 
+## Install-asset audit follow-up
+
+Your reported Antigravity asset audit is recorded. Coordinator added the relative iOS apple-touch-icon link and exact size/hash inventory; both production build paths pass. See [audit follow-up](../qa/PWA_INSTALL_ASSETS.md#willy-audit-follow-up--15-november-2026). No new Willy feature commit is visible, so asset work is not described as a newly merged submission. Incorporate current main safely; complete your actual Windows rerun and provide available-device installation/launcher evidence. Then continue the existing Phase 2 map-usability checklist; do not recreate icons or change scientific data. Physical/device acceptance remains pending.
+
 ## Byte-verification compatibility handoff
 
 Coordinator added repository-controlled LF attributes for scientific JSON without changing canonical data or hashes. Root and `/marswalk/` builds, including pack verification, pass. See [Windows LF instructions and evidence](../qa/PWA_INSTALL_ASSETS.md#windows-lf-compatibility--coordinator-fix-15-november-2026). Preserve local work and refresh only clean affected files after incorporating main; no global Git changes or data regeneration. Enzo/Willy should rerun their own Windows build verification before claiming that handoff complete. Gaddielle should retain canonical LF in future scientific JSON deliveries; her environmental-data corrections remain a separate pending task.

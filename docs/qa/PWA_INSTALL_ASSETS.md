@@ -1,5 +1,26 @@
 # Install asset handoff — coordinator starter implementation
 
+## Willy audit follow-up — 15 November 2026
+
+Willy reports an independent Antigravity read-only audit passed manifest/icons/relative-path/maskable checks. This is contributor-reported evidence, not a new coordinator physical-device pass. No new Willy feature branch or asset commit is published at review time.
+
+Coordinator added a relative `apple-touch-icon` link in `src/index.html` to the existing opaque 192×192 PNG, declared at its actual size. This reuses an existing prepared-pack asset, supports root/subpath resolution and does not claim iOS launcher validation. No Pillow installation is required for Willy or Emma to use the assets. PNG files were independently decoded at their declared dimensions as RGB.
+
+Coordinator checks: root and `/marswalk/` production builds both pass, including full pack verification. Parsed icon links resolve under both bases; built PNG matches the source bytes. These checks do not establish physical iOS installation.
+
+### Current source asset fingerprints
+
+| File | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `public/manifest.webmanifest` | 603 | `12c50a0f0033fbc0a890be2d56ddf3594d217db58d45eaa5a0b71eafa3513490` |
+| `public/icons/marswalk-192.png` | 9600 | `137194e041be8e171dfa40bbd5b333f69cb6c268957c49fa4e2525b464394faa` |
+| `public/icons/marswalk-512.png` | 19227 | `3ad6eab9da3faa9dfcb2415f979d2fca89d89e7f8a9a1c084ca17481c3b72ad9` |
+| `public/icons/marswalk-maskable-512.png` | 19227 | `3ad6eab9da3faa9dfcb2415f979d2fca89d89e7f8a9a1c084ca17481c3b72ad9` |
+| `public/icons/marswalk.svg` | 361 | `edd13d0e30c646395eef13a844e3d87d15a5a32ad91bcc4999dfa3deca0f0afc` |
+
+Manifest/SVG checkout bytes are pinned to LF by `.gitattributes`; scientific JSON LF rules are already on main (`ac79be5`). Existing Windows working copies may still need the clean-file refresh documented below. Do not change scientific hashes or regenerate data. Browser-specific installed appearance remains pending actual Android/iOS checks.
+
+
 ## Windows LF compatibility — coordinator fix, 15 November 2026
 
 Repository `.gitattributes` now enforces `text eol=lf` for public scientific JSON, including the byte-verified manifest. No canonical data, expected hash, build script or worker was changed. A fresh indexed checkout with `core.autocrlf=true` preserves manifest size **1,200 bytes** and SHA-256 `40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82`.
