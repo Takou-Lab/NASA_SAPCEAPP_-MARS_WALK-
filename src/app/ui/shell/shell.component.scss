@@ -12,12 +12,10 @@ $u: var(--text-secondary);
   height: 100dvh;
   overflow: hidden;
   --tab-fg: #ff9d90;
-  --err-fg: #fca5a5;
 }
 :host-context([data-theme='light']) {
   --tab-fg: #9a3412;
   --science-cyan: #0369a1;
-  --err-fg: #991b1b;
 }
 .shell-layout,
 .map-workspace,
@@ -73,9 +71,9 @@ app-map {
 }
 .workspace-footer {
   justify-content: space-between;
-  min-height: 48px;
-  padding: 4px 12px;
-  gap: 4px 12px;
+  min-height: 40px;
+  padding: var(--space-1) var(--space-3);
+  gap: var(--space-1) var(--space-3);
   background: $s;
   border-top: 1px solid $b;
   font-size: 11px;
@@ -89,6 +87,9 @@ app-map {
 .footer-val {
   overflow-wrap: anywhere;
 }
+.footer-boundary {
+  color: var(--text-muted);
+}
 .footer-val {
   color: $y;
 }
@@ -98,15 +99,14 @@ app-map {
 .font-mono {
   font-family: var(--font-mono);
 }
-.panel-toggle-btn,
-.viewer-toggle {
+.panel-toggle-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 44px;
-  min-height: 44px;
-  border: 1px solid $b;
-  border-radius: 6px;
+  min-height: var(--control-h);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-weight: 600;
   &:hover {
@@ -172,17 +172,18 @@ app-map {
   background: $c;
   border-bottom: 1px solid $b;
   overflow-x: auto;
+  scrollbar-width: thin;
   flex-shrink: 0;
 }
 .tab-btn {
-  flex: 1;
+  flex: 1 0 auto;
   min-height: 44px;
-  padding: 0 10px;
+  padding: 0 var(--space-3);
   border: 0;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   cursor: pointer;
   white-space: nowrap;
-  font-size: 12px;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: $u;
   background: 0;
@@ -191,7 +192,8 @@ app-map {
     background: var(--bg-card-hover);
   }
   &.active {
-    color: var(--tab-fg);
+    color: $t;
+    font-weight: 700;
     border-bottom-color: var(--tab-fg);
     background: $s;
   }
@@ -208,92 +210,50 @@ app-map {
 .rehearsal-panel {
   padding: 14px;
 }
-.viewer-toggle {
-  padding: 8px 14px;
-  margin-bottom: 12px;
-  background: $c;
-  color: $t;
-  font-size: 13px;
-  &:hover {
-    background: var(--bg-card-hover);
-  }
-}
-.defer-status,
-.defer-error {
-  margin: 14px;
-  padding: 12px 14px;
-  border-radius: 8px;
-  font-size: 13px;
-}
-.defer-status {
-  background: $c;
-  border: 1px solid $b;
-  color: $u;
-}
-.defer-error {
-  background: var(--error-bg);
-  border: 1px solid var(--error-red);
-  color: var(--err-fg);
-}
-@media (max-width: 768px) {
-  .main-workspace {
-    flex-direction: column;
-  }
-  .panel-resizer {
-    display: none;
-  }
-  .side-panel {
-    width: 100% !important;
-    height: 45%;
-    border-left: 0;
-    border-top: 1px solid $b;
-  }
-  .map-workspace {
-    min-height: 45%;
-  }
-  app-map {
-    padding: 0.5rem;
-  }
-  .main-workspace.panel-collapsed .side-panel {
-    height: 0 !important;
-    width: 100% !important;
-    border-top: 0;
-  }
-}
-
-// Phone layout must grow with its map and controls instead of clipping a zero-height flex child.
+/* Phones: one column that grows with its content. The map keeps a positive height and the
+   page scrolls naturally; no fixed-height workspace or competing overflow rules. */
 @media (max-width: 768px) {
   :host {
     height: auto;
     min-height: 100dvh;
     overflow: visible;
   }
-  .shell-layout {
+  .shell-layout,
+  .map-workspace,
+  .side-panel {
     height: auto;
   }
   .main-workspace {
+    flex-direction: column;
     flex: none;
     overflow: visible;
   }
-  .map-workspace {
-    flex: none;
-    height: auto;
-    min-height: 0;
-  }
-  .map-container {
-    flex: none;
-    overflow: visible;
-  }
+  .map-workspace,
+  .map-container,
   .side-panel {
     flex: none;
-    height: auto;
-    overflow: visible;
+    min-height: 0;
   }
+  .map-container,
+  .side-panel,
   .tab-content {
     overflow: visible;
   }
+  .panel-resizer {
+    display: none;
+  }
+  .side-panel {
+    width: 100% !important;
+    border-left: 0;
+    border-top: 1px solid $b;
+  }
+  app-map {
+    padding: var(--space-2);
+  }
   .main-workspace.panel-collapsed .side-panel {
     height: 0 !important;
+    width: 100% !important;
+    border-top: 0;
     overflow: hidden;
   }
 }

@@ -32,8 +32,8 @@ ul {
 }
 .confidence-panel {
   gap: 0.9rem;
-  padding: 1.15rem;
-  border-radius: 0.75rem;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
   background: var(--bg-card);
 }
 .confidence-panel,
@@ -63,7 +63,7 @@ ul {
   gap: 0.4rem;
 }
 h2 {
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
 }
 h3 {
   font-size: 1rem;
@@ -93,7 +93,7 @@ h3 {
 .confidence-state,
 .confidence-banner-error {
   padding: 0.85rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   color: var(--text-primary);
 }
 .confidence-state-error,
@@ -112,7 +112,7 @@ h3 {
   align-content: start;
   gap: 0.55rem;
   padding: 0.9rem;
-  border-radius: 0.6rem;
+  border-radius: var(--radius-md);
 }
 .badge {
   display: inline-block;

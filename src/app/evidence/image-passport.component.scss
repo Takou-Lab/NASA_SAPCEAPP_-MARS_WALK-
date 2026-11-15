@@ -45,15 +45,15 @@ ul {
 }
 .passport-panel {
   gap: 0.9rem;
-  padding: 1.15rem;
-  border-radius: 0.75rem;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
   background: var(--bg-card);
 }
 .passport-header {
   gap: 0.35rem;
 }
 h2 {
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
 }
 h3 {
   margin-bottom: 0.4rem;
@@ -83,7 +83,7 @@ h3 {
 .passport-empty,
 .passport-banner-error {
   padding: 0.85rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   color: var(--text-primary);
 }
 .passport-state-error,
@@ -95,7 +95,7 @@ h3 {
 .passport-card {
   gap: 0.9rem;
   padding: 1rem;
-  border-radius: 0.6rem;
+  border-radius: var(--radius-md);
 }
 .passport-metadata {
   gap: 0.7rem;
