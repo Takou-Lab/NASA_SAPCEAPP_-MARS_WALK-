@@ -1,5 +1,14 @@
 # Willy retry review — approved and integrated
 
+## Agent 2 Windows report 9b4093d — accepted as scoped contributor evidence
+
+Reviewed 15 November 2026. Only docs/qa/WILLY_2_INSTALL_VERIFICATION.md added (76 lines), no application/assets/configuration changed. Tested source d6801a4, Windows 11, versions and actual root/subpath server commands are documented. All recorded manifest/SVG/PNG sizes and SHA-256 match current committed source independently. LF refresh behavior is described honestly, including the preserved stash and modified QA worktree. Root/subpath packs are contributor-observed Windows artifacts; their different hashes/sizes are not silently substituted for Linux or production evidence. No logs/traces were archived, so the review does not claim independent Windows reproduction.
+
+**Accepted scope:** contributor Windows locked-install/build/pack/static asset HTTP report. **Explicitly unrun:** raster HTTP requests, browser installation/offline workflow, physical Android/iOS launcher/recovery and full tests. No new map implementation is submitted; Agent 1's existing accepted map work stays unchanged. No full-device/release acceptance or new deployment is implied. Documentation review uses fingerprint/path/claim/link checks; no unrelated application suite rerun.
+
+**Next Agent 2:** safely incorporate published main preserving stash/local changes; complete raster HTTP response/dimensions checks for root and actual /marswalk/ (manifest.assetPath), then isolate a browser profile to verify full-pack preparation and offline close/reopen/save/load-note/export. Request/use coordinator's exact release-candidate deployment for new hosted icon checks; current host is older. Coordinate device access with Royce, whose missing-note follow-up is still open; record actual device/revision/save/load order and do not overwrite saved missions. Keep unavailable hardware pending. Continue existing feature/willy-pwa-install-assets; do not recreate assets, change dependencies or independently deploy.
+
+
 **15 November current integration:** all submitted code is merged in `b744b0b`; 131 Angular tests, 28 data tests, build and browser checks pass. [Final evidence](../qa/FINAL_BRANCH_INTEGRATION.md). Counts/revisions below describe their earlier tested scopes.
 
 

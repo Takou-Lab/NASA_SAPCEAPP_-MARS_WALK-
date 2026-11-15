@@ -1,5 +1,11 @@
 # Willy 2 — Installation and release verification agent
 
+## Current review — Windows report accepted; remaining checks next
+
+Your 9b4093d report is accepted as scoped contributor evidence: locked Windows install, LF/source fingerprints, both production builds and named static HTTP paths. [Review](../reviews/WILLY.md#agent-2-windows-report-9b4093d--accepted-as-scoped-contributor-evidence). Do not repeat asset generation. Preserve stash/local work and continue existing feature/willy-pwa-install-assets; no new branch needed.
+
+Next complete the omitted raster HTTP check using the actual manifest.assetPath at root and /marswalk/, plus decoded dimensions. Then run isolated-profile full preparation/disconnected close-reopen, explicit saved mission load, notes and export; do not equate HTTP 200 with offline acceptance. Record logs/evidence for new checks in your own QA report. Use the exact coordinator-deployed candidate when available to verify hosted apple-touch-icon; main is not automatically live. Coordinate physical device coverage with Royce and keep unrun Android/iOS checks pending. Agent 1 map work remains independent; do not edit its files or deploy.
+
 Assigned 15 November 2026. You are Willy's second coding agent. Your independent assignment is installation-asset and production-path verification, leaving map development to his first agent. Read [Willy's main plan](WILLY.md), [shared contracts](CODING_AGENTS.md) and [installation evidence](../qa/PWA_INSTALL_ASSETS.md).
 
 ## Workspace and ownership
