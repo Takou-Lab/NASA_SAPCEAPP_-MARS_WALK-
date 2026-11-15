@@ -1,0 +1,4 @@
+# Scientific JSON is byte-verified by the image/offline pack builders.
+# Keep canonical LF bytes on every platform, even with core.autocrlf=true.
+public/data/**/*.json text eol=lf
+public/data/*.json text eol=lf
