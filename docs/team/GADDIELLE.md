@@ -4,34 +4,15 @@
 > **Current assignment: [W2](../../TEAM_TASKS.md#w2).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
 <!-- /CURRENT_WORK_PLAN -->
 
-## Latest reviewed delivery — keep completed work
+## Accepted and merged — R3 closed
 
-Published **`a53724a`** on **`feature/gaddielle-data-preparation`** is reviewed. It is already merged into main via PR #4 (`d814ec4`). **25 Python tests and the real index check pass**; image payload remains **524,472 bytes**. Previous literal-path/manifest/symlink fixes and strict schema/type/read-only errors are complete. Preserve them and all earlier imagery/verifier/passport work.
+Your published `a53724a` is integrated. The coordinator closed the remaining R3 encoded/whitespace path gap in **`b744b0b`** with three regressions: **28 data tests and the real index check pass**. Real image/manifest/index bytes and imageRef are unchanged. Do not repeat R1–R3, image acquisition, passport or verifier work; preserve any existing local progress and compare with main.
 
-[The current review](../reviews/GADDIELLE.md) finds one additional compatibility gap, **R3**. Do not repeat R1/R2 or start a new dataset/task.
+## Next W2 — release data handoff
 
-## Current bounded correction — browser normalization
+Follow [GADDIELLE_RELEASE_DATA_HANDOFF.md](tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md). Keep the existing data branch and merge published main safely. Deliver `docs/data/RELEASE_DATA_HANDOFF.md`: actual required data paths/imageRef, hashes/sizes, built-file correspondence and precise worker include/exclude guidance. Separate image/science/control bytes from total app readiness.
 
-The generator currently accepts percent-escaped traversal/filenames and trailing whitespace although runtime `validManifest()` rejects them and browsers resolve them differently. Temporary fixtures using these paths produce exit 0 in generation and check mode:
-
-- `data/imagery/%2e%2e/texture.jpg` resolves in the browser to `data/texture.jpg`.
-- `data/imagery/texture%23image.jpg` hashes a literal percent-named file but HTTP decoding targets a different filename.
-- `data/imagery/texture.jpg ` loses its trailing space during URL parsing.
-
-Align tool path syntax with the existing runtime image-path contract: `data/imagery/` followed only by permitted letters/digits/underscore/dot/forward-slash/hyphen, retaining nonempty segments, no dot/traversal and resolved containment. Reject percent escapes, whitespace/control characters and all previously forbidden forms. Reuse a tool-local syntax helper where useful; do not weaken runtime or accepted verifier behavior.
-
-Add temporary-fixture regressions for these cases, asserting exit 1, no traceback, unchanged existing output bytes/mtime and read-only `--check`. Keep all 25 tests, atomic/alias protection and unchanged real index. Update the tooling document with actual added checks/counts.
-
-## Files, branch and handoff
-
-Continue **`feature/gaddielle-data-preparation`**; preserve local work and merge current main without reset/force push. Own `tools/data/build_image_pack.py`, its test file and `docs/data/IMAGE_PACK_INDEX.md`. No source bytes, manifest/imageRef, shared models, verifier, dependency, app/worker or new calibration changes. The existing real index should stay byte-identical.
-
-```sh
-PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tools/data -p 'test_*.py' -v
-python3 tools/data/build_image_pack.py --manifest public/data/manifest.json --public-root public --output public/data/image-pack.json --check
-```
-
-Commit/push only this feature branch; that correction push is authorized. Report the new commit, R3 closure and actual commands/results for re-review. No main merge/push, deployment, environment publication, submission or external messaging is included. Complete-app offline preparation remains coordinator-owned.
+Own this document and only necessary factual updates to existing data handoff docs. No source assets/schema/model/worker/API/dependency changes or another speculative inventory. Record actual verification results and blockers; push only your existing feature branch and report commit. No main merge, deployment, environment publication or messaging.
 
 ## Initial assignment reference
 
@@ -101,31 +82,19 @@ You are done when usable imagery is supplied with honest coverage information, a
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Gaddielle's MARSWALK image-pack tooling agent.
-Read docs/reviews/GADDIELLE.md (latest R3), docs/team/GADDIELLE.md,
-docs/team/tasks/GADDIELLE_IMAGE_PACK.md and docs/team/CODING_AGENTS.md.
-
-a53724a is already merged. 25 Python tests and the real index pass;
-previous R1 literal-path cases and R2 schema/type cases are closed.
-Preserve all delivered work. Do not repeat passport/image/verifier work.
-
-1. Preserve local work and merge current main into the SAME existing
-   feature/gaddielle-data-preparation branch without reset/force push.
-2. Fix only R3: make tool image paths match runtime validManifest syntax.
-   Reject percent escapes (including %2e%2e), whitespace/control characters,
-   and previously forbidden forms. Keep canonical manifest path, permitted
-   runtime characters, nonempty segments, no dot/traversal and realpath
-   containment/symlink checks. Share tool syntax logic if useful.
-3. Add temporary-fixture regressions for encoded traversal, percent-encoded
-   filename and trailing/control whitespace. Generation must fail exit 1
-   before writing and preserve old bytes/mtime; check stays read-only with
-   useful errors and no traceback. Keep every current test and protections.
-4. Update tooling documentation and actual test count. Run the complete
-   tools/data suite and real --check. Keep the real index byte-identical.
-5. Commit/push only this same feature branch (authorized) and report commit,
-   R3 closure and actual results for re-review; no new unrelated task.
-
-Own generator, its tests and tooling doc only. Do not change image/manifest/
-imageRef/core/schema/verifier/dependencies/worker or reacquire data.
-No main integration, deployment, environment publication or messaging.
+You are Gaddielle's MARSWALK release-data handoff agent. Read TEAM_TASKS.md W2,
+docs/team/GADDIELLE.md, docs/team/tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md
+and docs/qa/FINAL_BRANCH_INTEGRATION.md.
+R3 is closed in main integration b744b0b: 28 data tests and real index pass.
+Preserve all completed work; don't repeat fixes/research or regenerate assets.
+1. Preserve local work and merge published main into the existing data branch.
+2. Deliver RELEASE_DATA_HANDOFF.md with actual required runtime data paths,
+   reference, bytes/hashes and production-copy verification.
+3. Separate image/science/index-control bytes; don't call this full app/cache
+   readiness. Give W6 exact include/exclude guidance, excluding archival master
+   and unused reference documents from essentials. No speculative new schema.
+4. Record actual commands/results and blockers, with only necessary factual
+   edits to existing data docs. No source/core/package/worker/API changes.
+Push only this existing feature branch (authorized), report commit/checks.
+No main integration, deployment, environment publication or external messages.
 ```

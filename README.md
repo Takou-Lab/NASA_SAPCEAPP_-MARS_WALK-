@@ -8,7 +8,7 @@ Read [SOUL.MD](SOUL.MD) for the product purpose and installable offline PWA goal
 
 See [the published branch review](REVIEW.md) for accepted contributions and integration findings, and [NEXT_TASKS.md](NEXT_TASKS.md) for each contributor's next action. Completed work should not be restarted.
 
-Enzo's functional shell/notebook and Longla's corrected optional viewer remain feature-branch contributions; see the exact verdicts before claiming they are on main. Complete PWA install/cache/update and disconnected reopening remain pending.
+All eight submitted feature tips are merged in application code **`b744b0b`**: **131 Angular tests, 28 data tests, production build and browser workflow checks pass**. [Final integration evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md). Complete PWA install/cache/update and disconnected reopening remain pending.
 
 The [Martian Map guide improvements](docs/GUIDE_IMPROVEMENTS.md) retain Gale and existing assignments: portable mission files now, complete offline operation next, compatible science layers and verified terrain before measured 3D.
 
@@ -20,9 +20,9 @@ Willy's standalone Leaflet map is mounted in the Angular root with Gaddielle's p
 - Implemented in the map/service: start/destination/waypoint actions, route rendering, undo/clear, local mission persistence and JSON export.
 - Available in the root: mission JSON export/import between devices with the same image version. Import validates route/notes and saves before replacing current work; maximum file size is 1 MiB.
 - Available: Emma's selectable science list and sourced details, including all three unlocated records without fabricated map pins. The shell currently starts in inspect mode.
-- Pending UI: Enzo's route controls/notebook/shell corrections and Emma's follow-up science filters plus dedicated confidence/image-passport presentation.
+- Available: integrated route controls, save/load/undo/clear, notebook with retained draft on failed save, science search/evidence/location filters, dedicated confidence/passport panels and reachable Mission Transfer tab.
 - Pending PWA work: installation manifest/icons, service-worker preparation, verified offline readiness and installed-device reopening.
-- Metric distance, elevation and slope remain unavailable. This feature branch includes an explicitly opened, lazy-loaded flat 3D rehearsal view; it supplies no measured terrain or immersive VR. See [viewer verification](docs/qa/VIEWER3D_REVIEW.md).
+- Metric distance, elevation and slope remain unavailable. Main includes an explicitly opened, lazy-loaded flat 3D rehearsal tab; it supplies no measured terrain or immersive VR. See [viewer verification](docs/qa/VIEWER3D_REVIEW.md).
 
 ## Development
 
@@ -43,7 +43,7 @@ python3 -m http.server 8000 --directory dist/marswalk/browser
 
 In the cloud machine, set `npm_config_cache=/workspace/.npm-cache` if the default cache is not writable, and `NG_CLI_ANALYTICS=false` to disable analytics prompts. Servers must restart after environment restoration.
 
-Leaflet currently emits a CommonJS optimization warning during the Angular build; the build remains within the configured bundle budget. Do not infer PWA installability/offline behavior from a successful build.
+Production build passes below configured error budgets, with initial (587.25 kB versus 500 kB) and planner/notebook style warnings, plus the Leaflet CommonJS warning. The viewer is a separate lazy 595.60 kB chunk; budgets were not raised. Do not infer PWA installability/offline behavior from a successful build.
 
 ## Image package verification
 
@@ -65,7 +65,7 @@ Records are versioned and tied to the active imageRef. `loadRoute()` explicitly 
 
 To transfer a mission, export it, open another device with the same image version, choose the downloaded JSON and select **Import selected mission**. Import replaces the route and notes; export the destination's current work first. Failed validation or storage preserves existing work. The mission file does not include imagery or install an offline pack. See [transfer verification](docs/qa/MISSION_TRANSFER.md).
 
-Reset View and Focus Route are approved/integrated. Use [Willy's current brief](docs/team/WILLY.md) for the next guarded image-retry task. Emma's science component `4efcb5a` is now mounted and [verified with 51 tests/build and browser checks](docs/qa/SCIENCE_INTEGRATION.md). His [next assignment](docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md) adds science discovery and dedicated read-only confidence/image-passport components transferred from Enzo's future work. Enzo retains shell/planner/notebook fixes and reviewed-component integration. Preserve the current map, science and mission-transfer mounts when integrating his shell.
+Reset View, Focus Route and guarded image retry are approved/integrated. Emma's science discovery and confidence/image-passport components are mounted once in Enzo's integrated shell. The viewer loads only when explicitly opened and releases resources on leaving its tab. [Next work](NEXT_TASKS.md): install assets, release-data handoff, pure image-byte verification, release UI cleanup and real PWA lifecycle/device acceptance. Preserve completed contributions.
 
 ## Evidence and credits
 

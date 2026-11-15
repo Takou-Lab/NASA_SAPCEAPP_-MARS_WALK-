@@ -38,7 +38,7 @@ The current image has no verified metric calibration or terrain model. Distance,
 
 Before calling a view measured terrain, verify an actual Gale-area DTM against the imagery: overlap, horizontal reference, pixel mapping, elevation units, resolution, NoData handling and texture alignment. State vertical exaggeration and version any changed coordinate interpretation. A Jezero DTM does not describe Gale.
 
-Preserve Royce/Longla's corrected flat viewer (`2a6dbba`, published in `9d794e2`); its code is verified on the feature branch and main integration remains pending. A ground plane or illustrative prototype can support interaction work when labeled clearly; image brightness must not be presented as measured elevation. VR remains optional after core acceptance.
+Preserve Royce/Longla's corrected flat viewer, now integrated in main `b744b0b`; browser checks pass and physical-device evidence still needs clarification. A ground plane or illustrative prototype can support interaction work when labeled clearly; image brightness must not be presented as measured elevation. VR remains optional after core acceptance.
 
 ## Handoff without restarting work
 

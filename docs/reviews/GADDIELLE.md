@@ -1,8 +1,12 @@
-# Gaddielle review — original fixes pass; one browser-path follow-up
+# Gaddielle review — merged, including coordinator R3 closure
 
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->
+
+**15 November integration update:** `b744b0b` closes R3 with strict runtime-compatible path characters and three meaningful regressions. **28 data tests and real `--check` pass**; current image/manifest/index bytes are unchanged. Earlier findings below remain as history. Next task is [release data handoff](../team/tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md), not repeat fixes.
+
+## Historical 14 November review — superseded where noted
 
 Reviewed **14 November 2026 (Africa/Douala)**. Tip **`a53724a43990319f44ca54e3d8693d0f821587ee`**, **`feature/gaddielle-data-preparation`**. This code is **already on main**, merged through PR #4 at `d814ec4`. Main review baseline: **`584f24b`**.
 
@@ -10,7 +14,7 @@ Reviewed **14 November 2026 (Africa/Douala)**. Tip **`a53724a43990319f44ca54e3d8
 
 **25 Python tests passed** (21 generator cases and four verifier regressions); the real index passes `--check` and still describes exactly **524,472 bytes**. Previous canonical-manifest, literal query/fragment/backslash, symlink escape, strict object/keys/integer/digest and clean read-only error cases are fixed. The shipped manifest/image/index remain valid. Preserve those fixes, source bytes and imageRef.
 
-## R3 — match the runtime's browser-path syntax before generation
+## Historical R3 finding — now closed
 
 Location: `validate_browser_asset_path`, approximately lines 58–96 of the reviewed generator. The check rejects literal `..`, `?`, `#` and backslashes, but still accepts percent escapes and trailing whitespace that the browser normalizes differently. Temporary copies of the real JPEG reproduced:
 
@@ -32,7 +36,7 @@ No real asset is corrupted and no source download/regeneration, schema change, n
 
 Full Python suite and real `--check` were run on main's identical committed tool. Additional CLI probes used temporary roots/filenames only, with JavaScript `new URL()` confirming normalization. No feature code or source assets were edited by this review. Angular suites were not rerun for this isolated tool change; PWA/device readiness is not established.
 
-## Next step
+## Historical next step — superseded
 
 Keep **`feature/gaddielle-data-preparation`**, merge current main without reset/force push, implement R3 only, commit/push that branch and request re-review with actual commands/results. No new task until this small compatibility gap is closed. [Updated agent prompt](../team/GADDIELLE.md).
 

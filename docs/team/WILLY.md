@@ -1,60 +1,51 @@
-# Willy — Angular Map Developer
+# Willy — PWA install assets after accepted map recovery
 
 <!-- CURRENT_WORK_PLAN -->
-> **Current assignment: [W1](../../TEAM_TASKS.md#w1).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+> **Current assignment: [W1](../../TEAM_TASKS.md#w1).** Preserve completed map work; the new slice is install assets delegated from coordinator preparation.
 <!-- /CURRENT_WORK_PLAN -->
 
-## Accepted work and next slice
+## Completed — do not repeat
 
-Your original map `094fce2` and Reset View / Focus Route `21cf6f0` are approved and integrated. The navigation review passed **38 tests**, production build and Chromium desktop-keyboard/tablet-sized touch-emulated checks. See [WILLY review](../reviews/WILLY.md). Do not recreate the map, repeat navigation buttons or mount another root component.
+Map `094fce2`, navigation `21cf6f0` and image retry **`02134f1`** are approved/integrated. Retry passed 56 branch tests/build; combined integration `b744b0b` passes **131 Angular tests**, build and actual retry/state-preservation/browser checks. [Review](../reviews/WILLY.md), [evidence](../qa/RECOVERY_EVIDENCE_INTEGRATION.md).
 
-Read [the new detailed task](tasks/WILLY_IMAGE_RETRY.md), [SOUL.MD](../../SOUL.MD), [NEXT_TASKS.md](../../NEXT_TASKS.md) and [shared contracts](CODING_AGENTS.md).
+## Next work — manifest and launcher icons
 
-## New task — Retry Image
+Read [WILLY_PWA_INSTALL_ASSETS.md](tasks/WILLY_PWA_INSTALL_ASSETS.md) for the exact JSON, asset paths, root/subpath checks and handoff. After this integration is published, preserve local work and use proposed **`feature/willy-pwa-install-assets`** from latest main if no follow-up exists; keep the accepted retry branch/history.
 
-Preserve local work. If no retry task branch exists, create proposed `feature/willy-image-retry` from latest published main in the existing checkout; otherwise retain the existing local task branch and synchronize safely. Own only the four files under `src/app/map/` for this task.
+Own only `public/manifest.webmanifest`, the three declared `public/icons/marswalk-*.png` assets, an optional original icon source and `docs/qa/PWA_INSTALL_ASSETS.md`. Produce an original readable mark, a true maskable icon with opaque background/safe-area artwork, correct relative manifest URLs and actual verification evidence.
 
-Add an explicit Retry Image action when valid metadata exists but the local image failed to display. Recreate only the image overlay, recheck natural dimensions, ignore stale request callbacks and preserve mission state. Duplicate attempts while loading must be blocked. Do not retry unavailable/invalid metadata, refetch MissionService initialization, clear caches/storage, modify source imagery or create an automatic retry loop.
+Do not edit root/index, package/build config, service worker, map, scientific data or another person's files. No new dependency. The coordinator wires discovery and the lifecycle after review; assets alone do not establish install/cache readiness. Enzo continues release UI cleanup, Emma supplies a read-only byte verifier, and Longla owns device evidence.
 
-Reset View / Focus Route and map-click actions remain guarded until the image is actually ready. A repeated failure stays a truthful error. See the exact behavior, tests and branch handoff in [WILLY_IMAGE_RETRY.md](tasks/WILLY_IMAGE_RETRY.md).
+## Acceptance and handoff
 
-Enzo owns shell/planner/notebook integration; Emma now owns `src/app/science/` contextual record UI. Core, root, dependencies and PWA lifecycle remain coordinator-owned. Keep the current bottom-left pixel contract, imageRef, safe text rendering and teardown behavior.
+Parse the manifest; fully decode/inspect declared PNG dimensions and maskable appearance; validate root and `/marswalk/` URL resolution; run production build and check served output. Record actual commands, byte sizes, authorship/credits and remaining discovery/install checks. Do not fabricate an installed-device result or create mirrored tests just for static declarations.
 
-## Done and handoff
-
-Run relevant regressions, `npm test`, `npm run build` and supported browser failure/retry checks. Report actual results rather than copying the previous 38-test count. Physical-device/offline PWA verification remains separate.
-
-Commit/push only your W1 task branch (default `feature/willy-image-retry`; preserve/report an already-started local task branch); that normal feature push is authorized. Give the coordinator the commit, changed files, failure/retry behavior, checks and limits. No main merge, deployment, environment publication or external messaging is included.
+Commit/push only the assigned W1 feature branch (default above), giving actual name/commit/files/checks. No main integration, deployment, environment publication, submission or external messaging.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Willy's map-recovery coding agent for MARSWALK.
-Read docs/team/tasks/WILLY_IMAGE_RETRY.md, docs/team/WILLY.md,
-docs/reviews/WILLY.md, docs/team/CODING_AGENTS.md and SOUL.MD.
+You are Willy's MARSWALK install-assets agent. Read TEAM_TASKS.md W1,
+docs/team/WILLY.md, docs/team/tasks/WILLY_PWA_INSTALL_ASSETS.md,
+docs/reviews/WILLY.md and docs/team/CODING_AGENTS.md.
 
-The original map and navigation at 21cf6f0 are approved and integrated.
-Preserve them. No repeated root mounting, map recreation or Reset/Focus work.
+Image retry 02134f1 is accepted/integrated; combined code b744b0b passes
+131 Angular tests/build/browser checks. Preserve map/navigation/retry; do not redo them.
 
-1. Preserve local work. If no retry branch exists, create proposed
-   feature/willy-image-retry from latest published main; otherwise keep
-   existing local task work and synchronize safely.
-2. Own only src/app/map/map.component.ts/.html/.scss/.spec.ts.
-3. Add Retry Image only for a valid ready manifest plus image-display error.
-   An explicit retry recreates the base-relative local overlay, retaining
-   imageRef, bounds and full load/natural-dimension validation.
-4. Invalidate previous request tokens; ignore stale load/error callbacks.
-   Block duplicate attempts while loading. Keep navigation/click guards.
-   Repeated failure stays an error with explicit retry, never an auto-loop.
-5. Preserve route, mode, notes, selection and layers. Restore their existing
-   rendering on success. Do not clear storage/caches, refetch core metadata,
-   alter assets, add dependencies or implement your own worker.
-6. Add focused failure/retry/success, repeated-failure, mismatch, stale-event,
-   duplicate-attempt, unavailable-metadata and teardown/state regressions.
-7. Run actual tests/build and supported browser interception checks. Report
-   real counts/results and any unrun scenarios; no invented PWA readiness.
+1. Preserve local work. After integration publication, start proposed
+   feature/willy-pwa-install-assets from latest main if no task exists.
+2. Deliver manifest.webmanifest and exact PNG icons/optional source under
+   public/icons plus docs/qa/PWA_INSTALL_ASSETS.md. Follow the detailed JSON
+   contract, relative start/scope/icon paths and real maskable safe area.
+3. Use an original readable mark and document source/credits. Fully decode
+   PNGs, check actual dimensions/alpha and launcher-size appearance.
+4. Verify root and /marswalk/ URL resolution, production build/served assets.
+   Give the coordinator discovery-link/theme-color handoff and actual checks.
+   Assets are not complete app-cache or installed-device acceptance.
 
-Use learner checkpoints only for this new slice. Commit/push your new
-task branch and hand off its actual name/commit/files/checks. No main merge/push,
-deployment, environment publication or messaging to others is included.
+Own those assets/QA only. No index/root/core/package/worker/source-data edits,
+new dependencies, map changes or fake readiness UI. Coordinator wires it.
+Commit/push only this task branch (authorized) and report actual branch,
+commit/assets/checks/blockers. No main merge, deployment, publication,
+submission or external messages.
 ```

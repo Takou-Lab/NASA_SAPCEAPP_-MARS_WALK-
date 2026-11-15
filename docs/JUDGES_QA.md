@@ -28,22 +28,20 @@ Those tools already provide substantial planetary mapping, terrain and measureme
 
 | Stage | Truthful capability |
 | --- | --- |
-| Main | Real local image/map/navigation, three selectable science records, shared assessment/persistence and guarded mission JSON import/export |
-| Enzo branch `bcac915` | Functional shell, route controls and notebook; 57 tests/build/browser checks pass, final current-main reconciliation remains |
-| Longla branch `9d794e2` | Corrected lazy flat viewer, code `2a6dbba`; 70 tests/build/browser/resource/orientation evidence, main integration and physical-device outcomes pending |
-| Emma W3 | Science discovery plus dedicated confidence/image-passport UI assigned, not yet delivered |
-| Gaddielle W2 | Real image index checks pass; one runtime/browser-path syntax follow-up remains |
-| Coordinator W6 / Longla W5 | Installation, full verified cache/readiness/update behavior and disconnected device reopening still to implement/verify |
+| Main `b744b0b` | All eight submitted tips integrated: map/navigation/retry, science discovery/confidence/passport, shell/planner/notebook, guarded transfer and optional lazy flat viewer |
+| Verification | 131 Angular tests, 28 data tests, production build and browser workflows pass; initial/style warnings remain below error budgets |
+| Next delegated pieces | W1 install assets, W2 release-data handoff, W3 pure image-byte verifier, W4 accessibility/size work |
+| Coordinator W6 / Longla W5 | Real installation/full cache/update lifecycle and installed disconnected reopening remain pending; device report needs clarification |
 
 Do not add the test counts together; they apply to different revisions/scopes. Build success and an emulated tablet viewport are not installed-device acceptance.
 
 ## Does it work offline or in VR?
 
-The target is an installable offline Angular PWA. That complete installed workflow has **not passed acceptance**. A mission JSON transfer does not contain the imagery or prepare the full cache. External citation pages may need connectivity. Immersive VR is **not implemented**; the optional branch viewer says so explicitly.
+The target is an installable offline Angular PWA. That complete installed workflow has **not passed acceptance**. A mission JSON transfer does not contain the imagery or prepare the full cache. External citation pages may need connectivity. Immersive VR is **not implemented**; the optional integrated viewer says so explicitly.
 
 ## What are the next proof points?
 
-Finish W4's main reconciliation while W1/W2/W3 progress independently. W6 implements a real lifecycle contract and full pack, W5 records actual device results, and the coordinator arranges three outside-user sessions using [USABILITY.md](USABILITY.md). Report actual failures, fixes and retests. No participant results exist yet.
+The current branch integration is complete; W1–W4 follow-ups can progress independently. W6 implements a real lifecycle contract and full pack, W5 records actual device results, and the coordinator arranges three outside-user sessions using [USABILITY.md](USABILITY.md). Report actual failures, fixes and retests. No participant results exist yet.
 
 ## How was AI used and credited?
 

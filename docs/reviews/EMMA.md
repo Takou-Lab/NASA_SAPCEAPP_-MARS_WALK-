@@ -1,4 +1,21 @@
-# Emma science-context review — approved and integrated
+# Emma evidence-workspace review — approved and integrated
+
+**15 November current integration:** all submitted code is merged in `b744b0b`; 131 Angular tests, 28 data tests, build and browser checks pass. [Final evidence](../qa/FINAL_BRANCH_INTEGRATION.md). Counts/revisions below describe their earlier tested scopes.
+
+
+Published **`feature/emma-science-evidence-workspace`**, tip **`3b7b1c17f3c4a7f296399bcbebaae00858baa276`**, reviewed **14 November 2026 (Africa/Douala)**. Emma uses he/him. Verdict: **approved and mounted** in integration code **`85561a6`**.
+
+All 13 scoped deliverables are present: reactive science search/filters/counts and retained hidden selection, standalone read-only confidence/passport panels, behavioral tests and QA handoff. No shared service/models/source/dependencies or Enzo files were changed. Isolated branch: **69 tests/build pass**. Combined current-main integration with Willy's retry: **81 tests across seven files**, production build **465.09 kB**, unchanged budgets and existing Leaflet warning only.
+
+The coordinator mounted `app-exploration-confidence` and `app-image-passport` once, replaced temporary root detail blocks, retained science/map/mission transfer and extended real-service root checks. Production browser verified actual imported route/unknown metrics/provenance, filters/no matches/hidden selection, unchanged notes/route and tablet/narrow panels. [Evidence](../qa/RECOVERY_EVIDENCE_INTEGRATION.md). A minor documentation correction fixes nested-shell imports to `../../science/` / `../../evidence/`; no repeated implementation is assigned.
+
+The evidence panels are now reviewed available components for Enzo's shell, not future APIs. Earlier science/research/presentation stay complete. Physical-device/PWA/outside-user outcomes remain pending.
+
+Next W3 is a bounded [read-only browser image-payload verifier](../team/tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md), delegated from coordinator preparation with an explicit planned contract. It does not own a worker, app readiness or another mission store. [Updated prompt](../team/EMMA.md).
+
+---
+
+# Previous accepted science-context review — retained
 
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.

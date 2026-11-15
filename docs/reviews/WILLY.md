@@ -1,4 +1,19 @@
-# Willy navigation review — approved and integrated
+# Willy retry review — approved and integrated
+
+**15 November current integration:** all submitted code is merged in `b744b0b`; 131 Angular tests, 28 data tests, build and browser checks pass. [Final evidence](../qa/FINAL_BRANCH_INTEGRATION.md). Counts/revisions below describe their earlier tested scopes.
+
+
+Published **`feature/willy-image-retry`**, tip **`02134f1b71389fbadd5f31051fb78c24118d2da4`**, reviewed **14 November 2026 (Africa/Douala)**. Verdict: **approved**, merged at `4c35a83`; combined integration code `85561a6` passes **81 tests/build/browser checks**.
+
+The submission changes only the four map files. It gates retry on ready valid metadata plus display failure, preserves the existing map/view and shared mission, decodes and checks dimensions, invalidates obsolete requests, detaches handlers and blocks duplicate attempts/navigation until display is ready. Existing navigation/source/marker behavior is retained.
+
+Willy's isolated branch passes **56 tests** and production build. Actual combined production-browser interception proved initial failure → held explicit retry → decoded success, one overlay, restored existing route and unchanged exported notes/image; repeated failures remain explicit without loops. Stale-event/decode/dimension/missing-metadata/teardown regressions pass in the map unit suite. [Full integration evidence](../qa/RECOVERY_EVIDENCE_INTEGRATION.md).
+
+No source raster, core/store, dependency or cache/worker changes were included. This closes W1's image-retry slice; do not repeat it. Next W1 is [PWA manifest/icon assets](../team/tasks/WILLY_PWA_INSTALL_ASSETS.md), isolated from Enzo/root/worker work. [Updated agent prompt](../team/WILLY.md).
+
+---
+
+# Previous accepted navigation review — retained
 
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.

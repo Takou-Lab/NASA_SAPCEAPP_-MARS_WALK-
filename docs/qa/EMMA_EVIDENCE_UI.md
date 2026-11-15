@@ -1,5 +1,8 @@
 # Emma science & evidence workspace — QA verification and integration handoff
 
+**15 November current integration:** all submitted code is merged in `b744b0b`; 131 Angular tests, 28 data tests, build and browser checks pass. [Final evidence](FINAL_BRANCH_INTEGRATION.md). Counts/revisions below describe their earlier tested scopes.
+
+
 Date: **14 November 2026**. Verified branch **`feature/emma-science-evidence-workspace`**, based on main commit **`584f24b`** (`584f24b994adaf53475efc173167fe11a83f77b1`). Emma uses he/him.
 
 This audit covers the 12 Angular files in `src/app/science/` and `src/app/evidence/` present in the working tree before commit (`4` modified files in `src/app/science/`, `8` new untracked files in `src/app/evidence/`), plus the real `public/data/manifest.json` and `public/data/markers.json` served in the production build. Root, core, map, source-data, and package files (`src/app/app.*`, `src/app/core/*`, `src/app/map/*`, `public/data/*`, `package.json`) are untouched on this branch.
@@ -105,3 +108,8 @@ Import the three standalone components (none accept or require `@Input()` proper
 4. **Shared state & lifecycle boundaries**:
    - Keep `MissionService.initialize()` called **once** at root (`src/app/app.ts` lines 20–22).
    - Do not create competing mission, confidence, or passport stores, and update root integration tests in `src/app/app.spec.ts` when replacing `app.html`'s temporary assessment section to assert `<app-exploration-confidence>` and `<app-image-passport>` render cleanly with the real `MissionService`.
+
+
+## Later coordinator integration verification
+
+The submission at `3b7b1c1` is approved and mounted in code `85561a6`. Both evidence panels now have real-service root and production-browser verification: 81 combined tests, production build and actual recovery/filter/metadata/layout checks pass. See [RECOVERY_EVIDENCE_INTEGRATION.md](RECOVERY_EVIDENCE_INTEGRATION.md). The earlier unmounted-panel status above records the contributor's original branch; it is not the current main integration state. Nested-shell import paths in the handoff table have been corrected to `../../science/` and `../../evidence/`. Physical/PWA/outside-user outcomes remain pending.

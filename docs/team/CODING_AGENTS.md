@@ -6,65 +6,34 @@
 
 Read [SOUL.MD](../../SOUL.MD) before your role brief. It defines the real users, product scope and acceptance criteria. This document defines implementation ownership and shared APIs; it does not prove that future PWA or feature APIs already exist.
 
-Read [REVIEW.md](../../REVIEW.md) and [NEXT_TASKS.md](../../NEXT_TASKS.md) for the latest published-branch verdicts and actions. Preserve accepted work; absence from a fetched remote is not proof of missing local work. Gaddielle's corrected passport at `c887286` is approved and integrated, as recorded in [the accepted review](../reviews/GADDIELLE.md). Her index `a53724a` is merged and passes 25 Python tests; the R3 browser-path compatibility follow-up below reuses the accepted package/verifier; do not repeat image, conflict or passport work.
+Read [REVIEW.md](../../REVIEW.md), [TEAM_TASKS.md](../../TEAM_TASKS.md) and the named person's brief before work. All eight published feature tips are integrated in **`b744b0b`**: **131 Angular tests, 28 data tests, production build and browser checks pass**. [Exact evidence](../qa/FINAL_BRANCH_INTEGRATION.md). Build warning overruns remain. Do not repeat accepted implementations or discard unseen local work.
 
-**Current Enzo integration exception:** corrected `bcac915` passes 57 tests/build and production mission checks. Previous core/map/font/draft/resize defects are closed. Complete current-main reconciliation on `feat/enzo-ui-planner-notebook` using [the review](../reviews/ENZO.md): four root TS/HTML/SCSS/spec conflicts, single initialization/map, preserved import/export guards and Emma's existing shared science component. Narrow root integration and owned UI/global-theme work remain permitted; do not replace core/package/data, duplicate Emma's future evidence panels or implement a worker. No new task branch until the integrated revision passes.
+## Status and ownership
 
-**Royce/Longla correction status:** the user explicitly asked the coordinator to implement the corrections. Code `2a6dbba` on `feature/longla-3d-rehearsal` merges main `d814ec4`, closes [R1–R5](../reviews/LONGLA.md) and passes 70 tests/build plus recorded browser checks. The narrow root/dependency exception has been used for this correction; it is not a blanket future-edit assignment. Next slice owns QA records only: real-device checks and later coordinator-supplied PWA acceptance. Main integration remains pending; no further core/map/science/UI/worker changes are assigned.
+One shell-owned Leaflet image map, science discovery, confidence/passport, planner, draft-preserving notebook and guarded transfer are integrated. The optional flat viewer is lazy and destroyed on leaving its tab. R3 encoded/whitespace path validation is closed. Longla's submitted hardware report needs clarification; installation/full caching/update/disconnected reopening are still pending.
 
-Preserve work already underway. Complete or hand off the current small slice before starting a new charter follow-up; do not repeat completed assignments or learning checkpoints. Emma (he/him) has delivered science/evidence/demo work at `8a947a4` and the usability protocol at `b0640d9` on his feature branch. These contributions are now integrated and must not be recreated. His subsequent presentation `947ff1a` is delivered/integrated with small readiness wording updates; do not reassign it. His science component `4efcb5a` is now accepted/mounted; he now owns science discovery and future read-only confidence/image-passport presentation transferred from Enzo. Actual user sessions remain a later phase.
+Use Angular standalone, strict TypeScript, plain SCSS/CSS and the existing MissionService. Leaflet uses `CRS.Simple` with bottom-left image pixels. Three.js stays exclusive to the optional viewer. No competing store, scaffold, backend or UI framework. Keep source imageRef, unavailable scale/terrain/positions and existing validation/persistence guards.
 
-## Status and scope
-
-The Angular foundation now implements the v1 models and MissionService API below, with Leaflet dependencies and noninteractive test/build scripts. MARSWALK's target is an installable offline PWA; installation and offline caching are not yet implemented in the foundation. Willy's map is mounted with Gaddielle's image package and Emma's three science records. Emma's selectable science component `4efcb5a` is now mounted; 51 integrated tests/build and recorded browser checks pass. Route controls, notebook/shell corrections and PWA lifecycle remain pending. Inspect the checkout and actual scripts before starting. Read this document, [TEAM_TASKS.md](../../TEAM_TASKS.md), and the named person's brief.
-
-Use Angular standalone components, strict TypeScript, plain CSS/SCSS and a small root-provided mission service. Use Leaflet with `CRS.Simple` for the first local-image implementation. Add geographic mapping only after verified data and an agreed migration. Three.js is exclusive to the optional 3D component. No backend, authentication, UI framework or extra state framework is required.
-
-The coding prompts in personal briefs are intended to be pasted into the relevant teammate's coding-agent session. They authorize that agent to implement its assigned slice when invoked by the teammate; this document itself does not instruct agents to start unrelated tasks.
-
-## Integration order and file ownership
-
-| Person | Owned implementation | Dependency |
+| Person | Current owned follow-up | Boundary |
 | --- | --- | --- |
-| Coordinator (YOU) | Angular bootstrap/config, `src/app/core/`, root assembly, assessment, offline build, package files | Starts first |
-| Willy | `src/app/map/` | Map/navigation `21cf6f0` approved/integrated; next task guarded image retry |
-| Enzo | `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` | Canonical core port, shell/map mounting, planner/notebook, fonts/sidebar; integrate Emma's reviewed science/evidence components |
-| Longla | `docs/qa/` for independent device/offline checks first; optional `src/app/viewer3d/` afterward | Coordinator's integrated PWA and actual target device; optional viewer depends on shared route/image reference |
-| Gaddielle | `public/data/imagery/`, `public/data/terrain/`, `public/data/manifest.json`, new `public/data/image-pack.json`, `docs/data/`, `tools/data/` | Existing manifest unchanged; separate approved image-pack index specification |
-| Emma | `src/app/science/`, new `src/app/evidence/` confidence/image-passport components, `docs/qa/EMMA_EVIDENCE_UI.md`, plus existing science/evidence/presentation records | Preserve accepted `4efcb5a`; enhance science discovery and implement transferred read-only evidence presentation; actual checks before claims |
+| Coordinator / YOU — W6 | Root/core/shared models, build/packages, worker/install/cache/update lifecycle and main integration | Define real API before consumers use it; verify complete required asset set |
+| Willy — W1 | `public/manifest.webmanifest`, declared `public/icons/` assets, named QA handoff | Install assets only; root/index/worker wiring belongs to coordinator |
+| Gaddielle — W2 | `docs/data/RELEASE_DATA_HANDOFF.md` and necessary factual data-doc updates | R1–R3 complete; no asset regeneration/schema/API/worker changes |
+| Emma — W3 | Planned `src/app/offline/image-payload-verifier.ts`, its spec and named QA handoff | Pure read-only image-byte verification; no storage/network/worker/readiness UI |
+| Enzo — W4 | Shell/header/planner/notebook UI/tests/styles | Keyboard/ARIA/focus and size cleanup; preserve shared components/drafts/viewer teardown; no root/core/package rewrite |
+| Longla — W5 | `docs/qa/PWA_ACCEPTANCE.md` and actual defect/evidence records | Clarify submitted report, test exact integrated build on real device; no teammate code edits |
 
-Do not overwrite another person's changes. Request shared model/API changes from the coordinator. The coordinator adds dependency declarations and lockfile changes for Leaflet/Three.js or processing tools. Do not scaffold a second Angular project in a feature directory. Use the existing checkout; create a feature branch only when useful and preserve local work. Do not push, merge, deploy or contact teammates unless the user explicitly authorizes that action.
+Personal briefs authorize normal commits/pushes to their named feature branches; preserve existing progress/history. Proposed new branch names apply only when a follow-up has not started. Main integration follows the user's authorized coordinator workflow. Deployment, environment publication, submission and external messaging are separate.
 
-The current Gaddielle, Emma and Willy follow-up assignments explicitly include committing and pushing their own feature branches. This does not authorize merging into `main`, deployment or contacting teammates. Gaddielle owns the image-data inventory and verification tool; the coordinator owns service-worker caching, app installation and complete offline readiness. Emma owns the evidence audit and presentation content; shared models stay unchanged unless coordinated.
+## Accepted components and planned PWA contract
 
-**Willy's integration handoff:** the map and navigation `21cf6f0` are approved and mounted once. His next task is Retry Image on proposed `feature/willy-image-retry`, not repeated Reset View/Focus Route or root assembly. Start from the published main integration and preserve the readiness guard. Root/core/PWA/package work stays with the coordinator.
+Willy's map/navigation/retry (`21cf6f0`, `02134f1`) and Emma's science/research/protocol/presentation/evidence workspace (`947ff1a`, `4efcb5a`, `3b7b1c1`) are complete. Enzo `16a2e66` is reconciled with main. Root initializes once; shell uses one each of `app-science-context`, `app-exploration-confidence` and `app-image-passport`. Do not duplicate these or reopen old root conflicts. Longla's corrected viewer is already merged.
 
-## Emma / Enzo ownership split
+W3's pure module is **planned, not yet implemented**: follow [EMMA_IMAGE_PAYLOAD_VERIFIER.md](tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md). It uses ImageManifest/runtime validation and an injected read-only cache reader, with an image-only result. No caller may assume it exists yet. W6 owns the remaining shell/science/cache/install checks and lifecycle API. MissionService currently has no install/cache/preparation/update API; Enzo must not invent signals or simulated readiness/progress.
 
-Emma's standalone `ScienceContextComponent` (`app-science-context`) at **`4efcb5a`** is accepted and mounted. It reads existing MissionService and selects records without mutating routes or inventing locations. Keep one mounted instance when porting Enzo's shell.
+The existing [image index](../data/IMAGE_PACK_INDEX.md) inventories manifest + prepared image only: **524,472 bytes**, excluding the index itself, science and built shell. It is not full PWA readiness. Its R3 closure and real `--check` pass are recorded with 28 data tests; source image/manifest/index bytes remain unchanged. W2 supplies factual release paths/hashes and include/exclude guidance, W1 supplies install assets, and W6 integrates after review.
 
-The user now transfers **future read-only Exploration Confidence and Image Data Passport presentation** to Emma along with science search/filters/counts: [EMMA_SCIENCE_EVIDENCE_WORKSPACE.md](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md). He owns only science component files, two evidence components and `docs/qa/EMMA_EVIDENCE_UI.md` for this follow-up. Shared assessment logic, models and PWA lifecycle stay unchanged.
-
-Enzo retains shell, planner, notebook/draft retention, theme/fonts/sidebar, canonical-core reconciliation and integration of reviewed components. Future exports are `ExplorationConfidenceComponent` (`app-exploration-confidence`) and `ImagePassportComponent` (`app-image-passport`); do not import them before implementation/review. Preserve any related existing UI as integration reference instead of discarding it; no competing implementation or edits to Emma's files. Neither contributor creates another mission store. Shared/root/PWA work stays coordinator-owned except the already-documented narrow Enzo integration exception.
-
-Willy's accepted Reset View/Focus Route must not be repeated. His new [Retry Image task](tasks/WILLY_IMAGE_RETRY.md) stays inside the map and does not change core metadata or source assets.
-
-## Image-pack index handoff
-
-The coordinator-approved [image-only inventory task](tasks/GADDIELLE_IMAGE_PACK.md) is a new tooling deliverable, not an existing app API. It must not change ImageManifest or claim offline readiness. Its total counts the manifest and prepared image only, excluding the index itself, science records and built shell; the coordinator defines and verifies the full PWA asset set separately. Enzo must not invent fields or install/readiness states from the index.
-
-Submission **`a53724a`** is now reviewed and already merged through PR #4. **25 Python tests** and the real index check pass; previous literal-path and strict schema/type/read-only findings are closed. One R3 follow-up aligns tool image paths with the runtime whitelist to reject percent escapes and whitespace/control characters that browsers normalize differently. Keep all source/index bytes and existing tests. [Current findings](../reviews/GADDIELLE.md) and [bounded prompt](GADDIELLE.md). The inventory still does not establish complete PWA readiness.
-
-## Current product integration priorities
-
-1. Integrate reviewed local imagery and science evidence without inventing geolocations or metric calibration.
-2. Finish the 2D mission: image, contextual science, route sketch, confidence messages, notebook, recovery and JSON export.
-3. Complete the installable offline PWA and test closing/reopening the installed app disconnected on the target device. Connectivity and verified pack readiness are different states.
-4. Present Data Passports using Gaddielle's documented metadata and Emma's evidence audit. Use existing model fields where supported; the coordinator must agree any typed extension before feature agents consume new fields.
-5. Conduct three outside-user sessions with the coordinator, record actual anonymized outcomes through Emma and Longla, and fix observed confusion.
-6. Add optional 3D/VR only after the essential mission is accepted.
-
-The implemented MissionService below has no install/offline lifecycle API. The coordinator must define and test that contract before Enzo consumes it; feature agents must not invent methods, progress values or readiness claims. The signature confidence panel reports evidence and limits, not safety scores. Unlocated science records must remain accessible as context without fabricated map positions.
+Next release gate: the complete prepared installed mission reopens disconnected on a real device, retaining route/observations and supporting essential image/science/export operations. Outside-user sessions use Emma's existing protocol after prerequisites. No measured terrain, route-safety score, invented science pins or immersive VR is supplied.
 
 ## Version 1 models
 

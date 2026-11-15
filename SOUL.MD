@@ -4,13 +4,13 @@
 > **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
 <!-- /CURRENT_WORK_PLAN -->
 
-Updated: **14 November 2026**. This is the team's product charter and scope guide, not evidence that a feature already works or an official competition rulebook. Read it with [TEAM_TASKS.md](TEAM_TASKS.md), [the shared coding contract](docs/team/CODING_AGENTS.md) and your named brief.
+Updated: **15 November 2026**. This is the team's product charter and scope guide, not evidence that a feature already works or an official competition rulebook. Read it with [TEAM_TASKS.md](TEAM_TASKS.md), [the shared coding contract](docs/team/CODING_AGENTS.md) and your named brief.
 
 ## Apply this charter without restarting work
 
 Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
 
-Emma (he/him) delivered the evidence audit, revised records/citations, PWA status summary and internal demo script on `feature/emma-science-provenance` at `8a947a4`, then the usability protocol at `b0640d9`. Those contributions are now integrated; do not ask him to recreate them. His presentation is delivered at `947ff1a`; preserve it and the coordinator readiness updates. His science component `4efcb5a` is now accepted and mounted. His next assignment is science discovery plus read-only confidence/image-passport presentation transferred from Enzo's future work. Actual usability sessions wait for the integrated PWA. Willy's published navigation `21cf6f0` is approved/integrated; his next task is guarded image retry, not repeated navigation or root mounting. Preserve other teammates' current work and completed results.
+Emma (he/him) has delivered research, records/citations, presentation, usability protocol and the full science/evidence workspace. Willy's map/navigation/retry, Gaddielle's data/index, Enzo's shell/planner/notebook and Longla's corrected optional viewer are all integrated. The coordinator closed R3. Do not repeat accepted work. The next independent slices are install assets (Willy), factual release-data handoff (Gaddielle), pure image-byte verification (Emma), release UI accessibility/size cleanup (Enzo) and clarified hardware evidence (Longla). Actual usability sessions follow the integrated PWA prerequisites.
 
 ## Why we exist
 
@@ -83,13 +83,13 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 
 | Priority | Owner | Outcome |
 | --- | --- | --- |
-| Essential | Gaddielle | Preserve accepted package/passport and merged index; close the focused runtime/browser-path compatibility gap without changing source assets |
-| Essential | Emma (EMMA.md) | Preserve accepted science UI/evidence/presentation; add science discovery and readonly confidence/image-passport presentation, then support actual user-test outcomes |
-| Essential | Willy | Preserve approved map/navigation, add explicit safe image retry and verify without rebuilding earlier work |
-| Essential | Enzo | Tablet shell/route controls, integration of Emma's reviewed science/evidence components, notebook/draft retention, recovery/export and real future PWA status UI |
-| Essential | Coordinator (YOU.md) | Shared state, reviewed integration, confidence calculations, installation, complete verified offline pack and end-to-end release checks |
-| Essential | Longla | W5 actual-device/offline QA and usability observation; corrected viewer work stays complete |
-| Preserve optional delivery | Coordinator / Longla | Keep the corrected flat viewer on its reviewed branch; integrate deliberately without adding terrain/VR or blocking the core mission |
+| Essential | Gaddielle | Preserve package/index and closed R3; document exact runtime data/built-copy/cache guidance |
+| Essential | Emma (EMMA.md) | Preserve accepted science/evidence; implement planned pure image-payload verifier, later consolidate actual user outcomes |
+| Essential | Willy | Preserve map/navigation/retry; deliver verified manifest and install icons |
+| Essential | Enzo | Preserve integrated shell/planner/notebook; improve accessibility and warning sizes without weakening behavior/budgets |
+| Essential | Coordinator (YOU.md) | Shared state, reviewed integration, installation, complete verified offline pack/update lifecycle and end-to-end release checks |
+| Essential | Longla | Clarify submitted device report; real-device and later installed-offline QA |
+| Preserve optional delivery | Coordinator / Longla | Keep integrated viewer lazy/flat with teardown; no terrain/VR expansion |
 
 Keep existing role ownership and completed work. The Willy/Gaddielle swap remains in force. Use the personal briefs for exact files, agent prompts and checks.
 
@@ -121,8 +121,6 @@ Suggested pitch:
 
 ## Current integration status
 
-Main includes the real image, map/navigation, science list/details, shared assessment/persistence and guarded mission-file transfer. The [51-test science integration](docs/qa/SCIENCE_INTEGRATION.md), earlier [map](docs/qa/MAP_INTEGRATION.md) and [transfer](docs/qa/MISSION_TRANSFER.md) records retain their exact tested scopes/revisions; they are not new installed-PWA evidence.
+Application code **`b744b0b`** includes all eight published feature tips: map/navigation/retry, science discovery/confidence/passport, shell/route/notebook, shared persistence/assessment/guarded transfer and optional lazy viewer. **131 Angular tests, 28 data tests, build and production-browser mission checks pass**. Initial/style build warnings remain below error budgets. [Evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md), [verdicts](REVIEW.md), [next pieces](TEAM_TASKS.md).
 
-Enzo's functional shell/planner/notebook and Longla's corrected optional flat viewer pass on their published branches, with final main integration/device acceptance tracked separately. Gaddielle's real index is merged/valid; W2 fixes the remaining runtime/browser-path compatibility edge case. Emma's W3 enhancements are assigned, not implemented. [REVIEW.md](REVIEW.md) records exact published tips and [TEAM_TASKS.md](TEAM_TASKS.md) defines the six current work pieces.
-
-Complete interface integration, real installation/cache/update lifecycle, physical-device disconnected reopening and actual outside-user outcomes remain pending. Preserve the current Gale data and uncertainty boundaries; do not call the full installed offline mission complete from tests/build or branch demos.
+Complete installation/cache/update lifecycle, physical-device confirmation, disconnected installed reopening and actual outside-user outcomes remain pending. Longla's contributor-reported hardware record needs clarification of source/messages/browser/FPS; it is not an independently verified hardware pass. Preserve Gale data and uncertainty boundaries. Build/browser success does not establish the complete installed offline mission.

@@ -1,8 +1,12 @@
-# Enzo review — functionality passes; final main integration required
+# Enzo review — final shell integrated
 
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->
+
+**15 November integration update:** latest `16a2e66` passes 81 isolated branch tests/build and is merged into **`b744b0b`**. The coordinator resolved root conflicts, replaced duplicate presentation with the reviewed shared panels and retained transfer/drafts/navigation. Final integration passes **131 Angular tests, 28 data tests, build and actual browser workflow checks**. [Evidence](../qa/FINAL_BRANCH_INTEGRATION.md). The older integration gate below is closed. Next task: [release UI accessibility/size work](../team/tasks/ENZO_RELEASE_UI.md).
+
+## Historical 14 November review — superseded where noted
 
 Reviewed **14 November 2026 (Africa/Douala)**. Published tip **`bcac915644ec58853033879184773564f50bb738`** on **`feat/enzo-ui-planner-notebook`**, compared with main **`584f24b`**. Verdict: **retain the corrected UI; finish the bounded integration below before merging or starting a new task**.
 
@@ -19,7 +23,7 @@ Reviewed **14 November 2026 (Africa/Douala)**. Published tip **`bcac915644ec5885
 
 **Do not repeat those fixes or rebuild the UI.** They are useful completed work.
 
-## Remaining integration gate
+## Historical integration gate — now closed
 
 This revision merged main only through **`f65778d`**. Current main adds accepted map navigation, guarded mission-file transfer and Emma's mounted science component. A read-only merge preview against `584f24b` has **four conflicts**, all in root `src/app/app.ts`, `app.html`, `app.scss`, `app.spec.ts`. No feature code was merged during this review.
 

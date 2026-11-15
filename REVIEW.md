@@ -1,48 +1,30 @@
-# MARSWALK — Current published submission review
+# MARSWALK — Submitted branches reviewed and integrated
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
-<!-- /CURRENT_WORK_PLAN -->
+Reviewed **15 November 2026 (Africa/Douala)**. Application integration: **`b744b0b55252b33903b0e67559defaa4901047ee`**, following remote main `9914e70`. All **eight advertised feature tips** are ancestors of this revision. Older accepted branches were already merged; new integration preserves their history. [Exact branch table and evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md).
 
-Review date: **14 November 2026 (Africa/Douala)**. Snapshot: main **`0043bae`** (documentation update on the same reviewed application), all seven advertised remote heads and four PR heads. Branch recheck for task alignment found no new submissions. This report covers published commits, not unseen local work. Detailed older reviews remain in `docs/reviews/` as labeled history.
+| Contributor / branch | Published tip | Verdict / integration |
+| --- | --- | --- |
+| Willy — `feature/willy-map-development` | `21cf6f0` | Accepted, already merged; navigation preserved |
+| Willy — `feature/willy-image-retry` | `02134f1` | Accepted, merged; explicit retry/state preservation verified |
+| Emma — `feature/emma-science-provenance` | `947ff1a` | Accepted, already merged; research/protocol/presentation preserved |
+| Emma — `feature/emma-science-context-ui` | `4efcb5a` | Accepted, merged; one shared science list |
+| Emma — `feature/emma-science-evidence-workspace` | `3b7b1c1` | Accepted, merged; discovery/confidence/passport mounted |
+| Gaddielle — `feature/gaddielle-data-preparation` | `a53724a` | Already merged via PR #4; coordinator closed R3 in `b744b0b` |
+| Enzo — `feat/enzo-ui-planner-notebook` | `16a2e66` | Accepted, merged; root conflicts resolved, transfer/drafts/shared panels retained |
+| Royce / Longla — `feature/longla-3d-rehearsal` | `23d5180` | Corrected viewer merged; new device report requires clarification |
 
-## Current verdicts and next actions
+All four existing PR heads are historical accepted submissions. GitHub does not advertise the legacy local `Tablet-App` tracking reference. No feature branch was deleted or force-pushed. This review cannot establish unseen local work.
 
-| Contributor / branch | Published tip | Review result | Next action |
-| --- | --- | --- | --- |
-| Main integration | `0043bae` | Science/map/mission transfer integrated; Gaddielle index already merged. Angular source unchanged since recorded 51-test integration; fresh data suite passes 25 tests with R3 follow-up below | Preserve current work; finish Enzo integration, then real PWA lifecycle/device acceptance |
-| Willy — `feature/willy-map-development` | `21cf6f0` | **Approved/integrated**, unchanged since navigation review | Continue guarded image-retry assignment; no newer retry submission advertised |
-| Emma — `feature/emma-science-provenance` | `947ff1a` | **Accepted/integrated**, unchanged | Preserve research/protocol/presentation; no repeat assignment |
-| Emma — `feature/emma-science-context-ui` | `4efcb5a` | **Approved/integrated/mounted**, unchanged; recorded 51-test/build/browser integration retained | Continue science discovery and transferred confidence/image-passport work on proposed evidence-workspace branch |
-| Gaddielle — `feature/gaddielle-data-preparation` | `a53724a` | **25 tests and real index check pass; previous fixes complete. Already merged via PR #4. One additional browser-path compatibility correction required (R3)** | Same branch: reject encoded/whitespace paths that runtime rejects/browser normalizes; keep actual assets/index unchanged |
-| Enzo — `feat/enzo-ui-planner-notebook` | `bcac915` | **57 tests/build and production mission checks pass; original functional defects closed. Final current-main integration required** | Same branch: resolve four root conflicts, preserve mission transfer, reuse Emma's accepted science component and rerun integrated checks |
-| Royce / Longla — `feature/longla-3d-rehearsal` | `9d794e2` | **Corrections verified on feature branch**. Application code unchanged from tested `2a6dbba`: 70 tests/build and browser/resource/orientation checks retained; main feature integration pending | Actual-device QA; installation/offline checks stay blocked until real prerequisites exist |
+## Integrated checks and remaining limits
 
-A legacy local tracking reference for `Tablet-App` exists, but GitHub did not advertise that branch in this snapshot. It is not a new submission. The earlier comparison remains historical. No published evidence-workspace or image-retry branch was visible; absence does not establish whether local work is complete.
+**131 Angular tests across 15 files, 28 Python tests and production build pass.** The real two-file index verifies **524,472 image-payload bytes** unchanged. Production initial output is **587.25 kB**; lazy viewer is **595.60 kB**. Initial/planner/notebook size warnings and Leaflet CommonJS warning remain; error budgets pass and no budgets were raised.
 
-## Enzo — substantial corrections delivered
+Chromium production checks cover the actual route → science → note → persistence/export/import workflow, failed-save draft retention, composed evidence filters, image failure/retry, responsive layout, lazy viewer and local WebGL fallback. Graphics inspection confirms narrow-panel framing and texture disposal. [Detailed environments/results](docs/qa/FINAL_BRANCH_INTEGRATION.md). Previous component counts remain historical, tied to their own source revisions.
 
-New review of **`bcac915`** closes duplicate foundation/storage, placeholder map, external fonts, draft loss and viewport-clamp findings. One real map and all three unlocated records work with actual local data. Actual route drawing/save/clear/load/export and notebook storage/error behavior passed in production Chromium.
+Longla's latest QA text quotes messages different from its stated source revision, uses an inexact browser version and supplies no measurement artifact for 60 FPS. The full [submission is preserved](docs/qa/submissions/LONGLA_23d5180.md) as contributor-reported pending reconciliation. Its presence in Git history does not certify physical-device/PWA acceptance. [Review and exact clarification](docs/reviews/LONGLA.md).
 
-The branch merged main only through `f65778d`; merging current main has four conflicts in root TS/HTML/SCSS/spec. Preserve current canonical core, mission JSON import/export and async guards, navigation and Emma's shared science component. His interim science list should be replaced with the accepted component; future evidence presentation remains Emma's assignment. Keep existing UI rather than restarting it. Build succeeds with initial/style warning overruns, below error thresholds; do not raise budgets.
+Installation, complete shell/data preparation, update handling, disconnected installed reopening, physical-device confirmation and outside-user outcomes remain pending. Scientific sources were not independently re-fetched in this technical integration. Missing science positions/calibration/terrain remain explicit.
 
-[Full findings and completed-case evidence](docs/reviews/ENZO.md). [Ready-to-paste final integration prompt](docs/team/ENZO.md).
+## Next work
 
-## Gaddielle — original fixes pass; one focused follow-up
-
-New review of **`a53724a`** confirms canonical/literal path cases and strict schema/type/read-only failures are fixed. **25 tests pass**, and the current two-file index still verifies **524,472 bytes**. This code was already merged by PR #4; this review does not roll back or regenerate assets.
-
-Temporary probes show generation/check still return success for `data/imagery/%2e%2e/texture.jpg`, a percent-encoded filename and a trailing-space filename. Browsers normalize these differently and runtime `validManifest()` rejects them. R3 aligns tool syntax with the existing runtime path contract, with negative regressions and unchanged outputs on failure. Keep all completed fixes; no new data, schema or worker work.
-
-[Exact reproductions and correction](docs/reviews/GADDIELLE.md). [Ready-to-paste prompt](docs/team/GADDIELLE.md).
-
-## Evidence and limits
-
-Fresh checks for changed submissions:
-
-- Gaddielle/main-identical tools: complete Python suite **25 passed**, real `--check` passed; additional negative probes used temporary copies only.
-- Enzo isolated published branch: frozen install, **57 tests across 10 files**, production build passed; production Chromium verified real map/science, route persistence/export, exact draft retention after tabs/failed save, successful note save and keyboard/restored/narrow layout behavior.
-- Enzo read-only merge preview: **four root conflicts**; no feature code merged by this review.
-- Unchanged Emma/Willy/Longla sources were compared with accepted tested commits; their previous checks are retained rather than described as freshly rerun. Main Angular source is unchanged from `5203d60`; no unnecessary Angular rerun was used as new evidence.
-
-Physical-device checks, outside-user sessions, installability, complete cache preparation and disconnected reopening remain unproven. No scientific sources were independently re-fetched in this technical review. No teammate implementation or feature branch was changed; review/assignment documents are the output.
+[TEAM_TASKS.md](TEAM_TASKS.md) and [NEXT_TASKS.md](NEXT_TASKS.md) assign consistent follow-ups: Willy install assets, Gaddielle release-data handoff, Emma pure image-byte verifier, Enzo release accessibility/size work, Longla corrected hardware evidence and coordinator real PWA lifecycle. Personal prompts and historical reviews are in [team briefs](docs/team/) and [reviews](docs/reviews/).

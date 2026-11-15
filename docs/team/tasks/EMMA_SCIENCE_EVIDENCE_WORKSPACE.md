@@ -1,5 +1,8 @@
 # Emma — Science explorer and evidence panels
 
+> **Completed and merged.** This specification is retained as history. Current follow-ups and personal prompts are in [TEAM_TASKS.md](../../../TEAM_TASKS.md); do not repeat this implementation.
+
+
 <!-- CURRENT_WORK_PLAN -->
 > **Current assignment: [W3](../../../TEAM_TASKS.md#w3).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
 <!-- /CURRENT_WORK_PLAN -->

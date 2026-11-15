@@ -4,7 +4,7 @@
 > **Data/reference record.** Preserve source facts, hashes and coordinate limits. Current work is [W2](../../TEAM_TASKS.md#w2); app-wide PWA lifecycle belongs to [W6](../../TEAM_TASKS.md#w6), not this image inventory.
 <!-- /CURRENT_WORK_PLAN -->
 
-**Current implementation note:** the real committed index passes its checks and all 25 current Python tests pass. W2/R3 still adds rejection for encoded/whitespace paths that runtime rejects or browsers normalize differently; see [the exact review](../reviews/GADDIELLE.md). The schema below remains the intended contract, not a claim that this last edge case is already fixed.
+**Current implementation note:** the real committed index passes its checks and all 28 current Python tests pass. The coordinator closed R3 encoded/whitespace rejection in main integration `b744b0b`; see [the exact review](../reviews/GADDIELLE.md). The schema and runtime browser-path restrictions now agree; source assets and the real index are unchanged.
 
 ## Purpose & Overview
 
@@ -105,7 +105,7 @@ python tools/data/build_image_pack.py \
 
 ## 3. Automated Test Regressions
 
-The test suite in `tools/data/test_build_image_pack.py` validates 21 automated regression cases:
+The test suite in `tools/data/test_build_image_pack.py` validates 24 automated regression cases:
 1. `test_generate_real_package_matches_expected_schema_and_values`: Generates real index and verifies schema, paths, hashes, and byte sums.
 2. `test_deterministic_identical_generation`: Confirms repeated executions produce byte-identical JSON.
 3. `test_check_mode_passes_fresh_index_without_modifying`: Confirms `--check` passes fresh index without changing `mtime`.
@@ -128,7 +128,7 @@ The test suite in `tools/data/test_build_image_pack.py` validates 21 automated r
 20. `test_check_fails_cleanly_on_root_primitive_no_traceback`: Confirms primitive root JSON fails cleanly with exit `1` without traceback.
 21. `test_check_does_not_create_missing_path_or_parent_directory`: Confirms `--check` on nonexistent target creates neither directory nor file.
 
-To run the complete data tools test suite (25 tests total: 21 indexer regressions + 4 package verifier regressions):
+To run the complete data tools test suite (28 tests total: 24 indexer regressions + 4 package verifier regressions):
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_*.py' -v
@@ -142,3 +142,8 @@ For future PWA service-worker precaching, the coordinator can ingest `public/dat
 1. Obtain the exact list of image URLs to precache: `data/manifest.json` and `data/imagery/PIA26306_derived_2048.jpg`.
 2. Verify cached response sizes and digests against `files[].sha256`.
 3. Display the verified offline image payload size (`524,472 bytes` / `~512 KB`) in the UI storage/offline indicator.
+
+
+### R3 closure
+
+The coordinator added rejection/regressions for percent-encoded traversal/filenames, trailing spaces and whitespace/control characters. Generation/check fail safely with existing output bytes/mtime preserved. Current total is 28 data tests; this remains an image-only inventory, not full PWA readiness.

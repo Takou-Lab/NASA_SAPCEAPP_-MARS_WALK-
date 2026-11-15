@@ -1,27 +1,21 @@
-# MARSWALK — 60-Second Internal Demo Rehearsal
+# MARSWALK — 60-second internal demo rehearsal
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current work and status:** [canonical team plan](../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
-<!-- /CURRENT_WORK_PLAN -->
+Updated **15 November 2026** for integrated code **`b744b0b`**. Internal pacing is not an official submission rule. Name the actually served revision. Use isolated rehearsal data; export existing work before replacement. Active imageRef: `hirise-mro-pia26306-boxwork-2048x1042-v1`. Routes/notes are user rehearsal content, not a measured Curiosity traverse.
 
-Internal pacing, not an official submission requirement. Demonstrate the actually served revision and name it. This sequence matches current **main**, whose map, science access and mission-file transfer are implemented. Enzo's complete shell/notebook and Longla's optional viewer remain branch features until integrated.
-
-Prerequisite: have a small version-matching rehearsal mission JSON ready. Its sketched route/notes are user-created rehearsal content, not a measured Curiosity traverse. Export existing work before importing a replacement. The active imageRef is `hirise-mro-pia26306-boxwork-2048x1042-v1`.
-
-| Time | Action available on main | Suggested narration |
+| Time | Action on current main | Suggested narration |
 | --- | --- | --- |
-| 0:00–0:08 | Open the actual local Mars image and source/credit | “MARSWALK rehearses exploration using real Gale Crater imagery and explicit evidence limits.” |
-| 0:08–0:17 | Pan/zoom; use Reset View | “The image uses bottom-left pixels. Geographic alignment and metric scale are unverified.” |
-| 0:17–0:27 | Select a science record and show source/limitations | “All three records are readable context. Their image positions are unavailable, so we create no pins.” |
-| 0:27–0:37 | Choose the matching mission file and import; Focus Route | “The same rehearsal route and notes can move between devices using this image version. Invalid files are rejected.” |
-| 0:37–0:45 | Point to Exploration confidence warnings | “This is visual review only. Terrain, slope and calibrated distance remain unavailable; missing evidence does not establish safety.” |
-| 0:45–0:54 | Export mission JSON | “The versioned file carries route, notes, source context and limitations. Exporting protects a portable copy of the work.” |
-| 0:54–1:00 | State the next release gate | “Our next proof is the complete installed PWA reopening disconnected on the target device. That acceptance remains pending.” |
+| 0:00–0:08 | Open real local image; show source/credit | “We rehearse exploration using real Gale imagery and explicit evidence limits.” |
+| 0:08–0:20 | Set start, waypoint, destination with route controls; Focus Route | “This is a visual proposal. Metric distance and terrain assessment are unavailable.” |
+| 0:20–0:30 | Filter/select a science record, show source/limitations | “Three contextual records stay readable without invented image pins.” |
+| 0:30–0:38 | Show confidence and image passport | “Provenance and missing evidence remain visible; these labels do not certify safety.” |
+| 0:38–0:49 | Type/save a note, save route, then explicitly recover | “Local observations and routes can be saved and recovered. Failed saves retain the draft.” |
+| 0:49–0:55 | Open Mission Transfer; export JSON | “A versioned file carries route, notes, provenance and limitations between matching image versions.” |
+| 0:55–1:00 | State release gate | “Next is the complete installed PWA reopening disconnected on the target device. That acceptance remains pending.” |
 
-Do not say initialization automatically restores saved records: the existing `loadRoute()` is an explicit validated recovery action. File transfer alone does not cache imagery or prove installability/offline reopening.
+For a longer demo, import the exported matching file after the replacement warning, then demonstrate wrong-image rejection using isolated work. Explicit `loadRoute()` recovers saved work; initialization does not automatically restore it. Mission JSON excludes imagery and does not prepare the app cache.
 
-## Branch-only demonstrations
+## Optional integrated viewer
 
-After the main rehearsal, Enzo `bcac915` can demonstrate actual route drawing, notebook creation and save/load on his tested branch, explicitly labeled pending final current-main reconciliation. Longla `9d794e2` can demonstrate the corrected optional flat viewer on his branch; no measured terrain or immersive VR is supplied. Neither is an installed-offline pass.
+Open **3D Rehearsal**, then **Open 3D viewer**. It is lazy, opt-in, flat and explicitly supplies no measured terrain or immersive VR. Close or leave the tab to release resources. This is part of main; physical-device graphics evidence still needs confirmation.
 
-After W4/W6 integrate and W5 records real device acceptance, update this script from the actual evidence. [Work pieces](../TEAM_TASKS.md), [branch verdicts](../REVIEW.md), [device gates](qa/PWA_ACCEPTANCE.md).
+[Final checks](qa/FINAL_BRANCH_INTEGRATION.md), [work pieces](../TEAM_TASKS.md), [branch verdicts](../REVIEW.md), [device/PWA gates](qa/PWA_ACCEPTANCE.md). Refresh claims after W6's real lifecycle and W5's actual device acceptance; do not stage an offline pass before it exists.

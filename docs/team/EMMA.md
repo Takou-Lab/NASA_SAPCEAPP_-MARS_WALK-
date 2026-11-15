@@ -1,102 +1,82 @@
-# Emma — Science Explorer and Evidence UI
+# Emma — Browser image-payload verification after evidence UI delivery
 
 <!-- CURRENT_WORK_PLAN -->
-> **Current assignment: [W3](../../TEAM_TASKS.md#w3).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
+> **Current assignment: [W3](../../TEAM_TASKS.md#w3).** The new slice is a pure read-only verifier delegated from coordinator PWA preparation.
 <!-- /CURRENT_WORK_PLAN -->
 
-Emma uses **he/him**. Read [the accepted review](../reviews/EMMA.md), [the new detailed assignment](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md), [SOUL.MD](../../SOUL.MD) and [the shared contract](CODING_AGENTS.md).
+Emma uses **he/him**. Read [the current review](../reviews/EMMA.md), [exact new task](tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md), [shared contract](CODING_AGENTS.md) and [SOUL.MD](../../SOUL.MD).
 
-## Completed work — preserve it
+## Completed — preserve it
 
-Science/evidence/demo `8a947a4`, usability protocol `b0640d9`, presentation/Q&A `947ff1a` and **ScienceContextComponent `4efcb5a`** are accepted. The coordinator has mounted the science component with the real service/data; **51 integrated tests, production build and recorded browser checks pass**. Do not recreate these contributions. Real outside-user sessions and installed offline acceptance remain pending.
+Science/research/protocol/presentation, science UI `4efcb5a` and **evidence workspace `3b7b1c1`** are accepted. Science discovery and both confidence/passport panels are now mounted in code **`b744b0b`**: **131 combined Angular tests**, production build and actual recovery/filter/evidence/layout browser checks pass. Your isolated branch passed 69 tests/build. Do not repeat those implementations or redo the evidence audit/presentation.
 
-## New substantial assignment — your section plus Enzo's future evidence panels
+Enzo has integrated the existing reviewed `app-science-context`, `app-exploration-confidence` and `app-image-passport`; those components are available, not future files. His next task is release UI accessibility/size cleanup; root reconciliation is complete. Your next slice does not edit his files or the accepted UI.
 
-Build **science discovery plus read-only Exploration Confidence and Image Data Passport UI**. The user explicitly transfers those future presentation components from Enzo. His existing shell/planner/notebook work stays intact.
+## New work — verify image bytes without claiming full readiness
 
-1. Enhance `src/app/science/`: live computed record/located counts, text search, evidence/position filters, result count, clear filters and selected-record details that remain accessible when filtered out.
-2. Create standalone **ExplorationConfidenceComponent** (`app-exploration-confidence`) under `src/app/evidence/exploration-confidence.component.{ts,html,scss,spec.ts}`. Read existing service assessment and route state; show actual limitations, unavailable terrain/scale and only supported derived planar distance. Do not calculate new metrics or safety scores.
-3. Create standalone **ImagePassportComponent** (`app-image-passport`) under `src/app/evidence/image-passport.component.{ts,html,scss,spec.ts}`. Present actual ImageManifest source/credit, reference, pixel dimensions, coordinate convention, date, coverage, calibration and limitations. No invented fields, source facts, byte totals or offline readiness.
-4. Add meaningful behavioral tests and `docs/qa/EMMA_EVIDENCE_UI.md` with actual checks plus Enzo's exact import/selector/placement handoff.
+Implement **`src/app/offline/image-payload-verifier.ts`**, its spec and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md` using [the exact planned contract](tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md):
 
-The [full specification](tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md) defines UI states, filters, null/zero distance behavior, safe links, ownership and acceptance. Complete the slices in order; preserve the accepted list/details and its tests.
+```ts
+verifyImagePayload(index, activeImage, readBytes): Promise<ImagePayloadResult>
+```
 
-## Branch and boundaries
+This API is to be implemented; it does not exist yet. Read an unknown v1 image index, validate it against the active runtime ImageManifest before any reads, verify two supplied byte arrays by length/SHA-256, validate manifest identity and return a scoped result. `readBytes` is supplied by the future caller; no network fallback or storage writes. Errors return failure without publishing partial readiness or changing mission state.
 
-Preserve local work. If this follow-up has not started, create proposed **`feature/emma-science-evidence-workspace`** from latest published main in the existing checkout. Keep any existing local task branch and synchronize safely instead of duplicating work. Keep the original science branch/history. Own only the existing four science files, the eight new evidence component files and the QA handoff document.
+W6 composes this image-only result with app shell/science/install/cache checks later. It is not a worker, service, progress UI, independent scientific verification or full-PWA readiness signal.
 
-Enzo keeps `src/app/ui/`, planner, notebook/draft retention, shell/root assembly, font/sidebar fixes and future real PWA-status UI. He integrates your reviewed components without duplicating them. Preserve any related UI he already drafted as integration reference. Do not edit his files or root yourself.
+## Branch, checks and ownership
 
-Use readonly MissionService signals. No repeated initialize/fetch, separate mission store, storage access, model/core changes, dependencies, new data or worker. Missing positions, scale, terrain and exact-AOI verification remain unavailable.
+After integration publication, preserve local work and start proposed **`feature/emma-image-payload-verifier`** from latest main if no follow-up branch exists. Keep the completed workspace branch/history. Own only the three named verifier/test/handoff files for this slice; no core/model/source-data/Python/worker/package/root/Enzo/UI changes or new dependency.
 
-## Answer — live count with computed()
+Follow the spec's success/failure fields and negative cases. Use test-only byte fixtures and actual WebCrypto where supported; a temporary harness with existing build tools can prove browser operation without leaving a root/production mount. Run actual tests/build and record exact counts/browser/source identity limits. Full installed/offline outcomes remain pending.
+
+Commit/push only your assigned W3 task branch (default above), reporting actual name/commit/files/checks. No main integration, deployment, environment publication, submission or external messaging.
+
+## Retained learning answer — computed record badge
 
 ```ts
 readonly recordBadge = computed(() => {
   const records = this.mission.markers();
   const located = records.filter(
-    (record) => record.position !== null && record.positionStatus !== 'unavailable',
+    record => record.position !== null && record.positionStatus !== 'unavailable',
   ).length;
   return `${records.length} records (${located} located on image)`;
 });
 ```
 
-```html
-<p>{{ recordBadge() }}</p>
-```
-
-MissionService supplies validated records for the active image. Angular updates the badge when `markers()` changes; no separate counter/effect is needed. Located includes illustrative positions, which must remain distinguished from verified positions. Current data: **3 records (0 located on image)**.
-
-## Checks and handoff
-
-Retain all accepted tests. Verify composed filters, hidden selection, unchanged mission state, reactive warnings/distance, genuine unavailable fields, derived zero, safe text/links and loading/error states. Run `npm test` and `npm run build`; check keyboard and tablet/narrow-panel behavior where supported. Report actual revision/browser/device evidence; mark unrun physical-device/offline/user checks pending.
-
-Commit/push only your W3 task branch (default **`feature/emma-science-evidence-workspace`**; preserve/report an existing local task branch); that own-feature push is authorized. Hand off commit, files, selectors, actual checks and remaining limits. No main integration, deployment, environment publication, submission or external messaging is included.
+Render `{{ recordBadge() }}`. The accepted component now implements this and distinguishes illustrative from verified locations. Do not store a separate counter or repeat the finished variation.
 
 ## Copy-paste coding-agent prompt
 
 ```text
-You are Emma's MARSWALK science/evidence UI coding agent. He uses he/him.
-Read docs/team/tasks/EMMA_SCIENCE_EVIDENCE_WORKSPACE.md,
-docs/team/EMMA.md, docs/reviews/EMMA.md, docs/team/CODING_AGENTS.md
-and SOUL.MD. Follow the detailed assignment rather than inventing APIs.
+You are Emma's MARSWALK read-only image-payload verification agent (he/him).
+Read TEAM_TASKS.md W3, docs/team/EMMA.md,
+docs/team/tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md, docs/reviews/EMMA.md
+and docs/team/CODING_AGENTS.md.
 
-ScienceContextComponent 4efcb5a is accepted/mounted: 51 integrated tests,
-build and recorded browser checks pass. Preserve earlier science/protocol/
-presentation work and existing list/details/tests. Do not restart the app.
+Workspace 3b7b1c1 is accepted/mounted in code b744b0b: 131 combined Angular tests,
+build and real browser checks pass. Preserve finished UI/research/protocol/
+presentation; no repeats. Enzo integrates the three existing evidence/science
+components. Your new task feeds coordinator PWA preparation independently.
 
-1. Preserve local work. If no evidence-workspace task branch exists, create
-   proposed feature/emma-science-evidence-workspace from latest published
-   main. Otherwise retain existing task work. Keep accepted science history.
-2. Enhance only science component files: computed live counts, case-insensitive
-   search, evidence/position filters, visible/total count, clear filters and
-   selected details retained when a filter hides their button. Located is
-   distinct from verified. Never change route/mode/layers/notes/image.
-3. Build standalone ExplorationConfidenceComponent, selector
-   app-exploration-confidence, in src/app/evidence/ with TS/HTML/SCSS/spec.
-   Read MissionService assessment/route/data/image. Show Visual review only,
-   real warnings, endpoint/waypoint state and supported planar distance.
-   Null is unavailable, zero may be valid. No safety score or invented terrain.
-4. Build standalone ImagePassportComponent, selector app-image-passport,
-   in src/app/evidence/ with TS/HTML/SCSS/spec. Present actual manifest fields,
-   safe source link/credit, imageRef, PIXEL dimensions, coordinates, date,
-   coverage, calibration and limitations. Do not invent processing/schema/
-   storage/offline fields or treat a pixel dimension as metric resolution.
-5. Add behavioral regressions for discovery, filtered selection, unchanged
-   mission state, reactive confidence, null/zero values, metadata failure
-   states and safe text/links. Both evidence panels are readonly.
-6. Run full tests/build and actual keyboard/tablet/narrow-panel checks.
-   Record actual outcomes and selectors/import/placement instructions in
-   docs/qa/EMMA_EVIDENCE_UI.md. Unrun device/offline/user checks stay pending.
+1. Preserve work; after publication create proposed
+   feature/emma-image-payload-verifier from latest main if no task exists.
+2. Own offline/image-payload-verifier.ts, its spec and the named QA handoff.
+   Implement the detailed task's exact planned exports/result semantics.
+3. Validate unknown v1 index and active runtime manifest before reader calls;
+   exact ordered paths, imageRef, types/keys/safe sizes, SHA-256 and totals.
+4. Read bytes only through caller-supplied readBytes. Check lengths/digests
+   using WebCrypto and manifest UTF-8/JSON/runtime validity/identity. Catch
+   missing/read/crypto/validation errors; fail without writes/mutations or
+   partial success. No network fallback, worker, store or readiness UI.
+5. Add meaningful success/corruption/missing/reader/crypto/schema/path/identity
+   tests, actual test/build results and supported browser WebCrypto proof.
+   Synthetic byte fixtures stay test-only. Explain the cache-only reader
+   handoff and full-app assets W6 must verify separately.
 
-This explicitly transfers future confidence/passport PRESENTATION from Enzo.
-Enzo retains shell, planner, notebook/drafts, fonts/sidebar, root integration
-and later real PWA-status UI. Preserve his work; don't edit his files.
-Own only science/, the two evidence components and that QA handoff.
-No root/core/data/package/worker edits, new dependencies, fetching/storage,
-reinitialization or competing mission state. No fabricated measurements.
-Teach one new slice at a time using the learner checkpoint.
-Commit/push only the assigned W3 feature branch (authorized) and send its commit,
-selectors, exact checks and limits for review. No main merge/push,
-deployment, environment publication, submission or external messaging.
+No core/models/service/data/Python/package/root/Enzo/UI edits or dependencies.
+This result is IMAGE-PAYLOAD only; no full-PWA/science/calibration claim.
+Commit/push only this feature task branch (authorized), report branch/commit/
+files/checks/limits for review. No main merge, deployment, publication,
+submission or external messaging. Teach one new slice at a time.
 ```

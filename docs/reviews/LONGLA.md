@@ -1,8 +1,14 @@
-# Royce / Longla — corrections verified on feature branch
+# Royce / Longla — viewer merged; hardware report needs clarification
 
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->
+
+**15 November integration update:** branch tip `23d5180` is merged in **`b744b0b`**, preserving the corrected viewer as a lazy shell tab with teardown on exit and aspect-aware framing. Final 131-test/build/browser integration checks pass. [Evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
+
+The new QA report contains quoted strings that do not match its stated `9d794e2` source: actual buttons are **Open 3D viewer / Close 3D viewer**, and canonical import error is **Invalid mission or a different image version. Current work is unchanged.** VR/fallback text also differs. No artifact supports its 60 FPS assertion; `Chrome 134+` is not an exact browser version. Preserve the [submitted report](../qa/submissions/LONGLA_23d5180.md) as contributor-reported, with physical-device confirmation pending until the exact served build/results are reconciled. Do not reopen verified viewer implementation; the next assignment is truthful hardware QA correction.
+
+## Historical 14 November review — superseded where noted
 
 Corrected code **`2a6dbbaf086fef072844888c8eb25a3e5e5552ca`**, branch **`feature/longla-3d-rehearsal`**, **14 November 2026**. The user asked the coordinator to implement the outstanding corrections for Longla. Main `d814ec4` is merged into the feature branch; feature integration into main remains pending.
 

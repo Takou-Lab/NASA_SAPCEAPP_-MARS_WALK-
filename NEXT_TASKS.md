@@ -1,22 +1,16 @@
 # MARSWALK — Current handoff checklist
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current work and status:** [canonical team plan](TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
-<!-- /CURRENT_WORK_PLAN -->
-
-Updated **14 November 2026 (Africa/Douala)**. Branch recheck: no new published tips since [the latest review](REVIEW.md). [TEAM_TASKS.md](TEAM_TASKS.md) is the canonical assignment/dependency plan. Preserve completed work and local progress.
+Updated **15 November 2026 (Africa/Douala)**. All eight submitted feature tips are merged in code **`b744b0b`**. **131 Angular tests, 28 data tests, build and browser checks pass**; build size warnings remain. [Verdicts](REVIEW.md), [evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md), [canonical plan](TEAM_TASKS.md).
 
 | Piece | Person | Next action | Done when |
 | --- | --- | --- | --- |
-| [W1](TEAM_TASKS.md#w1) | [Willy](docs/team/WILLY.md) | Explicit map image retry in four owned map files | Retry/error/stale-event/navigation tests, build and browser outcomes reported; mission unchanged |
-| [W2](TEAM_TASKS.md#w2) | [Gaddielle](docs/team/GADDIELLE.md) | R3 path normalization follow-up only | Encoded/whitespace paths rejected safely; all existing tests and real index preserved |
-| [W3](TEAM_TASKS.md#w3) | [Emma](docs/team/EMMA.md) | Science filters/counts and two read-only evidence panels | Behavioral tests, build, actual layout/keyboard checks and Enzo integration handoff |
-| [W4](TEAM_TASKS.md#w4) | [Enzo](docs/team/ENZO.md) | Four-root-conflict current-main reconciliation | One map/science/initialize, preserved mission transfer and complete integrated mission checks |
-| [W5](TEAM_TASKS.md#w5) | [Longla](docs/team/LONGLA.md) | Physical-device QA on available features | Actual device/build/results/defects recorded; missing prerequisites remain blocked |
-| [W6](TEAM_TASKS.md#w6) | [Coordinator](docs/team/YOU.md) | Reviewed integration and real install/cache/update lifecycle | Complete prepared installed mission reopens disconnected on the target device |
+| [W1](TEAM_TASKS.md#w1) | [Willy](docs/team/WILLY.md) | Manifest and install icons | Actual asset/path/decode/build checks and discovery handoff |
+| [W2](TEAM_TASKS.md#w2) | [Gaddielle](docs/team/GADDIELLE.md) | Release data handoff; R3 is closed | Exact runtime data/hash/size/built-copy/cache inclusion guidance |
+| [W3](TEAM_TASKS.md#w3) | [Emma](docs/team/EMMA.md) | Pure image-payload byte verifier | Planned contract implemented/tested, read-only cache reader handoff |
+| [W4](TEAM_TASKS.md#w4) | [Enzo](docs/team/ENZO.md) | UI accessibility and size cleanup | Keyboard/ARIA/focus and size results, no regressions/budget increase |
+| [W5](TEAM_TASKS.md#w5) | [Longla](docs/team/LONGLA.md) | Clarify report; actual integrated-device QA | Exact served build/browser/messages and observed hardware outcomes |
+| [W6](TEAM_TASKS.md#w6) | [Coordinator](docs/team/YOU.md) | Real install/cache/update lifecycle | Complete prepared installed mission reopens disconnected on target device |
 
-W4 can finish with the already-mounted science component; it does not wait for W3's future panels. W5 may run online checks now; complete route/notebook and installed/offline checks follow W4/W6 respectively. Enzo owns shell placement, not Emma's component implementation. The coordinator owns worker/core contracts, not feature agents.
+No repeat retry, evidence-panel implementation, root reconciliation, viewer corrections or R3 fix. W1–W4 are independent follow-ups; preserve existing local progress. W5 can test the integrated online mission now. Installed/offline/update checks follow W6. Proposed branches are in the plan; existing data/QA branches remain. The old local `Tablet-App` reference is not currently advertised by GitHub.
 
-Branch defaults: W1/W3 use their proposed new task branches from published main if work has not started; preserve an existing local task branch when it has. W2/W4/W5 retain their published branches. The old `Tablet-App` tracking reference is historical and is not advertised by GitHub; it is not a separate active assignment.
-
-Push only the assigned feature branch and hand off commit, owned files, actual checks and blockers. Keep existing contributions. Deployment, environment publication, submission and external messaging remain separate actions.
+Push only the assigned feature branch and report actual commit/files/checks/blockers. Deployment, environment publication, submission and external messaging remain separate actions.

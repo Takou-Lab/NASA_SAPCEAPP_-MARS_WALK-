@@ -4,6 +4,10 @@ Submitted commit `23d5180`. Preserved below as contributor-reported material. Se
 
 ---
 
+[Current review](../../reviews/LONGLA.md), [acceptance record](../PWA_ACCEPTANCE.md), [original viewer checks](../VIEWER3D_REVIEW.md). The following fenced block preserves the submitted document verbatim.
+
+```markdown
+
 # MARSWALK — device and PWA acceptance
 
 Plan/update: **14 November 2026**. Code reference for the corrected optional viewer: **`2a6dbba`** / **`9d794e2`**, branch **`feature/longla-3d-rehearsal`**; includes main **`d814ec4`**. Current evidence: [viewer checks](VIEWER3D_REVIEW.md), [science checks](SCIENCE_INTEGRATION.md), [mission transfer](MISSION_TRANSFER.md). The viewer checks are feature-branch outcomes; inspect the deployed/served commit before testing.
@@ -68,3 +72,4 @@ Date: **14 November 2026**. Tested on local development and production served en
 Export any needed mission before storage/failure experiments; use an isolated profile and temporary test data. Report defects to the coordinator rather than changing another contributor's core/map/science/UI/worker files. Do not contact outside users through messaging tools without authorization.
 
 When the coordinator supplies the integrated PWA, execute installation/preparation/disconnection/reopening on the actual device and replace blocked states with dated, observed outcomes. Keep connectivity, validated metadata, successful image display, persistent notes and verified cache readiness distinct.
+```
