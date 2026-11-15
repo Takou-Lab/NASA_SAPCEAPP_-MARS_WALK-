@@ -12,7 +12,7 @@ for (const file of index.files) {
   const bytes = await readFile(resolve(root, file.path));
   if (bytes.length !== file.bytes || hash(bytes) !== file.sha256) throw new Error(`Image pack mismatch: ${file.path}`);
 }
-const paths = new Set(['index.html', 'favicon.ico', 'manifest.webmanifest', 'icons/marswalk-192.png', 'icons/marswalk-512.png', 'icons/marswalk-maskable-512.png', 'data/manifest.json', manifest.assetPath, 'data/markers.json', 'data/image-pack.json']);
+const paths = new Set(['index.html', 'favicon.ico', 'manifest.webmanifest', 'icons/marswalk-192.png', 'icons/marswalk-512.png', 'icons/marswalk-maskable-512.png', 'data/manifest.json', manifest.assetPath, 'data/markers.json', 'data/image-pack.json', 'data/environment.json']);
 // All generated application chunks (including deferred viewer) are deliberately
 // prepared. Raw/archive files and arbitrary public documents are excluded.
 for (const entry of await readdir(root)) if (/\.(?:js|css)$/.test(entry)) paths.add(entry);

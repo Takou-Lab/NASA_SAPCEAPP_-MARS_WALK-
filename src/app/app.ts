@@ -1,3 +1,4 @@
+import { EnvironmentContextComponent } from './environment/environment-context.component';
 import { Component, computed, inject, signal } from '@angular/core';
 import { MAX_MISSION_IMPORT_BYTES, MissionService } from './core/mission.service';
 import { ShellComponent } from './ui/shell/shell.component';
@@ -6,7 +7,7 @@ import { PwaPanelComponent } from './core/pwa-panel.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ShellComponent, PwaPanelComponent],
+  imports: [EnvironmentContextComponent, ShellComponent, PwaPanelComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

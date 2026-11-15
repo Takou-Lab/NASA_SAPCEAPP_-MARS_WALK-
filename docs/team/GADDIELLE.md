@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Integration handoff — existing environmental loader/panel now available
+
+Coordinator reviewed 437a777 and added [runtime contract and review-status UI](../data/ENVIRONMENT_RUNTIME_CONTRACT.md). Numerical values are withheld pending source/quality/integrity acceptance; no unreviewed data merged. Latest extractor no longer invents Ls, but finite-value/quality population/original hash/record matching and safe regeneration remain. Your 53 branch tests pass; add real extractor failure/reproduction coverage rather than only helper tests. Continue your bounded original-source retrieval, preserving local work. Once accepted, coordinator converts a reviewed small subset; do not create a competing loader/component or change runtime reviewStatus yourself.
+
 ## In-progress delivery cdd5b45 — continue collection and extractor validation
 
 New source catalog/FMT/extractor/observations received; 53 isolated branch tests pass but scientific/runtime approval is pending. Keep retrieving original products. Before final review resolve [latest extractor findings](../reviews/GADDIELLE.md#latest-data-delivery-cdd5b45--received-extractor-not-ready-for-scientificruntime-approval): synthetic Ls, NaN/Infinity, confidence population semantics, input/hash/record matching and safe output. These refine your existing task, not a reset/new branch. Preserve all source evidence and incorporate accepted main corrections safely. No runtime environment file/API authorized yet.
