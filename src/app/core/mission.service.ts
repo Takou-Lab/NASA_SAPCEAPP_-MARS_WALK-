@@ -58,6 +58,8 @@ export class MissionService {
   readonly assessment = computed(() => frozen(assessRoute(this.route(), this.image())));
   readonly canUndo = computed(() => this.history().length > 0);
 
+  private recoveryFinished = false;
+  private acknowledgedSavedRaw: string | null | undefined;
   private editRevision = 0;
   private readonly recoveryState = signal<string | null>(null);
   readonly recoveryMessage = this.recoveryState.asReadonly();
@@ -66,23 +68,31 @@ export class MissionService {
   initialize(): Promise<void> {
     if (!this.initialization) {
       const revision = this.editRevision;
-      this.initialization = this.loadData().then(() => {
-        if (this.dataStatus() !== 'ready' || !this.image() || revision !== this.editRevision)
-          return;
-        try {
-          if (localStorage.getItem(this.key()) === null) return;
-          const result = this.loadRoute();
-          this.recoveryState.set(
-            result.ok
-              ? `Restored saved route and ${this.observations().length} observation(s) on this device.`
-              : `${result.error} Saved data was not deleted. Export current work before replacing it.`,
-          );
-        } catch {
-          this.recoveryState.set(
-            'Saved mission could not be checked. Browser storage may be blocked; export your mission to keep a copy.',
-          );
-        }
-      });
+      this.initialization = this.loadData()
+        .then(() => {
+          if (this.dataStatus() !== 'ready' || !this.image() || revision !== this.editRevision)
+            return;
+          try {
+            const raw = localStorage.getItem(this.key());
+            if (raw === null) {
+              this.acknowledgedSavedRaw = null;
+              return;
+            }
+            const result = this.loadRoute();
+            this.recoveryState.set(
+              result.ok
+                ? `Restored saved route and ${this.observations().length} observation(s) on this device.`
+                : `${result.error} Saved data was not deleted. Export current work before replacing it.`,
+            );
+          } catch {
+            this.recoveryState.set(
+              'Saved mission could not be checked. Browser storage may be blocked; export your mission to keep a copy.',
+            );
+          }
+        })
+        .finally(() => {
+          this.recoveryFinished = true;
+        });
     }
     return this.initialization;
   }
@@ -160,15 +170,60 @@ export class MissionService {
   private envelope(route = this.route(), observations = this.observations()) {
     return { schemaVersion: 1, imageRef: this.image()!.imageRef, route, observations };
   }
-  saveRoute(): OperationResult {
-    if (!this.image()) return { ok: false, error: 'Load image data before saving.' };
+  /** Never overwrite an unreadable, un-restored or concurrently changed saved record. */
+  private persistMission(raw: string): OperationResult {
+    if (!this.recoveryFinished || this.dataStatus() !== 'ready')
+      return {
+        ok: false,
+        error: 'Wait for saved-mission recovery before saving. Your draft is unchanged.',
+      };
     try {
-      localStorage.setItem(this.key(), JSON.stringify(this.envelope()));
+      const existing = localStorage.getItem(this.key());
+      if (existing !== null) {
+        let parsed: unknown;
+        try {
+          parsed = JSON.parse(existing);
+        } catch {
+          return {
+            ok: false,
+            error:
+              'Saved mission is unreadable and was not overwritten. Export current work; preserve the existing browser record for recovery.',
+          };
+        }
+        if (!validEnvelope(parsed, this.image()!))
+          return {
+            ok: false,
+            error:
+              'Saved mission is invalid and was not overwritten. Export current work and preserve the existing browser record.',
+          };
+        if (existing !== this.acknowledgedSavedRaw)
+          return {
+            ok: false,
+            error:
+              'Saved mission has not been restored or changed in another tab. Export current work before using Load route to review the saved mission.',
+          };
+      } else if (typeof this.acknowledgedSavedRaw === 'string') {
+        return {
+          ok: false,
+          error: 'Saved mission changed in another tab. Export current work before reloading.',
+        };
+      }
+      localStorage.setItem(this.key(), raw);
+      this.acknowledgedSavedRaw = raw;
       return { ok: true };
     } catch {
-      return { ok: false, error: 'Browser storage is unavailable or full. Export your mission.' };
+      return {
+        ok: false,
+        error:
+          'Browser storage is unavailable or full. Export your mission; existing work was not replaced.',
+      };
     }
   }
+  saveRoute(): OperationResult {
+    if (!this.image()) return { ok: false, error: 'Load image data before saving.' };
+    return this.persistMission(JSON.stringify(this.envelope()));
+  }
+
   loadRoute(): OperationResult {
     const image = this.image();
     if (!image) return { ok: false, error: 'Load image data before loading a saved mission.' };
@@ -181,6 +236,7 @@ export class MissionService {
           ok: false,
           error: 'Saved mission is invalid or uses a different image reference.',
         };
+      this.acknowledgedSavedRaw = raw;
       this.editRevision++;
       this.routeState.set(frozen(clone(value.route)));
       this.observationState.set(frozen(clone(value.observations)));
@@ -206,15 +262,13 @@ export class MissionService {
         position: clone(position),
       },
     ];
-    try {
-      localStorage.setItem(this.key(), JSON.stringify(this.envelope(this.route(), notes)));
-      this.editRevision++;
-      this.observationState.set(frozen(notes));
-      return { ok: true };
-    } catch {
-      return { ok: false, error: 'Observation was not saved. Keep your draft and try exporting.' };
-    }
+    const saved = this.persistMission(JSON.stringify(this.envelope(this.route(), notes)));
+    if (!saved.ok) return saved;
+    this.editRevision++;
+    this.observationState.set(frozen(notes));
+    return { ok: true };
   }
+
   /** Restore route/notes only; scientific data always comes from the active local pack. */
   importMission(raw: string): OperationResult {
     const image = this.image();
@@ -246,15 +300,9 @@ export class MissionService {
       text: n.text,
       position: point(n.position),
     }));
-    try {
-      // Persist before publishing state so an unsuccessful import leaves current work intact.
-      localStorage.setItem(this.key(), JSON.stringify(this.envelope(route, observations)));
-    } catch {
-      return {
-        ok: false,
-        error: 'Import could not be saved on this device. Current work is unchanged.',
-      };
-    }
+    // Persist before publishing state; guard unreadable or concurrently changed records.
+    const saved = this.persistMission(JSON.stringify(this.envelope(route, observations)));
+    if (!saved.ok) return saved;
     this.editRevision++;
     this.routeState.set(frozen(route));
     this.observationState.set(frozen(observations));

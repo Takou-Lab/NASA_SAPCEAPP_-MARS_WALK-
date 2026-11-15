@@ -19,3 +19,9 @@ Runtime source b28f6ad. Public stable URL: https://marswalk-review-boys-band.ver
 Unique deployment https://marswalk-7p2nd3sgc-boys-band.vercel.app/ (dpl_6PsqWfNthwncixoFiEE8GJs7RnWX). All 19 served assets match the locally tested production pack hashes; missing files return 404 and iOS icon discovery remains present. Production alias marswalk-jet.vercel.app was not changed.
 
 Anonymous browser verification on the stable HTTPS alias also passed: prepare the full offline pack, draw/save route and note, reject wrong-image import, terminate browser, restart disconnected, automatically restore and compare exact route/observations via export. At 390px the map and its ancestors retain positive height and the page has no horizontal overflow. Physical phones remain to be checked.
+
+## Takou follow-up: protect failed recovery and unreviewed records
+
+Coordinator added a common persistence guard for Save Route, observation save and import. Writes wait for initialization/recovery; unreadable/invalid saved records are preserved; a valid record skipped during newer startup edits must be explicitly loaded before replacement. Changes detected from another tab also block writing. A successful explicit load acknowledges reviewed bytes. Storage failure preserves in-memory state and notebook drafts. This detects previously changed localStorage records; it is not a cross-tab atomic database transaction.
+
+251 Angular tests and production build pass, including four added scenarios: invalid-record save/note/import attempts, save during initialization, skipped restoration followed by explicit load, and another tab changing a saved record. Do not instruct users to save before reviewing a blocked recovery. Export current work without clearing existing site data.
