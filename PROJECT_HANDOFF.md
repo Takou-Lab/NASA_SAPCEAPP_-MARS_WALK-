@@ -16,6 +16,10 @@ Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6
 
 https://marswalk-m3n37k8ne-boys-band.vercel.app/ is READY and tested; **Vercel authentication required**. [Evidence/access/scope](docs/qa/VERCEL_PREVIEW_CF0FFB7.md). 194 Angular tests, 11 worker tests, build and authenticated preview offline full-process route/note recovery pass. Source pack prefix 4bb8ec987ae0. Production remains b6669fb; no promotion. Royce/Willy can test this exact candidate with their Vercel access; do not share automation secrets. Emma's pending changes and optional AI/VR are not included.
 
+## Official Details text supplied — alignment now available
+
+Read [challenge assessment](docs/challenge/REQUIREMENTS.md) and preserved user-supplied text. Central goal is a layered integrated location/route using multiple NASA science missions. Three data kinds are suggested, historical data is allowed, AI/VR/DEM/live feeds are not mandatory in supplied Details. Prioritize science-goal/location integration, reproducible data and reliable mission recovery. Independent webpage retrieval still blocked; Resources tab/submission fields/deadline timezone remain unverified. Do not treat all Details wording as missing now.
+
 ## People and current review states
 
 | Owner | State and next step |
@@ -30,9 +34,13 @@ https://marswalk-m3n37k8ne-boys-band.vercel.app/ is READY and tested; **Vercel a
 
 Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Emma has a styling-only exception for science-context, exploration-confidence and image-passport SCSS. Coordinator owns root/core/build/worker. Original completed work retains its authorship. Use independent checkouts for Willy's two agents; never change the same checkout's branch/build concurrently.
 
+## Available-agent split — current user instruction
+
+Emma Agent 2: new standalone read-only boxwork mission briefing, computed structural checklist and QA in a new folder; [EMMA 2.md](<docs/team/EMMA 2.md>). Emma Agent 1 remains on accepted UI/deployed checks. Enzo Agent 2: source-corrected explanations, sentence-to-source mapping and complete mission-story/demo package in existing documentation; [ENZO 2.md](<docs/team/ENZO 2.md>). Enzo Agent 1 navigation and Gaddielle collection continue independently. User/coordinator: persistence regression, accepted environmental/explanation contracts, reviewed component integration and updated preview, ordered in YOU.md. Separate checkouts and file ownership; no invented future API or runtime dataset approval. No new product code implemented by this assignment update.
+
 ## Ordered next work
 
-1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). Proxy CONNECT 403 prevents retrieval; obtain Details/resources and submission rules as pasted text/PDF or through permitted access. Exact deadline/timezone and requirement wording remain unverified. Do not invent them.
+1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.
 2. Review Gaddielle original-source acquisition when submitted. Coordinator completed C1/C2 prototype fixes with 52 data tests passing; do not repeat corrections. Verify products/labels/extraction before accepting runtime data. See docs/reviews/GADDIELLE.md.
 3. Enzo fc79cf8 correction is accepted with 193 tests and both builds passing. Evidence clarity completed centrally; preserve his new science-navigation slice; coordinator owns future cache-lifecycle composition. Do not repeat the closed correction.
 4. Agree environmental schema/loader only from accepted evidence. Keep measurements historical, time/location/units/quality explicit. Calibration and compatible elevation are separate scientific priorities.
