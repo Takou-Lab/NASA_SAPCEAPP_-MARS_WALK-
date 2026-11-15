@@ -66,6 +66,10 @@ User requested substantial additional work. ENZO 2.md now assigns ordered commit
 
 User requested substantial objective-focused work. Published UI tip still 59e00e1 accepted, no newer mission-briefing branch visible. EMMA.md now assigns Agent 1 an owned mission decision summary plus typed shell navigation to route/science/notebook/transfer, no automatic state mutations or invented readiness. EMMA 2.md retains separate briefing/science-purpose component. Preserve unpublished progress; request actual commit before treating it complete. Tests must cover focus/collapse/draft/state preservation and scientific unavailable states. No new runtime implementation in this brief update.
 
+## Royce exact-SHA review
+
+6a5e351 requested for preview, but unmodified isolated test/build both fail NG5002 notebook HTML unmatched @else; test compilation also TS2352 mock cast. Checkbox regression remains. No working preview or merge of that SHA. LONGLA.md lists corrections and requires a new SHA. Public candidate 38516f8 stays available; main runtime unchanged by this review.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

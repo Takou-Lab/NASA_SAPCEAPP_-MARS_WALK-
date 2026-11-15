@@ -1,5 +1,13 @@
 # Royce / Longla — viewer merged; hardware report needs clarification
 
+## Exact commit 6a5e351 — compilation fails; preview blocked
+
+Reviewed 15 November 2026 at explicit request for exact-SHA testing. Unmodified git archive at /tmp/marswalk-longla-6a5e351 with locked-compatible installed dependencies; main/source branch untouched. `npm test` fails before execution: NG5002 unexpected closing block in notebook.component.html line 50 (`} @else` without matching outer @if), plus TS2352 in notebook.component.spec.ts line 142 (MissionService cast to a mock exposing incompatible WritableSignal). `npm run build` independently fails NG5002 at the same template location. No test pass or usable deployment of this exact SHA is claimed.
+
+Correction: restore the hasStartPoint @if around its position preview/else, place the dataStatus loading/error notice separately, and retain a properly typed provided mock reference rather than casting the injected service incorrectly. Guard should distinguish loading/unavailable/error and preserve draft. Re-enable true checkbox toggling; earlier branch sets attachStartLocation true unconditionally. Reconcile the old FormsModule notebook with current main's accepted native input/draft/theme changes; do not replace current notebook wholesale. Keep any proposed auto-restore changes isolated for coordinator review with async/current-work and corrupt-storage evidence. No unreviewed core merge.
+
+Push a new correcting SHA with full test/build output and request review; any working preview would necessarily represent that NEW SHA, not 6a5e351. Current public tested candidate remains https://marswalk-pfoqdsf41-boys-band.vercel.app/ (38516f8), not the submitted fix. No deployment attempted because compilation failure is independently reproduced; no main runtime changes made.
+
 ## QA submission 3af60d1 — report integrated, acceptance not closed
 
 Reviewed 15 November 2026. Only docs/qa/PWA_ACCEPTANCE.md changed; no new viewer implementation. Contributor reports Samsung installation/offline UI and a missing note; exact build/model/save-load ordering are absent. Report is retained with explicit contributor provenance, not accepted as a full physical mission-recovery pass. No code fix or automatic-loss diagnosis is justified yet. Current service persists saved observations in the mission envelope and restores through explicit Load Route; investigate the actual deployed revision and exports rather than assuming startup recovery. [Exact next task](../team/LONGLA.md#current-task--reconcile-3af60d1-and-reproduce-the-missing-note). Documentation-only review checks links/claims; no unrelated suites rerun or deployment performed.

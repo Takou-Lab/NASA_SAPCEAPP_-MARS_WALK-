@@ -1,5 +1,9 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## Exact 6a5e351 handoff — fix compilation before requesting preview
+
+Coordinator reproduced `npm test` and `npm run build` failures in an unmodified isolated copy of your requested SHA. [Errors/corrections](../reviews/LONGLA.md#exact-commit-6a5e351--compilation-fails-preview-blocked): malformed notebook @if/@else at HTML line 50, incompatible mock cast at spec line 142, plus existing checkbox set(true) regression. Restore conditional structure, use a typed mock reference and true toggling; preserve draft/current-main native notebook behavior. Push a new SHA after both commands pass. A corrected build cannot honestly be called exact 6a5e351. No merge or preview deployment occurred; use current public candidate for existing device tests and identify its revision correctly.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Current priority — persistence blocker before terrain/VR
