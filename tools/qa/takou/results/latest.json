@@ -1,0 +1,128 @@
+{
+  "runId": "2026-11-15T15-06-12-055Z-r0noe4",
+  "source": {
+    "sha": "2626a6b016d0f40385ff3c3f1b4adbb19ccf1605",
+    "dirty": true
+  },
+  "channel": "chrome",
+  "headless": true,
+  "steps": [
+    {
+      "name": "raster",
+      "w": 2048,
+      "h": 1042,
+      "src": "http://127.0.0.1:4310/data/imagery/PIA26306_derived_2048.jpg",
+      "serviceWorker": {
+        "registered": false,
+        "scope": null
+      },
+      "manifestType": "application/manifest+json; charset=utf-8",
+      "icons": [
+        {
+          "src": "icons/marswalk-192.png",
+          "sizes": "192x192",
+          "status": 200,
+          "type": "image/png"
+        },
+        {
+          "src": "icons/marswalk-512.png",
+          "sizes": "512x512",
+          "status": 200,
+          "type": "image/png"
+        },
+        {
+          "src": "icons/marswalk-maskable-512.png",
+          "sizes": "512x512",
+          "status": 200,
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "science",
+      "count": 3,
+      "firstName": "Mount Sharp Boxwork Ridges and Hollows",
+      "secondName": "Vera Rubin Ridge ('Pettegrove Point' / 'Ailsa Craig' Target)",
+      "position1": "Record 1 of 3 matching records",
+      "position2": "Record 2 of 3 matching records",
+      "filteredTo": "measured",
+      "hiddenPosition": "Selected record is outside the current filter results."
+    },
+    {
+      "name": "route",
+      "rows": [
+        "1\tStart\t680.3\t409.6",
+        "2\tWaypoint\t1022.7\t583.2",
+        "3\tDestination\t1365.1\t459.6"
+      ]
+    },
+    {
+      "name": "note-and-export",
+      "note": "TAKOU-SMOKE-2026-11-15T15-06-12-055Z-r0noe4",
+      "draftRetained": true,
+      "exportedObservations": 1
+    },
+    {
+      "name": "import-guards",
+      "messages": {
+        "invalid-json": "The selected file is not valid mission JSON.",
+        "mismatched-image": "Invalid mission or a different image version. Current work is unchanged."
+      }
+    },
+    {
+      "name": "offline-pack",
+      "panel": [
+        "Install & offline · Connection available · Pack verified",
+        "",
+        "Offline pack verified. Save your route and notes before closing.",
+        ""
+      ],
+      "cacheEntries": {
+        "marswalk-pack:http://127.0.0.1:4310/:ce81d3668c2767759cd864a6fcaa2602d6143af58c8f571974cede039049446b:96115f43-6ed1-41a5-9ff7-dcaad35957cd": 20
+      }
+    },
+    {
+      "name": "offline-recovery",
+      "startupCount": 0,
+      "startupRows": [],
+      "startupEmptyText": "No observations recorded yet for this mission session.\n\nUse the form above to document boxwork morphology, rock textures, and site observations.",
+      "recovered": true
+    },
+    {
+      "name": "viewer",
+      "opened": {
+        "canvases": 1,
+        "fallback": 0
+      },
+      "removedOnClose": true,
+      "removedOnTabChange": true
+    },
+    {
+      "name": "narrow",
+      "docScroll": 390,
+      "docClient": 390,
+      "bodyScroll": 390,
+      "mapElement": {
+        "x": 8.25,
+        "y": 387,
+        "width": 373.5,
+        "height": 487.515625
+      },
+      "visibleDefault": 89,
+      "visibleCollapsed": 347
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "failedResponses": [],
+  "url": "http://127.0.0.1:4310/",
+  "pack": {
+    "version": "ce81d3668c2767759cd864a6fcaa2602d6143af58c8f571974cede039049446b",
+    "files": 19,
+    "totalBytes": 1678092
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "browserVersion": null,
+  "serverRequests404": [],
+  "finishedAt": "2026-11-15T15:06:32.006Z"
+}

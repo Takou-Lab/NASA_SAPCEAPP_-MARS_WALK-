@@ -114,4 +114,45 @@ restored the exact route and note, and the second export matched the first.
 
 ## Package 3 — end-to-end release smoke test
 
-Harness and results are added in the next commit (`tools/qa/takou/`).
+Harness: [`tools/qa/takou/`](../../tools/qa/takou/README.md). Its own `package.json` and
+lockfile pin `@playwright/test` 1.64.1 (released 14 Oct 2026); the app's `package.json` and
+`package-lock.json` are untouched. It drives the installed Google Chrome (no Playwright browser
+download), a new temporary profile per run, and a unique note `TAKOU-SMOKE-<timestamp>`.
+
+**Reproduce:** from the repository root, `npm ci`, `npm run build`, then
+`cd tools/qa/takou && npm ci && npx playwright test -c playwright.config.mjs`.
+
+**Recorded run** (`tools/qa/takou/results/latest.json`, run `2026-11-15T15-06-12-055Z-r0noe4`):
+runtime source 2626a6b (working tree had only the untracked QA files), production build
+`dist/marswalk/browser`, origin `http://127.0.0.1:4310/`, Google Chrome 157.0.8103.51 headless
+(UA `HeadlessChrome/157.0.0.0`), Windows 10, Node 24.22.1. **9 passed in 21.8 s.**
+0 page errors, 0 console errors, 0 failed requests, 0 server 404s.
+
+| # | Check | Observed |
+| --- | --- | --- |
+| 1 | Real raster, manifest, icons, worker | `PIA26306_derived_2048.jpg` decoded at **2048 × 1042** = manifest; worker scope `http://127.0.0.1:4310/`; webmanifest and 3 icons HTTP 200 |
+| 2 | Science selection, Previous/Next, filters | 3 records. "Record 1 of 3 matching records" → Next → Vera Rubin Ridge, "Record 2 of 3…" → Previous back to Mount Sharp Boxwork. Filtering to *measured* kept the selected record open with the notice "Selected record is outside the current filter results."; Clear filters removed the notice and kept the selection |
+| 3 | Route drawing, Reset View, Focus Route | Start (680.3, 409.6), waypoint (1022.7, 583.2), destination (1365.1, 459.6). Reset View, Focus Route and an inspect-mode map click left all three rows identical; mode stayed Inspect. Save Route: "Route saved locally" |
+| 4 | Note save, failed-save draft, export | Note saved, draft cleared, Notebook (1). With `Storage.prototype.setItem` made to throw in the page: error "…not saved…", the draft stayed in the text box, count stayed 1, stored bytes unchanged. Export JSON contained the note and 1 waypoint |
+| 5 | Invalid and mismatched imports | "The selected file is not valid mission JSON." and "Invalid mission or a different image version. Current work is unchanged."; stored bytes, note count and route rows unchanged |
+| 6 | Full offline pack | "Install & offline · Connection available · **Pack verified**"; Verify saved pack still verified; panel shows the local pack prefix |
+| 7 | Disconnected full-process recovery | Browser process closed, server stopped, same profile relaunched with offline emulation. App and raster loaded (2048 wide), panel said **Disconnected**. **Before Load Route:** Notebook (0), "No observations recorded yet for this mission session.", no route rows, saved record present in storage. **After Load Route:** "Route loaded", identical route rows, Notebook (1) with the exact note; second export equal to the first in `imageRef`, `route` and `observations` |
+| 8 | Optional flat viewer (offline) | Opened with 1 canvas (no WebGL fallback); `app-viewer3d` removed from the DOM on Close and on switching tab. GPU memory not measured |
+| 9 | 390 × 844 | No horizontal overflow (scrollWidth 390 = clientWidth 390), also after switching tab; note visible in Notebook. **Visible map height: 89 px by default, 347 px with the side panel collapsed** (map element box 487 px, mostly clipped). Reported as blocker **B3** |
+
+Harness fixes during this session (not product changes): run 1 failed at check 2 because the
+test read the heading before Angular re-rendered; replaced with an auto-waiting assertion. The
+first version of check 9 measured the map element box and would have hidden B3; it now
+measures the on-screen height.
+
+**Limits:** local `http://127.0.0.1` origin, not the Vercel origin (storage does not transfer
+between origins). Offline = stopped server + browser offline emulation. Desktop Chrome
+automation is **not** physical Android/iOS or installed-launcher acceptance; Royce's device
+retest is still needed.
+
+## One observed workflow (handoff)
+
+Draw start → waypoint → destination, save note `TAKOU-SMOKE-…`, Save Route, export, prepare
+the full pack, close the browser, stop the server, reopen offline: map and science load, the
+Notebook looks empty, Load Route brings back the exact route and note, and the second export
+matches the first.
