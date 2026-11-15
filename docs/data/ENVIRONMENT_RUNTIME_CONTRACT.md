@@ -1,5 +1,15 @@
 # Environmental runtime contract v1
 
+## Current release update — limited excerpt, not independently authenticated archive
+
+At explicit user request, public/data/environment.json now uses **reviewStatus: limited** and contains only two reproducible summaries from Gaddielle's submitted 25-row Sol 3900 excerpt: pressure mean **800.335 Pa** and air-temperature mean **204.700 K**, 25 selected records each. It is not a full-day mean, live weather, map-wide field or independent NASA archive verification. The original download remains HTTP 403 here. Parent-product UTC bounds are labeled as such, not passed off as exact excerpt times. Wind/RAD/other quantities remain unavailable.
+
+Canonical submitted table and normalized label are preserved under data/environment/reviewed-excerpt with hashes pinned in tools/data/build_reviewed_environment.py. Script validates product identity, row/field counts, finite values and exact mask width, selects per-quantity confidence bits, and computes unweighted excerpt statistics. Source byte provenance and all instrument flags/calibration are explicitly not independently certified. This limited admission does not accept Gaddielle's entire daily dataset/extractor or close its outstanding review. Original source/extraction authorship stays credited to Gaddielle.
+
+Validator allows limited content through the same finite/unit/source/count/interval checks, and the UI exposes the limited warning prominently. `pending` continues to reject any measurements; full `accepted` review remains a separate status not assigned to this excerpt. Generator/data regression tests reproduce exact runtime payload, samples and units. Root/unit fixtures still test withholding separately.
+
+Combined Enzo science-navigation + limited-context checks: **223 Angular tests**, **54 data tests**, production build/full pack pass. Initial **450.97 kB**; pack prefix **a80ff718c27e**, 19 assets / 1,678,076 bytes. Local full-process offline recovery and limitation display pass; prior figures below are historical. Preview authentication was disabled for the MARSWALK project at explicit user request so testers can open its previews without accounts. Original production remains unchanged pending release promotion.
+
 Coordinator implementation 15 November 2026, after review of Gaddielle 437a777. Canonical exported types/validator: src/app/core/environment.ts; loader: EnvironmentService. No existing MissionService/model/calculation/persistence API changed.
 
 ## Admission gate

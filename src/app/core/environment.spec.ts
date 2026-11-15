@@ -27,6 +27,7 @@ describe('environmental source gate', () => {
   it('allows pending metadata without measurements and retains legitimate zero', () => {
     expect(validEnvironmentalContext(pending)).toBe(true);
     expect(validEnvironmentalContext(accepted)).toBe(true);
+    expect(validEnvironmentalContext({ ...accepted, reviewStatus: 'limited' })).toBe(true);
     expect(validEnvironmentalContext({ ...pending, readings: [reading] })).toBe(false);
   });
   it.each([NaN, Infinity, -Infinity, -999])('rejects invalid measured values %s', (value) => {

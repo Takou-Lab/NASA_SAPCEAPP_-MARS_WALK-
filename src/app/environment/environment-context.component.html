@@ -27,34 +27,40 @@
         </p>
       </details>
     }
+    @case ('limited') {
+      <p role="status"><strong>Limited source review — excerpt only</strong></p>
+      <p>{{ environment.context()?.reviewNote }}</p>
+    }
     @case ('ready') {
-      <p>
-        Reviewed historical observations. Values are derived interval summaries, not live forecasts.
-      </p>
-      @for (
-        reading of environment.context()?.readings;
-        track reading.quantity + ':' + reading.sol + ':' + reading.startUtc
-      ) {
-        <article>
-          <h4>{{ reading.quantity }} · Sol {{ reading.sol }}</h4>
-          <p>
-            Mean {{ reading.value }} {{ reading.unit }} · Range {{ reading.minimum }}–{{
-              reading.maximum
-            }}
-            {{ reading.unit }}
-          </p>
-          <p>
-            {{ reading.startUtc }} to {{ reading.endUtc }} · {{ reading.sampleCount }} accepted
-            samples
-          </p>
-          <p>{{ reading.qualityNote }}</p>
-          <a [href]="reading.sourceUrl" target="_blank" rel="noopener noreferrer"
-            >Original REMS product</a
-          >
-        </article>
-      }
+      <p>Reviewed historical observations, not live forecasts.</p>
     }
   }
+  @if (environment.status() === 'ready' || environment.status() === 'limited') {
+    @for (
+      reading of environment.context()?.readings;
+      track reading.quantity + ':' + reading.sol + ':' + reading.startUtc
+    ) {
+      <article>
+        <h4>{{ reading.quantity }} · Sol {{ reading.sol }}</h4>
+        <p>
+          Excerpt mean {{ reading.value }} {{ reading.unit }} · Range {{ reading.minimum }}–{{
+            reading.maximum
+          }}
+          {{ reading.unit }}
+        </p>
+        <p>Parent product interval: {{ reading.startUtc }} to {{ reading.endUtc }}</p>
+        <p>{{ reading.sampleCount }} selected excerpt samples</p>
+        <details>
+          <summary>Source and quality limitations</summary>
+          <p>{{ reading.qualityNote }}</p>
+          <a [href]="reading.sourceUrl" target="_blank" rel="noopener noreferrer"
+            >Referenced REMS product</a
+          >
+        </details>
+      </article>
+    }
+  }
+
   @if (environment.context(); as context) {
     <a [href]="context.sourceUrl" target="_blank" rel="noopener noreferrer">REMS source archive</a>
     <p>

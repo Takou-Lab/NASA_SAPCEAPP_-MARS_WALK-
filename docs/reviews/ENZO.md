@@ -1,5 +1,9 @@
 # Enzo review — final shell integrated
 
+## Agent 1 science navigation 2b2a708 — accepted
+
+Reviewed 15 November 2026. Only science TS/HTML/tests changed: signal-derived filtered position and bounded Previous/Next native controls, hidden selection preservation, no core/style edits. Added behavior tests cover endpoints, single/hidden/removed selection, filter order and unchanged mission state. Combined integration with limited environmental excerpt passes **223 Angular tests**, build (450.97 kB) and local browser mission/offline recovery. No merge of Agent 2 pending AI proposals. Next Agent 1: verify navigation/source readability on the designated public candidate; do not introduce another dataset/loader or overlap Emma styles. Preserve unpublished work and incorporate published main safely.
+
 ## Agent 2 AI proposal e161e41 — received; source corrections before runtime approval
 
 15 November 2026. QA-only proposal supplies three explanations, marker IDs/citations, generation metadata and explicit pending human review; no runtime file/loader/API. Architecture boundary is respected. No code tests needed for this draft. Keep as a proposal; do not treat claimed source checks as independent approval.

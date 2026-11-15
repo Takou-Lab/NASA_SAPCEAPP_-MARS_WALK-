@@ -169,6 +169,28 @@
             </button>
           </div>
 
+          <div class="record-navigation flex-row" aria-label="Science record navigation">
+            <button
+              type="button"
+              class="record-navigation-button"
+              aria-label="Previous science record"
+              [disabled]="!canNavigatePrevious()"
+              (click)="navigateToPreviousRecord()"
+            >
+              Previous science record
+            </button>
+            <p class="record-navigation-position" role="status">{{ navigationPosition() }}</p>
+            <button
+              type="button"
+              class="record-navigation-button"
+              aria-label="Next science record"
+              [disabled]="!canNavigateNext()"
+              (click)="navigateToNextRecord()"
+            >
+              Next science record
+            </button>
+          </div>
+
           <p class="record-finding">{{ record.finding }}</p>
 
           <dl class="record-metadata stack">

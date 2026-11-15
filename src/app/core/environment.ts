@@ -14,7 +14,7 @@ export interface EnvironmentalReading {
 }
 export interface EnvironmentalContext {
   readonly schemaVersion: 1;
-  readonly reviewStatus: 'pending' | 'accepted';
+  readonly reviewStatus: 'pending' | 'limited' | 'accepted';
   readonly scope: 'historical-rover-context';
   readonly instrument: 'REMS';
   readonly sourceUrl: string;
@@ -64,7 +64,8 @@ export function validEnvironmentalContext(v: unknown): v is EnvironmentalContext
     return false;
   // Pending source review can never ship numerical measurements through this contract.
   if (v['reviewStatus'] === 'pending') return v['readings'].length === 0;
-  if (v['reviewStatus'] !== 'accepted' || !v['readings'].length) return false;
+  if (!['accepted', 'limited'].includes(v['reviewStatus'] as string) || !v['readings'].length)
+    return false;
   const seen = new Set<string>();
   return v['readings'].every((r: unknown) => {
     if (

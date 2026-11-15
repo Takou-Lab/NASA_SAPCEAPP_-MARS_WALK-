@@ -6,3 +6,6 @@ public/data/*.json text eol=lf
 # Keep documented install-asset fingerprints stable across Windows checkouts.
 public/manifest.webmanifest text eol=lf
 public/icons/*.svg text eol=lf
+
+# Coordinator-reviewed submitted excerpt fingerprints use canonical LF.
+data/environment/reviewed-excerpt/* text eol=lf

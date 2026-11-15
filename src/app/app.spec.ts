@@ -35,7 +35,7 @@ describe('App integration', () => {
             initialize: () => {},
             reload: () => {},
             status: signal('pending'),
-            context: signal(environment),
+            context: signal({ ...environment, reviewStatus: 'pending', readings: [] }),
           },
         },
       ],

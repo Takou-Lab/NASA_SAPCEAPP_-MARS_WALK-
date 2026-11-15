@@ -1,5 +1,9 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Science navigation accepted — 2b2a708
+
+Your Previous/Next submission passes review and combined checks (223 Angular tests/build). No repeat implementation needed. Safely incorporate main preserving work; next verify keyboard/bounded/filtered navigation on the designated public candidate and report exact revision/results. Coordinator supplies the environment loader/panel; do not create a duplicate. Agent 2 source-explanation corrections remain separate.
+
 ## Two-agent split — current ownership
 
 **Agent 1 (this file):** confidence/evidence content simplification, existing science/environment UI tasks only when agreed data APIs exist. Preserve the accepted verifier. Emma owns the three shared SCSS theme fixes. Do not edit the presentation/usability documents assigned below while Agent 2 works.

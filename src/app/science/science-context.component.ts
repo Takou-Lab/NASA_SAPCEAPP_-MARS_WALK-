@@ -90,6 +90,29 @@ export class ScienceContextComponent {
     });
   });
 
+  readonly selectedFilteredIndex = computed(() => {
+    const selectedId = this.mission.selectedMarkerId();
+    if (selectedId === null) {
+      return -1;
+    }
+    return this.filteredMarkers().findIndex((record) => record.id === selectedId);
+  });
+
+  readonly navigationPosition = computed(() => {
+    const index = this.selectedFilteredIndex();
+    if (index < 0) {
+      return 'Selected record is outside the current filter results.';
+    }
+    return `Record ${index + 1} of ${this.filteredMarkers().length} matching records`;
+  });
+
+  readonly canNavigatePrevious = computed(() => this.selectedFilteredIndex() > 0);
+
+  readonly canNavigateNext = computed(() => {
+    const index = this.selectedFilteredIndex();
+    return index >= 0 && index < this.filteredMarkers().length - 1;
+  });
+
   readonly hasActiveFilters = computed(
     () =>
       this.searchQuery().trim().length > 0 ||
@@ -138,8 +161,25 @@ export class ScienceContextComponent {
     this.mission.selectMarker(null);
   }
 
+  navigateToPreviousRecord(): void {
+    this.selectAdjacentRecord(-1);
+  }
+
+  navigateToNextRecord(): void {
+    this.selectAdjacentRecord(1);
+  }
+
   isSelected(id: string): boolean {
     return this.mission.selectedMarkerId() === id;
+  }
+
+  private selectAdjacentRecord(offset: -1 | 1): void {
+    const currentIndex = this.selectedFilteredIndex();
+    const adjacentRecord = this.filteredMarkers()[currentIndex + offset];
+    if (currentIndex < 0 || !adjacentRecord) {
+      return;
+    }
+    this.mission.selectMarker(adjacentRecord.id);
   }
 
   formatPositionStatus(record: ScienceMarker): string {

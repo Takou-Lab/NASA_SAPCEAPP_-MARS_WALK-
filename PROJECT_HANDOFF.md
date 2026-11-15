@@ -42,6 +42,10 @@ Emma Agent 2: new standalone read-only boxwork mission briefing, computed struct
 
 Coordinator implemented src/app/core/environment.ts, EnvironmentService and projected environmental panel with runtime review-status metadata (readings empty). [Contract](docs/data/ENVIRONMENT_RUNTIME_CONTRACT.md). Gaddielle 437a777 remains unmerged with unresolved finite-value/quality/source guards; its 53 data tests pass but no numeric dataset accepted. Latest extractor removed synthetic Ls. This is functional loader/UI/offline infrastructure, not verified atmospheric measurements. Never claim environmental values are deployed or approved from this status record.
 
+## Latest limited scientific context and navigation
+
+Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is limited to Gaddielle's supplied 25-row Sol 3900 pressure/air-temperature excerpt (800.335 Pa / 204.700 K means), reproducibly processed, explicitly **not independently archive-authenticated or full-day**. See ENVIRONMENT_RUNTIME_CONTRACT.md. Other submitted data/extractor remain unmerged. 223 Angular tests, 54 data tests/build/local offline browser pass. Public preview access enabled for MARSWALK at user request; no tokens need sharing. Production promotion remains separate.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

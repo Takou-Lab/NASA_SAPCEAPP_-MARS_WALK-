@@ -7,7 +7,9 @@ export class EnvironmentService {
   private started = false;
   private request = 0;
   private readonly contextState = signal<EnvironmentalContext | null>(null);
-  private readonly statusState = signal<'loading' | 'pending' | 'ready' | 'error'>('loading');
+  private readonly statusState = signal<'loading' | 'pending' | 'limited' | 'ready' | 'error'>(
+    'loading',
+  );
   readonly context = this.contextState.asReadonly();
   readonly status = this.statusState.asReadonly();
   initialize(): void {
@@ -33,7 +35,7 @@ export class EnvironmentService {
         Object.freeze(copy.readings);
         Object.freeze(copy);
         this.contextState.set(copy);
-        this.statusState.set(copy.reviewStatus === 'accepted' ? 'ready' : 'pending');
+        this.statusState.set(copy.reviewStatus === 'accepted' ? 'ready' : copy.reviewStatus);
       },
       error: () => {
         if (request === this.request) this.statusState.set('error');
