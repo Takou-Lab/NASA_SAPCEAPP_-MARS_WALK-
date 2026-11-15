@@ -6,15 +6,15 @@ Updated **15 November 2026**. This is your **single remaining-work checklist thr
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-## Current W4 handoff — Phase 1 accepted, Phase 2 starts now
+## Current W4 handoff — Phase 1 & Phase 2 accepted, Phase 3 starts with deployment
 
-Your `cdd2417` is approved and integrated at **`be4ac2b`**. Branch 139 tests/build pass; current integration **144 tests/build/browser offline checks pass**. Coordinator completed the unused-router bootstrap cleanup outside your ownership. Initial 433.80 kB is below 500 kB; planner/notebook style budgets pass. [Review/evidence](../reviews/EMMA.md#release-ui-cdd2417--accepted-and-integrated). Do not repeat Phase 1.
+Your `59e00e1` is approved and merged into `main`. Integrated test suite passes: **158 Angular unit tests across 16 files, 11 PWA worker tests, production build (441.64 kB initial bundle, 0 style warnings)** and headless Chrome CDP responsive audits. [Review/evidence](../reviews/EMMA.md#release-ui-phase-2-59e00e1--accepted-and-integrated). Do not repeat Phase 1 or Phase 2.
 
-1. **Agree one visual specification** with Willy/Enzo using existing tokens, typography/spacing, panel density, badges/actions and both-theme screenshots. Keep one owner per edited file and preserve unpublished work.
-2. **Readiness/header work is unblocked.** `src/app/core/pwa.service.ts` is real and documented in CODING_AGENTS.md. Read existing signals/actions; clarify mission metadata versus connection/verified offline pack. Display only supported states. Root already has PwaPanelComponent and initializes once: coordinate removal/relocation centrally before duplicating install/prepare/update controls. No new worker/model/API or pretend image/persistence-ready signals.
-3. **Narrow styling exception granted:** own light/dark fixes in `src/app/science/science-context.component.scss`, `src/app/evidence/exploration-confidence.component.scss`, and `src/app/evidence/image-passport.component.scss`. Use existing theme tokens, readable text/borders/alerts/focus and actual contrast checks. Enzo retains their TS/HTML/tests/data logic; do not rewrite those components or touch his environmental implementation.
-4. **Environmental slot:** coordinate a mounting handoff when Enzo's component and agreed data API exist. Keep this dependency explicit; complete the other design/header work now without inventing measurements or service exports.
-5. **Phase 3/4:** use the exact coordinator-deployed UI revision for HTTPS clean/existing-profile and screenshot checks. Actual Android/iOS/touch/installed standalone acceptance and outside-user sessions remain unrun until observed. Coordinator arranges users; Enzo maintains outcomes. Do not reuse browser checks as physical evidence.
+1. **Visual specification delivered**: Documented in `docs/qa/RELEASE_UI.md`.
+2. **Readiness/header delivered**: Real `PwaService` signals consumed read-only; distinct metadata loaded, network connectivity, and verified offline pack statuses.
+3. **Delegated theme repairs delivered**: Contrast and theme token repairs in `science-context.component.scss`, `exploration-confidence.component.scss`, and `image-passport.component.scss` verified in both light and dark modes.
+4. **Integration slots delivered**: `<ng-content select="[pwa-status]">` and `[environmental-context]` reserved in shell and confidence panel.
+5. **Phase 3/4**: Awaiting coordinator Vercel deployment of merged `main` to update `https://marswalk-jet.vercel.app/` from `b6669fb`. Deployed URL verification and physical device acceptance remain pending.
 
 Continue existing **`feature/emma-release-ui`**, preserve work and incorporate published main safely. No reset/force-push or duplicate branch. Record actual results/revisions in `docs/qa/RELEASE_UI.md`. No independent deployment or main merge.
 
@@ -47,11 +47,11 @@ Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app
 
 ## Phase 2 — Consistent professional design
 
-- [ ] Agree a small visual specification with Willy/Enzo: existing palette/tokens, typography scale, spacing, action hierarchy, badges, panel density and responsive behavior. Record in `docs/qa/RELEASE_UI.md`; use original branding/icons, no new UI framework/external fonts.
-- [ ] Polish owned shell/header/route/notebook using that specification. One clear next action and relevant empty/loading/error states per panel; reduce duplicated controls/content through agreed handoffs rather than editing others' files.
-- [ ] Clarify header readiness labels: metadata loaded, image displayed, persistence available, connectivity and complete offline readiness are different states. Consume only existing/agreed coordinator signals; never manufacture a green ready status from internet access or registration.
-- [ ] Reserve integration space for Enzo's environmental component and actual PWA status/install/update UI. Wait for exported components and tested coordinator APIs; report exact mounting needs. Root assembly remains coordinator-owned.
-- [ ] Present update/install/preparation actions only when their real states exist. Failed preparation has recovery guidance; do not auto-reload over unsaved work. Keep unsupported grid/terrain unavailable and regional records accessible.
+- [x] Agree a small visual specification with Willy/Enzo: existing palette/tokens, typography scale, spacing, action hierarchy, badges, panel density and responsive behavior. Record in `docs/qa/RELEASE_UI.md`; use original branding/icons, no new UI framework/external fonts.
+- [x] Polish owned shell/header/route/notebook using that specification. One clear next action and relevant empty/loading/error states per panel; reduce duplicated controls/content through agreed handoffs rather than editing others' files.
+- [x] Clarify header readiness labels: metadata loaded, image displayed, persistence available, connectivity and complete offline readiness are different states. Consume only existing/agreed coordinator signals; never manufacture a green ready status from internet access or registration.
+- [x] Reserve integration space for Enzo's environmental component and actual PWA status/install/update UI. Wait for exported components and tested coordinator APIs; report exact mounting needs. Root assembly remains coordinator-owned.
+- [x] Present update/install/preparation actions only when their real states exist. Failed preparation has recovery guidance; do not auto-reload over unsaved work. Keep unsupported grid/terrain unavailable and regional records accessible.
 
 ## Phase 3 — Deployed interface verification
 

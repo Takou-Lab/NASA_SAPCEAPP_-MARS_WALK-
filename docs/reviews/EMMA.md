@@ -1,6 +1,22 @@
-# Emma — release UI approved; Phase 2 design/readiness next
+# Emma — release UI Phase 2 approved and integrated; Phase 3 deployed UI validation next
 
-## Release UI `cdd2417` — accepted and integrated
+## Release UI Phase 2 `59e00e1` — accepted and integrated
+
+Reviewed **15 November 2026 (Africa/Douala)**. Emma (he/him) delivers W4 Phase 2 in `feature/emma-release-ui`:
+- **Visual specification**: documented in `docs/qa/RELEASE_UI.md` using existing theme tokens, typography scale, spacing, action hierarchy, badges, panel density, and responsive behavior.
+- **Truthful header readiness**: read-only consumption of real `PwaService` signals without duplicate buttons; distinct indicators for metadata loading (`.status-info`), network connectivity (`.status-neutral` online / `.status-loading` offline), and verified offline pack (`.status-ready` only when the pack is verified).
+- **Reserved integration slots**: added `<ng-content select="[pwa-status]"></ng-content>` in shell and confidence panel for coordinator lifecycle UI; added `<ng-content select="[environmental-context]"></ng-content>` with `.env-slot-card` placeholder awaiting Enzo's component.
+- **Accessibility & UX polish**: `.panel-toggle-btn` WCAG 2.5.3 Label-in-Name alignment; shell `stopResize()` storage guard preventing spurious `localStorage` writes; reactive next-action and draft-preservation banners in route-planner and notebook.
+- **Delegated SCSS theme repairs**: contrast and token repairs in `science-context.component.scss`, `exploration-confidence.component.scss`, and `image-passport.component.scss` resolving light/dark card contrasts without touching Enzo's TS/HTML/data logic.
+
+**Verification on merged `main`:**
+- **158 unit tests across 16 files pass**; **11 PWA worker tests pass**.
+- Production build: initial bundle **441.64 kB** (112.57 kB transfer), well below the 500 kB budget; 0 `anyComponentStyle` warnings across all 8 stylesheets; 18 assets (1,666,706 bytes) in offline pack.
+- Headless Chrome CDP audit: 50/50 responsive checks pass across dark/light themes and 390px/768px/1280px widths with zero horizontal overflow and >= 44px tap targets.
+
+**Next:** Coordinator Vercel deployment of this integration to update `https://marswalk-jet.vercel.app/` from `b6669fb`, followed by Phase 3 deployed UI verification and physical device testing.
+
+## Release UI `cdd2417` — accepted and integrated (Phase 1)
 
 Reviewed **15 November 2026 (Africa/Douala)**. Emma (he/him) delivers W4 Phase 1 in `feature/emma-release-ui`: keyboard/ARIA tabs, collapsed-panel focus safety, sticky deferred planner/notebook, native notebook input/submit handling and scoped theme/style cleanup. Only owned UI/planner/notebook files and QA changed; shared core/root/data/worker/dependencies were untouched by his submission.
 
