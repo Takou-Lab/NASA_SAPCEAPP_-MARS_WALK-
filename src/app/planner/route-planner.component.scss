@@ -8,7 +8,6 @@
   --d: #fcd34d;
   --e: #fca5a5;
 }
-
 :host-context([data-theme='light']) {
   --science-cyan: #0369a1;
   --a: #9a3412;
@@ -17,15 +16,15 @@
   --d: #92400e;
   --e: #991b1b;
 }
-
+.planner-container * {
+  min-width: 0;
+}
 .planner-container,
 section,
 .status-box {
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
-
 .planner-container {
   gap: 14px;
   padding: 14px;
@@ -33,13 +32,19 @@ section,
   font-size: 13px;
   color: var(--text-secondary);
 }
-
-section {
+section,
+.planner-state {
   background: var(--bg-card);
+}
+.planner-state,
+button,
+td {
+  color: var(--text-primary);
+}
+section {
   padding: 14px;
   gap: 12px;
 }
-
 button,
 .mode-hint,
 .status-box,
@@ -47,18 +52,18 @@ button,
 th {
   background: var(--bg-surface);
 }
-
 section,
 button,
 .mode-hint,
 .status-box,
 .points-table-container,
 .empty-route-message,
-.feedback-alert {
+.feedback-alert,
+.planner-state,
+.next-step-banner {
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
 }
-
 .card-title {
   display: flex;
   align-items: center;
@@ -67,80 +72,64 @@ button,
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-
 svg {
   width: 16px;
   height: 16px;
   flex-shrink: 0;
 }
-
 .title-icon,
 .hint-bullet,
 .status-val {
   color: var(--science-cyan);
 }
-
 .mode-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
-
 .action-buttons-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  min-width: 0;
 }
-
 button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   min-height: 44px;
-  min-width: 0;
   padding: 8px 10px;
-  color: var(--text-primary);
   font-weight: 600;
   cursor: pointer;
-
-  &:hover:not(:disabled) {
-    background: var(--bg-card-hover);
-    border-color: var(--border-focus);
-  }
-
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--border-focus);
-    outline-offset: 2px;
-  }
 }
-
+button:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+  border-color: var(--border-focus);
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+button:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
 .mode-btn {
   color: var(--text-secondary);
-
-  &:hover {
-    color: var(--text-primary);
-    border-color: var(--text-secondary);
-  }
-
-  &.active {
-    background: var(--mars-accent-bg);
-    border-color: var(--mars-accent);
-    color: var(--a);
-  }
 }
-
+.mode-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+.mode-btn.active {
+  background: var(--mars-accent-bg);
+  border-color: var(--mars-accent);
+  color: var(--a);
+}
 .route-action-btn,
 .storage-btn {
   flex: 1 1 120px;
 }
-
 .mode-start.active,
 .badge-start,
 .save-btn:hover:not(:disabled),
@@ -149,132 +138,110 @@ button {
   border-color: var(--success-green);
   color: var(--s);
 }
-
 .mode-waypoint.active,
-.badge-wp {
+.badge-wp,
+.next-step-banner {
   background: var(--science-cyan-bg);
   border-color: var(--science-cyan);
   color: var(--w);
 }
-
 .mode-destination.active,
 .badge-dest {
   background: var(--warning-bg);
   border-color: var(--warning-amber);
   color: var(--d);
 }
-
 .clear-btn:hover:not(:disabled),
-.feedback-error {
+.feedback-error,
+.planner-state-error {
   background: var(--error-bg);
   border-color: var(--error-red);
   color: var(--e);
 }
-
 .mode-hint {
   display: flex;
   align-items: flex-start;
   gap: 6px;
   padding: 8px 10px;
 }
-
 .mode-hint,
 table,
 p,
 .feedback-alert {
   font-size: 12px;
 }
-
 .hint-bullet {
   font-weight: 700;
   flex-shrink: 0;
 }
-
 .route-status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
   gap: 8px;
 }
-
 .status-box {
   padding: 6px 8px;
   gap: 2px;
 }
-
 .status-box,
 th,
 .storage-notice {
   font-size: 11px;
 }
-
 .status-key,
 .point-badge {
   font-size: 10px;
 }
-
 .status-key,
 th {
   text-transform: uppercase;
 }
-
 .status-val,
 .point-badge {
   font-weight: 600;
 }
-
 .font-mono {
   font-family: var(--font-mono);
 }
-
 .points-table-container {
   max-height: 160px;
   max-width: 100%;
   overflow: auto;
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
-
 th,
 td {
   padding: 6px 10px;
   border-bottom: 1px solid var(--border-subtle);
   white-space: nowrap;
 }
-
-td {
-  color: var(--text-primary);
-}
-
 th {
   position: sticky;
   top: 0;
 }
-
 tr:last-child td {
   border-bottom: 0;
 }
-
 .point-badge {
   display: inline-block;
   padding: 1px 6px;
   border-radius: 4px;
 }
-
 .empty-route-message {
   padding: 12px;
   text-align: center;
   border-style: dashed;
 }
-
 p {
   margin: 0;
 }
-
-.feedback-alert {
+.feedback-alert,
+.planner-state,
+.next-step-banner {
   padding: 8px 12px;
   font-weight: 500;
 }

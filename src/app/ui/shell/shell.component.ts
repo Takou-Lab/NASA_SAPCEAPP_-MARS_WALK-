@@ -163,6 +163,7 @@ export class ShellComponent implements OnDestroy {
   }
 
   private stopResize(): void {
+    const wasResizing = this.isResizing();
     this.isResizing.set(false);
 
     if (this.boundMouseMove) window.removeEventListener('mousemove', this.boundMouseMove);
@@ -170,7 +171,7 @@ export class ShellComponent implements OnDestroy {
     if (this.boundTouchMove) window.removeEventListener('touchmove', this.boundTouchMove);
     if (this.boundTouchEnd) window.removeEventListener('touchend', this.boundTouchEnd);
 
-    this.persistPanelWidth();
+    if (wasResizing) this.persistPanelWidth();
   }
 
   private persistPanelWidth(): void {
