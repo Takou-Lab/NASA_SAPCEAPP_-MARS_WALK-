@@ -19,6 +19,8 @@ describe('survival time scenario', () => {
             image: signal(testImage()),
             assessment,
             dataStatus: signal('ready'),
+            markers: signal([]),
+            selectedMarkerId: signal(null),
             route: signal({ start: { x: 1, y: 1 }, destination: { x: 2, y: 2 }, waypoints: [] }),
             observations: signal([]),
           },
@@ -78,8 +80,12 @@ describe('survival time scenario', () => {
   it('exports scenario facts and limitations separately from importable mission data', () => {
     const f = mount();
     f.componentInstance.example();
+    f.componentInstance.preparation.setObjective('Inspect fracture context');
+    f.componentInstance.preparation.setCheck('returnPlan', true);
     const text = f.componentInstance.brief();
     expect(text).toContain('Round-trip travel: 60.00 min');
+    expect(text).toContain('Inspect fracture context');
+    expect(text).toContain('[x] Return location');
     expect(text).toContain('Margin after reserve: 10.00 min');
     expect(text).toContain('not a live countdown');
     expect(text).toContain(testImage().imageRef);
@@ -91,5 +97,16 @@ describe('survival time scenario', () => {
     f.componentInstance.set('speedKmh', { target: { value: '' } } as unknown as Event);
     expect(f.componentInstance.inputs().speedKmh).toBeNull();
     expect(f.componentInstance.result().ok).toBe(false);
+  });
+  it('keeps a draft preparation exportable when the time estimate is unavailable', () => {
+    const f = mount();
+    f.componentInstance.preparation.setObjective('Draft objective without time assumptions');
+    const text = f.componentInstance.brief();
+    expect(text).toContain('Draft objective without time assumptions');
+    expect(text).toContain('Estimate unavailable:');
+    const button = [...f.nativeElement.querySelectorAll('button')].find((b: unknown) =>
+      (b as HTMLButtonElement).textContent?.includes('Download survival brief'),
+    ) as HTMLButtonElement;
+    expect(button.disabled).toBe(false);
   });
 });

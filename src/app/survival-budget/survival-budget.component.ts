@@ -1,16 +1,19 @@
 import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
 import { DOCUMENT, DecimalPipe } from '@angular/common';
 import { MissionService } from '../core/mission.service';
+import { SurvivalBriefComponent } from '../survival-brief/survival-brief.component';
+import { PreparationService } from '../survival-brief/preparation.service';
 import { BudgetInputs, calculateBudget, validInputs } from './budget';
 @Component({
   selector: 'app-survival-budget',
   standalone: true,
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, SurvivalBriefComponent],
   templateUrl: './survival-budget.component.html',
   styleUrl: './survival-budget.component.scss',
 })
 export class SurvivalBudgetComponent {
   readonly mission = inject(MissionService);
+  readonly preparation = inject(PreparationService);
   private readonly document = inject(DOCUMENT);
   readonly inputs = signal<BudgetInputs>({
     speedKmh: null,
@@ -120,8 +123,10 @@ export class SurvivalBudgetComponent {
     const image = this.mission.image();
     const r = this.result();
     const i = this.inputs();
+    const selected = this.mission.markers().find((m) => m.id === this.mission.selectedMarkerId());
     return [
       'MARSWALK — OUT-AND-BACK SURVIVAL PLANNING SCENARIO',
+      ...this.preparation.briefLines(),
       `Created: ${new Date().toISOString()}`,
       `Image: ${image?.imageRef ?? 'unavailable'}`,
       `Assumed walking speed: ${i.speedKmh ?? 'unset'} km/h`,
@@ -140,6 +145,22 @@ export class SurvivalBudgetComponent {
         : [`Estimate unavailable: ${r.reason}`]),
       `Route: ${JSON.stringify(this.mission.route())}`,
       `Observation count: ${this.mission.observations().length}`,
+      ...this.mission
+        .observations()
+        .map(
+          (note, n) =>
+            `Observation ${n + 1} (${note.createdAt}; ${note.position ? JSON.stringify(note.position) : 'unlocated'}): ${note.text}`,
+        ),
+      selected
+        ? `Selected science: ${selected.name}; evidence ${selected.evidenceType}; position ${selected.positionStatus}; ${selected.source.url}`
+        : 'Selected science: none',
+      ...(selected
+        ? [
+            `Finding: ${selected.finding}`,
+            ...selected.limitations.map((l) => `Science limitation: ${l}`),
+          ]
+        : []),
+      ...(image?.limitations.map((l) => `Image limitation: ${l}`) ?? []),
       'Assumptions: follow the drawn route outward and the same path back at constant user-entered speed. Planning estimate only, not a live countdown, terrain travel time, oxygen calculation or safety decision.',
       'Check suit/life-support endurance, communications, return access and hazards independently. Terrain, slopes, obstacles, radiation, actual supplies and route-wide weather are not verified. AI-generated relief does not supply real elevations.',
       `Image source: ${image?.source.url ?? 'unavailable'}`,
@@ -148,7 +169,7 @@ export class SurvivalBudgetComponent {
     ].join('\n');
   }
   download() {
-    if (!this.result().ok) return;
+    if (!this.mission.image()) return;
     const url = URL.createObjectURL(new Blob([this.brief()], { type: 'text/plain;charset=utf-8' }));
     const link = this.document.createElement('a');
     link.href = url;

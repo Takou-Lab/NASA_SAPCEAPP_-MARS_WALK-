@@ -2,7 +2,7 @@
 
 ## ACTIVE — final 90-minute survival-planning release
 
-Build the new SurvivalBriefComponent in src/app/survival-brief/ only; objective, user-declared equipment/return checklist, reactive mission facts and copyable mission brief. Session-only inputs must be labelled. No root/core edits. First handoff in 35 minutes.
+**Coordinator takeover completed. Do not create a competing SurvivalBriefComponent.** Mission objective, reversible user-declared checks, reactive mission/evidence summary, saved preparation and combined downloadable brief are implemented in src/app/survival-brief and integrated with the survival time card. [Evidence](../qa/SURVIVAL_BRIEF.md): 274 tests/build plus full-process offline browser restoration pass. If resuming, review current main first and report exact reproducible integration issues instead of duplicating this slice.
 
 Read [the exact shared assignment, ownership and clock](../FINAL_90_MINUTES.md). This section supersedes older future-work lists. Preserve/push existing work first; use current main and stable review URL. First handoff by minute 35, integration freeze at minute 55, submission reserved for final 15 minutes. No inferred safe-route or life-support claims.
 

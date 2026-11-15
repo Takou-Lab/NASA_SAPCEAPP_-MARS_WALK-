@@ -5,6 +5,7 @@
     Estimate an out-and-back excursion along your drawn route. Your entered time budget is an
     assumption—not measured suit endurance.
   </p>
+  <app-survival-brief />
   <fieldset [disabled]="mission.dataStatus() !== 'ready'">
     <legend>Your planning assumptions</legend>
     <div class="input-grid">
@@ -84,7 +85,7 @@
     <button type="button" (click)="save()" [disabled]="!mission.image()">
       Save scenario assumptions
     </button>
-    <button type="button" (click)="download()" [disabled]="!result().ok">
+    <button type="button" (click)="download()" [disabled]="!mission.image()">
       Download survival brief
     </button>
   </div>

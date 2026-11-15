@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Mission preparation and combined brief implemented
+
+Coordinator took over Emma 1’s unclaimed slice. Route Planner’s survival card now has collapsed objective/user-declaration editor, separate explicit save/automatic restoration and a combined downloadable TXT including route, time assumptions, selected science finding/source/limits and saved observation text. [Evidence](docs/qa/SURVIVAL_BRIEF.md). 274 tests/build and phone-size full-process offline recovery pass. Checks are user declarations, never operational clearance; Emma should not duplicate this component. No Takou styles touched.
+
 ## Survival return budget implemented
 
 Coordinator took over Enzo 2’s slice by user request. Route Planner now includes a reactive out-and-back time/reserve card, explicit user assumptions, separate saved scenario and downloadable TXT brief. [Evidence](docs/qa/SURVIVAL_BUDGET.md). 266 Angular tests/build and phone-size full-process offline scenario/route/note recovery pass. No operational safety rating, oxygen model or automatic optimal path. Enzo 2 should not duplicate this component; Takou CSS ownership is unchanged.

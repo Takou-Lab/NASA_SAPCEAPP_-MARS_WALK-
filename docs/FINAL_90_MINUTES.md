@@ -49,3 +49,7 @@ Takou/Charles is one contributor. Located fork https://github.com/Takou-Lab/NASA
 ## Coordinator takeover — survival budget implemented
 
 At the user’s request while teammates were unavailable, coordinator completed Enzo Agent 2’s new survival-budget component and Planner mounting. [Evidence](qa/SURVIVAL_BUDGET.md). Includes explicit assumptions, out-and-back time/reserve calculation, deficit handling, saved assumptions and downloaded text brief; 266 tests/build and full-process offline browser checks pass. Enzo 2 must not create a competing implementation. Takou/Charles remains the independent UI polish owner. No automatic safest/shortest-path algorithm is claimed.
+
+## Coordinator takeover — mission brief implemented
+
+Emma Agent 1’s unclaimed mission-brief package is now implemented and integrated in the existing survival time card. [Evidence](qa/SURVIVAL_BRIEF.md). Objective and reversible declarations save/restore separately; the combined text download includes route, time scenario, selected science source/limits and saved observation text. 274 tests/build and full-process phone-size offline browser recovery pass. Emma must not start a competing implementation. Takou/Charles remains the visual-polish owner.
