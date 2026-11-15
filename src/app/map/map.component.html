@@ -64,7 +64,9 @@
   </div>
 
   @if (mission.image(); as image) {
-    <div class="image-provenance">
+    <p class="image-credit">{{ image.source.credit }}</p>
+    <details class="image-provenance">
+      <summary>Image sources &amp; limitations</summary>
       <p>
         <a [href]="image.source.url" target="_blank" rel="noopener noreferrer">{{
           image.source.title
@@ -79,7 +81,7 @@
           <li>{{ limitation }}</li>
         }
       </ul>
-    </div>
+    </details>
   }
 
   @if (selectedMarker; as marker) {

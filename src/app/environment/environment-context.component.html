@@ -17,7 +17,10 @@
     }
     @case ('pending') {
       <p role="status"><strong>Source review pending — measurements withheld</strong></p>
-      <p>{{ environment.context()?.reviewNote }}</p>
+      <details>
+        <summary>Review details</summary>
+        <p>{{ environment.context()?.reviewNote }}</p>
+      </details>
       <details>
         <summary>What is being checked?</summary>
         <p>
@@ -29,7 +32,10 @@
     }
     @case ('limited') {
       <p role="status"><strong>Limited source review — excerpt only</strong></p>
-      <p>{{ environment.context()?.reviewNote }}</p>
+      <details>
+        <summary>Review details</summary>
+        <p>{{ environment.context()?.reviewNote }}</p>
+      </details>
     }
     @case ('ready') {
       <p>Reviewed historical observations, not live forecasts.</p>
@@ -62,10 +68,15 @@
   }
 
   @if (environment.context(); as context) {
-    <a [href]="context.sourceUrl" target="_blank" rel="noopener noreferrer">REMS source archive</a>
-    <p>
-      External sources require internet. Wind and RAD radiation measurements are not supplied. No
-      route-wide weather, terrain or human-dose estimate is derived.
-    </p>
+    <details>
+      <summary>Environmental sources &amp; coverage</summary>
+      <a [href]="context.sourceUrl" target="_blank" rel="noopener noreferrer"
+        >REMS source archive</a
+      >
+      <p>
+        External sources require internet. Wind and RAD radiation measurements are not supplied. No
+        route-wide weather, terrain or human-dose estimate is derived.
+      </p>
+    </details>
   }
 </section>

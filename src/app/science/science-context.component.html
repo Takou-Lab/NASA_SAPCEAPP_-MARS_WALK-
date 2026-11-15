@@ -190,60 +190,64 @@
 
           <p class="record-finding">{{ record.finding }}</p>
 
-          <dl class="record-metadata stack">
-            <div class="metadata-row">
-              <dt>Record-level evidence category</dt>
-              <dd>
-                {{ record.evidenceType }}
-                <small class="metadata-explanation">
-                  Read the finding for any source-specific observations, derivations, and
-                  interpretations.
-                </small>
-              </dd>
-            </div>
-            <div class="metadata-row">
-              <dt>Instrument</dt>
-              <dd>{{ record.instrument || 'Unavailable' }}</dd>
-            </div>
-            <div class="metadata-row">
-              <dt>Observation date</dt>
-              <dd>{{ record.date || 'Unavailable' }}</dd>
-            </div>
-            <div class="metadata-row">
-              <dt>Position status</dt>
-              <dd>{{ formatPositionStatus(record) }}</dd>
-            </div>
-            <div class="metadata-row">
-              <dt>Source</dt>
-              <dd>
-                @if (safeExternalUrl(record.source.url); as sourceUrl) {
-                  <a [href]="sourceUrl" target="_blank" rel="noopener noreferrer">{{
-                    record.source.title
-                  }}</a>
-                  <span class="source-credit"> — {{ record.source.credit }}</span>
-                  <small class="connectivity-note"
-                    >External source link requires network connectivity.</small
-                  >
-                } @else {
-                  <span>{{ record.source.title }}</span>
-                  <span class="source-credit"> — {{ record.source.credit }}</span>
-                }
-              </dd>
-            </div>
-          </dl>
+          <p class="record-position">{{ formatPositionStatus(record) }}</p>
+          <details class="science-source-details">
+            <summary>Science source, methods &amp; limitations</summary>
+            <dl class="record-metadata stack">
+              <div class="metadata-row">
+                <dt>Record-level evidence category</dt>
+                <dd>
+                  {{ record.evidenceType }}
+                  <small class="metadata-explanation">
+                    Read the finding for any source-specific observations, derivations, and
+                    interpretations.
+                  </small>
+                </dd>
+              </div>
+              <div class="metadata-row">
+                <dt>Instrument</dt>
+                <dd>{{ record.instrument || 'Unavailable' }}</dd>
+              </div>
+              <div class="metadata-row">
+                <dt>Observation date</dt>
+                <dd>{{ record.date || 'Unavailable' }}</dd>
+              </div>
+              <div class="metadata-row">
+                <dt>Position status</dt>
+                <dd>{{ formatPositionStatus(record) }}</dd>
+              </div>
+              <div class="metadata-row">
+                <dt>Source</dt>
+                <dd>
+                  @if (safeExternalUrl(record.source.url); as sourceUrl) {
+                    <a [href]="sourceUrl" target="_blank" rel="noopener noreferrer">{{
+                      record.source.title
+                    }}</a>
+                    <span class="source-credit"> — {{ record.source.credit }}</span>
+                    <small class="connectivity-note"
+                      >External source link requires network connectivity.</small
+                    >
+                  } @else {
+                    <span>{{ record.source.title }}</span>
+                    <span class="source-credit"> — {{ record.source.credit }}</span>
+                  }
+                </dd>
+              </div>
+            </dl>
 
-          <div class="record-limitations">
-            <h4>Limitations</h4>
-            @if (record.limitations.length > 0) {
-              <ul class="limitations-list">
-                @for (limitation of record.limitations; track $index) {
-                  <li>{{ limitation }}</li>
-                }
-              </ul>
-            } @else {
-              <p class="limitations-empty">No limitations recorded.</p>
-            }
-          </div>
+            <div class="record-limitations">
+              <h4>Limitations</h4>
+              @if (record.limitations.length > 0) {
+                <ul class="limitations-list">
+                  @for (limitation of record.limitations; track $index) {
+                    <li>{{ limitation }}</li>
+                  }
+                </ul>
+              } @else {
+                <p class="limitations-empty">No limitations recorded.</p>
+              }
+            </div>
+          </details>
         </article>
       } @else {
         <p class="science-no-selection box" role="status">
