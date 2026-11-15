@@ -6,17 +6,11 @@ Updated **15 November 2026**. This is your **single remaining-work checklist thr
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-## Current W4 handoff — Phase 1 & Phase 2 accepted, Phase 3 starts with deployment
+## Current W4 handoff — Phase 2 accepted; deployed verification next
 
-Your `59e00e1` is approved and merged into `main`. Integrated test suite passes: **158 Angular unit tests across 16 files, 11 PWA worker tests, production build (441.64 kB initial bundle, 0 style warnings)** and headless Chrome CDP responsive audits. [Review/evidence](../reviews/EMMA.md#release-ui-phase-2-59e00e1--accepted-and-integrated). Do not repeat Phase 1 or Phase 2.
+Your 59e00e1 is accepted: **208 integrated Angular tests**, production build (initial **442.83 kB**) and local production-browser/full-process offline route/note recovery pass. Coordinator evidence simplification is preserved, header uses real read-only PWA states, theme styles stay within delegated ownership. [Review](../reviews/EMMA.md#phase-2-59e00e1--accepted-and-integrated). Do not repeat Phase 1/2 or start a new redesign.
 
-1. **Visual specification delivered**: Documented in `docs/qa/RELEASE_UI.md`.
-2. **Readiness/header delivered**: Real `PwaService` signals consumed read-only; distinct metadata loaded, network connectivity, and verified offline pack statuses.
-3. **Delegated theme repairs delivered**: Contrast and theme token repairs in `science-context.component.scss`, `exploration-confidence.component.scss`, and `image-passport.component.scss` verified in both light and dark modes.
-4. **Integration slots delivered**: `<ng-content select="[pwa-status]">` and `[environmental-context]` reserved in shell and confidence panel.
-5. **Phase 3/4**: Awaiting coordinator Vercel deployment of merged `main` to update `https://marswalk-jet.vercel.app/` from `b6669fb`. Deployed URL verification and physical device acceptance remain pending.
-
-Continue existing **`feature/emma-release-ui`**, preserve work and incorporate published main safely. No reset/force-push or duplicate branch. Record actual results/revisions in `docs/qa/RELEASE_UI.md`. No independent deployment or main merge.
+Preserve unpublished work and safely incorporate main on feature/emma-release-ui. Next Phase 3: verify exact served UI candidate after coordinator updates deployment; current designated preview cf0ffb7 is older than this UI. Record source/URL/browser/viewport, both-theme desktop/phone screenshots, keyboard/scroll/focus, readability and recovered mission. Candidate is Vercel-authenticated; no automation secrets may be shared. Physical Android/iOS/standalone/outside-user results require actual observations; keep unavailable checks pending. Enzo Agent 2 owns presentation screenshot consolidation, so provide UI evidence/handoff without editing his documents. Environmental mounting remains pending accepted dataset/schema/component.
 
 ## Public host is ready for your acceptance checks
 

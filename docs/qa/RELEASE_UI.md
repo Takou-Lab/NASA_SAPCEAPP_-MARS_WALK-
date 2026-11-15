@@ -1,5 +1,9 @@
 # W4 Release UI — Accessibility, Design Specification, and Verification
 
+## Coordinator integration acceptance — 59e00e1
+
+15 November 2026: merged with main 1f6c81a, 208 Angular tests pass; production build/full pack pass, initial 442.83 kB. Coordinator browser keyboard/disclosure/draft/error/save/export/transfer/mobile-both-theme and disconnected full-process recovery pass. [Full review and limits](../reviews/EMMA.md#phase-2-59e00e1--accepted-and-integrated). Existing viewport/contrast figures below are contributor-reported evidence. No deployment or physical-device/outside-user acceptance claimed.
+
 Date: **15 November 2026**.  
 Branch: **`feature/emma-release-ui`** (based on `origin/main` commit **`ac79be5`**).  
 Commit SHA: **`bb599a9`** (and amended head).  

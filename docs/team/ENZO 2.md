@@ -1,5 +1,9 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## Latest proposal e161e41 — revise source support
+
+Your three AI-assisted entries are received as QA-only drafts. [Specific source corrections](../reviews/ENZO.md#agent-2-ai-proposal-e161e41--received-source-corrections-before-runtime-approval): preserve planned-versus-observed work, remove unsupported mineral-result/evaporation claims or supply exact passages, map each sentence to source evidence, and mark model unknown if not established. No runtime approval yet. Continue same branch; do not generate public JSON or edit Agent 1 files. Designated protected preview cf0ffb7 is available per VERCEL_PREVIEW_CF0FFB7.md; screenshot/rehearsal checks still need actual observations and may await the next accepted UI candidate.
+
 ## Current slice — checklist accepted; bounded AI explanation proposal
 
 cbddb0e checklist accepted with coordinator technical corrections. Do not repeat it. Candidate screenshots/rehearsal remain pending actual coordinator deployment. [Review](../reviews/ENZO.md#agent-2-checklist-cbddb0e--accepted-with-technical-corrections).

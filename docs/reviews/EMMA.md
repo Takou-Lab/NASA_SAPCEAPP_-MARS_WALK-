@@ -1,22 +1,16 @@
 # Emma — release UI Phase 2 approved and integrated; Phase 3 deployed UI validation next
 
-## Release UI Phase 2 `59e00e1` — accepted and integrated
+## Phase 2 59e00e1 — accepted and integrated
 
-Reviewed **15 November 2026 (Africa/Douala)**. Emma (he/him) delivers W4 Phase 2 in `feature/emma-release-ui`:
-- **Visual specification**: documented in `docs/qa/RELEASE_UI.md` using existing theme tokens, typography scale, spacing, action hierarchy, badges, panel density, and responsive behavior.
-- **Truthful header readiness**: read-only consumption of real `PwaService` signals without duplicate buttons; distinct indicators for metadata loading (`.status-info`), network connectivity (`.status-neutral` online / `.status-loading` offline), and verified offline pack (`.status-ready` only when the pack is verified).
-- **Reserved integration slots**: added `<ng-content select="[pwa-status]"></ng-content>` in shell and confidence panel for coordinator lifecycle UI; added `<ng-content select="[environmental-context]"></ng-content>` with `.env-slot-card` placeholder awaiting Enzo's component.
-- **Accessibility & UX polish**: `.panel-toggle-btn` WCAG 2.5.3 Label-in-Name alignment; shell `stopResize()` storage guard preventing spurious `localStorage` writes; reactive next-action and draft-preservation banners in route-planner and notebook.
-- **Delegated SCSS theme repairs**: contrast and token repairs in `science-context.component.scss`, `exploration-confidence.component.scss`, and `image-passport.component.scss` resolving light/dark card contrasts without touching Enzo's TS/HTML/data logic.
+Reviewed 15 November 2026 against main 1f6c81a. Owned shell/header/planner/notebook, three expressly delegated shared SCSS theme files and QA only. Header consumes existing PwaService read-only signals to distinguish metadata/network/full-pack readiness; no duplicated initialization or action surface. Native controls, next-action hints and theme tokens preserve coordinator evidence disclosures and mission state. Environmental projection slot is reserved with honest pending status, not a fabricated data API.
 
-**Verification on merged `main`:**
-- **158 unit tests across 16 files pass**; **11 PWA worker tests pass**.
-- Production build: initial bundle **441.64 kB** (112.57 kB transfer), well below the 500 kB budget; 0 `anyComponentStyle` warnings across all 8 stylesheets; 18 assets (1,666,706 bytes) in offline pack.
-- Headless Chrome CDP audit: 50/50 responsive checks pass across dark/light themes and 390px/768px/1280px widths with zero horizontal overflow and >= 44px tap targets.
+**New coordinator checks:** 208 Angular tests across 17 files pass; production build/full pack pass, initial **442.83 kB**, below unchanged warning budget; Leaflet CommonJS warning remains. Pack prefix **039f9d9dbb88**, 18 assets / 1,667,943 bytes. Browser harness initially required updated accessible control labels; no application fix was needed. Production Chromium verifies keyboard tabs/disclosures, source visibility, native note entry/exact draft retention through tabs and induced failed save, successful save/export, wrong-image transfer rejection, inert collapse, resizer bounds and 390px no overflow in both themes. Complete browser-process restart disconnected before navigation recovers image/science, route/notes via explicit load and export; prepared opt-in flat viewer opens/tears down.
 
-**Next:** Coordinator Vercel deployment of this integration to update `https://marswalk-jet.vercel.app/` from `b6669fb`, followed by Phase 3 deployed UI verification and physical device testing.
+Contributor contrast/multi-viewport measurements in RELEASE_UI.md remain contributor-scoped; coordinator browser checks do not establish universal WCAG compliance or physical device acceptance. Local test logs/results are temporary /tmp/emma-phase2-*. No public/preview deployment, physical installation or outside-user sessions performed in this integration. Current designated preview still cf0ffb7 until separately updated.
 
-## Release UI `cdd2417` — accepted and integrated (Phase 1)
+Phase 2 complete. Next Emma: preserve work, incorporate published main safely and perform Phase 3 deployed-interface verification once coordinator publishes this revision. Use a revision-specific screenshot/keyboard/theme check and coordinate device/user observations; do not invent unavailable hardware or repeat accepted design work. Freeze new redesigns while release work proceeds.
+
+## Release UI `cdd2417` — accepted and integrated
 
 Reviewed **15 November 2026 (Africa/Douala)**. Emma (he/him) delivers W4 Phase 1 in `feature/emma-release-ui`: keyboard/ARIA tabs, collapsed-panel focus safety, sticky deferred planner/notebook, native notebook input/submit handling and scoped theme/style cleanup. Only owned UI/planner/notebook files and QA changed; shared core/root/data/worker/dependencies were untouched by his submission.
 
