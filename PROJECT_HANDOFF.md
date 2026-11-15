@@ -22,7 +22,7 @@ Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6
 | Willy Agent 2 | Windows/root/subpath install verification, separate QA and device evidence. [Plan](<docs/team/WILLY 2.md>) |
 | Enzo | fc79cf8 verifier correction accepted: 193 integrated Angular tests and root/subpath builds pass. Pure verifier remains unmounted; Agent 1 handles evidence-content simplification, Agent 2 owns release-story documentation per docs/team/ENZO 2.md. [Correction](docs/reviews/ENZO.md) |
 | Gaddielle (she/her) | Earlier imagery/tooling accepted. Environmental prototype 0f6bd95 plus coordinator C1/C2 corrections accepted as illustrative tooling only; 52 integrated data tests pass. Original verified REMS products/labels/extraction are next. No runtime environment dataset/schema accepted. [Review](docs/reviews/GADDIELLE.md) |
-| Royce/Longla | Existing 3D accepted; physical device/release QA pending. [Plan](docs/team/LONGLA.md) |
+| Royce/Longla | Existing 3D accepted; QA report 3af60d1 integrated as contributor-reported only. Samsung installation reported; missing-note reproduction/build identity needed before physical acceptance. [Plan](docs/team/LONGLA.md) |
 
 Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Emma has a styling-only exception for science-context, exploration-confidence and image-passport SCSS. Coordinator owns root/core/build/worker. Original completed work retains its authorship. Use independent checkouts for Willy's two agents; never change the same checkout's branch/build concurrently.
 
