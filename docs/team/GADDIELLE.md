@@ -26,9 +26,9 @@ Image package/passport/index `a53724a` is merged. Coordinator closed R1–R3; 28
 
 Continue **`feature/gaddielle-data-preparation`**, safely incorporating main. Own `docs/data/RELEASE_DATA_HANDOFF.md` and necessary factual data-doc updates for this slice.
 
-- [ ] Enumerate real runtime manifest, prepared image, science records and image-index control file with exact paths, imageRef, bytes and SHA-256. Verify production copies match source files.
-- [ ] Separate **524,472 image-payload bytes** from science/index and complete app size. Give coordinator explicit cache include/exclude guidance; archival master, unused terrain/readme/reference docs and external citations are not automatically essentials.
-- [ ] Record actual commands/results and supported root/subpath resolution. No new schema/API/assets or speculative inventory in this slice.
+- [x] Enumerate real runtime manifest, prepared image, science records and image-index control file with exact paths, imageRef, bytes and SHA-256. Verify production copies match source files.
+- [x] Separate **524,472 image-payload bytes** from science/index and complete app size. Give coordinator explicit cache include/exclude guidance; archival master, unused terrain/readme/reference docs and external citations are not automatically essentials.
+- [x] Record actual commands/results and supported root/subpath resolution. No new schema/API/assets or speculative inventory in this slice.
 
 ## Phase 2 — Numerical environmental data
 
