@@ -22,6 +22,7 @@ Usage:
 import argparse
 import json
 import os
+import re
 import sys
 import tempfile
 
@@ -55,16 +56,29 @@ def paths_alias(path1: str, path2: str) -> bool:
         return False
 
 
+IMAGE_ASSET_PATTERN = re.compile(r"^data/imagery/[a-zA-Z0-9_./-]+$")
+
+
 def validate_browser_asset_path(path: str, public_root: str, label: str) -> tuple[bool, str | None]:
-    """
-    Validates that a path is a valid app-base-relative browser asset path:
-    - uses forward slashes
-    - no URL scheme, authority, query (?), fragment (#), or backslash (\\)
-    - no absolute path, empty, dot, or traversal (..) segments
-    - resolved target must not escape public_root (including via symlinks)
+    r"""
+    Validates that a path matches the runtime validManifest browser-path syntax:
+    - non-empty string without leading/trailing whitespace
+    - no whitespace or control characters
+    - no percent escapes (e.g. %2e%2e, %23)
+    - no backslash (\), query string (?), fragment identifier (#), URL scheme (://) or authority (//)
+    - no absolute path, empty, dot (.), or traversal (..) segments
+    - for image assets: strictly matches ^data/imagery/[a-zA-Z0-9_./-]+$
+    - for manifest: must be exactly 'data/manifest.json'
+    - resolved target on disk must not escape public_root (including via symlinks)
     """
     if not isinstance(path, str) or not path.strip():
         return False, f"{label} path must be a non-empty string"
+    if path != path.strip():
+        return False, f"{label} path '{path}' contains leading or trailing whitespace"
+    if any(c.isspace() or ord(c) < 32 or ord(c) == 127 for c in path):
+        return False, f"{label} path '{path}' contains forbidden whitespace or control characters"
+    if "%" in path:
+        return False, f"{label} path '{path}' contains forbidden percent escapes"
     if "\\" in path:
         return False, f"{label} path '{path}' contains forbidden backslash"
     if "?" in path:
@@ -79,6 +93,16 @@ def validate_browser_asset_path(path: str, public_root: str, label: str) -> tupl
     segments = path.split("/")
     if any(seg in ("", ".", "..") for seg in segments):
         return False, f"{label} path '{path}' contains empty, dot, or traversal segments"
+
+    if label == "Manifest":
+        if path != "data/manifest.json":
+            return False, f"Manifest path must be exactly 'data/manifest.json', found '{path}'"
+    else:
+        if not IMAGE_ASSET_PATTERN.fullmatch(path):
+            return False, (
+                f"{label} path '{path}' violates runtime asset-path syntax "
+                f"(must match ^data/imagery/[a-zA-Z0-9_./-]+$ without percent escapes, whitespace, or invalid characters)"
+            )
 
     # Filesystem containment and symlink escape verification
     try:
@@ -161,8 +185,23 @@ def validate_index_schema(data: any) -> tuple[bool, list[str]]:
             p = entry.get("path")
             if not isinstance(p, str) or not p.strip():
                 errors.append(f"files[{idx}].path must be a non-empty string, found {type(p).__name__}")
-            elif "\\" in p or "?" in p or "#" in p or p.startswith("/") or any(s in ("", ".", "..") for s in p.split("/")):
+            elif (
+                p != p.strip()
+                or any(c.isspace() or ord(c) < 32 or ord(c) == 127 for c in p)
+                or "%" in p
+                or "\\" in p
+                or "?" in p
+                or "#" in p
+                or "://" in p
+                or p.startswith("//")
+                or p.startswith("/")
+                or any(s in ("", ".", "..") for s in p.split("/"))
+            ):
                 errors.append(f"files[{idx}].path '{p}' is not a valid app-relative browser path")
+            elif idx == 0 and p != "data/manifest.json":
+                errors.append(f"files[0].path must be 'data/manifest.json', found '{p}'")
+            elif idx == 1 and not IMAGE_ASSET_PATTERN.fullmatch(p):
+                errors.append(f"files[1].path '{p}' violates runtime asset-path syntax (^data/imagery/[a-zA-Z0-9_./-]+$)")
 
             b = entry.get("bytes")
             if type(b) is not int or isinstance(b, bool) or b <= 0:
@@ -220,6 +259,19 @@ def build_index_data(manifest_path: str, public_root: str) -> tuple[bool, dict |
     if not valid_m:
         errors.append(err_m)
         return False, None, errors
+
+    # Pre-validate manifest JSON assetPath syntax against runtime rules before package decode
+    try:
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest_json = json.load(f)
+        if isinstance(manifest_json, dict) and "assetPath" in manifest_json:
+            asset_path = manifest_json["assetPath"]
+            valid_asset, err_asset = validate_browser_asset_path(asset_path, public_root, "Image asset")
+            if not valid_asset:
+                errors.append(err_asset)
+                return False, None, errors
+    except Exception:
+        pass  # If manifest cannot be parsed as JSON, verify_pack will report that
 
     # 2. Run full verification via verify_pack
     valid, res = verify_pack.verify_package(manifest_path, public_root)

@@ -67,7 +67,7 @@ python tools/data/build_image_pack.py \
 ```
 
 **Generation Behavior:**
-1. Validates path confinement: ensures `--manifest` resolves strictly to `data/manifest.json` within `--public-root`. Emitted browser asset paths must use forward slashes and must not contain URL schemes/authorities, query parameters (`?`), fragment identifiers (`#`), backslashes (`\`), absolute roots, empty/dot/traversal segments, or symlink escapes outside the root.
+1. Validates path confinement and syntax: ensures `--manifest` resolves strictly to `data/manifest.json` within `--public-root`. Emitted browser asset paths must use forward slashes and strictly match runtime `validManifest()` syntax `^data/imagery/[a-zA-Z0-9_./-]+$` without URL schemes/authorities, query parameters (`?`), fragment identifiers (`#`), percent escapes (e.g., `%2e%2e`, `%23`), whitespace, control characters, backslashes (`\`), absolute roots, empty/dot/traversal segments, or symlink escapes outside the root.
 2. Validates that `--output` does not alias either source file (`manifest.json` or `PIA26306_derived_2048.jpg`).
 3. Invokes `verify_pack.verify_package` to confirm manifest schema validity, full pixel decoding via Pillow (`img.load()`), and exact dimensions (`2048 × 1042`).
 4. Constructs the canonical dictionary in memory.
@@ -91,7 +91,7 @@ python tools/data/build_image_pack.py \
   - Root must be an object with exactly `{"schemaVersion", "imageRef", "files", "totalBytes"}` (rejecting lists, primitives, and extra keys without tracebacks).
   - `schemaVersion` must be integer `1` (strictly excluding booleans).
   - Byte fields (`files[i].bytes`, `totalBytes`) must be positive integers (strictly excluding floats and booleans).
-  - File entries must have exact keys `{"path", "bytes", "sha256"}`, valid app-relative browser paths, and 64-character lowercase hexadecimal SHA-256 digests.
+  - File entries must have exact keys `{"path", "bytes", "sha256"}`, valid app-relative browser paths matching runtime syntax (rejecting percent escapes, whitespace, control characters, and traversal), and 64-character lowercase hexadecimal SHA-256 digests.
 - If verification fails (stale, tampered, invalid schema, or missing index), exits code `1` with descriptive errors while preserving the existing file's exact bytes and modification time (`mtime`).
 - Returns exit code `0` if and only if the index exists, parses cleanly, satisfies all schema constraints, and exactly matches the computed payload.
 
@@ -99,7 +99,7 @@ python tools/data/build_image_pack.py \
 
 ## 3. Automated Test Regressions
 
-The test suite in `tools/data/test_build_image_pack.py` validates 21 automated regression cases:
+The test suite in `tools/data/test_build_image_pack.py` validates 26 automated regression cases:
 1. `test_generate_real_package_matches_expected_schema_and_values`: Generates real index and verifies schema, paths, hashes, and byte sums.
 2. `test_deterministic_identical_generation`: Confirms repeated executions produce byte-identical JSON.
 3. `test_check_mode_passes_fresh_index_without_modifying`: Confirms `--check` passes fresh index without changing `mtime`.
@@ -121,8 +121,13 @@ The test suite in `tools/data/test_build_image_pack.py` validates 21 automated r
 19. `test_check_fails_cleanly_on_root_list_no_traceback`: Confirms root `[]` fails cleanly with exit `1` without unhandled traceback.
 20. `test_check_fails_cleanly_on_root_primitive_no_traceback`: Confirms primitive root JSON fails cleanly with exit `1` without traceback.
 21. `test_check_does_not_create_missing_path_or_parent_directory`: Confirms `--check` on nonexistent target creates neither directory nor file.
+22. `test_image_path_with_encoded_traversal_is_rejected_and_preserves_output`: Confirms asset paths with encoded traversal (`%2e%2e`) fail exit `1` without writing and preserve existing output.
+23. `test_image_path_with_percent_encoded_filename_is_rejected_and_preserves_output`: Confirms asset paths with percent encoding (`%23`) fail exit `1` without writing and preserve existing output.
+24. `test_image_path_with_trailing_space_is_rejected_and_preserves_output`: Confirms asset paths with whitespace fail exit `1` without writing and preserve existing output.
+25. `test_image_path_with_control_character_is_rejected_and_preserves_output`: Confirms asset paths with control characters (`\t`) fail exit `1` without writing and preserve existing output.
+26. `test_check_fails_on_index_containing_percent_escape_or_whitespace`: Confirms `--check` validates image path syntax against percent escapes and whitespace, exiting code `1` and preserving existing output.
 
-To run the complete data tools test suite (25 tests total: 21 indexer regressions + 4 package verifier regressions):
+To run the complete data tools test suite (30 tests total: 26 indexer regressions + 4 package verifier regressions):
 
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s tools/data -p 'test_*.py' -v

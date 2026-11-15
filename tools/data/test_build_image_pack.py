@@ -294,6 +294,163 @@ class BuildImagePackTests(unittest.TestCase):
             )
             self.assertEqual(out_file.read_bytes(), sentinel)
 
+    # --- R3 Regressions: Browser-path syntax alignment (% escapes, whitespace, control chars) ---
+
+    def test_image_path_with_encoded_traversal_is_rejected_and_preserves_output(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pub = Path(temp_dir) / "public"
+            imagery_dir = pub / "data" / "imagery" / "%2e%2e"
+            imagery_dir.mkdir(parents=True)
+
+            # Copy real image to literal %2e%2e directory
+            image_file = imagery_dir / "texture.jpg"
+            image_file.write_bytes(REAL_IMAGE.read_bytes())
+
+            # Manifest pointing to encoded traversal
+            manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
+            manifest_dict["assetPath"] = "data/imagery/%2e%2e/texture.jpg"
+            manifest_file = pub / "data" / "manifest.json"
+            manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
+
+            out_file = pub / "data" / "image-pack.json"
+            sentinel = b"PRE_EXISTING_R3_SENTINEL\n"
+            out_file.write_bytes(sentinel)
+            mtime_before = out_file.stat().st_mtime_ns
+
+            # Generation mode
+            res_gen = self.run_cli(manifest_file, pub, out_file)
+            self.assertEqual(res_gen.returncode, 1)
+            self.assertTrue(
+                "percent escapes" in res_gen.stderr or "violates runtime asset-path syntax" in res_gen.stderr
+            )
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+            # Check mode
+            res_chk = self.run_cli(manifest_file, pub, out_file, check=True)
+            self.assertEqual(res_chk.returncode, 1)
+            self.assertNotIn("Traceback", res_chk.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    def test_image_path_with_percent_encoded_filename_is_rejected_and_preserves_output(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pub = Path(temp_dir) / "public"
+            imagery_dir = pub / "data" / "imagery"
+            imagery_dir.mkdir(parents=True)
+
+            image_file = imagery_dir / "texture%23image.jpg"
+            image_file.write_bytes(REAL_IMAGE.read_bytes())
+
+            manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
+            manifest_dict["assetPath"] = "data/imagery/texture%23image.jpg"
+            manifest_file = pub / "data" / "manifest.json"
+            manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
+
+            out_file = pub / "data" / "image-pack.json"
+            sentinel = b"PRE_EXISTING_R3_SENTINEL\n"
+            out_file.write_bytes(sentinel)
+            mtime_before = out_file.stat().st_mtime_ns
+
+            # Generation mode
+            res_gen = self.run_cli(manifest_file, pub, out_file)
+            self.assertEqual(res_gen.returncode, 1)
+            self.assertTrue(
+                "percent escapes" in res_gen.stderr or "violates runtime asset-path syntax" in res_gen.stderr
+            )
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+            # Check mode
+            res_chk = self.run_cli(manifest_file, pub, out_file, check=True)
+            self.assertEqual(res_chk.returncode, 1)
+            self.assertNotIn("Traceback", res_chk.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    def test_image_path_with_trailing_space_is_rejected_and_preserves_output(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pub = Path(temp_dir) / "public"
+            imagery_dir = pub / "data" / "imagery"
+            imagery_dir.mkdir(parents=True)
+
+            # Real image file in public/data/imagery/
+            image_file = imagery_dir / "PIA26306_derived_2048.jpg"
+            image_file.write_bytes(REAL_IMAGE.read_bytes())
+
+            # Manifest with trailing space in assetPath
+            manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
+            manifest_dict["assetPath"] = "data/imagery/PIA26306_derived_2048.jpg "
+            manifest_file = pub / "data" / "manifest.json"
+            manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
+
+            out_file = pub / "data" / "image-pack.json"
+            sentinel = b"PRE_EXISTING_R3_SENTINEL\n"
+            out_file.write_bytes(sentinel)
+            mtime_before = out_file.stat().st_mtime_ns
+
+            # Generation mode
+            res_gen = self.run_cli(manifest_file, pub, out_file)
+            self.assertEqual(res_gen.returncode, 1)
+            self.assertTrue(
+                "whitespace" in res_gen.stderr or "violates runtime asset-path syntax" in res_gen.stderr
+            )
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+            # Check mode
+            res_chk = self.run_cli(manifest_file, pub, out_file, check=True)
+            self.assertEqual(res_chk.returncode, 1)
+            self.assertNotIn("Traceback", res_chk.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    def test_image_path_with_control_character_is_rejected_and_preserves_output(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pub = Path(temp_dir) / "public"
+            imagery_dir = pub / "data" / "imagery"
+            imagery_dir.mkdir(parents=True)
+
+            manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
+            manifest_dict["assetPath"] = "data/imagery/texture\timage.jpg"
+            manifest_file = pub / "data" / "manifest.json"
+            manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
+
+            out_file = pub / "data" / "image-pack.json"
+            sentinel = b"PRE_EXISTING_R3_SENTINEL\n"
+            out_file.write_bytes(sentinel)
+            mtime_before = out_file.stat().st_mtime_ns
+
+            res_gen = self.run_cli(manifest_file, pub, out_file)
+            self.assertEqual(res_gen.returncode, 1)
+            self.assertTrue(
+                "whitespace or control" in res_gen.stderr or "violates runtime asset-path syntax" in res_gen.stderr
+            )
+            self.assertEqual(out_file.read_bytes(), sentinel)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    def test_check_fails_on_index_containing_percent_escape_or_whitespace(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            out_file = Path(temp_dir) / "image-pack.json"
+            self.run_cli(REAL_MANIFEST, PUBLIC_ROOT, out_file)
+
+            # Tamper index path to include % escape
+            data = json.loads(out_file.read_text(encoding="utf-8"))
+            data["files"][1]["path"] = "data/imagery/%2e%2e/texture.jpg"
+            content = json.dumps(data, indent=2) + "\n"
+            out_file.write_text(content, encoding="utf-8")
+            mtime_before = out_file.stat().st_mtime_ns
+
+            res = self.run_cli(REAL_MANIFEST, PUBLIC_ROOT, out_file, check=True)
+            self.assertEqual(res.returncode, 1)
+            self.assertTrue(
+                "not a valid app-relative browser path" in res.stderr
+                or "violates runtime asset-path syntax" in res.stderr
+            )
+            self.assertNotIn("Traceback", res.stderr)
+            self.assertEqual(out_file.read_text(encoding="utf-8"), content)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
     # --- R2 Regressions: Strict index shape and JSON scalar types in --check ---
 
     def test_check_fails_on_schema_version_boolean(self):
