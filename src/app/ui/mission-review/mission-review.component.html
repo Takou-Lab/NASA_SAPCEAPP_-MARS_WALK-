@@ -43,30 +43,33 @@
     </div>
   </div>
 
-  <dl class="summary-grid" aria-label="Current mission state">
-    <div class="summary-cell">
-      <dt>Endpoints &amp; Waypoints</dt>
-      <dd>
-        <span class="cell-primary">{{ endpointStatusLabel() }}</span>
-        <span class="cell-secondary font-mono">· {{ waypointCount() }} waypoint(s)</span>
-      </dd>
-    </div>
+  <details class="state-summary">
+    <summary>Route, science and observation details</summary>
+    <dl class="summary-grid" aria-label="Current mission state">
+      <div class="summary-cell">
+        <dt>Endpoints &amp; Waypoints</dt>
+        <dd>
+          <span class="cell-primary">{{ endpointStatusLabel() }}</span>
+          <span class="cell-secondary font-mono">· {{ waypointCount() }} waypoint(s)</span>
+        </dd>
+      </div>
 
-    <div class="summary-cell">
-      <dt>Distance &amp; Terrain Assessment</dt>
-      <dd>{{ distanceSummary() }}</dd>
-    </div>
+      <div class="summary-cell">
+        <dt>Distance &amp; Terrain Assessment</dt>
+        <dd>{{ distanceSummary() }}</dd>
+      </div>
 
-    <div class="summary-cell">
-      <dt>Selected Science Record</dt>
-      <dd>{{ selectedScienceLabel() }}</dd>
-    </div>
+      <div class="summary-cell">
+        <dt>Selected Science Record</dt>
+        <dd>{{ selectedScienceLabel() }}</dd>
+      </div>
 
-    <div class="summary-cell">
-      <dt>Field Observations</dt>
-      <dd>{{ observationLabel() }}</dd>
-    </div>
-  </dl>
+      <div class="summary-cell">
+        <dt>Field Observations</dt>
+        <dd>{{ observationLabel() }}</dd>
+      </div>
+    </dl>
+  </details>
 
   <details class="boundary-disclosure">
     <summary>Scientific boundaries, REMS context &amp; recovery rules</summary>

@@ -79,7 +79,13 @@ async function waitForRaster() {
     src: el.getAttribute('src'),
   }));
 }
-const routeRows = () => page.locator('app-route-planner .points-table tbody tr').allInnerTexts();
+// Cell text, not innerText: innerText drops the tab separators when the table is not laid out.
+const routeRows = () =>
+  page
+    .locator('app-route-planner .points-table tbody tr')
+    .evaluateAll((rows) =>
+      rows.map((r) => [...r.cells].map((c) => c.textContent.trim()).join(' | ')),
+    );
 const notebookCount = async () =>
   Number((await page.locator('#tab-notebook').innerText()).match(/\((\d+)\)/)[1]);
 const storedRaw = () => page.evaluate((key) => localStorage.getItem(key), imageKey);
@@ -334,7 +340,7 @@ test('6. complete offline pack prepares and verifies', async () => {
   await panel.locator('summary').click();
 });
 
-test('7. disconnected full-process restart recovers the exact mission only via Load Route', async () => {
+test('7. disconnected full-process restart restores the exact mission at startup', async () => {
   await context.close(); // whole browser process for this persistent profile
   await server.close(); // origin is now unreachable
   await launch(true); // relaunch same profile with network emulated offline
@@ -342,29 +348,34 @@ test('7. disconnected full-process restart recovers the exact mission only via L
   const raster = await waitForRaster();
   expect(raster.w).toBe(manifest.width);
   await expect(page.locator('details.pwa-panel summary')).toContainText('Disconnected');
+  // Since b28f6ad the saved mission is restored automatically, before any Load Route.
+  const message = page.locator('p.mission-recovery');
+  await expect(message).toContainText('Restored saved route and 1');
+  const recoveryMessage = await message.innerText();
   const startupCount = await notebookCount();
+  expect(startupCount).toBe(1);
   await page.locator('#tab-planner').click();
+  // The planner is lazy-loaded on first open; wait for its rows before reading them.
+  await expect(page.locator('app-route-planner .points-table tbody tr')).toHaveCount(
+    savedRoute.length,
+  );
   const startupRows = await routeRows();
+  expect(startupRows).toEqual(savedRoute);
   await page.locator('#tab-notebook').click();
-  const startupEmptyText = await page
-    .locator('app-notebook .empty-notebook')
-    .innerText()
-    .catch(() => null);
-  await shot('desktop-1366-offline-startup-before-load');
-  expect(await storedRaw()).not.toBeNull();
+  await expect(page.locator('app-notebook .entry-body')).toHaveText([NOTE]);
+  await shot('desktop-1366-offline-startup-restored');
+  const secondExport = await exportMission('after-offline-restart');
+  expect(secondExport.imageRef).toBe(firstExport.imageRef);
+  expect(secondExport.route).toEqual(firstExport.route);
+  expect(secondExport.observations).toEqual(firstExport.observations);
 
+  // Explicit Load Route still works and changes nothing.
   await page.locator('#tab-planner').click();
   await page.getByRole('button', { name: 'Load route from local browser storage' }).click();
   await expect(page.locator('app-route-planner .feedback-alert')).toContainText('Route loaded');
   expect(await routeRows()).toEqual(savedRoute);
   expect(await notebookCount()).toBe(1);
-  await page.locator('#tab-notebook').click();
-  await expect(page.locator('app-notebook .entry-body')).toHaveText([NOTE]);
-  const secondExport = await exportMission('after-offline-restart');
-  expect(secondExport.imageRef).toBe(firstExport.imageRef);
-  expect(secondExport.route).toEqual(firstExport.route);
-  expect(secondExport.observations).toEqual(firstExport.observations);
-  record('offline-recovery', { startupCount, startupRows, startupEmptyText, recovered: true });
+  record('offline-recovery', { recoveryMessage, startupCount, startupRows, exportsEqual: true });
 });
 
 test('8. optional flat viewer opens offline and is removed when closed or left', async () => {
@@ -421,14 +432,31 @@ test('9. narrow 390px screen: no document overflow; visible map measured', async
   expect(metrics.bodyScroll).toBeLessThanOrEqual(metrics.docClient);
   expect(map.width).toBeGreaterThan(0);
   await page.getByRole('button', { name: 'Collapse panel sidebar' }).click();
+  // Clicking the button scrolls the page; measure from the top like a fresh view.
+  await page.evaluate(() => window.scrollTo(0, 0));
   const visibleCollapsed = await visibleMapHeight();
   await shot('phone-390-panel-collapsed', false);
   await page.getByRole('button', { name: 'Show panel sidebar' }).click();
+  // Since b28f6ad the phone page scrolls; measure the map once scrolled into view.
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await mapArea().scrollIntoViewIfNeeded();
+  const visibleAfterScroll = await visibleMapHeight();
+  const scrollY = await page.evaluate(() => Math.round(window.scrollY));
+  await shot('phone-390-map-scrolled-into-view', false);
+  expect(visibleAfterScroll).toBeGreaterThan(0);
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.locator('#tab-notebook').click();
   await expect(page.locator('app-notebook .entry-body')).toHaveText([NOTE]);
   const afterTab = await page.evaluate(() => document.documentElement.scrollWidth);
   expect(afterTab).toBeLessThanOrEqual(metrics.docClient);
-  // Observation, not a pass/fail gate: reported in TAKOU_RELEASE_BLOCKERS.md (B3).
-  record('narrow', { ...metrics, mapElement: map, visibleDefault, visibleCollapsed });
+  // Heights are observations reported in TAKOU_RELEASE_BLOCKERS.md (B3), not a size gate.
+  record('narrow', {
+    ...metrics,
+    mapElement: map,
+    visibleDefault,
+    visibleCollapsed,
+    visibleAfterScroll,
+    scrollY,
+  });
   expect(state.pageErrors).toEqual([]);
 });

@@ -68,3 +68,21 @@ button[aria-controls='viewer-panel']:focus-visible {
   outline: 3px solid #f0ab7d;
   outline-offset: 2px;
 }
+
+.mission-recovery {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+@media (max-width: 768px) {
+  :host {
+    height: auto;
+    min-height: 100dvh;
+  }
+  app-shell {
+    flex: none;
+    height: auto;
+  }
+}

@@ -58,9 +58,33 @@ export class MissionService {
   readonly assessment = computed(() => frozen(assessRoute(this.route(), this.image())));
   readonly canUndo = computed(() => this.history().length > 0);
 
+  private editRevision = 0;
+  private readonly recoveryState = signal<string | null>(null);
+  readonly recoveryMessage = this.recoveryState.asReadonly();
+
   /** Call once from root assembly. URLs respect the application's deployed base. */
   initialize(): Promise<void> {
-    return (this.initialization ??= this.loadData());
+    if (!this.initialization) {
+      const revision = this.editRevision;
+      this.initialization = this.loadData().then(() => {
+        if (this.dataStatus() !== 'ready' || !this.image() || revision !== this.editRevision)
+          return;
+        try {
+          if (localStorage.getItem(this.key()) === null) return;
+          const result = this.loadRoute();
+          this.recoveryState.set(
+            result.ok
+              ? `Restored saved route and ${this.observations().length} observation(s) on this device.`
+              : `${result.error} Saved data was not deleted. Export current work before replacing it.`,
+          );
+        } catch {
+          this.recoveryState.set(
+            'Saved mission could not be checked. Browser storage may be blocked; export your mission to keep a copy.',
+          );
+        }
+      });
+    }
+    return this.initialization;
   }
   private async loadData(): Promise<void> {
     try {
@@ -106,6 +130,7 @@ export class MissionService {
     if (id === null || this.markers().some((m) => m.id === id)) this.selectedState.set(id);
   }
   private changeRoute(next: Route): void {
+    this.editRevision++;
     this.history.update((h) => [...h, clone(this.route())]);
     this.routeState.set(frozen(next));
   }
@@ -121,6 +146,7 @@ export class MissionService {
   undoRoute(): void {
     const previous = this.history().at(-1);
     if (previous) {
+      this.editRevision++;
       this.routeState.set(frozen(clone(previous)));
       this.history.update((h) => h.slice(0, -1));
     }
@@ -155,6 +181,7 @@ export class MissionService {
           ok: false,
           error: 'Saved mission is invalid or uses a different image reference.',
         };
+      this.editRevision++;
       this.routeState.set(frozen(clone(value.route)));
       this.observationState.set(frozen(clone(value.observations)));
       this.history.set([]);
@@ -181,6 +208,7 @@ export class MissionService {
     ];
     try {
       localStorage.setItem(this.key(), JSON.stringify(this.envelope(this.route(), notes)));
+      this.editRevision++;
       this.observationState.set(frozen(notes));
       return { ok: true };
     } catch {
@@ -227,6 +255,7 @@ export class MissionService {
         error: 'Import could not be saved on this device. Current work is unchanged.',
       };
     }
+    this.editRevision++;
     this.routeState.set(frozen(route));
     this.observationState.set(frozen(observations));
     this.history.set([]);

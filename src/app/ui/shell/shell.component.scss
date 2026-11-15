@@ -260,3 +260,40 @@ app-map {
     border-top: 0;
   }
 }
+
+// Phone layout must grow with its map and controls instead of clipping a zero-height flex child.
+@media (max-width: 768px) {
+  :host {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  .shell-layout {
+    height: auto;
+  }
+  .main-workspace {
+    flex: none;
+    overflow: visible;
+  }
+  .map-workspace {
+    flex: none;
+    height: auto;
+    min-height: 0;
+  }
+  .map-container {
+    flex: none;
+    overflow: visible;
+  }
+  .side-panel {
+    flex: none;
+    height: auto;
+    overflow: visible;
+  }
+  .tab-content {
+    overflow: visible;
+  }
+  .main-workspace.panel-collapsed .side-panel {
+    height: 0 !important;
+    overflow: hidden;
+  }
+}
