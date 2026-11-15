@@ -231,14 +231,13 @@
       <div class="status-box">
         <span class="status-key">Planar Distance:</span>
         @if (
-          assessment().distanceStatus === 'derived' &&
-          assessment().planarDistanceMeters !== null
+          assessment().distanceStatus === 'derived' && assessment().planarDistanceMeters !== null
         ) {
           <span class="status-val font-mono"
             >{{ assessment().planarDistanceMeters!.toFixed(1) }} m</span
           >
         } @else {
-          <span class="status-none">Unavailable (uncalibrated)</span>
+          <span class="status-none">Unavailable (set endpoints or verify scale)</span>
         }
       </div>
     </div>
@@ -246,7 +245,12 @@
     <p class="mode-hint">
       <span class="hint-bullet" aria-hidden="true">⚠</span>
       <span class="hint-text">
-        Visual pixel sketch only: no verified metric scale, DEM slope, obstacle clearance, or route
+        @if (image()?.calibration?.verified) {
+          Projected planar distance only: no DEM slope, obstacle clearance, or route
+        } @else {
+          Visual pixel sketch only: no verified metric scale, DEM slope, obstacle clearance, or
+          route
+        }
         safety rating is supplied. Contextual science records without pixel coordinates are
         regional, not located targets on this frame.
       </span>

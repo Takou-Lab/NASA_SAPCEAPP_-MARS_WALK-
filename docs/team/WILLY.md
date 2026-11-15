@@ -1,5 +1,9 @@
 # Willy — Remaining map, installation and deployment work
 
+## New crop calibration — current implementation
+
+User-supplied 2048² Mars GeoTIFF inspected: 0.25 m projected pixels, 512 m square. New imageRef hirise-psp001752-red-center-2048-025m-v2; shared assessment derives planar distance, old-image imports rejected and old storage untouched. [Evidence and exact limits](../data/CALIBRATED_CROP_RELEASE.md). This supersedes “active image uncalibrated” in older task text, but does not supply terrain, safety or located science. Keep current ownership; update actual screenshots/claims only after candidate deployment, and never reuse old routes on the new crop.
+
 ## NEXT ACTIVE SLICE — route geometry review and map interaction
 
 Existing map/navigation/retry are accepted. Preserve any ongoing map-release work and hand it off before starting overlapping edits. If current slice is complete, implement a compact **Route geometry review** in src/app/map only: clearly show current Start/Destination/Waypoint mode, identify required missing endpoints and explain whether metric scale is unavailable from the real assessment. Present existing point coordinates with readable formatting and bottom-left pixel units; keep full precision in stored mission state. Do not create a second metric distance algorithm or scale bar from nominal parent resolution.

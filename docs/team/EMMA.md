@@ -1,5 +1,9 @@
 # Emma — Remaining professional UI and deployment work
 
+## New crop calibration — current implementation
+
+User-supplied 2048² Mars GeoTIFF inspected: 0.25 m projected pixels, 512 m square. New imageRef hirise-psp001752-red-center-2048-025m-v2; shared assessment derives planar distance, old-image imports rejected and old storage untouched. [Evidence and exact limits](../data/CALIBRATED_CROP_RELEASE.md). This supersedes “active image uncalibrated” in older task text, but does not supply terrain, safety or located science. Keep current ownership; update actual screenshots/claims only after candidate deployment, and never reuse old routes on the new crop.
+
 ## CURRENT — mission workspace accepted; candidate verification next
 
 Your dbef815 assignment is complete and accepted. Both mission-workspace/release-ui branch names refer to that same commit. **235 combined tests/build/local production-browser workflow and full-process offline recovery pass**; [review/evidence](../reviews/EMMA.md#mission-decision-workspace-dbef815--accepted). Do not repeat the substantial package below; it is retained as the completed specification.

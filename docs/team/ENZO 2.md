@@ -1,5 +1,9 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## New crop calibration — current implementation
+
+User-supplied 2048² Mars GeoTIFF inspected: 0.25 m projected pixels, 512 m square. New imageRef hirise-psp001752-red-center-2048-025m-v2; shared assessment derives planar distance, old-image imports rejected and old storage untouched. [Evidence and exact limits](../data/CALIBRATED_CROP_RELEASE.md). This supersedes “active image uncalibrated” in older task text, but does not supply terrain, safety or located science. Keep current ownership; update actual screenshots/claims only after candidate deployment, and never reuse old routes on the new crop.
+
 ## Active substantial package — mission evidence and submission readiness
 
 User explicitly requested a larger assignment. Complete these deliverables in order on existing feature/enzo-release-story, preserving unpublished work. This expands your source/story package, not runtime AI or another owner's map work. Coordinator/user are handling raster calibration; do not wait idle for it or invent its outcome.

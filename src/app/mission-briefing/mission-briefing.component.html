@@ -42,12 +42,12 @@
             } @else {
               <span>{{ img.title }}</span>
             }
-            <span class="evidence-credit">({{ img.credit }}; ref: <code>{{ img.imageRef }}</code>)</span>
+            <span class="evidence-credit"
+              >({{ img.credit }}; ref: <code>{{ img.imageRef }}</code>)</span
+            >
           </p>
         } @else {
-          <p class="evidence-empty">
-            No active MRO/HiRISE image source is loaded in this session.
-          </p>
+          <p class="evidence-empty">No active MRO/HiRISE image source is loaded in this session.</p>
         }
 
         @if (records().length > 0) {
@@ -58,7 +58,10 @@
             @for (rec of records(); track rec.id) {
               <li class="record-item">
                 <span class="record-name">{{ rec.name }}</span>
-                <span class="record-id">(<code>{{ rec.id }}</code>)</span>
+                <span class="record-id"
+                  >(<code>{{ rec.id }}</code
+                  >)</span
+                >
                 <span class="record-meta">
                   · {{ rec.evidenceType }} · position: {{ rec.positionStatus }}
                 </span>
@@ -89,7 +92,13 @@
             specific HiRISE frame.
           </li>
           <li>
-            <strong>Unavailable measurements:</strong> No verified metric scale, digital elevation
+            <strong>Unavailable measurements:</strong>
+            @if (imageInfo()?.calibrationVerified) {
+              Verified projected image scale: {{ imageInfo()?.metersPerPixel }} m/pixel. Planar
+              lengths only; no digital elevation
+            } @else {
+              No verified metric scale, digital elevation
+            }
             model (DEM), slope, obstacle clearance, current route weather, or route safety rating is
             supplied.
           </li>
@@ -113,8 +122,8 @@
             review its primary NASA source and limitations.
           </li>
           <li>
-            Open <strong>Notebook</strong> to record an exploration observation distinguishing visual
-            features from regional context.
+            Open <strong>Notebook</strong> to record an exploration observation distinguishing
+            visual features from regional context.
           </li>
           <li>
             Use <strong>Save Route</strong> in Route Planner, prepare offline caching via the
@@ -154,8 +163,9 @@
             <strong>Contextual science record selected:</strong>
             @if (selectedRecord(); as sel) {
               <span>
-                Selected <em>{{ sel.name }}</em> (<code>{{ sel.id }}</code>). Proves record
-                selection only, not that the target lies on this image or was visited.
+                Selected <em>{{ sel.name }}</em> (<code>{{ sel.id }}</code
+                >). Proves record selection only, not that the target lies on this image or was
+                visited.
               </span>
             } @else {
               <span>

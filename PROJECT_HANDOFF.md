@@ -82,6 +82,10 @@ User requested objective-related work in personal MDs. Emma 2: field observation
 
 Both mission-workspace/release-ui branches point to dbef815. Signal-based mission summary + typed workflow tab actions accepted, expands sidebar/focuses tabs without save/mode/mission mutation. 235 Angular tests/build/local browser/offline recovery pass, initial 472.63 kB. See docs/reviews/EMMA.md. No redeployment: public 38516f8 remains older; Emma's next is actual candidate acceptance, not repeat implementation. Agent 2 briefing/observation guide separate. Calibration/terrain still unavailable.
 
+## Calibrated crop integration
+
+User uploaded marswalk_crop.tif; inspected Mars GeoTIFF transform matches source window/label: 2048², 0.25 m projected pixels, 512 m extent. Active imageRef becomes hirise-psp001752-red-center-2048-025m-v2 with admitted planar scale. No resampling in display conversion; preserved crop/label/hash/transform under data/imagery and docs/data/evidence. Read CALIBRATED_CROP_RELEASE.md. 237 Angular/54 data tests and build pass. Old storage retained; legacy image imports rejected. Region/target tie-points, DEM/slope/safety still unavailable. Do not repeat old claims that active scale cannot be established after this new source admission.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

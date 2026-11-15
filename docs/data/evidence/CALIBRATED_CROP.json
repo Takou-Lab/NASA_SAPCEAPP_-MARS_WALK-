@@ -1,0 +1,48 @@
+{
+  "imageRef": "hirise-psp001752-red-center-2048-025m-v2",
+  "sourceProduct": "PSP_001752_1750_RED",
+  "cropSha256": "f2e6fda899f945b1cf315bc6f63389ee8098ef05c6a94bfeb1c503d3097b3123",
+  "displaySha256": "c6cd79381c22c7ae5289ed236165b8f0047cd4489c6b0f2b7417371c5a9a8d23",
+  "sourceDimensions": [
+    28417,
+    58616
+  ],
+  "sourcePixelWindow": [
+    13184,
+    28284,
+    2048,
+    2048
+  ],
+  "dimensions": [
+    2048,
+    2048
+  ],
+  "pixelSizeMeters": [
+    0.25,
+    -0.25
+  ],
+  "upperLeftProjectedMeters": [
+    -2531487.0,
+    -286803.75
+  ],
+  "boundsProjectedMeters": [
+    -2531487.0,
+    -287315.75,
+    -2530975.0,
+    -286803.75
+  ],
+  "displayConversion": "2nd\u201398th percentile 8-bit grayscale stretch; JPEG quality90; no crop/resample/rotation beyond source window",
+  "stretchBounds": [
+    265.0,
+    614.0
+  ],
+  "crs": {
+    "name": "Equirectangular MARS",
+    "radiusMeters": 3396190.0,
+    "centerLongitude": 180,
+    "centerLatitude": 0,
+    "units": "meters"
+  },
+  "oldImageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
+  "compatibility": "New storage key; old missions not transformed or deleted. Old-image imports rejected."
+}

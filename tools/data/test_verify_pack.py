@@ -29,7 +29,7 @@ class VerifyPackTests(unittest.TestCase):
         success, result = verify_pack.verify_package(str(REAL_MANIFEST), str(PUBLIC_ROOT))
         self.assertTrue(success, result["errors"])
         self.assertTrue(result["success"])
-        self.assertEqual(result["decodedDimensions"], (2048, 1042))
+        self.assertEqual(result["decodedDimensions"], (2048, 2048))
         self.assertIn("fully decoded via Pillow", result["decoder"])
 
     def test_truncated_image_fails_in_both_output_modes(self):

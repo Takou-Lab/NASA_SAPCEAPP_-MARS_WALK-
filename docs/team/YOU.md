@@ -1,5 +1,9 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## New crop calibration — current implementation
+
+User-supplied 2048² Mars GeoTIFF inspected: 0.25 m projected pixels, 512 m square. New imageRef hirise-psp001752-red-center-2048-025m-v2; shared assessment derives planar distance, old-image imports rejected and old storage untouched. [Evidence and exact limits](../data/CALIBRATED_CROP_RELEASE.md). This supersedes “active image uncalibrated” in older task text, but does not supply terrain, safety or located science. Keep current ownership; update actual screenshots/claims only after candidate deployment, and never reuse old routes on the new crop.
+
 ## Active takeover — calibration/terrain evidence
 
 User requested taking Gaddielle's slice while she is unavailable. [Audit/go-no-go/source inputs](../data/CALIBRATION_TAKEOVER.md) records successful image integrity/similarity checks and HTTP 403 original catalog access. No metric/terrain admission with present files. Need small original labels/georeferenced raster and exact processing chain; preserve her branch and current image identities. Tool tools/data/audit_spatial_inputs.py is read-only and produces the durable evidence JSON. Do not call nominal source resolution a calibrated derivative. No deployment in this slice.

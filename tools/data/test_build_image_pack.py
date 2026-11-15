@@ -11,7 +11,7 @@ import unittest
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = REPO_ROOT / "tools/data/build_image_pack.py"
 REAL_MANIFEST = REPO_ROOT / "public/data/manifest.json"
-REAL_IMAGE = REPO_ROOT / "public/data/imagery/PIA26306_derived_2048.jpg"
+REAL_IMAGE = REPO_ROOT / "public/data/imagery/PSP_001752_1750_RED_crop_2048.jpg"
 PUBLIC_ROOT = REPO_ROOT / "public"
 
 
@@ -40,15 +40,15 @@ class BuildImagePackTests(unittest.TestCase):
 
             data = json.loads(out_file.read_text(encoding="utf-8"))
             self.assertEqual(data["schemaVersion"], 1)
-            self.assertEqual(data["imageRef"], "hirise-mro-pia26306-boxwork-2048x1042-v1")
+            self.assertEqual(data["imageRef"], "hirise-psp001752-red-center-2048-025m-v2")
             self.assertEqual(len(data["files"]), 2)
             self.assertEqual(data["files"][0]["path"], "data/manifest.json")
-            self.assertEqual(data["files"][0]["bytes"], 1200)
-            self.assertEqual(data["files"][0]["sha256"], "40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82")
-            self.assertEqual(data["files"][1]["path"], "data/imagery/PIA26306_derived_2048.jpg")
-            self.assertEqual(data["files"][1]["bytes"], 523272)
-            self.assertEqual(data["files"][1]["sha256"], "7b814497d98d7e5fb89dd122c65b01c32e5c2099b039ef62887a606af199bfa8")
-            self.assertEqual(data["totalBytes"], 524472)
+            self.assertEqual(data["files"][0]["bytes"], 1694)
+            self.assertEqual(data["files"][0]["sha256"], "612479d699f982aae815cdf9ea44057ce1acc061d664b59105c0407c6c5e0a41")
+            self.assertEqual(data["files"][1]["path"], "data/imagery/PSP_001752_1750_RED_crop_2048.jpg")
+            self.assertEqual(data["files"][1]["bytes"], 1431356)
+            self.assertEqual(data["files"][1]["sha256"], "c6cd79381c22c7ae5289ed236165b8f0047cd4489c6b0f2b7417371c5a9a8d23")
+            self.assertEqual(data["totalBytes"], 1433050)
 
     def test_deterministic_identical_generation(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -115,7 +115,7 @@ class BuildImagePackTests(unittest.TestCase):
             manifest_file = data_dir / "manifest.json"
             manifest_file.write_bytes(REAL_MANIFEST.read_bytes())
 
-            image_file = imagery_dir / "PIA26306_derived_2048.jpg"
+            image_file = imagery_dir / "PSP_001752_1750_RED_crop_2048.jpg"
             original_bytes = REAL_IMAGE.read_bytes()
             image_file.write_bytes(original_bytes[: len(original_bytes) // 4])
 
@@ -204,7 +204,7 @@ class BuildImagePackTests(unittest.TestCase):
             other_manifest = data_dir / "other-manifest.json"
             other_manifest.write_bytes(REAL_MANIFEST.read_bytes())
 
-            image_file = imagery_dir / "PIA26306_derived_2048.jpg"
+            image_file = imagery_dir / "PSP_001752_1750_RED_crop_2048.jpg"
             image_file.write_bytes(REAL_IMAGE.read_bytes())
 
             out_file = data_dir / "image-pack.json"
@@ -225,7 +225,7 @@ class BuildImagePackTests(unittest.TestCase):
 
             # Create manifest pointing to query-appended filename
             manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
-            manifest_dict["assetPath"] = "data/imagery/PIA26306_derived_2048.jpg?v=1"
+            manifest_dict["assetPath"] = "data/imagery/PSP_001752_1750_RED_crop_2048.jpg?v=1"
             manifest_file = data_dir / "manifest.json"
             manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
 
@@ -250,11 +250,11 @@ class BuildImagePackTests(unittest.TestCase):
             imagery_dir.mkdir(parents=True)
 
             manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
-            manifest_dict["assetPath"] = "data/imagery/PIA26306_derived_2048.jpg#frag"
+            manifest_dict["assetPath"] = "data/imagery/PSP_001752_1750_RED_crop_2048.jpg#frag"
             manifest_file = data_dir / "manifest.json"
             manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
 
-            image_file = imagery_dir / "PIA26306_derived_2048.jpg#frag"
+            image_file = imagery_dir / "PSP_001752_1750_RED_crop_2048.jpg#frag"
             image_file.write_bytes(REAL_IMAGE.read_bytes())
 
             out_file = data_dir / "image-pack.json"
@@ -276,11 +276,11 @@ class BuildImagePackTests(unittest.TestCase):
             imagery_dir.mkdir(parents=True)
 
             manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
-            manifest_dict["assetPath"] = "data\\imagery\\PIA26306_derived_2048.jpg"
+            manifest_dict["assetPath"] = "data\\imagery\\PSP_001752_1750_RED_crop_2048.jpg"
             manifest_file = data_dir / "manifest.json"
             manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
 
-            image_file = imagery_dir / "PIA26306_derived_2048.jpg"
+            image_file = imagery_dir / "PSP_001752_1750_RED_crop_2048.jpg"
             image_file.write_bytes(REAL_IMAGE.read_bytes())
 
             out_file = data_dir / "image-pack.json"
@@ -375,12 +375,12 @@ class BuildImagePackTests(unittest.TestCase):
             imagery_dir.mkdir(parents=True)
 
             # Real image file in public/data/imagery/
-            image_file = imagery_dir / "PIA26306_derived_2048.jpg"
+            image_file = imagery_dir / "PSP_001752_1750_RED_crop_2048.jpg"
             image_file.write_bytes(REAL_IMAGE.read_bytes())
 
             # Manifest with trailing space in assetPath
             manifest_dict = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
-            manifest_dict["assetPath"] = "data/imagery/PIA26306_derived_2048.jpg "
+            manifest_dict["assetPath"] = "data/imagery/PSP_001752_1750_RED_crop_2048.jpg "
             manifest_file = pub / "data" / "manifest.json"
             manifest_file.write_text(json.dumps(manifest_dict), encoding="utf-8")
 
@@ -479,7 +479,7 @@ class BuildImagePackTests(unittest.TestCase):
 
             # Change bytes to JSON float
             raw = out_file.read_text(encoding="utf-8")
-            raw_float = raw.replace('"bytes": 1200', '"bytes": 1200.0')
+            raw_float = raw.replace('"bytes": 1694', '"bytes": 1694.0')
             out_file.write_text(raw_float, encoding="utf-8")
             mtime_before = out_file.stat().st_mtime_ns
 

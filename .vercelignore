@@ -9,3 +9,6 @@ public/data/imagery/PIA26306.jpg
 public/data/terrain
 **/__pycache__
 **/*.pyc
+
+public/data/imagery/PIA26306_derived_2048.jpg
+data/imagery

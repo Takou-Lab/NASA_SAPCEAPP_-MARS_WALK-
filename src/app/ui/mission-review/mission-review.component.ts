@@ -63,7 +63,9 @@ export class MissionReviewComponent {
           : '';
       return `Derived planar: ${meters} m${scaleNote} · Terrain/slope: unavailable`;
     }
-    return 'Planar distance: unavailable (uncalibrated raster) · Terrain/slope: unavailable';
+    return cal?.verified
+      ? 'Planar distance: select both endpoints · Terrain/slope: unavailable'
+      : 'Planar distance: unavailable (uncalibrated raster) · Terrain/slope: unavailable';
   });
 
   readonly selectedRecord = computed<ScienceMarker | null>(() => {

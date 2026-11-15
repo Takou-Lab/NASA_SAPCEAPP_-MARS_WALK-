@@ -1,28 +1,28 @@
 {
   "schemaVersion": 1,
-  "imageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
-  "assetPath": "data/imagery/PIA26306_derived_2048.jpg",
+  "imageRef": "hirise-psp001752-red-center-2048-025m-v2",
+  "assetPath": "data/imagery/PSP_001752_1750_RED_crop_2048.jpg",
   "width": 2048,
-  "height": 1042,
+  "height": 2048,
   "coordinateSystem": "image-pixels-bottom-left",
   "source": {
-    "title": "HiRISE Views Mount Sharp's Boxwork (PIA26306 / PSP_001752_1750)",
-    "url": "https://photojournal.jpl.nasa.gov/catalog/PIA26306",
+    "title": "HiRISE PSP_001752_1750_RED \u2014 512 m projected central crop",
+    "url": "https://www.uahirise.org/PSP_001752_1750",
     "credit": "NASA/JPL-Caltech/University of Arizona"
   },
   "observationDate": "2006-12-10",
   "coverageStatus": "regional-context",
   "limitations": [
-    "Visual map-projected derivative published by NASA/JPL Planetary Photojournal for public dissemination.",
-    "Calibration unverified: planar metric distance cannot be derived from raw image pixels alone without verified ground control tie-points.",
-    "Orientation represents regional context of the lower Mount Sharp boxwork formations; exact geodetic alignment requires map projection transformation.",
-    "Elevation data is unavailable in this visual raster; terrain relief and slope cannot be calculated from image brightness."
+    "Central 512 x 512 projected-meter crop of HiRISE PSP_001752_1750_RED; exact boxwork target and rover/science-site overlap are unverified.",
+    "Distance is derived in the Mars equirectangular map plane, not a geodesic or terrain-following length; projection distortion and source positional uncertainty remain.",
+    "No DEM, elevation, slope, obstacle clearance or route safety classification is supplied. Optical brightness is not elevation.",
+    "GeoTIFF and label supplied by user from local QGIS/GDAL workflow; original full JP2 was not independently downloaded here.",
+    "Science records and historical REMS excerpt are regional context, not verified measurements at the drawn route."
   ],
   "calibration": {
-    "verified": false,
-    "metersPerPixel": null,
-    "sourceUrl": null,
-    "method": null
+    "verified": true,
+    "metersPerPixel": 0.25,
+    "sourceUrl": "https://hirise-pds.lpl.arizona.edu/download/PDS/RDR/PSP/ORB_001700_001799/PSP_001752_1750/PSP_001752_1750_RED.JP2",
+    "method": "User-supplied GeoTIFF crop: Mars equirectangular CRS in meters, 0.25 m square pixels; 2048x2048 display conversion without geometric resampling. Distances are projected planar lengths, not terrain-following or safety assessments."
   }
 }
-

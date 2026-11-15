@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## New crop calibration — current implementation
+
+User-supplied 2048² Mars GeoTIFF inspected: 0.25 m projected pixels, 512 m square. New imageRef hirise-psp001752-red-center-2048-025m-v2; shared assessment derives planar distance, old-image imports rejected and old storage untouched. [Evidence and exact limits](../data/CALIBRATED_CROP_RELEASE.md). This supersedes “active image uncalibrated” in older task text, but does not supply terrain, safety or located science. Keep current ownership; update actual screenshots/claims only after candidate deployment, and never reuse old routes on the new crop.
+
 ## Coordinator takeover while unavailable
 
 User and coordinator are handling the calibration/terrain slice now; preserve your branch/raw downloads and do not duplicate edits when you return. [Actual checks and smallest source handoff](../data/CALIBRATION_TAKEOVER.md). Local imagery is readable but not georeferenced; original catalogs are HTTP 403 here. Candidate DTM overlap/scale claims remain unverified. If you already have original image/DTM labels or a georeferenced small crop, hand off exact files/hashes/commands rather than another catalog summary. No reset or overwrite of your collection work.

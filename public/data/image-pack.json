@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "imageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
+  "imageRef": "hirise-psp001752-red-center-2048-025m-v2",
   "files": [
     {
       "path": "data/manifest.json",
-      "bytes": 1200,
-      "sha256": "40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82"
+      "bytes": 1694,
+      "sha256": "612479d699f982aae815cdf9ea44057ce1acc061d664b59105c0407c6c5e0a41"
     },
     {
-      "path": "data/imagery/PIA26306_derived_2048.jpg",
-      "bytes": 523272,
-      "sha256": "7b814497d98d7e5fb89dd122c65b01c32e5c2099b039ef62887a606af199bfa8"
+      "path": "data/imagery/PSP_001752_1750_RED_crop_2048.jpg",
+      "bytes": 1431356,
+      "sha256": "c6cd79381c22c7ae5289ed236165b8f0047cd4489c6b0f2b7417371c5a9a8d23"
     }
   ],
-  "totalBytes": 524472
+  "totalBytes": 1433050
 }

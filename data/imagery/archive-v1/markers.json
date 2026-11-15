@@ -1,0 +1,63 @@
+[
+  {
+    "id": "curiosity-mount-sharp-boxwork",
+    "name": "Mount Sharp Boxwork Ridges and Hollows",
+    "imageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
+    "position": null,
+    "positionStatus": "unavailable",
+    "instrument": "MAHLI / APXS (Curiosity Rover); HiRISE (MRO context)",
+    "date": "2026-02-09",
+    "finding": "Observation: Curiosity imaged the 'Nevado Sajama 2' drill hole with MAHLI on Sol 4803 (2026-02-09) and planned APXS and MAHLI bedrock observations ('Mollecita', 'Monte Cielo') while driving along wide boxwork ridges and hollows; orbital HiRISE (PIA26306) observed the 10–20 km weblike ridge network on lower Mount Sharp. Interpretation: Scientists interpret the boxwork ridges as ancient groundwater-deposited minerals in bedrock fractures left standing after softer rock eroded.",
+    "evidenceType": "interpreted",
+    "source": {
+      "title": "Curiosity Blog, Sols 4804-4811: Kicking Off the Final Phase of Boxwork Exploration (with PIA26306 HiRISE context)",
+      "url": "https://science.nasa.gov/blog/curiosity-blog-sols-4804-4811-kicking-off-the-final-phase-of-boxwork-exploration/",
+      "credit": "NASA/JPL-Caltech/MSSS"
+    },
+    "limitations": [
+      "Exact pixel coordinates on active raster 'hirise-mro-pia26306-boxwork-2048x1042-v1' are unavailable because the blog post and PIA26306 caption do not provide pixel tie-points.",
+      "Ancient groundwater mineralization is an interpretation and does not establish current liquid water.",
+      "Direct HTTP fetch to jpl.nasa.gov/news/nasas-curiosity-rover-explores-a-spiderweb-on-mars/ returned HTTP 403 Forbidden; verified via accessible science.nasa.gov mission blog and PIA26306 catalog page instead."
+    ]
+  },
+  {
+    "id": "curiosity-vera-rubin-ridge-hematite",
+    "name": "Vera Rubin Ridge ('Pettegrove Point' / 'Ailsa Craig' Target)",
+    "imageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
+    "position": null,
+    "positionStatus": "unavailable",
+    "instrument": "MAHLI / APXS / DRT (Curiosity Rover)",
+    "date": null,
+    "finding": "Observation: On Sol 2121 on Vera Rubin Ridge ('Pettegrove Point' member), Curiosity brushed drill target 'Ailsa Craig' with the Dust Removal Tool (DRT) and characterized it using MAHLI and APXS. Derivation: Orbital data indicated a varying hematite signal across Vera Rubin Ridge drill sites.",
+    "evidenceType": "measured",
+    "source": {
+      "title": "Curiosity Mission Update — Sol 2121: Blackjack! (Vera Rubin Ridge)",
+      "url": "https://science.nasa.gov/blog/sol-2121-blackjack/",
+      "credit": "NASA/JPL-Caltech"
+    },
+    "limitations": [
+      "Vera Rubin Ridge is a regional Mount Sharp traverse milestone outside or unverified within the PIA26306 boxwork pixel frame; position is unavailable.",
+      "Source documents Sol 2121 MAHLI/APXS characterization and orbital hematite signal but does not state an exact Earth UTC date or quantitative mineral percentages."
+    ]
+  },
+  {
+    "id": "curiosity-sulfate-bearing-unit",
+    "name": "Glen Torridon Clay-Bearing Unit to Sulfate-Rich Strata Transition",
+    "imageRef": "hirise-mro-pia26306-boxwork-2048x1042-v1",
+    "position": null,
+    "positionStatus": "unavailable",
+    "instrument": "Left Navigation Camera / Drill / CheMin / SAM (Curiosity Rover)",
+    "date": null,
+    "finding": "Observation: Curiosity sampled the mudstone-dominated Murray formation and clay-bearing Glen Torridon region (including drill sample #22 'Glen Etive' and drill hole #33 'Maria Gordon' near Greenheugh Pediment on Sol 3251, imaged by Left Navcam on Sol 3247), where drilled samples are delivered to CheMin and SAM. Interpretation: The ascent from clay-rich Glen Torridon rocks toward the sulfate-rich layers higher on Mount Sharp tracks a major environmental transition.",
+    "evidenceType": "derived",
+    "source": {
+      "title": "Curiosity Mission Update — Sols 3251-3253: Celebrating Another Go Around",
+      "url": "https://science.nasa.gov/blog/sols-3251-3253-celebrating-another-go-around/",
+      "credit": "NASA/JPL-Caltech"
+    },
+    "limitations": [
+      "Regional Mount Sharp stratigraphic traverse context; exact pixel coordinates on raster 'hirise-mro-pia26306-boxwork-2048x1042-v1' are unavailable.",
+      "Source summarizes multi-sol campaign milestones (Sols 236–3251) rather than single-sample quantitative chemical assay tables; does not establish route safety or slope stability."
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+Pillow>=10
+numpy>=2
+tifffile>=2025
+imagecodecs>=2025
