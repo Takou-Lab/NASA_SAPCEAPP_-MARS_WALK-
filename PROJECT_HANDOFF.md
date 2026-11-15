@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## AI-generated relief in the existing 3D section
+
+[Model and verification](docs/qa/AI_RELIEF_VIEWER.md). Uploaded Pixal3D GLB is selectable alongside the flat view. Model-only inclination/range/area and triangle taps are implemented; they never populate real terrain/slope/safety or route assessments. Full offline pack now includes the model. Stable review URL remains https://marswalk-review-boys-band.vercel.app/. Production alias unchanged.
+
 ## Current mobile recovery fix
 
 See [mobile fix evidence](docs/qa/MOBILE_MAP_RECOVERY_FIX.md). Phone map clipping and fresh-session recovery are fixed; 241 tests/build and full-process offline browser checks pass. Physical device acceptance remains pending. Stable public review URL: https://marswalk-review-boys-band.vercel.app/ (runtime b28f6ad). Production stays unchanged.

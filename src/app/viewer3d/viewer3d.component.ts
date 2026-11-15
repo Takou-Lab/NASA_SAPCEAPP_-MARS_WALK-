@@ -16,6 +16,7 @@ import { MissionService } from '../core/mission.service';
 import { ImageManifest, ScienceMarker } from '../core/models';
 import { routePoints } from '../core/route';
 import { validPoint } from '../core/validation';
+import { AiReliefComponent } from './ai-relief.component';
 import { DISPLAY_Y_OFFSET, mapPointTo3D } from './transform';
 
 type ImageDisplayState = 'waiting' | 'loading' | 'ready' | 'error';
@@ -23,11 +24,22 @@ type ImageDisplayState = 'waiting' | 'loading' | 'ready' | 'error';
 @Component({
   selector: 'app-viewer3d',
   standalone: true,
+  imports: [AiReliefComponent],
   templateUrl: './viewer3d.component.html',
   styleUrl: './viewer3d.component.scss',
 })
 export class Viewer3dComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvasContainer') private containerRef?: ElementRef<HTMLDivElement>;
+  readonly reliefMode = signal(false);
+  setReliefMode(value: boolean): void {
+    if (this.reliefMode() === value) return;
+    this.cleanup();
+    this.reliefMode.set(value);
+    if (!value)
+      setTimeout(() => {
+        if (!this.destroyed && !this.reliefMode()) this.ngAfterViewInit();
+      });
+  }
   readonly mission = inject(MissionService);
   private readonly document = inject(DOCUMENT);
   private readonly graphics = inject(VIEWER_GRAPHICS);
