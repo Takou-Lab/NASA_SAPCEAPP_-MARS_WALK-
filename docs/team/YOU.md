@@ -1,5 +1,12 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Current continuation task — 15 November 2026
+
+Start with [PROJECT_HANDOFF.md](../../PROJECT_HANDOFF.md). Fresh clean-main d6801a4 checks pass: 144 Angular tests, 11 worker tests, 33 data tests and production build (433.80 kB). [Durable evidence](../qa/CONTINUITY_BASELINE.md). This supersedes earlier “current” baseline counts below without relabeling historical results.
+
+Next unblocked integration task: review Gaddielle's new environmental correction tip 0f6bd95 against existing R1–R4 findings; no acceptance yet. Enzo c35b021 still needs correction for 11 integrated verifier failures. Official challenge/submission URL and deadline have been requested again and remain unverified. Current main is ahead of the documented public deployment b6669fb. Prepare the release candidate while physical device checks remain pending. This task does not authorize site/environment publication or competition submission.
+
+
 > Current work piece: [W6](../../TEAM_TASKS.md#w6).
 
 Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
@@ -12,7 +19,7 @@ Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual publ
 
 ## Coordinator PWA delivery — current handoff
 
-**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.
+**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation remains pending; public hosting has recorded acceptance evidence. Existing 131-test statements below are historical baseline counts.
 
 Core foundation is implemented. Next: actual hosting/target-device acceptance, official requirements verification, and shared environmental contract once real samples arrive. Enzo’s future pure verifier is not yet integrated; current complete-pack byte checks are already real. The Vercel host is now live; use its exact deployment/source record above. Optional agent plugin/MCP profile installation and automatic GitHub connection remain incomplete.
 
@@ -42,9 +49,9 @@ Own root/bootstrap, `src/app/core/`, shared contracts/loading, package/lock/buil
 ## Phase 3 — Deployment preparation and release execution
 
 - [x] Produce `docs/DEPLOYMENT.md` with build/base-path/header/preview/rollback instructions.
-- [ ] Choose the actual host/account/base path and provide its specific configuration; none has been chosen or published. App is a static Angular build at `dist/marswalk/browser`; no backend is currently required.
+- [x] Choose the actual host/account/base path and provide its specific configuration; Vercel root hosting is configured and published as documented above. App is a static Angular build at `dist/marswalk/browser`; no backend is currently required.
 - [ ] Document reproducible Node/npm setup, `npm ci`, `npm test`, `npm run build`, data verification, build output, environment/base path and preview/production steps. Inspect licenses/secrets; do not deploy archival/raw-source files indiscriminately.
-- [ ] Configure HTTPS, actual root/subpath base URL, case-sensitive assets, MIME types, SPA navigation handling as needed, service-worker scope and correct cache/update headers. Avoid immutable caching for entry HTML/worker/control files; use versioned/fingerprinted asset caching deliberately.
+- [x] Configure HTTPS, root hosting, case-sensitive assets, MIME types, filesystem/404 handling, service-worker scope and cache/update headers; see VERCEL_PRODUCTION.md for actual observed headers. Avoid immutable caching for entry HTML/worker/control files; use versioned/fingerprinted asset caching deliberately.
 - [ ] Prepare an isolated preview and record exact commit/artifact/URL when deployment is explicitly requested in the release workflow. This documentation update itself does not publish/deploy. Confirm provider setup/credentials through available authorized tools when needed; never commit tokens.
 - [ ] Validate clean/private-window first load, installed scope/icons, real full preparation/disconnected close-reopen and safe updates with Longla/Willy/Emma/Enzo/Gaddielle. Record errors and fix/retest blockers. Build success alone is insufficient.
 - [ ] Promote the tested artifact through the authorized release workflow; preserve known-good build and rollback procedure. Recheck actual production URL, no login requirement if required by event, source/data versions and supported-device mission. Git merges and environment publication are separate operations.
@@ -61,7 +68,7 @@ Own root/bootstrap, `src/app/core/`, shared contracts/loading, package/lock/buil
 
 Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
 
-For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
+For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current reviewed build is within initial/style warning budgets; preserve those budgets.
 
 Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
 

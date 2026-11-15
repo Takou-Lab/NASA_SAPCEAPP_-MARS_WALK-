@@ -1,5 +1,7 @@
 # MARSWALK — Current handoff checklist
 
+> **Cross-chat continuation:** read [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md) first. It records the latest baseline, pending reviews and distinction between main and production; older counts below remain historical.
+
 > **Live deployment update — 15 November:** https://marswalk-jet.vercel.app/ is public and passes production-origin browser offline restart/mission recovery checks. Source `b6669fb`; [deployment evidence](docs/qa/VERCEL_PRODUCTION.md), [Vercel runbook](docs/VERCEL_SETUP.md). Physical home-screen acceptance remains pending; automatic GitHub deployment is not connected. Earlier revision-scoped statements below retain their historical scope.
 
 
