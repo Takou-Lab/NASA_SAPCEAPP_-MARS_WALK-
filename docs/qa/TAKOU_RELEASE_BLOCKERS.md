@@ -1,9 +1,10 @@
 # Release blockers and submission checklist — Takou
 
 Started 15 November 2026 by Takou (Charles) with a coding agent, on branch
-`feature/takou-release-integration` from `main` **2626a6b**. Runtime source is identical to the
-public candidate **38516f8** apart from `public/data/terrain/README.md`, which is not in the
-offline pack. Evidence and commands: [TAKOU_RELEASE.md](TAKOU_RELEASE.md).
+`feature/takou-release-integration`. First tested on `main` **2626a6b** (runtime = public
+candidate 38516f8), then rebased onto `main` **842ad3d** (runtime = calibrated public candidate
+3d47a7b apart from CRLF in `index.html`) and every check re-run. Evidence and commands:
+[TAKOU_RELEASE.md](TAKOU_RELEASE.md).
 
 Priority order: lost mission data → failed offline recovery → broken loading → unusable
 controls → inaccessible links → cosmetics. "Pending" means not run. Nothing here changes product
@@ -13,7 +14,7 @@ behaviour; fixes are proposals for the named owner.
 | --- | --- | --- | --- | --- |
 | B1 | Data loss | Saving before Load Route after reopening overwrites saved notes | Coordinator (+ Emma 1 wording) | Open, reproduced |
 | B2 | Data loss | Saving after a failed load overwrites the unreadable record | Coordinator | Open, reproduced |
-| B3 | Unusable control | 89 px of visible map at 390 × 844 | Emma 1 + Willy | Open, measured |
+| B3 | Unusable control | Phone 390 × 844: 0 px of map visible on 842ad3d (89 px on 2626a6b) | Emma 1 + Willy | Open, measured |
 | B4 | Low | Windows checkout changes the pack version (CRLF `index.html`) | Coordinator | Open |
 
 **Until B1 is fixed, demo rule:** after reopening the app, press **Load Route** before saving
@@ -44,24 +45,24 @@ anything.
 | Owner / fix | Coordinator, same change as B1. |
 | Retest | Pending. |
 
-## B3 — On a phone the map shows only 89 px (UNUSABLE CONTROL, open)
+## B3 — On a phone the map is off-screen or nearly so (UNUSABLE CONTROL, open)
 
 | Field | Detail |
 | --- | --- |
-| Tested revision | Production build of 2626a6b, `http://127.0.0.1:4310/`, Chrome 157 headless at 390 × 844 (Package 3 check 9, run `2026-11-15T15-06-12-055Z-r0noe4`) |
+| Tested revision | Production builds of 842ad3d (run `2026-11-15T15-18-08-462Z-vcdn2y`) and 2626a6b (run `…r0noe4`), `http://127.0.0.1:4310/`, Chrome 157 headless at 390 × 844 (Package 3 check 9) |
 | Reproduction | Open the app at 390 × 844 (or any phone in portrait). Do not collapse the panel. |
 | Expected | The map is the main surface and can be tapped to place route points. |
-| Observed | **89 px** of map visible; status pills, two sets of layer toggles and the map toolbar fill the top; the side panel fills the bottom. Collapse Panel gives **347 px**. No horizontal overflow. |
+| Observed | **842ad3d:** the new Mission Decision Summary sits above the map; the map starts at y = 898 px, so **0 px is visible** without scrolling, with or without Collapse Panel. **2626a6b:** 89 px visible, 347 px with Collapse Panel. Both: status pills, two sets of layer toggles and the map toolbar take the top; no horizontal overflow. Desktop 1366 × 768 on 842ad3d: about 270 px of map. |
 | Evidence | `docs/design/takou-screens/phone-390-offline.png`, `phone-390-panel-collapsed.png`, `tools/qa/takou/results/latest.json` (`visibleDefault`, `visibleCollapsed`) |
 | User impact | Route drawing on a phone is close to impossible without first finding Collapse Panel. Browser emulation only; confirm on Royce's Samsung. |
-| Proposed owner / fix | Emma 1 (shell/header layout) with Willy (map toolbar). Design review problem 2: compact phone header, map first at ≥ 55 % height, one layer-toggle set. Quick interim option: start with the panel collapsed below 768 px. |
+| Proposed owner / fix | Emma 1 (shell/header layout and the decision summary) with Willy (map toolbar). Design review problem 2: compact phone header, map first at ≥ 55 % height, decision summary collapsed by default on phones, one layer-toggle set. |
 | Retest | Pending. Rerun the harness; target `visibleDefault` ≥ 460 at 390 × 844. |
 
 ## B4 — Windows builds produce a different offline-pack version (LOW, open)
 
 | Field | Detail |
 | --- | --- |
-| Observed | Same source, Windows checkout: pack `ce81d3668c27…` vs public `a80ff718c27e…`. Only `index.html` differs, by 16 CR bytes. `src/index.html` is checked out with CRLF (`git ls-files --eol`: `i/lf w/crlf`). |
+| Observed | Windows checkout vs public candidates: 2626a6b pack `ce81d3668c27…` vs `a80ff718c27e…`; 842ad3d pack `f3ac6a3865bf…` vs 3d47a7b `e490cf570d50…`. In both cases only `index.html` differs, by 16 CR bytes. `src/index.html` is checked out with CRLF (`git ls-files --eol`: `i/lf w/crlf`). |
 | Impact | Deploying from a Windows machine changes the pack version, so installed users get an "update" that changes nothing; build identity checks across team machines disagree. No functional change. |
 | Proposed owner / fix | Coordinator: add `src/index.html text eol=lf` (or `src/** text eol=lf`) to `.gitattributes`, then renormalise. |
 | Retest | Pending. Windows build pack hash should then equal the Linux build's. |
@@ -81,7 +82,9 @@ before judging (owner: Enzo Agent 2 for presentation documents, coordinator for 
 | C3 | `docs/DEMO_SCRIPT.md:55` | Correctly says to press Load Route, but does not warn presenters against saving first. | Add: "Do not press Save Route or save a note before Load Route" until B1 is fixed. |
 | C4 | `docs/PRESENTATION.md:26` | "WebGL resources released on exit" is stronger than the evidence. The code disposes geometries, materials and textures and the smoke test shows the viewer DOM is removed; GPU memory release is not measured. | "Viewer is removed and its Three.js objects disposed when closed." |
 | C5 | `docs/AI_USE.md:24`, `docs/JUDGES_QA.md:59` | AI disclosure names OpenAI Codex and Google Antigravity only. Takou's QA branch (tests, harness, these documents) was produced with Anthropic Claude Code under his supervision. | Add Claude Code to the tool list with the scope above. Development tooling only; no runtime AI. |
-| C6 | Physical device | `PWA_ACCEPTANCE.md` on Royce's branch records Samsung install/offline as passed, but that branch is unreviewed and its note test failed. | Keep physical-device acceptance **pending** in all presentation material until a reviewed report on one exact deployed revision exists. |
+| C6 | `docs/DEMO_SCRIPT.md:31` | Says distance is "reported as unavailable: pixel scale is uncalibrated". Since 3d47a7b the app shows a derived planar distance (observed "Derived planar: 400.4 m (0.25 m/px …)"). The script now contradicts the screen. | "Planar distance in the projected map plane from the verified 0.25 m crop; not terrain-following; slope and safety unavailable." |
+| C7 | `docs/JUDGES_QA.md:29` | States the raster has unverified calibration and metric distance is unavailable. Outdated for the v2 image. | Same correction as C6; keep "science records are not located on this image" (still true). |
+| C8 | Physical device | `PWA_ACCEPTANCE.md` on Royce's branch records Samsung install/offline as passed, but that branch is unreviewed and its note test failed. | Keep physical-device acceptance **pending** in all presentation material until a reviewed report on one exact deployed revision exists. |
 
 ## Checklist status
 
@@ -97,7 +100,7 @@ commands and raw results.
 | Production build | **Pass**, initial 450.97 kB, Leaflet CommonJS warning only |
 | Production serve, console/network, manifest/icons/worker/pack | **Pass** locally: 0 page/console errors, 0 failed requests, 0 404s; 3 icons 200; worker registered; 19-file pack verified |
 | Disconnected full-process recovery (desktop Chrome) | **Pass when Load Route is pressed first**; B1 explains the loss path otherwise |
-| Phone-width usability | **Fails** B3 (89 px visible map); no horizontal overflow |
+| Phone-width usability | **Fails** B3 (0 px visible map on 842ad3d); no horizontal overflow |
 | Public candidate link | **Reachable** anonymously (HTTP 200 for `/`, manifest, worker, pack); pack `a80ff718…` matches its record. Production `marswalk-jet.vercel.app` also 200 but older. |
 | Physical Android/iOS installed recovery | **Pending** (Royce / Willy 2). Browser emulation is not device acceptance. |
 | Official submission portal fields, upload limits, deadline timezone | **Unverified.** Only the Details text is in `docs/challenge/`. The 10 pm deadline is user-reported; timezone unconfirmed. Owner: coordinator/user. |

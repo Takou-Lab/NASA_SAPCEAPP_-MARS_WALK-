@@ -2,7 +2,8 @@
 
 Takou (Charles) with a coding agent, 15 November 2026. Branch
 `feature/takou-release-integration` from `main` **2626a6b016d0f40385ff3c3f1b4adbb19ccf1605**
-(2026-11-15 13:35 UTC). Every number below was produced in this environment on this date;
+(2026-11-15 13:35 UTC), then rebased onto `main` **842ad3d** and re-verified (last section).
+Every number below was produced in this environment on this date;
 no historical count is copied. Blockers: [TAKOU_RELEASE_BLOCKERS.md](TAKOU_RELEASE_BLOCKERS.md).
 
 ## Environment
@@ -156,3 +157,41 @@ Draw start → waypoint → destination, save note `TAKOU-SMOKE-…`, Save Route
 the full pack, close the browser, stop the server, reopen offline: map and science load, the
 Notebook looks empty, Load Route brings back the exact route and note, and the second export
 matches the first.
+
+## Re-verification after rebase onto main 842ad3d
+
+While this work ran, `main` gained 13 commits, including `3d47a7b` (new 2048 × 2048 HiRISE
+crop `hirise-psp001752-red-center-2048-025m-v2`, verified 0.25 m/px, planar route distance)
+and Emma's mission decision workspace and briefing. `mission.service.ts`, `package.json` and
+the lockfile did not change. The three unpushed QA commits were rebased onto `842ad3d`
+(new files only, no conflicts) and everything was run again on Node 24.22.1:
+
+| Check | Result on 842ad3d + QA commits |
+| --- | --- |
+| `npm test` | **24 files, 246 tests passed** (237 on main + 9 recovery tests) |
+| `npm run test:pwa` | **11 passed** |
+| `npm run build` | **exit 0**; initial 473.01 kB raw / 119.16 kB transfer; Leaflet CommonJS warning only; pack `f3ac6a3865bf…`, 19 assets, 2,609,930 bytes |
+| Python data tests (Pillow 13.0.0) | **54 passed** in 43.3 s |
+| Smoke harness | **9 passed in 36.3 s**, run `2026-11-15T15-18-08-462Z-vcdn2y`; 0 page/console errors, 0 failed requests, 0 server 404s |
+| Public candidate `https://marswalk-9dtnpllyx-boys-band.vercel.app/` (source 3d47a7b) | HTTP 200 anonymously; pack `e490cf570d50…` (2,609,914 bytes) differs from the local build **only in `index.html`** (CRLF, B4) |
+
+Observed on this revision:
+
+- Raster `PSP_001752_1750_RED_crop_2048.jpg` decoded at **2048 × 2048** = manifest.
+- After drawing a route the summary shows "Derived planar: 400.4 m (0.25 m/px …)", with the
+  manifest limitation that it is a projected planar length, not terrain-following or a safety
+  assessment. The three science records are still `positionStatus: unavailable`.
+- **B1 unchanged:** after the offline full-process restart the Notebook again showed
+  "No observations recorded yet for this mission session." until Load Route; then the exact
+  route and note came back and the second export matched the first.
+- **B3 worse:** at 390 × 844 the new Mission Decision Summary sits above the map, which now
+  starts at y = 898 px, below the screen: **0 px of map visible without scrolling**, also
+  with the panel collapsed. At 1366 × 768 about 270 px of map shows.
+- In check 1 the worker had not finished registering yet (`getRegistration()` empty); the
+  full pack still prepared and verified in check 6. Not treated as a defect.
+- Harness change for this revision: the science details label is now "Record-level evidence
+  category", so check 2 reads the value instead of the old label; a 20 s default timeout was
+  added so a missing element fails fast instead of waiting for the 4-minute test timeout.
+
+Screenshots in `docs/design/takou-screens/` and `tools/qa/takou/results/latest.json` are now
+from this run. The 2626a6b sections above remain the record for that revision.

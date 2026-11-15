@@ -1,7 +1,7 @@
 {
-  "runId": "2026-11-15T15-06-12-055Z-r0noe4",
+  "runId": "2026-11-15T15-18-08-462Z-vcdn2y",
   "source": {
-    "sha": "2626a6b016d0f40385ff3c3f1b4adbb19ccf1605",
+    "sha": "ff34e499d2fcf20c0a8a543117c56fb5661ac1e3",
     "dirty": true
   },
   "channel": "chrome",
@@ -10,8 +10,8 @@
     {
       "name": "raster",
       "w": 2048,
-      "h": 1042,
-      "src": "http://127.0.0.1:4310/data/imagery/PIA26306_derived_2048.jpg",
+      "h": 2048,
+      "src": "http://127.0.0.1:4310/data/imagery/PSP_001752_1750_RED_crop_2048.jpg",
       "serviceWorker": {
         "registered": false,
         "scope": null
@@ -51,14 +51,14 @@
     {
       "name": "route",
       "rows": [
-        "1\tStart\t680.3\t409.6",
-        "2\tWaypoint\t1022.7\t583.2",
-        "3\tDestination\t1365.1\t459.6"
+        "1\tStart\t337.9\t607.7",
+        "2\tWaypoint\t1022.7\t1149.7",
+        "3\tDestination\t1707.5\t902.5"
       ]
     },
     {
       "name": "note-and-export",
-      "note": "TAKOU-SMOKE-2026-11-15T15-06-12-055Z-r0noe4",
+      "note": "TAKOU-SMOKE-2026-11-15T15-18-08-462Z-vcdn2y",
       "draftRetained": true,
       "exportedObservations": 1
     },
@@ -78,7 +78,7 @@
         ""
       ],
       "cacheEntries": {
-        "marswalk-pack:http://127.0.0.1:4310/:ce81d3668c2767759cd864a6fcaa2602d6143af58c8f571974cede039049446b:96115f43-6ed1-41a5-9ff7-dcaad35957cd": 20
+        "marswalk-pack:http://127.0.0.1:4310/:f3ac6a3865bf2e48f5178625f1ab560516216333ebbcd053a86d5cbe608eac82:3f670361-180f-493d-88b6-9adbf0e0405c": 20
       }
     },
     {
@@ -104,12 +104,12 @@
       "bodyScroll": 390,
       "mapElement": {
         "x": 8.25,
-        "y": 387,
+        "y": 898,
         "width": 373.5,
         "height": 487.515625
       },
-      "visibleDefault": 89,
-      "visibleCollapsed": 347
+      "visibleDefault": 0,
+      "visibleCollapsed": 0
     }
   ],
   "consoleErrors": [],
@@ -117,12 +117,12 @@
   "failedResponses": [],
   "url": "http://127.0.0.1:4310/",
   "pack": {
-    "version": "ce81d3668c2767759cd864a6fcaa2602d6143af58c8f571974cede039049446b",
+    "version": "f3ac6a3865bf2e48f5178625f1ab560516216333ebbcd053a86d5cbe608eac82",
     "files": 19,
-    "totalBytes": 1678092
+    "totalBytes": 2609930
   },
   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
   "browserVersion": null,
   "serverRequests404": [],
-  "finishedAt": "2026-11-15T15:06:32.006Z"
+  "finishedAt": "2026-11-15T15:18:38.516Z"
 }

@@ -59,6 +59,7 @@ async function launch(offline = false) {
     acceptDownloads: true,
     offline,
   });
+  context.setDefaultTimeout(20_000);
   page = context.pages()[0] ?? (await context.newPage());
   watch(page);
 }
@@ -186,10 +187,21 @@ test('2. science selection, previous/next and filters keep the selected context'
   const position2 = await page.locator('.record-navigation-position').innerText();
   await page.getByRole('button', { name: 'Previous science record' }).click();
   await expect(details.locator('h3')).toHaveText(firstName);
-  const evidence = (
-    await details.locator('.metadata-row', { hasText: 'Evidence type' }).locator('dd').innerText()
-  ).trim();
-  const other = ['measured', 'derived', 'interpreted', 'simulated'].find((v) => v !== evidence);
+  // The details row label changed across revisions ("Evidence type" → "Record-level evidence
+  // category"); the value always starts with the evidence type.
+  const types = ['measured', 'derived', 'interpreted', 'simulated'];
+  const evidenceText = (
+    await details
+      .locator('.metadata-row', { hasText: /evidence/i })
+      .first()
+      .locator('dd')
+      .innerText()
+  )
+    .trim()
+    .toLowerCase();
+  const evidence = types.find((v) => evidenceText.startsWith(v));
+  expect(evidence).toBeTruthy();
+  const other = types.find((v) => v !== evidence);
   await page.getByLabel('Evidence type', { exact: true }).selectOption(other);
   await expect(details.locator('h3')).toHaveText(firstName);
   await expect(page.locator('.hidden-notice')).toBeVisible();

@@ -3,16 +3,17 @@
 **Status: proposal for coordinator/Emma review. No product file is changed by this document.**
 Styling work starts only after an explicit file-ownership handoff from Emma.
 
-- Tested revision: `main` **2626a6b** (runtime identical to public candidate **38516f8**; only
-  `public/data/terrain/README.md` differs and it is not in the offline pack).
+- Tested revisions: `main` **842ad3d** (runtime = calibrated public candidate **3d47a7b**, which
+  adds the 0.25 m/px crop, planar distance and Emma's mission decision workspace) and, before the
+  rebase, `main` **2626a6b** (= public candidate 38516f8). Screenshots are from 842ad3d.
 - Screenshots: `docs/design/takou-screens/` (source, URL and viewport in the table below).
 - Scope: existing tokens in `src/styles.scss`, existing components, existing capabilities.
   No new scientific values, map positions, readiness states, fonts or frameworks.
 
 ## Screenshots
 
-All captured by the Package 3 harness run `2026-11-15T15-06-12-055Z-r0noe4`: production build
-of 2626a6b served at `http://127.0.0.1:4310/`, Chrome 157.0.8103.51 headless, default
+All captured by the Package 3 harness run `2026-11-15T15-18-08-462Z-vcdn2y`: production build
+of 842ad3d + QA commits served at `http://127.0.0.1:4310/`, Chrome 157.0.8103.51 headless, default
 light colour scheme, synthetic test mission only.
 
 | File | Viewport | State |
@@ -22,8 +23,8 @@ light colour scheme, synthetic test mission only.
 | `desktop-1366-notebook-failed-save.png` | 1366 × 768 | Simulated full storage: error shown, draft kept |
 | `desktop-1366-offline-startup-before-load.png` | 1366 × 768 | Offline after full restart, **before** Load Route: Notebook (0) |
 | `desktop-1366-viewer.png` | 1366 × 768 | Optional flat viewer open, offline |
-| `phone-390-offline.png` | 390 × 844 | Offline, default layout: 89 px of map visible |
-| `phone-390-panel-collapsed.png` | 390 × 844 | Same with Collapse Panel: 347 px of map visible |
+| `phone-390-offline.png` | 390 × 844 | Offline, default layout: decision summary above the map, **0 px of map visible** |
+| `phone-390-panel-collapsed.png` | 390 × 844 | Same with Collapse Panel: still 0 px without scrolling |
 | `prototype-phone-390.png` | 390 × 844 | **Prototype** `tools/design/takou/index.html` (file URL, not the app): map 436 px |
 | `prototype-desktop-1366.png` | 1366 × 768 | **Prototype**, desktop: map + 380 px panel |
 
@@ -54,16 +55,20 @@ of Royce's Samsung report.
 
 ### 2. On a phone the map is almost invisible
 
-Measured at 390 × 844 (`phone-390-offline.png`): **89 px of map is visible** in the default
-layout, **347 px** after Collapse Panel. The map element itself is 487 px tall but is clipped.
-Above it: the PWA bar, brand, four status pills, header layer buttons, theme and Export
-(about 270 px), then the map toolbar (about 110 px). The shell gives the map workspace 45 %
+Measured at 390 × 844 with the smoke harness (on-screen height, clipping included). On
+**842ad3d** the new Mission Decision Summary sits between the header and the map; the map
+starts at y = 898 px, so **0 px of map is visible** without scrolling, with or without
+Collapse Panel (`phone-390-offline.png`). On **2626a6b** it was 89 px, 347 px collapsed.
+Above the map: the PWA bar, brand, four status pills, header layer buttons, theme and Export
+(about 270 px), the decision summary, then the map toolbar (about 110 px). On desktop
+1366 × 768 about 270 px of map remains visible. The shell gives the map workspace 45 %
 of the height under 768 px (`shell.component.scss`, media query at line 238). Layer toggles
 exist twice (header buttons and map-toolbar checkboxes), and "Grid unavailable / Coverage
 unavailable" take space for features that do not exist. On desktop 1366 px the five tabs do
 not fit the 380 px panel: "Mission Tra…" is cut and "3D Rehearsal" is off-screen.
 
-- **Proposal:** phone layout = compact header (brand + readiness + Export), map first at
+- **Proposal:** phone layout = compact header (brand + readiness + Export), the Mission
+  Decision Summary collapsed to a one-line status under 768 px (Emma 1 owns it), map first at
   ≥ 55 % height, then a bottom-sheet side panel with three primary tabs (Science, Route,
   Notes) and an overflow for Transfer and 3D. Keep one set of layer toggles (map toolbar,
   Willy) and move the unavailable-layer notes into the image passport. Desktop keeps the
@@ -143,8 +148,9 @@ Measured from the tokens in `src/styles.scss` (WCAG formula):
    `positionStatus: unavailable`, so they belong under "Regional context — not located on this
    image". The map legend states "0 records located on this image" instead of offering a
    Science markers toggle that shows nothing.
-3. **Route:** ordered points in image pixels, with the existing unavailable distance/terrain
-   message directly under the table, not in a separate panel.
+3. **Route:** ordered points, then the derived planar distance with its limitation ("projected
+   map plane, not terrain-following") and "slope and terrain: not available" directly under
+   the table, not in a separate panel.
 4. **Observations:** newest first, each with time, image reference and "Unlocated" or pixel
    position.
 
@@ -152,7 +158,8 @@ Measured from the tokens in `src/styles.scss` (WCAG formula):
 
 | State | Words | Where |
 | --- | --- | --- |
-| Unavailable measurement | "Not available — this image has no verified scale" | Route panel, viewer |
+| Derived measurement | "Planar distance 400 m — projected map plane, not terrain-following" | Route panel, decision summary |
+| Unavailable measurement | "Slope and terrain: not available — no elevation data for this image" | Route panel, viewer |
 | Limited provenance | "Limited source review — excerpt only" (existing REMS wording) | Environment panel |
 | Regional context | "Regional context — not located on this image" | Science list and details |
 | Error | What failed + what is kept + next action, e.g. "Not saved. Your draft is kept. Export the mission or free space." | Inline, persistent |
@@ -160,7 +167,7 @@ Measured from the tokens in `src/styles.scss` (WCAG formula):
 
 ## Keyboard, focus, contrast and touch checks
 
-| Check | Result on 2626a6b | Note |
+| Check | Result on 842ad3d | Note |
 | --- | --- | --- |
 | Tabs: roving tabindex and arrow keys | Present in code (`shell.component.ts` `onTabKeydown`) | Keep |
 | Visible focus | `--border-focus` ring 4.75:1 on `--bg-surface` (dark theme) | Passes 3:1 non-text |
