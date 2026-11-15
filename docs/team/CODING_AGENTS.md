@@ -25,6 +25,19 @@ Use Angular standalone, strict TypeScript, plain SCSS/CSS and the existing Missi
 
 Personal briefs authorize normal commits/pushes to their named feature branches; preserve existing progress/history. Proposed new branch names apply only when a follow-up has not started. Main integration follows the user's authorized coordinator workflow. Deployment, environment publication, submission and external messaging are separate.
 
+## Full remaining-work plans and later ownership
+
+Each named personal file now contains the complete ordered plan through deployment. The table above describes the current first slices; later ownership expands only at the explicit phase gates below. Preserve unfinished local work and do not run every phase at once.
+
+- Gaddielle later owns proposed `tools/data/prepare_environment.py`, its data tests and `public/data/environment.json`, plus data provenance/release documentation. Source samples and coordinator-approved schema precede generated runtime data. No environmental schema/API currently exists.
+- Coordinator owns new shared environmental types/loading/validation and all root/package/worker/hosting changes. Emma later owns proposed `src/app/environment/` and science/evidence presentation, consuming the agreed implemented contract. No duplicate fetch/state store or invented service API.
+- Emma owns presentation/reference/AI-use/usability documents and optional proposed `public/data/science-explanations.json` after schema/content review. Gaddielle owns the underlying environmental data. Prepared AI-assisted explanations are labeled static/prepared; no claim of runtime inference or secret-bearing browser integration.
+- Willy later owns map-release usability and deployed map/install asset checks. Enzo owns professional shell/header/planner/notebook design and lifecycle presentation only through real coordinator APIs. Agree visual tokens; global/root changes stay coordinated.
+- Longla's later optional WebXR experiment owns proposed `src/app/xr/`, agreed viewer adapters and QA; root/dependencies stay coordinator-owned. Unsupported hardware or failed actual session tests block an immersive-VR completion claim. Existing flat viewer stays lazy and functional.
+- Coordinator owns deployment preparation, actual authorized deployment/rollback and submission coordination. Other owners verify their area on the exact deployed artifact. Documenting this plan does not publish/deploy/submit anything.
+
+Consult [the release sequence](../../TEAM_TASKS.md#one-complete-remaining-work-file-per-person) and the personal file for exact files/checks/handoffs. Earlier task files describe individual slices and do not override the later explicitly gated personal phases.
+
 ## Accepted components and planned PWA contract
 
 Willy's map/navigation/retry (`21cf6f0`, `02134f1`) and Emma's science/research/protocol/presentation/evidence workspace (`947ff1a`, `4efcb5a`, `3b7b1c1`) are complete. Enzo `16a2e66` is reconciled with main. Root initializes once; shell uses one each of `app-science-context`, `app-exploration-confidence` and `app-image-passport`. Do not duplicate these or reopen old root conflicts. Longla's corrected viewer is already merged.

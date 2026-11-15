@@ -1,82 +1,86 @@
-# Emma — Browser image-payload verification after evidence UI delivery
+# Emma — Remaining verification, science, AI and presentation work
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current assignment: [W3](../../TEAM_TASKS.md#w3).** The new slice is a pure read-only verifier delegated from coordinator PWA preparation.
-<!-- /CURRENT_WORK_PLAN -->
+> Current work piece: [W3](../../TEAM_TASKS.md#w3).
 
-Emma uses **he/him**. Read [the current review](../reviews/EMMA.md), [exact new task](tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md), [shared contract](CODING_AGENTS.md) and [SOUL.MD](../../SOUL.MD).
+Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
-## Completed — preserve it
+All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-Science/research/protocol/presentation, science UI `4efcb5a` and **evidence workspace `3b7b1c1`** are accepted. Science discovery and both confidence/passport panels are now mounted in code **`b744b0b`**: **131 combined Angular tests**, production build and actual recovery/filter/evidence/layout browser checks pass. Your isolated branch passed 69 tests/build. Do not repeat those implementations or redo the evidence audit/presentation.
+Emma uses **he/him**.
 
-Enzo has integrated the existing reviewed `app-science-context`, `app-exploration-confidence` and `app-image-passport`; those components are available, not future files. His next task is release UI accessibility/size cleanup; root reconciliation is complete. Your next slice does not edit his files or the accepted UI.
+## Already complete — preserve
 
-## New work — verify image bytes without claiming full readiness
+Research/records/citations, usability protocol, presentation draft, science UI `4efcb5a` and evidence workspace `3b7b1c1` are integrated. Three reviewed science/confidence/passport components are mounted once. Do not rebuild them or repeat the evidence audit. Their UI remains your ownership; Enzo owns shell placement and notebook.
 
-Implement **`src/app/offline/image-payload-verifier.ts`**, its spec and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md` using [the exact planned contract](tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md):
+## Phase 1 — Pure image-payload verifier, current task first
 
-```ts
-verifyImagePayload(index, activeImage, readBytes): Promise<ImagePayloadResult>
-```
-
-This API is to be implemented; it does not exist yet. Read an unknown v1 image index, validate it against the active runtime ImageManifest before any reads, verify two supplied byte arrays by length/SHA-256, validate manifest identity and return a scoped result. `readBytes` is supplied by the future caller; no network fallback or storage writes. Errors return failure without publishing partial readiness or changing mission state.
-
-W6 composes this image-only result with app shell/science/install/cache checks later. It is not a worker, service, progress UI, independent scientific verification or full-PWA readiness signal.
-
-## Branch, checks and ownership
-
-After integration publication, preserve local work and start proposed **`feature/emma-image-payload-verifier`** from latest main if no follow-up branch exists. Keep the completed workspace branch/history. Own only the three named verifier/test/handoff files for this slice; no core/model/source-data/Python/worker/package/root/Enzo/UI changes or new dependency.
-
-Follow the spec's success/failure fields and negative cases. Use test-only byte fixtures and actual WebCrypto where supported; a temporary harness with existing build tools can prove browser operation without leaving a root/production mount. Run actual tests/build and record exact counts/browser/source identity limits. Full installed/offline outcomes remain pending.
-
-Commit/push only your assigned W3 task branch (default above), reporting actual name/commit/files/checks. No main integration, deployment, environment publication, submission or external messaging.
-
-## Retained learning answer — computed record badge
+Use **`feature/emma-image-payload-verifier`** if no task exists. Own only `src/app/offline/image-payload-verifier.ts`, its spec and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md` for this slice. Implement this planned API:
 
 ```ts
-readonly recordBadge = computed(() => {
-  const records = this.mission.markers();
-  const located = records.filter(
-    record => record.position !== null && record.positionStatus !== 'unavailable',
-  ).length;
-  return `${records.length} records (${located} located on image)`;
-});
+export type ReadAssetBytes = (path: string) => Promise<Uint8Array | null>;
+export interface ImagePayloadResult {
+  readonly scope: 'image-payload'; readonly ok: boolean;
+  readonly imageRef: string | null;
+  readonly verifiedPaths: readonly string[];
+  readonly totalBytes: number | null;
+  readonly errors: readonly string[];
+}
+export function verifyImagePayload(
+  index: unknown, activeImage: ImageManifest, readBytes: ReadAssetBytes,
+): Promise<ImagePayloadResult>;
 ```
 
-Render `{{ recordBadge() }}`. The accepted component now implements this and distinguishes illustrative from verified locations. Do not store a separate counter or repeat the finished variation.
+- [ ] Validate active manifest with existing `validManifest`, then index **before reader calls**. Exact v1 root keys: schemaVersion/imageRef/files/totalBytes; schemaVersion integer 1, matching reference. Exactly two ordered entries: `data/manifest.json`, then active assetPath; only path/bytes/sha256 keys, positive safe-integer sizes/sum, lowercase 64-hex digests. Reject unsafe/extra/missing/wrong-type/reference/path entries.
+- [ ] Injected reader is cache-only. No fetch, stores, worker, MissionService initialization/mutation or root mounting. Verify byte lengths and actual WebCrypto SHA-256; missing/read/crypto/size/digest failures return useful failure, never silent fallback.
+- [ ] Strict UTF-8/JSON manifest bytes must satisfy runtime validation and match active reference/path/coordinate system/width/height. Do not mutate inputs or decode pixels in this module.
+- [ ] Success: true, two paths in order, actual summed bytes, empty errors. Failure: false, no verified paths, null totalBytes, nonempty errors; expose imageRef only if active manifest is valid. Catch operational failures.
+- [ ] Meaningful success/invalid index/pre-read rejection/missing/corrupt/read/crypto/identity tests and actual browser WebCrypto proof. No package/core/source/Python changes. Explain that this verifies image bytes against the supplied index, not scientific validity, signature or full PWA readiness.
 
-## Copy-paste coding-agent prompt
+## Phase 2 — Numerical science UI and clearer evidence
+
+After handoff use **`feature/emma-environment-evidence`** if no task exists. Own proposed `src/app/environment/`, science/evidence UI and tests plus `docs/qa/ENVIRONMENT_CONTEXT.md`. Coordinator owns shared environmental model/loading and root/shell integration; Gaddielle owns source/generated data.
+
+- [ ] While waiting for agreed data contract, prepare display examples and factual presentation text. Do not import imaginary service APIs or populate public data with placeholder measurements.
+- [ ] After contract/data acceptance, show quantity value/unit, measured/derived/assumed classification, instrument, observation interval/sol/location when supported, source and quality/missing state. Label historical regional context clearly. Charts/statistics require actual samples and stated aggregation; no fabricated smooth series.
+- [ ] Observation age uses verified observation time, separately from publication/download. Invalid/unknown/future dates have explicit states; no NaN labels or invented dates. Derived and assumed values describe their basis rather than a fake measurement age. Use an injectable/reference clock for meaningful date tests.
+- [ ] Shorten the default assessment to distinct, actionable limits. Move source metadata to passport and endpoint instructions to route summary. Keep detailed evidence accessible; changing presentation must not remove uncertainty or alter shared calculations.
+- [ ] Check zero/missing/invalid values, units, source-link safety, date boundaries, keyboard/mobile layout and no route/draft mutation. Supply exact component selector/integration handoff to coordinator/Enzo.
+
+## Phase 3 — Presentation, usability and bounded AI
+
+- [ ] Update existing `docs/PRESENTATION.md`, `DEMO_SCRIPT.md`, `JUDGES_QA.md`, `SCIENCE.md`, `REFERENCES.md` and `AI_USE.md` from the actual release revision. Preserve prior work. Coordinator verifies official format/deadline; do not assume seven slides, a video duration or a particular local deadline is mandatory.
+- [ ] Tell one complete mission story using actual screenshots: prepare, inspect source, sketch route, understand unknowns, save note, reopen offline and export. Only demonstrate the offline step after it actually passes. Show AI/VR as prototype or future work when appropriate.
+- [ ] With coordinator-arranged participants and Longla's observations, consolidate actual anonymized outcomes in `docs/USABILITY.md`; identify/fix/retest the main misunderstanding. No invented users, times or external messages.
+- [ ] Optional AI slice, **after core deliverables and a working release candidate**: prepare source-grounded explanations of existing records using an actual AI tool, review every assertion/citation and propose a small versioned `public/data/science-explanations.json` to coordinator. Mark these as **prepared AI-assisted explanations**, with source IDs, tool/model/date where available and review status. Never imply live personalized inference.
+- [ ] Runtime explanation display/loading uses a coordinator-agreed schema/consumer; no browser API keys, secret storage, unapproved backend or silent network dependency. Runtime model inference or image segmentation is a separate experiment requiring model/license/performance/validation evidence; not a claimed feature merely because code was AI-assisted.
+
+## Phase 4 — Deployment and final submission handoff
+
+- [ ] Verify actual HTTPS app renders the accepted records/quantities/dates/sources; no stale-build screenshots, missing source links or invented location pins.
+- [ ] With Longla confirm local evidence summaries remain readable in the prepared installed offline app; explain that external citations may need internet.
+- [ ] Finalize slides/demo script, captions/text and scientific/AI credits against the served commit and official rules. Give coordinator final artifact paths, evidence and remaining limitations; coordinator handles submission.
+
+## Agent execution and final handoff
+
+Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
+
+For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
+
+Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
+
+Normal commit/push to your assigned feature branch is authorized. Main merges belong to the coordinator. This plan prepares deployment; it does not itself publish an environment, deploy a site, submit the competition entry or authorize external messages. Preserve NASA/data/library/AI attribution.
+
+Paste this into your coding agent:
 
 ```text
-You are Emma's MARSWALK read-only image-payload verification agent (he/him).
-Read TEAM_TASKS.md W3, docs/team/EMMA.md,
-docs/team/tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md, docs/reviews/EMMA.md
-and docs/team/CODING_AGENTS.md.
-
-Workspace 3b7b1c1 is accepted/mounted in code b744b0b: 131 combined Angular tests,
-build and real browser checks pass. Preserve finished UI/research/protocol/
-presentation; no repeats. Enzo integrates the three existing evidence/science
-components. Your new task feeds coordinator PWA preparation independently.
-
-1. Preserve work; after publication create proposed
-   feature/emma-image-payload-verifier from latest main if no task exists.
-2. Own offline/image-payload-verifier.ts, its spec and the named QA handoff.
-   Implement the detailed task's exact planned exports/result semantics.
-3. Validate unknown v1 index and active runtime manifest before reader calls;
-   exact ordered paths, imageRef, types/keys/safe sizes, SHA-256 and totals.
-4. Read bytes only through caller-supplied readBytes. Check lengths/digests
-   using WebCrypto and manifest UTF-8/JSON/runtime validity/identity. Catch
-   missing/read/crypto/validation errors; fail without writes/mutations or
-   partial success. No network fallback, worker, store or readiness UI.
-5. Add meaningful success/corruption/missing/reader/crypto/schema/path/identity
-   tests, actual test/build results and supported browser WebCrypto proof.
-   Synthetic byte fixtures stay test-only. Explain the cache-only reader
-   handoff and full-app assets W6 must verify separately.
-
-No core/models/service/data/Python/package/root/Enzo/UI edits or dependencies.
-This result is IMAGE-PAYLOAD only; no full-PWA/science/calibration claim.
-Commit/push only this feature task branch (authorized), report branch/commit/
-files/checks/limits for review. No main merge, deployment, publication,
-submission or external messaging. Teach one new slice at a time.
+Read my personal docs/team file, TEAM_TASKS.md and CODING_AGENTS.md.
+Inspect the actual branch and preserve existing work. Identify the first
+unfinished, unblocked phase in my checklist and implement that slice only.
+Use the listed owned files, real inputs and existing/agreed contracts.
+Do not consume future APIs or modify another owner's files speculatively.
+Keep all accepted behavior. Check important failure cases and the actual
+user workflow; run relevant checks and review the diff before handoff.
+Push only my feature branch. Report the actual commit/files/checks,
+blockers and deployment effects. Do not start an unrelated redesign,
+deployment or main merge. Mark completion only when supported by evidence.
 ```

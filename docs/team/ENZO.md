@@ -1,40 +1,65 @@
-# Enzo — Final shell integration after functional corrections
+# Enzo — Remaining professional UI and deployment work
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current assignment: [W4](../../TEAM_TASKS.md#w4).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
-<!-- /CURRENT_WORK_PLAN -->
+> Current work piece: [W4](../../TEAM_TASKS.md#w4).
 
-## Accepted and merged
+Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
-Latest submitted **`16a2e66`** is integrated with all reviewed components in code **`b744b0b`**. **131 Angular tests, 28 data tests, production build and recorded browser mission checks pass.** Single map/science/confidence/passport, guarded transfer, draft retention, image retry and optional viewer are all retained. No repeat root conflict resolution or foundation port. [Final integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
+All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-## Next W4 — release accessibility and size cleanup
+## Already complete — preserve
 
-Read [ENZO_RELEASE_UI.md](tasks/ENZO_RELEASE_UI.md). Use proposed **`feature/enzo-release-ui`** from latest published main when starting, preserving existing history/local work. Own shell/header/planner/notebook UI and their tests/styles only.
+Shell/planner/notebook `16a2e66` is integrated; root conflicts are resolved. Keep shared science/confidence/passport once, actual map, reachable guarded transfer, draft retention, route recovery, viewport clamp and lazy viewer destruction. Do not repeat foundation/root reconciliation.
 
-Complete keyboard tab/tabpanel relationships and focus behavior, preserve drafts/viewer teardown, and reduce current initial/style warning overruns without raising budgets or removing capabilities. Run real integrated regressions/build/browser checks and record actual before/after results in `docs/qa/RELEASE_UI.md`. Future status UI still awaits W6's real PWA lifecycle API; no worker/readiness simulation.
+## Phase 1 — Release accessibility and size cleanup
 
-Normal own-feature push is authorized; report actual branch/commit/files/checks. No main integration, root/core/package/source rewrite, deployment, environment publication or external messaging.
+Use **`feature/enzo-release-ui`** if no task exists. Own `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` and their tests/styles; named QA `docs/qa/RELEASE_UI.md`. No root/core/package/worker/data/evidence-component rewrite.
 
-## Copy-paste coding-agent prompt
+- [ ] Implement coherent tab/tabpanel IDs and ARIA relationships, selected state, roving focus, Left/Right/Home/End behavior. Only handle keys originating in tab controls; do not intercept notebook typing.
+- [ ] Ensure hidden/collapsed content cannot trap focus. Keep visible focus, readable contrast and usable keyboard/touch layout.
+- [ ] Reduce initial/planner/notebook style warning overruns without raising budgets or deleting features. Measure actual before/after. Any lazy splitting must preserve notebook state after first creation, retain errors/drafts and list essential chunks for offline preparation.
+- [ ] Recheck exact unsaved note across tabs/failed save, successful save, sidebar restored/keyboard clamp, mobile overflow and 3D teardown. Record actual integrated tests/build/browser results.
+
+## Phase 2 — Consistent professional design
+
+- [ ] Agree a small visual specification with Willy/Emma: existing palette/tokens, typography scale, spacing, action hierarchy, badges, panel density and responsive behavior. Record in `docs/qa/RELEASE_UI.md`; use original branding/icons, no new UI framework/external fonts.
+- [ ] Polish owned shell/header/route/notebook using that specification. One clear next action and relevant empty/loading/error states per panel; reduce duplicated controls/content through agreed handoffs rather than editing others' files.
+- [ ] Clarify header readiness labels: metadata loaded, image displayed, persistence available, connectivity and complete offline readiness are different states. Consume only existing/agreed coordinator signals; never manufacture a green ready status from internet access or registration.
+- [ ] Reserve integration space for Emma's environmental component and actual PWA status/install/update UI. Wait for exported components and tested coordinator APIs; report exact mounting needs. Root assembly remains coordinator-owned.
+- [ ] Present update/install/preparation actions only when their real states exist. Failed preparation has recovery guidance; do not auto-reload over unsaved work. Keep unsupported grid/terrain unavailable and regional records accessible.
+
+## Phase 3 — Deployed interface verification
+
+- [ ] Check actual HTTPS preview in a clean browser plus existing-storage profile at desktop, tablet and narrow phone widths. Verify controls/tab/focus/scroll, no overflow, source/quantity text readability and manifest standalone viewport.
+- [ ] With coordinator/Longla test installed offline route → evidence → note → save/recover/export, failed-save draft retention and supported update behavior. Use isolated storage; do not delete someone's mission.
+- [ ] Record browser/device/build and actual defects. Hosting base-path/deep-link/cache fixes belong to coordinator; agree root/global style changes before touching those files.
+- [ ] Retest affected UI after fixes and capture final consistent screenshots for Emma. Keep logs free of uncaught normal-flow errors and explain unresolved warnings honestly.
+
+## Phase 4 — Release freeze and support
+
+- [ ] Deliver final component selectors/chunks, before/after size results, accessibility evidence and commit to coordinator.
+- [ ] During release freeze fix only reproducible UI blockers. Verify public entry URL/private-window behavior after release and provide a concise known-issues list. No last-minute redesign or deployment-config ownership expansion.
+
+## Agent execution and final handoff
+
+Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
+
+For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
+
+Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
+
+Normal commit/push to your assigned feature branch is authorized. Main merges belong to the coordinator. This plan prepares deployment; it does not itself publish an environment, deploy a site, submit the competition entry or authorize external messages. Preserve NASA/data/library/AI attribution.
+
+Paste this into your coding agent:
 
 ```text
-You are Enzo's MARSWALK release-UI agent. Read TEAM_TASKS.md W4,
-docs/team/ENZO.md, docs/team/tasks/ENZO_RELEASE_UI.md and
- docs/qa/FINAL_BRANCH_INTEGRATION.md.
-
-16a2e66 and all reviewed features are integrated in b744b0b. Preserve them.
-Do not repeat the root port or create duplicate evidence/mission components.
-1. Preserve work; start proposed feature/enzo-release-ui from published main
-   if no follow-up exists. Own shell/header/planner/notebook and tests/styles.
-2. Complete tab keyboard navigation, roving focus and tab/tabpanel ARIA links
-   without intercepting editor typing or losing drafts/viewer teardown.
-3. Improve current initial/style warning sizes without raising budgets or
-   deleting behavior. If deferring panels, retain notebook state after first
-   creation and tell W6 which essential chunks need offline preparation.
-4. Run actual integrated tests/build/browser keyboard/draft/resize/3D-close
-   checks. Record commit/browser and measured before/after outcomes in RELEASE_UI.
-No root/core/data/package/worker edits or fake PWA state. Push only this
-feature task branch (authorized); report checks/limits. No main merge,
-deployment, environment publication or external messaging.
+Read my personal docs/team file, TEAM_TASKS.md and CODING_AGENTS.md.
+Inspect the actual branch and preserve existing work. Identify the first
+unfinished, unblocked phase in my checklist and implement that slice only.
+Use the listed owned files, real inputs and existing/agreed contracts.
+Do not consume future APIs or modify another owner's files speculatively.
+Keep all accepted behavior. Check important failure cases and the actual
+user workflow; run relevant checks and review the diff before handoff.
+Push only my feature branch. Report the actual commit/files/checks,
+blockers and deployment effects. Do not start an unrelated redesign,
+deployment or main merge. Mark completion only when supported by evidence.
 ```

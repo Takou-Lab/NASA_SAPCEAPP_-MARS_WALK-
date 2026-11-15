@@ -14,3 +14,10 @@ Updated **15 November 2026 (Africa/Douala)**. All eight submitted feature tips a
 No repeat retry, evidence-panel implementation, root reconciliation, viewer corrections or R3 fix. W1–W4 are independent follow-ups; preserve existing local progress. W5 can test the integrated online mission now. Installed/offline/update checks follow W6. Proposed branches are in the plan; existing data/QA branches remain. The old local `Tablet-App` reference is not currently advertised by GitHub.
 
 Push only the assigned feature branch and report actual commit/files/checks/blockers. Deployment, environment publication, submission and external messaging remain separate actions.
+
+
+## Full remaining-work checklists
+
+The single complete file for each person is [WILLY.md](docs/team/WILLY.md), [GADDIELLE.md](docs/team/GADDIELLE.md), [EMMA.md](docs/team/EMMA.md), [ENZO.md](docs/team/ENZO.md), [LONGLA.md](docs/team/LONGLA.md) and [YOU.md](docs/team/YOU.md). Each includes completed work, ordered remaining phases, owned files, contracts/dependencies, checks, deployment responsibilities and an agent prompt.
+
+Finish current slices before dependent phases. Later work includes validated numerical data/quantity UI, consistent professional design/presentation, isolated AI/VR experiments and real HTTPS/install/offline/update/device acceptance. Existing 3D is already integrated. [Release sequence and owner matrix](TEAM_TASKS.md#one-complete-remaining-work-file-per-person). Deployment and submission execution are separate from writing these plans.

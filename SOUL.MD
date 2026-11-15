@@ -124,3 +124,10 @@ Suggested pitch:
 Application code **`b744b0b`** includes all eight published feature tips: map/navigation/retry, science discovery/confidence/passport, shell/route/notebook, shared persistence/assessment/guarded transfer and optional lazy viewer. **131 Angular tests, 28 data tests, build and production-browser mission checks pass**. Initial/style build warnings remain below error budgets. [Evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md), [verdicts](REVIEW.md), [next pieces](TEAM_TASKS.md).
 
 Complete installation/cache/update lifecycle, physical-device confirmation, disconnected installed reopening and actual outside-user outcomes remain pending. Longla's contributor-reported hardware record needs clarification of source/messages/browser/FPS; it is not an independently verified hardware pass. Preserve Gale data and uncertainty boundaries. Build/browser success does not establish the complete installed offline mission.
+
+
+## Remaining work through deployment
+
+The user has requested complete personal release checklists, including numerical data, professional design/presentation and AI/VR investigation. [The owner matrix and release sequence](TEAM_TASKS.md#one-complete-remaining-work-file-per-person) link one full MD file per person. Preserve current working code and first-slice progress. New numerical records require actual source/quality/time/unit evidence; the prepared image and three contextual records alone are not numerical weather/radiation measurements.
+
+AI and immersive VR may be pursued as isolated, explicitly tested enhancements after the working baseline and prerequisites. Existing 3D is already integrated. This updates earlier deferral guidance without allowing speculative terrain, hazard predictions or fake headset/inference claims. Full installed offline mission, actual deployment validation and accurate presentation remain release gates; official event requirements must be verified separately.

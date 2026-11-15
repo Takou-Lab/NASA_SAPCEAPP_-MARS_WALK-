@@ -19,6 +19,31 @@ Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla'
 | Enzo shell/planner/notebook | `16a2e66` | Accepted, merged; root conflicts resolved, transfer/drafts retained |
 | Longla optional viewer and QA submission | `23d5180` | Viewer merged; submitted hardware claims need clarification |
 
+## One complete remaining-work file per person
+
+Each personal file now contains that person's **entire ordered checklist through deployment and final handoff**, including a coding-agent prompt. The W1–W6 slices below remain the first tasks; subsequent phases start after their stated handoffs/dependencies. Scope restrictions in earlier task specifications apply to those slices, not to unrelated later phases explicitly assigned here. Preserve already-started local work; do not start every phase simultaneously.
+
+| Person / complete file | Start now | Later implementation | Deployment / final responsibility |
+| --- | --- | --- | --- |
+| [Willy](docs/team/WILLY.md) | Install manifest/icons | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
+| [Gaddielle](docs/team/GADDIELLE.md) | Release data handoff | Source numerical REMS/RAD data, reproducible conversion after schema agreement; investigate exact-raster scale | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
+| [Emma — he/him](docs/team/EMMA.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
+| [Enzo](docs/team/ENZO.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
+| [Royce / Longla](docs/team/LONGLA.md) | Clarify device report; integrated hardware QA | Real WebXR feasibility/prototype on supported hardware, separately reviewed | HTTPS/install/full offline/update acceptance and actual device/demo evidence |
+| [YOU / coordinator](docs/team/YOU.md) | Shared contracts, official requirements, reviewed integration | Full PWA lifecycle, shared data loading, guarded AI/VR integration | Hosting/runbook, preview/production verification/rollback and final submission coordination |
+
+### Release sequence and dependency gates
+
+1. Verify actual official requirements/deadline/timezone and available time; preserve a known-good release candidate. No invented midnight deadline or mandatory slide/video limit.
+2. Complete current W1–W4 slices in parallel; W5 verifies integrated online behavior. Presentation text and design specification can progress while inputs arrive.
+3. Gaddielle supplies source samples/schema proposal; coordinator agrees/implements shared types/loading; Gaddielle generates validated data and Emma consumes the actual API. No guessed measurements or premature runtime contract.
+4. Coordinator integrates real PWA preparation; Enzo consumes tested lifecycle signals; all owners validate their area on the exact HTTPS preview. Numerical data and AI content are added deliberately to the required-cache/version strategy.
+5. Keep AI and VR experiments isolated. Prepared AI-assisted text is labeled prepared, not live inference. Real immersive VR requires supported hardware/session testing; existing flat 3D is already integrated. Failed/unverified experiments stay out of the stable release.
+6. Reserve the final third of the actual remaining time for integration, device testing, final presentation and submission. Freeze additions before consuming that reserve; prioritize observed release blockers.
+7. Coordinator executes deployment/submission when separately requested in the release workflow; this documentation change publishes no app or competition entry. Host/account/URL remain to be chosen. All owners recheck the actual production revision and hand off evidence.
+
+No numerical environment dataset, AI feature, immersive VR or complete PWA lifecycle is implemented merely by adding this plan. These are planned work with explicit completion checks in each personal file.
+
 ## Six consistent pieces of work
 
 | Piece | Owner | Next deliverable | Branch | Exact scope |

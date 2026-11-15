@@ -1,64 +1,70 @@
-# Royce / Longla — Device QA after corrected 3D delivery
+# Royce / Longla — Remaining 3D, VR, QA and deployment work
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current assignment: [W5](../../TEAM_TASKS.md#w5).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
-<!-- /CURRENT_WORK_PLAN -->
+> Current work piece: [W5](../../TEAM_TASKS.md#w5).
 
-## Viewer merged; device report requires clarification
+Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
-The corrected viewer and your latest branch tip **`23d5180`** are included in main integration **`b744b0b`**. Production/browser and graphics checks pass alongside **131 Angular tests**. No repeat viewer corrections or main-merge task is assigned.
+All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-Your submitted device record is preserved in [submissions/LONGLA_23d5180.md](../qa/submissions/LONGLA_23d5180.md). Its quoted import error, viewer button/VR/fallback messages do not match the stated source revision; Chrome `134+` is not an exact tested version, and no artifact supports the `60 FPS` statement. This may describe a different local build. Reconcile the exact served commit/browser and label quotes versus paraphrases. Do not claim hardware/FPS/cache success without actual supporting observations.
+Royce is the original-plan name for the role documented as Longla.
 
-Use the integrated current build for the next QA record. [Verified integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md) distinguishes coordinator browser results from your pending hardware confirmation.
+## Already complete — preserve
 
-## Next work — actual-device rehearsal and defect evidence
+Corrected optional flat viewer is integrated through branch tip `23d5180`. It is lazy/opt-in, frames the raster in narrow panels and destroys resources on leaving the tab. No measured terrain or immersive VR is currently implemented. Do not repeat viewer corrections or root/package reconciliation.
 
-Continue on the same existing branch, preserve local work and use the exact served build/revision. Own **`docs/qa/PWA_ACCEPTANCE.md`** and actual defect/retest notes under `docs/qa/`.
+## Phase 1 — Clarify report and run integrated device QA
 
-1. Test current main, which now includes shell, route/notebook, transfer, retry, all evidence panels and optional viewer together. Record the exact served commit/build, actual device/OS/browser version and screenshots/logs where available. Run the chosen build on the demonstration device or your available physical device. Record model, OS, browser/version, input method, tested commit/build and URL. A desktop viewport emulator does not establish device behavior.
-2. Check the current online 2D mission: image load, all three science records, unknown location/scale/terrain labels, matching mission import/export and rejection of a wrong-image file using temporary records. Preserve other people's saved work.
-3. Check explicit viewer open/close, camera presets, texture alignment, touch/keyboard/layout and graphics fallback where the real device permits it. Record actual slowness, crashes or layout/input failures with reproduction steps; do not invent timing measurements.
-4. Update actual results in `PWA_ACCEPTANCE.md`; report defects with severity, reproduction, expected/actual behavior and affected revision. Retest affected scenarios after coordinated fixes. Do not independently edit core/map/science/Enzo UI/worker files.
-5. Normal route/notebook integration is now available; verify it on the actual device. Keep install, complete cache preparation, updates and disconnected close/reopen **blocked** until W6 implements those prerequisites. When ready, execute the documented installed-device sequence and record the outcomes. Worker registration, internet status and image-only bytes are not complete readiness.
-6. Support the coordinator's outside-user sessions only when arranged; Emma owns the consolidated usability record. No invented participants/results or external messages.
+Continue **`feature/longla-3d-rehearsal`** for QA. Own `docs/qa/PWA_ACCEPTANCE.md` and actual defect/retest records. Do not rewrite teammate implementation.
 
-No new terrain search, VR implementation, redesign or repeated automated suites is assigned merely to fill time. The actual-device record is the next useful evidence. If no device/build is available, record that blocker instead of claiming completion.
+- [ ] Reconcile [preserved report](../qa/submissions/LONGLA_23d5180.md): actual controls are Open 3D viewer / Close 3D viewer; canonical import error is “Invalid mission or a different image version. Current work is unchanged.” Explain differing quotes/served build, exact browser version and whether FPS was actually measured. Preserve original evidence as contributor-reported history.
+- [ ] On the actual available device record served commit/URL, device/OS/browser/version/input and observation date. Check real image/science, route edits, note save/recovery/draft failure, matching transfer and wrong-image rejection using isolated work.
+- [ ] Check optional 3D activation, camera presets/portrait framing, alignment, close/reopen, touch/keyboard and local failure fallback without breaking 2D. No terrain, north/geographic-heading or safety claims.
+- [ ] Record expected/actual outcome, repro steps, screenshot/log where useful and retest revision. Headless software graphics is not a physical-device pass. No FPS number without method and measurement evidence.
 
-### Push and handoff
+## Phase 2 — VR feasibility, then isolated prototype
 
-This QA follow-up authorizes normal commits/pushes to **`feature/longla-3d-rehearsal`** only. Send the QA commit, actual device/build, results, defects and pending prerequisites. No main merge/push, deployment, environment publication, competition submission or external messaging is included. Read [SOUL.MD](../../SOUL.MD), [shared ownership](CODING_AGENTS.md) and [the acceptance plan](../qa/PWA_ACCEPTANCE.md).
+Only after Phase 1 handoff and a protected working release candidate. Use proposed **`feature/longla-webxr-prototype`** if no experiment exists. Own proposed `src/app/xr/` and `docs/qa/WEBXR_PROTOTYPE.md`; existing viewer rendering adapters may change only within agreed viewer ownership. Coordinator handles packages/root/build and any shared API.
 
-## Copy-paste coding-agent prompt
+- [ ] First check actual headset/browser, HTTPS secure context and `navigator.xr.isSessionSupported('immersive-vr')`. Record real supported/unsupported result and device. Without testable hardware, document the blocker; an emulator or button is not a headset acceptance pass.
+- [ ] Present proposed controls/render integration to coordinator before dependency/root changes. Reuse image/route coordinates; opt-in lazy loading, no startup headset request or duplicate mission store.
+- [ ] If supported and time remains, implement real user-initiated immersive session with clear exit, denied/unsupported/session-ended states, resize/render lifecycle and resource disposal. Preserve working 2D/flat viewer on every failure. Do not fake support/presenting toggles.
+- [ ] Show a flat image rehearsal in VR unless actual validated terrain exists. Do not infer elevation from brightness, promise astronaut safety or claim immersive implementation from a screen recording.
+- [ ] Test actual enter/exit/reenter, denied session, device/browser behavior and frame/resource issues. Hand off measured results for review; keep prototype separate if it does not pass. VR is an enhancement, not a dependency of the essential offline mission.
+
+## Phase 3 — Preview and production acceptance
+
+- [ ] Coordinator supplies exact HTTPS preview/build. Verify clean-profile first load, case/base paths, actual installed launcher/standalone behavior on supported device and meaningful unsupported guidance.
+- [ ] After real preparation implementation: prepare online, verify full pack, install, disconnect, close, reopen from icon; inspect imagery and local science/environment, draw route, save/recover note and export. Record every step and actual build/device. Do not mark ready from registration/image-only checks.
+- [ ] Exercise safe interrupted preparation, missing/stale asset, insufficient storage and new-version/update scenarios with coordinator using isolated data. Verify draft/mission and last usable version remain protected; record blocked prerequisites honestly.
+- [ ] Test optional 3D/VR according to explicit cache policy: if excluded from essentials, its unavailability must be clear/local and must not break offline 2D. Do not claim all optional models/assets are cached unless checked.
+- [ ] Verify production release URL again after promotion; report only actual regressions for urgent fixes. Preserve local data and exact release evidence.
+
+## Phase 4 — Usability and demonstration evidence
+
+- [ ] Support coordinator-arranged outside-user observations using Emma's protocol; Emma consolidates anonymized results. No unauthorized participant messaging or fabricated outcomes.
+- [ ] Supply actual device screenshots/video and supported VR demonstration, with build and labels, for Emma's presentation. Record remaining defects/unsupported hardware and the final retest status.
+
+## Agent execution and final handoff
+
+Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
+
+For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
+
+Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
+
+Normal commit/push to your assigned feature branch is authorized. Main merges belong to the coordinator. This plan prepares deployment; it does not itself publish an environment, deploy a site, submit the competition entry or authorize external messages. Preserve NASA/data/library/AI attribution.
+
+Paste this into your coding agent:
 
 ```text
-You are Royce/Longla's MARSWALK actual-device QA agent.
-Read docs/team/LONGLA.md, docs/reviews/LONGLA.md,
-docs/qa/VIEWER3D_REVIEW.md, docs/qa/PWA_ACCEPTANCE.md and SOUL.MD.
-
-All reviewed code is merged in b744b0b: 131 Angular tests/build and browser
-checks pass. Your 23d5180 hardware report needs the documented source/message/
-version/FPS clarifications before it becomes accepted device evidence. Preserve that work. Do not repeat fixes or expand terrain/VR.
-
-1. Preserve local work; reconcile the submitted quotes/browser/FPS evidence.
-   Use current integrated main for the actual-device run. Record
-   tested commit/URL, actual device model, OS/browser/version and input.
-2. Check real image/science/unknown labels, matching mission import/export
-   and wrong-image rejection using isolated temporary records.
-3. Check optional viewer activation/close, camera presets, touch/keyboard,
-   image alignment, layout and graphics fallback on the available device.
-4. Record ACTUAL outcomes in docs/qa/PWA_ACCEPTANCE.md. Report defects with
-   reproducible steps, expected/actual behavior and affected revision;
-   retest affected scenarios after coordinated fixes. No invented timings.
-5. Keep installation, complete cache preparation,
-   updates and disconnected close/reopen blocked until actual prerequisites
-   exist. Run the installed-device sequence when the coordinator supplies it.
-6. Outside-user sessions require coordinator arrangement; Emma consolidates
-   outcomes. Do not fabricate results or send messages to participants.
-
-Own QA records only for this slice. Do not rewrite core/map/science/Enzo
-UI/source data/dependencies/worker or implement more optional features.
-Commit/push only this existing feature branch (authorized) and hand off
-QA commit, device/build, observed results, defects and remaining blockers.
-No main integration, deployment, environment publication or submission.
+Read my personal docs/team file, TEAM_TASKS.md and CODING_AGENTS.md.
+Inspect the actual branch and preserve existing work. Identify the first
+unfinished, unblocked phase in my checklist and implement that slice only.
+Use the listed owned files, real inputs and existing/agreed contracts.
+Do not consume future APIs or modify another owner's files speculatively.
+Keep all accepted behavior. Check important failure cases and the actual
+user workflow; run relevant checks and review the diff before handoff.
+Push only my feature branch. Report the actual commit/files/checks,
+blockers and deployment effects. Do not start an unrelated redesign,
+deployment or main merge. Mark completion only when supported by evidence.
 ```

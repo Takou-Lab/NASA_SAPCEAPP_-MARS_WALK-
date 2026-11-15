@@ -1,100 +1,68 @@
-# Gaddielle — Image-pack browser-path compatibility follow-up
+# Gaddielle — Remaining data, calibration and deployment work
 
-<!-- CURRENT_WORK_PLAN -->
-> **Current assignment: [W2](../../TEAM_TASKS.md#w2).** Follow the canonical ownership/dependency plan; preserve completed work and existing local progress.
-<!-- /CURRENT_WORK_PLAN -->
+> Current work piece: [W2](../../TEAM_TASKS.md#w2).
 
-## Accepted and merged — R3 closed
+Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
-Your published `a53724a` is integrated. The coordinator closed the remaining R3 encoded/whitespace path gap in **`b744b0b`** with three regressions: **28 data tests and the real index check pass**. Real image/manifest/index bytes and imageRef are unchanged. Do not repeat R1–R3, image acquisition, passport or verifier work; preserve any existing local progress and compare with main.
+All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-## Next W2 — release data handoff
+## Already complete — preserve
 
-Follow [GADDIELLE_RELEASE_DATA_HANDOFF.md](tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md). Keep the existing data branch and merge published main safely. Deliver `docs/data/RELEASE_DATA_HANDOFF.md`: actual required data paths/imageRef, hashes/sizes, built-file correspondence and precise worker include/exclude guidance. Separate image/science/control bytes from total app readiness.
+Image package/passport/index `a53724a` is merged. Coordinator closed R1–R3; 28 baseline data tests and real index check pass. Preserve prepared image/manifest/index bytes, imageRef and coordinate system. Do not repeat fixes, downloads or passport construction without a new reason.
 
-Own this document and only necessary factual updates to existing data handoff docs. No source assets/schema/model/worker/API/dependency changes or another speculative inventory. Record actual verification results and blockers; push only your existing feature branch and report commit. No main merge, deployment, environment publication or messaging.
+## Phase 1 — Release data handoff, start now
 
-## Initial assignment reference
+Continue **`feature/gaddielle-data-preparation`**, safely incorporating main. Own `docs/data/RELEASE_DATA_HANDOFF.md` and necessary factual data-doc updates for this slice.
 
-The following mission, acquisition checklist and rules describe the original role. Keep them as reference; continue with the current assignment above rather than repeating completed acquisition work.
+- [ ] Enumerate real runtime manifest, prepared image, science records and image-index control file with exact paths, imageRef, bytes and SHA-256. Verify production copies match source files.
+- [ ] Separate **524,472 image-payload bytes** from science/index and complete app size. Give coordinator explicit cache include/exclude guidance; archival master, unused terrain/readme/reference docs and external citations are not automatically essentials.
+- [ ] Record actual commands/results and supported root/subpath resolution. No new schema/API/assets or speculative inventory in this slice.
 
-## Your mission
+## Phase 2 — Numerical environmental data
 
-Find and prepare credible Mars data for the selected Mount Sharp boxwork area in Gale Crater. You own the imagery/terrain role after the swap with Willy. Your name also appears as Gaddiel/Daddiel in earlier requests.
+After Phase 1 handoff use **`feature/gaddielle-environment-data`** if no task exists. Own proposed `tools/data/prepare_environment.py`, meaningful tool tests, raw-source audit under `docs/data/`, and proposed `public/data/environment.json`. These names reserve ownership; the runtime schema is **not yet agreed or implemented**.
 
-Read [the team allocation](../../TEAM_TASKS.md) and [shared contract](CODING_AGENTS.md). The original brief was written before the Angular foundation and data branch were available; inspect the current checkout before applying its proposed paths.
+- [ ] First investigate accessible, documented Curiosity REMS reduced pressure/temperature data and RAD dose-rate products. Prefer a small interpretable archival sample. Record exact product/release/source URLs, units, time coverage, quality/missing-value flags and redistribution conditions. No live-conditions claim.
+- [ ] Within the first investigation block, deliver a source sample and schema proposal to coordinator/Emma. Do not spend the release window on an unavailable product; document access/interpretation blockers. Do not replace missing radiation with a guessed value or count walking time as an independent measurement.
+- [ ] Agree the versioned schema with coordinator **before** generating the runtime file. Proposal must distinguish quantity id/value/unit, observation time interval, instrument/location/sol where verified, quality status, source/product and any documented uncertainty. Unknown values stay explicitly unavailable. Units must match the actual product, not assumptions.
+- [ ] Implement reproducible conversion. Filter documented invalid flags/sentinels, preserve legitimate zero values, handle units/time correctly and record included/excluded sample counts. Mean/min/max require a stated sampling interval/aggregation method; do not average incompatible quantities or releases.
+- [ ] Deliver pressure and temperature plus radiation if supported by actual sourced data. Each quantity has its own provenance/time window. Different instrument locations/times remain visible; these are regional historical context, not route-local hazards.
+- [ ] Verify extraction against representative source rows, negative/missing/invalid-quality cases, deterministic output and no source/output overwrite on failure. Document source hashes and actual test results. Add references with citations; shared app models/loaders remain coordinator-owned.
 
-## Deliverables and ownership
+## Phase 3 — Scale investigation, conditional independent improvement
 
-- One usable regional imagery product with documented provenance.
-- A verified aligned terrain product, or an explicit unavailable-data report.
-- A data manifest, proposed at `public/data/manifest.json`, and preparation notes under `docs/data/`.
-- Files or layer details Willy can load and Longla can use for 3D.
+- [ ] Investigate whether a documented scale bar or product mapping applies to the exact 2048×1042 derivative. Preserve original source/crop/resize evidence and quantify uncertainty where supported.
+- [ ] A trustworthy raster scale may support planar distance without full geodetic registration; geographic placement and terrain distance remain separate. Do not infer scale from image brightness or copy another product's resolution blindly.
+- [ ] Deliver evidence/proposed calibration to coordinator for shared validation/version handling. No direct coordinate/imageRef/schema changes or claimed terrain model. If evidence is insufficient, leave calibration unverified and record why.
 
-Coordinate scientific findings with Emma and shared schemas with the coordinator. Do not change application logic to disguise missing data.
+## Phase 4 — Deployment and final data audit
 
-## Original workflow reference — do not repeat accepted delivery
+- [ ] Update release data handoff after accepted environmental data: paths, hashes, bytes, data version and intended offline inclusion. Do not alter the image-only index to include unrelated files.
+- [ ] Verify deployed served bytes/version match the accepted build; correct base-path/case/MIME failures through coordinator. Check date/unit/source labels with Emma.
+- [ ] Confirm bundled records remain readable offline in the actual prepared app with Longla; external source links may require connectivity.
+- [ ] Provide final NASA/product/library credits, dataset limitations and provenance for presentation/submission. Label any missing quantity/calibration openly. Retest only changed/relevant data concerns.
 
-1. Confirm the exact proposed AOI using actual product footprints and rover-localization evidence. General Gale coverage does not prove boxwork overlap.
-2. Open Mars Trek and check available imagery/elevation products for that area. Verify usable layer requests rather than copying an untested service URL.
-3. Download or open one real sample image. Record its original dimensions, format and source.
-4. Search for one overlapping terrain product. Time-box the initial terrain search to one hour.
-5. Inspect coordinate reference system, longitude direction/range, orientation, horizontal units, vertical units and datum.
-6. Check alignment visually and through metadata. Record NoData and coverage gaps.
-7. Prepare a reasonably sized derivative if necessary. Preserve the original product identity and document crop, resize, transform and conversion steps.
-8. Hand Willy the imagery/bounds and Longla the terrain/units. Ask the coordinator to trigger the visual-review fallback if terrain remains unverified.
+## Agent execution and final handoff
 
-## Metadata checklist for every product
+Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
 
-| Field | What to record |
-| --- | --- |
-| Identity | Product ID/name, provider, primary HTTPS source and credit |
-| Coverage | Footprint, AOI overlap evidence and gaps |
-| Coordinates | CRS, axes, units, longitude convention and orientation |
-| Resolution | Original resolution and derivative resolution, with units |
-| Timing | Observation date and retrieval date, when available |
-| Processing | Original format, output format and reproducible conversion steps |
-| Validity | Verification status, NoData, known uncertainty and intended use |
+For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
 
-Use null/unavailable for unknown fields. Never supply guessed coordinates or scale as verified facts.
+Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
 
-## Calibration and terrain rules
+Normal commit/push to your assigned feature branch is authorized. Main merges belong to the coordinator. This plan prepares deployment; it does not itself publish an environment, deploy a site, submit the competition entry or authorize external messages. Preserve NASA/data/library/AI attribution.
 
-- Resizing or cropping changes the relationship between pixels and source coordinates.
-- A presentation image alone does not establish metric scale or north-up orientation.
-- Pixel distance can become metric distance only after independently verified calibration of the exact prepared raster.
-- Slope needs validated elevation, units, alignment and NoData handling. Imagery alone cannot supply slope.
-- Missing terrain must remain unknown, including along partially covered routes.
-- Check source terms and attribution before committing data; coordinate large assets with the coordinator.
-
-## Checks before handoff
-
-- Open the actual prepared file and verify its dimensions and readability.
-- Confirm that metadata matches that exact file and processing version.
-- Demonstrate image/terrain overlap rather than relying on product names.
-- Reproduce a preparation step using the documented command if processing was necessary.
-- Confirm the app loads the delivered local asset without an external account.
-
-## Completion and handoff
-
-You are done when usable imagery is supplied with honest coverage information, and terrain is either validated or clearly unavailable. Send the filenames, manifest, provenance, coordinate details, processing instructions and unresolved questions. Explain why each dataset supports the claimed use and where it does not.
-
-## Copy-paste coding-agent prompt
+Paste this into your coding agent:
 
 ```text
-You are Gaddielle's MARSWALK release-data handoff agent. Read TEAM_TASKS.md W2,
-docs/team/GADDIELLE.md, docs/team/tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md
-and docs/qa/FINAL_BRANCH_INTEGRATION.md.
-R3 is closed in main integration b744b0b: 28 data tests and real index pass.
-Preserve all completed work; don't repeat fixes/research or regenerate assets.
-1. Preserve local work and merge published main into the existing data branch.
-2. Deliver RELEASE_DATA_HANDOFF.md with actual required runtime data paths,
-   reference, bytes/hashes and production-copy verification.
-3. Separate image/science/index-control bytes; don't call this full app/cache
-   readiness. Give W6 exact include/exclude guidance, excluding archival master
-   and unused reference documents from essentials. No speculative new schema.
-4. Record actual commands/results and blockers, with only necessary factual
-   edits to existing data docs. No source/core/package/worker/API changes.
-Push only this existing feature branch (authorized), report commit/checks.
-No main integration, deployment, environment publication or external messages.
+Read my personal docs/team file, TEAM_TASKS.md and CODING_AGENTS.md.
+Inspect the actual branch and preserve existing work. Identify the first
+unfinished, unblocked phase in my checklist and implement that slice only.
+Use the listed owned files, real inputs and existing/agreed contracts.
+Do not consume future APIs or modify another owner's files speculatively.
+Keep all accepted behavior. Check important failure cases and the actual
+user workflow; run relevant checks and review the diff before handoff.
+Push only my feature branch. Report the actual commit/files/checks,
+blockers and deployment effects. Do not start an unrelated redesign,
+deployment or main merge. Mark completion only when supported by evidence.
 ```
