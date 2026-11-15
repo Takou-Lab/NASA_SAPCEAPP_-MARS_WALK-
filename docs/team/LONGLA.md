@@ -1,5 +1,17 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## Current task — reconcile 3af60d1 and reproduce the missing note
+
+Your QA-only 3af60d1 is received and preserved. No new 3D code is submitted. Reported Samsung installation/offline opening is useful, but final acceptance remains pending exact revision and mission-recovery evidence. Do this follow-up before VR or redesign:
+
+1. Record exact Samsung model, OS/browser version, actual URL, test time/timezone, served source/pack version, and installed standalone status. State which connection modes were disabled; “LTE” alone does not establish offline operation.
+2. Use an isolated test mission/profile, preserving existing mission exports. Prepare online and wait for verified full-pack readiness. Create a route and a uniquely identifiable note; click Save observation and record the actual success/error. Export before closing and inspect whether observations contains that text. Never share personal notes or overwrite someone's real mission.
+3. Disconnect, fully close and reopen the installed app. Before saving or editing anything, explicitly click Load Route and capture its feedback. Inspect Notebook and export again; compare route/imageRef/observations. Startup alone does not automatically restore the saved envelope. Do not save an empty reopened mission over the one being investigated.
+4. If the note is still absent after successful load, report exact ordered actions, screenshots, before/after redacted JSON and whether route recovery worked. Coordinator owns shared persistence investigation; Emma owns notebook UI. If it reappears after load, document a recovery-discoverability issue rather than data loss. An unsaved draft is not a persisted observation.
+5. Record pass/fail per step in docs/qa/PWA_ACCEPTANCE.md and push your existing feature/longla-3d branch. Keep unrun iOS, updates, graphics and outside-user tests pending. Coordinate actual device coverage with Willy Agent 2; do not duplicate his assets/build task.
+
+Do not repeat already accepted viewer implementation. This follow-up is the next handoff; final device QA and the reported note defect remain open until evidence resolves them.
+
 > Current work piece: [W5](../../TEAM_TASKS.md#w5).
 
 Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).

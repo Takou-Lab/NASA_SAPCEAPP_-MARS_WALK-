@@ -2,3 +2,7 @@
 # Keep canonical LF bytes on every platform, even with core.autocrlf=true.
 public/data/**/*.json text eol=lf
 public/data/*.json text eol=lf
+
+# Keep documented install-asset fingerprints stable across Windows checkouts.
+public/manifest.webmanifest text eol=lf
+public/icons/*.svg text eol=lf

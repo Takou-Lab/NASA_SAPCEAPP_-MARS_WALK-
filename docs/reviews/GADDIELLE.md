@@ -1,5 +1,67 @@
 # Gaddielle — environmental review: changes required
 
+## REMS source submission fe69663 — corrections required before acceptance
+
+Reviewed 15 November 2026, branch feature/gaddielle-environment-data. New scope: product inventory in source audit, one Sol 3900 label/excerpt and 16-sol summary CSV. Useful progress toward actual source traceability; no runtime schema or original-source acceptance yet. **Not merged or deployed.** Branch data tests: 50 pass; current main retains 52 with coordinator C1/C2 fixes. Existing suites do not reproduce or validate these new archive summaries. Original archive directory fetch returns HTTP 403; no independent source-download verification claimed.
+
+### S1 — P1: daily summary extraction is not reproducible
+
+The delivery claims pressure/temperature quality filtering and 484,604 extracted observations, but includes no acquisition/extraction script, MODRDR6.FMT, product quality-field documentation, selected-row mapping or per-quantity valid/rejected counts. A 25-row single-sol excerpt cannot establish full-day/16-sol means/extrema. The CSV includes an extra rems_obs_count column that the existing illustrative converter does not accept; do not remove the field just to force conversion or change illustrative status to verified.
+
+Deliver an exact downloadable URL per label/table/FMT/documentation file, documented confidence/sentinel/unit handling and a reproducible extractor with input-hash checks, sample-count audits and tests using the excerpt. At minimum independently reproduce one bounded product before expanding. Keep RAD unavailable; do not reuse the fixture's shared 0/1/2 flags as documented instrument semantics. Define how Ls, selected temperature field and UTC/sol intervals were obtained. Preserve raw versus derived distinctions.
+
+### S2 — P1: reported counts and fixed-record sizes disagree
+
+Summary CSV rems_obs_count values sum to **495,999**, not the claimed 484,604. Sol 3910 lists 33,617 observations but its inventory size 12,617,124 bytes corresponds to **33,917 × 372**. Sol 3902 lists 7,995,392 bytes, which is not divisible by stated ROW_BYTES 372 (21,493 records would be 7,995,396). Do not guess corrected values. Recheck original label ROWS/FILE_RECORDS, exact raw bytes and selection counts, clearly distinguishing total rows from per-quantity retained rows. Add automated consistency checks and regenerate summaries from actual inputs.
+
+### S3 — P2: distinguish downloaded raw bytes from normalized fixture bytes
+
+Committed sol_3900_modrdr_label.lbl is **2,965 bytes**, SHA-256 `a59e3dc793a2a0454f4fba4894439f711c1bd68b7b275077ccc2195ecbe6fbad`. Audit instead assigns the fixture the alleged original 3,032-byte hash `5536c93356a17f92eee17c0f3ffba77c8fd293f485038c831ed7d788dc32beb1`. Converting its 67 LF endings to CRLF reproduces that hash: this explains the discrepancy but is not independent archive verification. Record raw-product and normalized-fixture fingerprints separately, the newline transformation and checkout rules; never claim normalized bytes equal the raw download. Excerpt and summary hashes match the committed files.
+
+### S4 — preserve already accepted corrections when reconciling main
+
+A merge-tree inspection finds a conflict in ENVIRONMENT_SOURCE_AUDIT.md: branch audit predates coordinator C1/C2 cleanup and still carries old fixture/measurement claims. Preserve unpublished collection work, safely merge published main and resolve the audit to retain the accepted illustrative-tool boundary. Add new source evidence as pending review; do not restore misleading fixture claims or discard the accepted temperature tests/fix. No reset, force push, new branch or speculative runtime file required.
+
+**Next:** finish S1–S4 on the existing branch and send exact script/commands/product files or reproducible downloads/results. Product identifiers and hashes are useful evidence inputs, not proof of verified measurements by themselves. Coordinator can review a small fully traceable pressure/temperature extraction before the remaining sols. No new UI/API work is assigned.
+
+
+## Coordinator-assisted C1/C2 fixes — tooling accepted, data still pending
+
+15 November 2026: user authorized helping while Gaddielle continues source collection. Separate branch `fix/gaddielle-environment-review` merges her 0f6bd95 history and adds narrowly scoped corrections. **52 integrated Python tests pass** (33 prior + 19 converter cases). No runtime application/worker/data contract changed; no environmental runtime file generated or deployed.
+
+C1: removed the undocumented -200 degC filtering from all three temperature summary inputs; finite ordered non-sentinel intervals now contribute coherently. Added a physical lower-bound rejection below -273.15 degC, with destination bytes/mtime preserved. Regressions cover fully below -200 intervals, intervals crossing that threshold, and impossible temperatures. This is basic input validation, not validated instrument quality metadata.
+
+C2: fixture headers and source audit now consistently identify test-only values; numeric CSV rows remain unchanged. Removed unsupported archival/location/height/solar-detector claims from generated descriptions and replaced the audit example with actual current converter output. Recorded updated fixture bytes/hash after comment-only edits. Archive links remain discovery references, not original-product evidence.
+
+**Accepted scope:** local illustrative converter/tests/documentation only. **Not accepted:** verified observations, runtime schema/API, geographic calibration, elevation or environmental UI integration. Previous C1/C2 and R1–R4 prototype corrections are closed within that limited scope. Gaddielle's next work is traceable original REMS pressure/temperature acquisition with labels, metadata, raw hashes and reproducible row extraction; RAD separately if documented. Existing imagery work remains accepted. Preserve unpublished collection work; safely merge published main into her current branch after coordinator integration rather than resetting or redoing these fixes.
+
+
+## Correction review `0f6bd95` — progress verified, changes still required
+
+Reviewed 15 November 2026 against main f6567ca in an isolated archive with committed public assets. **50 Python tests pass** (33 existing + 17 environmental). No application source, scientific runtime data or feature merge/deployment occurred. Earlier review below remains historical.
+
+- **R1 classification addressed for test-only tooling:** generated status/evidence now explicitly illustrative; no public environment.json. Exact original products/labels/extraction still unavailable, so scientific source approval and runtime schema remain withheld. This is not a verified-data delivery.
+- **R2 addressed:** independent same-path, symlink and hardlink probes exit 1 and preserve source bytes/mtime.
+- **R3 primary write-path corrections addressed:** independent NaN, positive/negative Infinity and inconsistent pressure interval probes exit 1 and preserve existing destination bytes/mtime. Finite checks, min/mean/max validation and strict JSON serialization are present.
+- **R4 partially addressed:** zero radiation is included; independent per-quantity sentinel filtering and derived aggregation descriptions are added. Two remaining corrections below block acceptance of this prototype.
+
+### C1 — temperature filtering misreports non-sentinel exclusions
+
+In tools/data/prepare_environment.py, temperature lists filter at `>= -200.0`, but `perQuantityAudit.sentinelExcluded` is computed as all candidate rows minus included samples. A temporary quality-0 row with ordered temperatures -250/-240/-230 degC passes parsing, returns exit 0 and emits zero temperature samples with `sentinelExcluded: 1`, although no temperature is -9999. This silently labels a range-rejected record as missing. Other partial threshold cases can use different contributing row sets for mean versus extrema.
+
+**Required:** either reject undocumented/out-of-range values before output (with an explicit justified fixture rule) or preserve them as finite illustrative inputs; if excluding them, use a distinct range/invalid count and reason. Mean/min/max must use coherent accepted intervals. Never call non-sentinel exclusions sentinel-missing. Add regression cases asserting count/reason and existing-destination preservation when input is rejected. Do not adopt fixture rules as instrument quality semantics without product documentation.
+
+### C2 — finish test-only scientific wording cleanup
+
+ENVIRONMENT_SOURCE_AUDIT.md still calls the fixture representative archival/source rows covering an actual traverse sector and presents shared quality flags and numerical ranges as instrument facts despite missing original products/labels. Generated limitations also say “Historical archival sample” and “Measured at rover mast height” alongside illustrative status. The new warning helps, but does not establish those claims.
+
+**Required:** consistently describe the CSV as an illustrative test fixture, its sol/season/location as unverified fixture fields, and shared flags/sentinels as fixture conventions. Separate cited instrument background from claims about these rows. Remove unsupported detector/quiet-Sun/measurement-specific assertions or cite exact supporting documentation without implying the fixture was extracted from it. Keep actual data collection next; do not promote fixture output to runtime.
+
+### Next handoff
+
+Continue feature/gaddielle-environment-data, preserving local work. Fix C1/C2, run data tests plus actual failure-preservation probes and push the exact commit for review. Do not modify root/core/worker/packages or Enzo components. Once test tooling is accepted, collect a small original REMS pressure/temperature product and label with file hash, units/time/quality metadata and reproducible row extraction; RAD is separate and optional if untraceable. Calibration/elevation remain a separate next priority. No new branch or speculative schema/API integration is needed now.
+
+
 ## Latest environmental submission — changes required before merge
 
 Reviewed **15 November 2026 (Africa/Douala)**: `feature/gaddielle-environment-data`, tip **`286374b`** (includes `b730511`). This is a new review; earlier R3 and release-data handoff acceptances remain valid. **No environmental code/sample/schema was merged or deployed.**

@@ -1,5 +1,25 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Two-agent split — current ownership
+
+**Agent 1 (this file):** confidence/evidence content simplification, existing science/environment UI tasks only when agreed data APIs exist. Preserve the accepted verifier. Emma owns the three shared SCSS theme fixes. Do not edit the presentation/usability documents assigned below while Agent 2 works.
+
+**Agent 2:** follow [ENZO 2.md](<ENZO 2.md>) for presentation, demonstration, judges' answers, references/AI attribution and actual usability results. Those named Phase 3/4 documentation files are exclusively delegated to Agent 2 for this slice; Agent 1's later checklist does not authorize overlapping edits. Use separate checkouts/branches, preserve unpublished work and reconcile only through coordinator review. No runtime AI, speculative environmental API or independent deployment is assigned.
+
+## Current task — evidence clarity completed centrally; science navigation next
+
+The user authorized coordinator completion of your evidence-content slice. Confidence now shows route guidance first, rounds only displayed coordinates, and collapses detailed warnings; passport keeps source visible and technical details expandable. Emma's SCSS is untouched. **194 integrated tests/build and local production-browser/offline recovery pass**; [handoff](../qa/COORDINATOR_EVIDENCE_CLARITY.md). Do not repeat this implementation or the accepted verifier correction. Preserve unpublished work and safely incorporate published main before new edits; report any overlapping local changes instead of discarding them.
+
+### Agent 1 next slice — contextual-science record navigation
+
+Own only `src/app/science/science-context.component.ts`, `.html` and `.spec.ts` for this slice. Emma retains its SCSS; Agent 2 retains presentation/usability documents. Continue an existing branch containing your work; if none exists for this new slice, use `feature/enzo-science-navigation` from current main. Do not reset/force-push or change another agent's checkout.
+
+Add clearly labeled native **Previous science record** / **Next science record** controls beside the selected detail, using the current filtered order and existing MissionService.selectMarker. Compute index/availability from signals; no stored duplicate counter or new core API. Disable at the first/last item (no wrap). Before a record is selected, keep the existing selection prompt. If filters hide the selected record, retain its details and existing explanation; disable navigation until it belongs to the filtered list again. Never automatically choose another record when filters/records change. A single matching record disables both directions. Existing removed-selection behavior remains safe.
+
+Use native buttons with accessible names and existing style classes/tokens; no custom global shortcuts or interference with search/input typing. Add a concise accessible position indication, e.g. “Record 2 of 3 matching records”, distinguishing filtered navigation position from the existing total/located badge. Preserve full findings/source links, zero located positions and safe text rendering. Do not invent coordinates, shorten scientific content or create observations automatically.
+
+Test actual navigation order, first/last/single bounds, changing filters/hidden selection, record removal, and unchanged mission route/notes/mode/layers. Verify keyboard activation and narrow layout in a browser when your installation works. Run full npm test and npm run build; record local dependency blockers honestly rather than changing lockfile versions. If Windows stays blocked, push reviewed source/tests with exact unrun checks for coordinator verification. Final handoff: branch/commit, files, actual results and remaining blockers. No new assignment MD or edits to Agent 2 documents needed; keep the handoff in your response for coordinator reconciliation.
+
 ## Byte-verification compatibility handoff
 
 Coordinator added repository-controlled LF attributes for scientific JSON without changing canonical data or hashes. Root and `/marswalk/` builds, including pack verification, pass. See [Windows LF instructions and evidence](../qa/PWA_INSTALL_ASSETS.md#windows-lf-compatibility--coordinator-fix-15-november-2026). Preserve local work and refresh only clean affected files after incorporating main; no global Git changes or data regeneration. Enzo/Willy should rerun their own Windows build verification before claiming that handoff complete. Gaddielle should retain canonical LF in future scientific JSON deliveries; her environmental-data corrections remain a separate pending task.

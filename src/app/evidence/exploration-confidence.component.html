@@ -28,6 +28,11 @@
       <p class="confidence-banner-error" role="alert">{{ errorMessage }}</p>
     }
 
+    <div class="confidence-card" aria-label="Next mission step">
+      <h3>{{ routeGuidance().title }}</h3>
+      <p class="card-note">{{ routeGuidance().next }}</p>
+    </div>
+
     <div class="confidence-grid">
       <article class="confidence-card" aria-label="Route summary">
         <div class="card-head">
@@ -71,47 +76,52 @@
         <p class="metric-value">{{ distanceSummary().formatted }}</p>
         <p class="card-note">{{ distanceSummary().basis }}</p>
       </article>
-
-      <article class="confidence-card" aria-label="Terrain status">
-        <div class="card-head">
-          <h3>Terrain Model</h3>
-          <span class="badge badge-caution">{{ terrainStatusLabel() }}</span>
-        </div>
-        <p class="card-note">
-          Elevation, slope, and terrain-following distance are unavailable (even when planar metric
-          calibration is verified). Route or image display offsets and image brightness are not
-          elevation.
-        </p>
-      </article>
-
-      <article class="confidence-card" aria-label="Coverage status">
-        <div class="card-head">
-          <h3>Coverage Status</h3>
-          <span
-            class="badge"
-            [class.badge-ok]="coverageSummary().status === 'verified-aoi'"
-            [class.badge-caution]="coverageSummary().status === 'regional-context'"
-            [class.badge-neutral]="coverageSummary().status === 'missing'"
-          >
-            {{ coverageSummary().label }}
-          </span>
-        </div>
-        <p class="card-note">{{ coverageSummary().detail }}</p>
-      </article>
     </div>
 
-    <div class="warnings-block">
-      <h3>Assessment Warnings</h3>
-      @if (uniqueWarnings().length > 0) {
-        <ul class="confidence-warnings">
-          @for (warning of uniqueWarnings(); track warning) {
-            <li>{{ warning }}</li>
-          }
-        </ul>
-      } @else {
-        <p class="card-note">No assessment warnings recorded.</p>
-      }
-    </div>
+    <details class="assessment-details">
+      <summary>Terrain, coverage and assessment warnings</summary>
+      <div class="confidence-grid">
+        <article class="confidence-card" aria-label="Terrain status">
+          <div class="card-head">
+            <h3>Terrain Model</h3>
+            <span class="badge badge-caution">{{ terrainStatusLabel() }}</span>
+          </div>
+          <p class="card-note">
+            Elevation, slope, and terrain-following distance are unavailable (even when planar
+            metric calibration is verified). Route or image display offsets and image brightness are
+            not elevation.
+          </p>
+        </article>
+
+        <article class="confidence-card" aria-label="Coverage status">
+          <div class="card-head">
+            <h3>Coverage Status</h3>
+            <span
+              class="badge"
+              [class.badge-ok]="coverageSummary().status === 'verified-aoi'"
+              [class.badge-caution]="coverageSummary().status === 'regional-context'"
+              [class.badge-neutral]="coverageSummary().status === 'missing'"
+            >
+              {{ coverageSummary().label }}
+            </span>
+          </div>
+          <p class="card-note">{{ coverageSummary().detail }}</p>
+        </article>
+      </div>
+
+      <div class="warnings-block">
+        <h3>Assessment Warnings</h3>
+        @if (uniqueWarnings().length > 0) {
+          <ul class="confidence-warnings">
+            @for (warning of uniqueWarnings(); track warning) {
+              <li>{{ warning }}</li>
+            }
+          </ul>
+        } @else {
+          <p class="card-note">No assessment warnings recorded.</p>
+        }
+      </div>
+    </details>
   }
 
   <p class="pwa-boundary">

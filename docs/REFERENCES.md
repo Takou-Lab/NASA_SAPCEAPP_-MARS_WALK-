@@ -5,6 +5,7 @@
 <!-- /CURRENT_WORK_PLAN -->
 
 ## Verified Primary NASA & USGS Sources
+
 1. **NASA Science — Curiosity Blog (Sols 4804–4811)** — *Kicking Off the Final Phase of Boxwork Exploration* (`HTTP 200 OK`): https://science.nasa.gov/blog/curiosity-blog-sols-4804-4811-kicking-off-the-final-phase-of-boxwork-exploration/ (Credit: NASA/JPL-Caltech/MSSS)
 2. **NASA Photojournal PIA26306** — *HiRISE Views Mount Sharp's Boxwork (PSP_001752_1750)* (`HTTP 200 OK`): https://photojournal.jpl.nasa.gov/catalog/PIA26306 (Credit: NASA/JPL-Caltech/University of Arizona)
 3. **NASA Science — Curiosity Blog (Sol 2121)** — *Sol 2121: Blackjack!* (Vera Rubin Ridge Pettegrove Point / Ailsa Craig) (`HTTP 200 OK`): https://science.nasa.gov/blog/sol-2121-blackjack/ (Credit: NASA/JPL-Caltech)
@@ -13,10 +14,31 @@
 6. **NASA Science — Mars Science Laboratory (Curiosity)** — General mission overview (`HTTP 200 OK`): https://science.nasa.gov/mission/msl-curiosity/ (Credit: NASA/JPL-Caltech)
 7. **USGS Geologic Map of Mars (SIM-3292)** — Tanaka et al. (2014), 1:20,000,000 scale global context: https://astrogeology.usgs.gov (Credit: U.S. Geological Survey)
 
+---
+
 ## Inaccessible / Replaced Reference Record
+
 - **NASA/JPL News (Boxwork Feature)** — `https://www.jpl.nasa.gov/news/nasas-curiosity-rover-explores-a-spiderweb-on-mars/` returned `HTTP 403 Forbidden` during automated source verification and was replaced by accessible `science.nasa.gov` mission blogs and `PIA26306`.
 
+---
+
 ## Software Frameworks & Libraries
-- **Angular & TypeScript** — Core application framework (MIT License)
-- **Leaflet (`CRS.Simple`)** — Implemented on main for 2D local-image map rendering (BSD-2-Clause License)
-- **Three.js** — Implemented optional flat training view on Longla's verified feature branch (`9d794e2`, code `2a6dbba`), pending main integration (MIT License)
+
+- **Angular** — Application component framework and build toolchain (MIT License)
+- **TypeScript** — Language compiler and static type checking (Apache-2.0 License, verified in installed package)
+- **Leaflet (`CRS.Simple`)** — 2D raster map rendering with bottom-left pixel coordinates (BSD-2-Clause License)
+- **Three.js** — Opt-in flat WebGL training projection view with orbit controls (MIT License)
+- **Vitest** — Unit test execution framework (MIT License)
+
+---
+
+## Typography & Design Assets
+
+- **System Font Stacks:** The application exclusively uses native system font stacks (`system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` for UI/body, and standard system monospace for coordinates and telemetry). No external web fonts (such as Inter, Space Grotesk, or JetBrains Mono) or remote `@font-face` files are bundled or fetched at runtime, ensuring complete offline autonomy and zero external font network requests. Unused font pairing proposals in design notes are non-runtime suggestions.
+- **PWA Application Artwork:** Original geometric raster (`png`) and vector (`svg`) icons created for offline application manifests (original app artwork, not official NASA insignia or branding).
+
+---
+
+## Hosting Infrastructure
+
+- **Vercel** — Static edge hosting for the live application deployment at [https://marswalk-jet.vercel.app/](https://marswalk-jet.vercel.app/) (serving commit `b6669fb`).

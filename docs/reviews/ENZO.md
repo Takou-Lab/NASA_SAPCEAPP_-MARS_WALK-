@@ -1,5 +1,57 @@
 # Enzo review — final shell integrated
 
+## Agent 2 checklist cbddb0e — accepted with technical corrections
+
+15 November 2026: one owned QA document adds environment/source/pack fields, seven screenshot scenes, saved-note criteria and a clearly unrun rehearsal log. Coordinator corrected actual inventory URL (/offline-pack.json), exported observations field, successful-save clearing versus failed-save draft retention, visible contextual labels versus JSON position:null, full-process restart wording and non-measurement rehearsal text. No screenshots, timings, installation or rehearsal outcomes were supplied or invented. Documentation links/format/contract checked; no code tests rerun or site deployed.
+
+Checklist assignment is complete. Agent 2's candidate screenshots/observed rehearsal still await coordinator-designated served revision and devices. He can now prepare the bounded AI-assisted science-explanation proposal requested in the latest schedule: three source-grounded entries, human review, limitations/citations and illustrative example JSON only under his QA handoff. No public runtime file, invented schema/API, model/backend/keys or scientific claims. Coordinator must agree schema before any runtime integration; core mission/release work takes priority. Finish a reviewable proposal within two hours, then stop pending review rather than expanding scope.
+
+## Agent 2 release story 0731a49 — accepted with minor coordinator corrections
+
+Reviewed 15 November 2026. Seven owned documents now separate live b6669fb from main, scope prior test evidence, include explicit Prepare offline/save/reopen/Load Route instructions and a two-minute/fallback script, correct TypeScript licensing and unsupported font/tool claims, and provide ENZO_2_RELEASE_STORY.md. Original authorship and pending physical/usability/official evidence remain intact. Coordinator corrected the unsupported “Sol 4242” example, alternate install-control label, exact system-font stack and “Observed” heading; no new rehearsal or peer-review claims. Links/anchors/format and source-state claims checked; documentation-only, no application test rerun or deployment.
+
+Previous 25634e2 correction request is closed. This accepts internal presentation materials, not final official submission compliance, screenshots or observed demo/device outcomes. Next Agent 2: prepare the screenshot/rehearsal evidence checklist from the accepted script, then capture the designated served candidate and consolidate actual coordinator/Longla user observations when supplied. Do not invent missing inputs or add a runtime feature to stay busy. Agent 1 continues science navigation independently; coordinator already completed evidence clarity at de8dfdd.
+
+## Agent 1 evidence clarity — completed by coordinator at user request
+
+15 November 2026: bounded confidence/passport presentation changes preserve all mission/scientific state and Emma's SCSS. 194 integrated Angular tests, build and local production-browser/offline recovery checks pass. [Evidence and limitations](../qa/COORDINATOR_EVIDENCE_CLARITY.md). Agent 1 should reconcile unpublished overlapping work and move to contextual-science navigation in his personal MD. Agent 2 release-story 25634e2 corrections below remain separate and open. No deployment or physical-device acceptance claimed.
+
+## Agent 2 release story 25634e2 — corrections required
+
+Reviewed 15 November 2026. Six owned documentation files changed on feature/enzo-release-story, no runtime code. Good preservation of Emma authorship, no-safety/uncalibrated/flat-viewer boundaries and pending outside-user/official requirements. **Not merged.** Agent 1's accepted fc79cf8 remains complete; no new evidence-UI commit is published.
+
+1. **Revision and test truthfulness:** main f6567ca is not the deployed source; last recorded live source is b6669fb. Separate these explicitly in all six documents and tell presenters to cite the actual served revision, not f6567ca for either host. f6567ca baseline evidence is 144 Angular / 11 worker / 33 data tests; 136/28 applies to earlier scopes. Current accepted verifier has 193 Angular tests and coordinator data fixes have 52 data tests, each with its own evidence/revision. Do not mix those counts into a deployment claim. Remove obsolete style-budget warnings for the reviewed 433.80 kB baseline; Leaflet warning remains. Inventory HTTP success alone does not prove cache/offline recovery.
+2. **Reproducible demo:** explicitly Prepare offline and wait for verified full-pack completion before disconnecting. Save a note with confirmed success, export/check it, close/reopen disconnected, then Load Route before checking restored observations/export. A DevTools offline reload is a browser smoke check, not installed-device/full-process restart acceptance. Do not imply startup restores notes automatically; Royce's device missing-note report is open. Provide a primary two-minute sequence and short fallback, with setup separated. Do not inject storage failures during a live mission without an isolated reproducible harness and draft protection.
+3. **Attribution accuracy:** REFERENCES.md invents shipped Inter/Space Grotesk/JetBrains Mono fonts; actual styles use system font stacks with no bundled @font-face files. Remove or explicitly label unused design suggestions. Split Angular (MIT) from TypeScript (Apache-2.0, verified installed license). AI_USE.md lists Claude Code without supporting repository evidence; obtain actual contributor confirmation or mark unknown/remove. Do not call planned source-reviewed text peer-reviewed without actual peer review. Dates/random IDs/browser storage mean all client execution is not literally deterministic; simply state no runtime LLM/model inference.
+4. **Missing handoff:** create assigned docs/qa/ENZO_2_RELEASE_STORY.md with branch/commit, actual checks, evidence/claim mapping, missing screenshots and official/device/user blockers. Mark unobserved demo steps pending; no screenshots, sessions or hardware results were supplied. Preserve the existing usability protocol; no artificial change to it required if sessions remain unrun.
+
+Continue existing feature/enzo-release-story, preserve local work and safely incorporate main. Validate relative links/anchors and claims; no application test rerun needed for this documentation-only slice. Push and say ready for review. Do not deploy, edit Agent 1 files or add a speculative runtime feature. Official page retrieval remains blocked/unverified; no official limits/deadline may be assumed.
+
+
+## Verifier correction fc79cf8 — accepted
+
+Reviewed 15 November 2026 against main 7f6ff5d. The genuine Uint8Array brand check and local copy resolve the cross-realm rejection without accepting DataView, strings, signed/clamped or wider typed arrays. Same/foreign-realm subarrays verify only their actual byte windows. Existing index/size/hash/UTF-8/identity/fail-closed/read-only checks are preserved.
+
+**New integrated results:** `npm test` passes **193 tests across 17 files**, including all 49 verifier cases. `npm run build` and `npm run build -- --base-href /marswalk/` both pass full-pack verification, 18 assets each; initial 433.80 kB, unchanged budgets and Leaflet CommonJS warning. Root pack stays 2d175fcf490e (1,655,365 bytes), subpath 37d7e7239de0 (1,655,374 bytes): this verifier is not mounted or bundled into the current runtime. Linux coordinator checks close the integration gate; Enzo's missing local Windows Three.js install remains a local setup issue. These checks do not claim physical/device or new live-browser acceptance.
+
+Previous c35b021 correction request below is closed by fc79cf8. Accepted scope is a pure image-payload verifier, not complete offline readiness or independent scientific validation. Coordinator owns any future composition into cache lifecycle; do not wire it into root/worker without agreement. No deployment occurred.
+
+Next unblocked Enzo slice: simplify default confidence/evidence explanations in his owned templates and coordinate wording with Emma. Show route state/main limitation/next step first, keep detailed limitations and sources accessible, preserve unavailable metrics and no safety classification. Emma retains the three shared SCSS theme fixes. Environmental runtime work remains blocked on verified sources/schema. Continue presentation/mission story from actual capabilities; official challenge contents/deadline remain unverified. Preserve unpublished work and incorporate published main safely before the next slice.
+
+
+## Current verifier review — corrections required (`c35b021`)
+
+Reviewed 15 November 2026 against main `ac79be5`, using a temporary clean merge that was aborted after verification. The branch is published, but **not accepted or merged**. Existing integrated shell work below stays accepted.
+
+- `npm test`: **176 passed, 11 failed / 187 tests**, 16 passing files and one failing file. All failures are in the new 43-test verifier suite. The existing 144 tests pass.
+- `npx vitest run --environment node src/app/offline/image-payload-verifier.spec.ts`: **43 passed**. Node-only success does not establish Angular-suite compatibility.
+- `npm run build` and `npm run build -- --base-href /marswalk/`: **both pass**, including full pack verification (18 assets each). Locked Three.js is available in the coordinator environment; no dependency change needed. These are Linux results, not Enzo's Windows results.
+
+**Required fix:** `bytes instanceof Uint8Array` rejects the manifest bytes produced by TextEncoder in the integrated Angular/jsdom environment. Successful verification returns “The supplied asset reader did not return bytes” before hashing; corruption/manifest-identity checks also fail at the wrong stage. Resolve the realm/type mismatch using a justified byte-validation/normalization approach and/or consistent test fixtures. Do not accept strings, DataView or arbitrary typed arrays as byte payloads, and do not bypass SHA-256 or weaken failure assertions. Verify valid Uint8Array views/subarrays and rejection of invalid reader values; retain exact-size/hash/identity checks, read-only behavior and fail-closed results.
+
+Continue `feature/enzo-image-payload-verifier`, preserve local work, and rerun the focused suite, full `npm test`, root build and `/marswalk/` build after correction. Record actual platform/results and remaining local registry blockers. Push a new commit for review. No deployment was performed. Finish this correction before environmental integration; use only separately reviewed scientific datasets.
+
+
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->

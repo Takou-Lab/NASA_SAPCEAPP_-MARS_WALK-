@@ -337,6 +337,34 @@ describe('ExplorationConfidenceComponent', () => {
     expect(text).toContain(`Banner_${xssPayload}`);
   });
 
+  it('guides endpoint selection and recovery without rounding stored coordinates', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    expect(root.querySelector('[aria-label="Next mission step"]')?.textContent).toContain(
+      'Set your route endpoints',
+    );
+    const details = root.querySelector('details') as HTMLDetailsElement;
+    expect(details.open).toBe(false);
+    state.route.set({ start: { x: 1333.9385, y: 415.7699 }, destination: null, waypoints: [] });
+    fixture.detectChanges();
+    expect(root.textContent).toContain('Set (1334, 416 px)');
+    expect(root.querySelector('[aria-label="Next mission step"]')?.textContent).toContain(
+      'Set Destination',
+    );
+    expect(state.route().start).toEqual({ x: 1333.9385, y: 415.7699 });
+    state.route.set({ ...state.route(), destination: { x: 138.1754, y: 105.5831 } });
+    fixture.detectChanges();
+    expect(root.querySelector('[aria-label="Next mission step"]')?.textContent).toContain(
+      'Route drawn — measurements unavailable',
+    );
+    expect(root.querySelector('[aria-label="Next mission step"]')?.textContent).toContain(
+      'Load Route',
+    );
+    details.open = true;
+    details.dispatchEvent(new Event('toggle'));
+    expect(root.querySelectorAll('.confidence-warnings li').length).toBeGreaterThan(0);
+    expect(state.route().destination).toEqual({ x: 138.1754, y: 105.5831 });
+  });
+
   it('remains strictly readonly without calling initialize, mutators, or localStorage', () => {
     const getItemSpy = vi.spyOn(Storage.prototype, 'getItem');
     const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');

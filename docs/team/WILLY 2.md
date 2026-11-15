@@ -1,0 +1,64 @@
+# Willy 2 — Installation and release verification agent
+
+## Current review — Windows report accepted; remaining checks next
+
+Your 9b4093d report is accepted as scoped contributor evidence: locked Windows install, LF/source fingerprints, both production builds and named static HTTP paths. [Review](../reviews/WILLY.md#agent-2-windows-report-9b4093d--accepted-as-scoped-contributor-evidence). Do not repeat asset generation. Preserve stash/local work and continue existing feature/willy-pwa-install-assets; no new branch needed.
+
+Next complete the omitted raster HTTP check using the actual manifest.assetPath at root and /marswalk/, plus decoded dimensions. Then run isolated-profile full preparation/disconnected close-reopen, explicit saved mission load, notes and export; do not equate HTTP 200 with offline acceptance. Record logs/evidence for new checks in your own QA report. Use the exact coordinator-deployed candidate when available to verify hosted apple-touch-icon; main is not automatically live. Coordinate physical device coverage with Royce and keep unrun Android/iOS checks pending. Agent 1 map work remains independent; do not edit its files or deploy.
+
+Assigned 15 November 2026. You are Willy's second coding agent. Your independent assignment is installation-asset and production-path verification, leaving map development to his first agent. Read [Willy's main plan](WILLY.md), [shared contracts](CODING_AGENTS.md) and [installation evidence](../qa/PWA_INSTALL_ASSETS.md).
+
+## Workspace and ownership
+
+Use a separate clone or existing independent checkout from Agent 1. Do not switch branches, install dependencies or write build output concurrently in the same checkout. Preserve unpublished work. Continue your existing installation-task branch if present; otherwise start `feature/willy-install-verification` from current published main. Never reset or force-push.
+
+Own `docs/qa/WILLY_2_INSTALL_VERIFICATION.md` and necessary, justified fixes under `public/icons/` or `public/manifest.webmanifest`. Do not recreate or redesign already accepted assets. The shared PWA_INSTALL_ASSETS.md is read-only for this agent; report proposed corrections in your own QA file for coordinator reconciliation. Do not edit WILLY.md, this assignment, map files, root/index, core/models, scientific data, package/lock files, build scripts, hosting or worker configuration. Report defects outside ownership with reproduction steps.
+
+## Starting point — already delivered
+
+Main `ac79be5` pins scientific JSON checkout to LF. Main `d32453f` adds relative apple-touch-icon discovery using the existing 192px PNG, asset fingerprint documentation and LF rules for webmanifest/SVG. These are completed coordinator changes; do not reimplement them. Three.js and declarations are already locked. No Pillow installation is necessary unless you actually run image-processing tools that require it.
+
+## Slice 1 — Reproduce Windows production builds
+
+1. Record branch/commit, OS, Node/npm/Git versions and clean/modified state. Preserve local changes before incorporating current main.
+2. Install locked dependencies with `npm ci` in your own checkout. If registry access fails, record the actual error and stop claiming build success; do not change dependency versions or delete the lockfile.
+3. Confirm manifest size 1,200 bytes and SHA-256 `40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82`. Use the documented clean-file checkout refresh if Windows retained CRLF; protect edits first. Do not rewrite hashes or scientific data.
+4. Run `npm run build`. Record compilation and full offline-pack generation independently; compilation alone is insufficient.
+5. Serve this root build before overwriting it. Verify actual HTTP responses for image, manifest, all icon paths, worker and offline-pack inventory. Confirm apple-touch-icon/manifest links resolve against the page base.
+6. Run `npm run build -- --base-href /marswalk/`. Serve its output under the actual `/marswalk/` URL path, not simply the server root. Repeat HTTP/link checks and verify no accidental root-relative requests. Record your serving command and URLs.
+7. Independently decode existing PNGs, confirm declared dimensions/opacity, and compare all documented sizes/hashes. Use available tools; dependency installation is not the task. Identify every asset change because it requires a fresh complete pack.
+
+## Slice 2 — Installation and offline lifecycle evidence
+
+Use the coordinator-designated HTTPS deployment and record its exact deployed source revision. GitHub main is not automatically deployed. If the public app is older, label results with that version and list checks that need repeating on the candidate release.
+
+- Start with a clean isolated browser profile. Verify real imagery/science load and prepare the full offline pack; wait for verified completion.
+- Create start/waypoint/destination, add a note, save and export. Record separate preparation/save outcomes.
+- Install on an available physical Android Chrome device or iOS Safari using its supported Add to Home Screen flow. Record actual model, OS/browser version, launcher appearance and standalone behavior. Do not call a desktop emulator a physical-device pass.
+- Disconnect, close the installed app and reopen while still disconnected. Recover the saved route using the existing load action; check image/science, note recovery and export. Do not clear someone's mission or device data.
+- Record unsupported install prompts, failures, stale versions and recovery steps accurately. Coordinate with Royce to avoid duplicating his device matrix; contribute installation evidence he can reference.
+- If no device is available, complete browser/build work and explicitly mark physical checks blocked. Do not invent screenshots, installations, timings or participants.
+
+## Slice 3 — Safe integration follow-up
+
+Once Agent 1's map changes are reviewed and merged, repeat only affected map/install/offline smoke checks on the coordinator's release candidate. Report regressions to their owners. Do not merge Agent 1's unreviewed branch yourself, independently deploy, change worker update behavior or force reload unsaved missions.
+
+## Evidence format and completion
+
+Create `docs/qa/WILLY_2_INSTALL_VERIFICATION.md` with a table: check, tested revision, platform, command/action, actual result, evidence location, remaining blocker. Include root and subpath results separately, asset fingerprints, tested deployment URL/revision, and physical-device versus browser-only results.
+
+For actual asset changes run both production builds and relevant asset checks. For documentation-only results do not add artificial tests. Preserve current size budgets. End your handoff with branch/commit, changed files, commands/results, one observed workflow, failures, pending hardware and deployment implications.
+
+Push your feature branch and send the coordinator the handoff. This assignment is complete when reproducible checks and honest remaining device blockers are documented and any owned fixes pass review; it does not itself establish final release acceptance.
+
+## Prompt for Agent 2
+
+```text
+Read docs/team/WILLY 2.md and its linked contracts. You are Agent 2:
+installation/release verification only. Preserve existing work, use an
+independent checkout, and follow Slice 1 before dependent device checks.
+Own your separate QA file and justified install-asset fixes only.
+Do not touch Agent 1's map code or coordinator configuration/data.
+Use locked dependencies and actual production packs. Record real results,
+platform/revision and blockers; push only your feature branch for review.
+```

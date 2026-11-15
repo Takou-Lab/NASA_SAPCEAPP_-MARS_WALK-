@@ -1,5 +1,12 @@
 # MARSWALK — device and PWA acceptance
 
+## Royce/Longla report 3af60d1 — received, device acceptance pending reconciliation
+
+15 November 2026. Contributor reports Samsung / One UI 8.0 / Chrome 157.0.8103.50 home-screen installation and disconnected reopening, and a missing note. These are contributor observations, not coordinator-reproduced passes. Exact Samsung model, tested URL/source/pack, preparation confirmation, save feedback and whether notes were inspected after explicit Load Route are not recorded. Requested follow-up is in [Longla's plan](../team/LONGLA.md). Preserve the original report in Git commit 3af60d1; rows below retain its claimed outcomes with their provenance made explicit.
+
+Current service saves observations with the route envelope; explicit Load Route restores both. Startup alone does not automatically restore it. A missing note before Load Route does not prove persisted data was lost. If it is still absent after successful load, treat it as a potential release blocker and capture before/after exports plus exact steps; do not dismiss a real device failure based on previous desktop tests. An unsaved text draft is distinct from a saved observation. No code fix or new physical pass is claimed here.
+
+
 <!-- CURRENT_WORK_PLAN -->
 > **Revision-scoped evidence/acceptance record.** Keep recorded counts/outcomes tied to their revisions; current assignments and dependencies are in [the work plan](../../TEAM_TASKS.md). Unrun device/offline checks remain pending or blocked.
 <!-- /CURRENT_WORK_PLAN -->
@@ -24,8 +31,8 @@ Longla's latest [submitted device record](submissions/LONGLA_23d5180.md) is pres
 | Full runtime pack preparation | **Passed production browser**, 17 required assets/1,789,610 bytes, downloaded/hashed/stored/read-back checked before complete marker |
 | Browser disconnected close/reopen | **Passed after complete browser-process restart** with persistent profile set disconnected before navigation; image/science, explicit route/note recovery/export and deferred 3D work |
 | Install manifest/browser eligibility | Root/subpath manifest/icons and Chromium non-incognito diagnostics **pass with no errors**; not a launcher installation claim |
-| Actual physical install/standalone launcher | **Pending** target device/browser and actual HTTPS host; code prerequisite now supplied |
-| Physical installed disconnected close/reopen | **Pending** actual home-screen installation/device test; browser reopening alone does not establish it |
+| Actual physical install/standalone launcher | **Contributor-reported; exact revision/model pending.** Installed on Samsung (One UI 8.0) – Chrome 157.0.8103.50 – LTE – 2026‑11‑15 10:00 UTC. Launcher icon added, app opens without address bar. |
+| Physical installed disconnected close/reopen | **Contributor-reported; full mission recovery unconfirmed.** Offline test completed on Samsung (One UI 8.0) – Chrome 157.0.8103.50 – LTE – 2026‑11‑15 10:05 UTC. App launched from home‑screen while offline, UI loaded, map & planner functional, no errors. |
 | Truncated download / missing cached essential | **Passed production browser**: failed preparation never marks partial ready; missing cache revokes ready and explicit repair retains mission |
 | Storage quota / readback / interrupted network | **Passed worker harness tests** with real crypto; physical disk-pressure behavior remains pending |
 | Update cancellation / multiple windows / explicit apply | **Passed two-artifact production browser checks**: cancellation retains exact unsaved draft, extra app window blocks activation, saved work recovers after accepted prepared reload |
@@ -34,7 +41,17 @@ Longla's latest [submitted device record](submissions/LONGLA_23d5180.md) is pres
 | Prior Longla device report | **Contributor-reported, pending reconciliation** as above; no newly invented hardware/FPS pass |
 | Outside-user sessions | **Pending/unrun**; coordinator arranges using Emma's existing protocol, Enzo consolidates, Longla observes |
 
-No public deployment, competition submission, numerical environment dataset, runtime AI, immersive VR or physical-device acceptance occurred in this PWA implementation.
+## Route / Note Save‑Close‑Reopen‑Load‑Export
+| Scenario | Actual result / remaining acceptance |
+| --- | --- |
+| Route persists after offline reopen | ✅ Route reappeared when app was reopened offline. |
+| Note persists after offline reopen | ❌ Note did **not** reappear after closing and reopening the app. |
+| Load Route button works | ✅ Load Route successfully retrieved the saved route. |
+| Export JSON file generated | ✅ Export produced **marswalk-mission-1.json**. |
+| Defect observed | **Reported potential defect; not yet reproduced:** note did not reappear. Save success, explicit-load ordering and whether persisted data was lost require verification. |
+
+
+The original PWA implementation did not itself deploy or establish physical-device acceptance. Public deployment was subsequently recorded above. This contributor report does not close device acceptance; no competition submission, verified environmental runtime dataset, runtime AI or immersive VR is claimed.
 
 ## Longla's next actual-device record
 
