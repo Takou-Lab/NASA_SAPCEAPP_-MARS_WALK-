@@ -1,6 +1,6 @@
 # Final 90 minutes — survival-planning release
 
-Start this relative clock when Patrick signals the team. All contributors first preserve/push current work and send branch + SHA. Fetch current main safely; the current reviewed runtime is 620d259 (uploaded relief opens by default; includes 2bfbd8d AI relief and 38ad299 persistence overwrite protection), with later documentation commits. Do not work from 2626a6b. Use https://marswalk-review-boys-band.vercel.app/; production marswalk-jet remains older. This is an exploration/survival-planning prototype, not validated life-support or safe-navigation software.
+Start this relative clock when Patrick signals the team. All contributors first preserve/push current work and send branch + SHA. Fetch current main safely; the current reviewed runtime is ecc3eb5 (includes the deployed return-time scenario, uploaded relief default and persistence overwrite protection), with later documentation commits. Do not work from 2626a6b. Use https://marswalk-review-boys-band.vercel.app/; production marswalk-jet remains older. This is an exploration/survival-planning prototype, not validated life-support or safe-navigation software.
 
 ## One demonstrable outcome
 
