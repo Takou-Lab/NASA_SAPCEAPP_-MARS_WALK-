@@ -1,5 +1,8 @@
 # MARSWALK — Submitted branches reviewed and integrated
 
+> **Live deployment update — 15 November:** https://marswalk-jet.vercel.app/ is public and passes production-origin browser offline restart/mission recovery checks. Source `b6669fb`; [deployment evidence](docs/qa/VERCEL_PRODUCTION.md), [Vercel runbook](docs/VERCEL_SETUP.md). Physical home-screen acceptance remains pending; automatic GitHub deployment is not connected. Earlier revision-scoped statements below retain their historical scope.
+
+
 Reviewed **15 November 2026 (Africa/Douala)**. Application integration: **`b744b0b55252b33903b0e67559defaa4901047ee`**, following remote main `9914e70`. All **eight advertised feature tips** are ancestors of this revision. Older accepted branches were already merged; new integration preserves their history. [Exact branch table and evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md).
 
 | Contributor / branch | Published tip | Verdict / integration |

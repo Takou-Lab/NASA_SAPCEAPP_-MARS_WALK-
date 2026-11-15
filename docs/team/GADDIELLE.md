@@ -12,6 +12,10 @@ Your R3 submission **`42a0dd2`** passes 30 isolated data tests and is integrated
 
 Start/resume **Phase 1 release-data handoff** below. Then hand actual environmental source samples/proposal to coordinator and Enzo before generating a runtime file. Existing full remaining-work checklist stays in force. Merge published main safely into your existing data branch; preserve local progress.
 
+## Public host is ready for your acceptance checks
+
+Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual public browser preparation, offline full-process restart, route/note recovery/export and deferred flat 3D pass. [Evidence](../qa/VERCEL_PRODUCTION.md), [runbook](../VERCEL_SETUP.md). Target-device home-screen/standalone acceptance still needs actual observations; do not copy the browser pass as physical evidence. Automatic GitHub deployment is not connected, so a new main commit is not necessarily live until the coordinator deploys it.
+
 ## Coordinator PWA delivery — current handoff
 
 **`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.

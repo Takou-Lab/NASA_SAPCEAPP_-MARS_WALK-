@@ -1,0 +1,30 @@
+# Public production acceptance — Vercel
+
+Date **15 November 2026**. Source **`b6669fb`**. Public app **https://marswalk-jet.vercel.app/**, deployment `dpl_3dGqArmwGYzMkxMQHwWuvaj7BVWU`. [Setup/runbook](../VERCEL_SETUP.md), [prior PWA implementation checks](PWA_FOUNDATION.md).
+
+## Actual provider and HTTP checks
+
+- User-approved Vercel CLI login verifies the correct account; project created in its default `boys-band` team. Explicit Node `24.x`, custom PWA build and static output settings are applied. Provider build completes successfully; initial/style/CommonJS warning overruns remain, budgets unchanged.
+- All 17 runtime files match the tested pack by actual byte lengths and SHA-256, first on protected staging through the authenticated CLI, then on the production alias through **ordinary anonymous curl with TLS verification**. Total **1,789,610 bytes**, pack `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`.
+- Root returns actual Angular HTML, not a login screen. Worker and install manifest return 200; manifest MIME and no-store/revalidation settings are configured. Archive master is excluded; missing archive/data/worker URLs now return **404**, after explicit filesystem/404 routing fixed the provider fallback. No Docker/backend is needed.
+- Staged immutable deployment URLs may have Vercel Authentication. That is distinct from the public production aliases, independently tested without authentication/bypass/cookies.
+- Post-link source audit excludes local `.env*`, `.vercel/`, Git data, dependencies/build cache and archival image. Required PWA generator/worker/manifest remain included. No scientific source asset was changed.
+
+## Actual public-browser checks
+
+Playwright with Chromium **156.0.8078.79** on Linux, persistent isolated profile. Outbound requests use the inherited cloud proxy. The browser does not trust the cloud proxy CA through its default profile; tests pin **only the provided environment-proxy CA public key** in that isolated process. Curl uses the normal managed CA trust with full verification. This test configuration is not a requirement for visitors on normal devices. No general ignore-HTTPS-errors mode, login cookie or Vercel protection bypass was used for public-browser acceptance.
+
+1. Clean production load displays real 2048×1042 imagery, one map, existing science/evidence panels and opt-in viewer. Explicit Prepare offline verifies all required files at the correct root worker scope.
+2. Actual map clicks create start, waypoint and destination. Save route; save notebook observation; export matching mission. Metric distance remains null for unverified calibration.
+3. Wrong-image mission import is rejected and the existing route is unchanged.
+4. Close the complete browser process. Relaunch with the same profile, set disconnected **before navigation**, then reopen the production origin. Real image/science load, pack is verified, explicit Load saved route recovers exact route/notes and JSON export works. `navigator.onLine` is false.
+5. Deferred flat 3D opens from the prepared cache while disconnected and tears down on Close. It supplies no validated terrain or immersive VR.
+6. At 390px there is no horizontal document overflow. Normal online mission check has no uncaught page errors.
+
+Temporary execution/results: `/tmp/vercel-public-browser.mjs`, `/tmp/vercel-production-browser-results.json`; screenshot `/workspace/artifacts/marswalk-live-offline.png`. These are session artifacts; this record preserves method/source/outcomes.
+
+## Test scope and remaining work
+
+Gaddielle branch `42a0dd2` passes **30 isolated** and **33 integrated Python tests**, with actual index check unchanged at 524,472 image-payload bytes. Application/worker logic is unchanged from the previously checked 136-Angular/11-worker PWA foundation; those counts are retained historical checks, not invented reruns for tools/hosting-only changes. Public browser and actual Vercel builds were newly run for deployment.
+
+Physical installation/launcher/standalone behavior and real-device graphics/storage/airplane-mode testing remain **pending**. No outside users were contacted/tested. Automatic GitHub connection failed and is not claimed active. Current source is deployed through CLI; [next owner checklist](../../TEAM_TASKS.md) remains in force.
