@@ -14,24 +14,31 @@
 6. **NASA Science — Mars Science Laboratory (Curiosity)** — General mission overview (`HTTP 200 OK`): https://science.nasa.gov/mission/msl-curiosity/ (Credit: NASA/JPL-Caltech)
 7. **USGS Geologic Map of Mars (SIM-3292)** — Tanaka et al. (2014), 1:20,000,000 scale global context: https://astrogeology.usgs.gov (Credit: U.S. Geological Survey)
 
+---
+
 ## Inaccessible / Replaced Reference Record
 
 - **NASA/JPL News (Boxwork Feature)** — `https://www.jpl.nasa.gov/news/nasas-curiosity-rover-explores-a-spiderweb-on-mars/` returned `HTTP 403 Forbidden` during automated source verification and was replaced by accessible `science.nasa.gov` mission blogs and `PIA26306`.
 
+---
+
 ## Software Frameworks & Libraries
 
-- **Angular & TypeScript** — Core application framework (MIT License)
-- **Leaflet (`CRS.Simple`)** — Implemented on main for 2D local-image map rendering with bottom-left pixel coordinates (BSD-2-Clause License)
-- **Three.js** — Implemented opt-in flat WebGL training view with orbit controls (MIT License)
+- **Angular** — Application component framework and build toolchain (MIT License)
+- **TypeScript** — Language compiler and static type checking (Apache-2.0 License, verified in installed package)
+- **Leaflet (`CRS.Simple`)** — 2D raster map rendering with bottom-left pixel coordinates (BSD-2-Clause License)
+- **Three.js** — Opt-in flat WebGL training projection view with orbit controls (MIT License)
 - **Vitest** — Unit test execution framework (MIT License)
+
+---
 
 ## Typography & Design Assets
 
-- **Inter** — UI and body typography by Rasmus Andersson (SIL Open Font License 1.1)
-- **Space Grotesk** — Headings and display titles by Florian Karsten (SIL Open Font License 1.1)
-- **JetBrains Mono** — Telemetry, coordinates, and monospace labels by JetBrains (Apache 2.0 License)
-- **PWA Application Artwork** — Original geometric raster and vector icons generated for offline application manifests (not official NASA insignia)
+- **System Font Stacks:** The application exclusively uses native system font stacks (`-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif` for UI/body, and standard system monospace for coordinates and telemetry). No external web fonts (such as Inter, Space Grotesk, or JetBrains Mono) or remote `@font-face` files are bundled or fetched at runtime, ensuring complete offline autonomy and zero external font network requests. Unused font pairing proposals in design notes are non-runtime suggestions.
+- **PWA Application Artwork:** Original geometric raster (`png`) and vector (`svg`) icons created for offline application manifests (original app artwork, not official NASA insignia or branding).
 
-## Deployment Platform
+---
 
-- **Vercel** — Serverless edge hosting and static asset delivery for live application at `https://marswalk-jet.vercel.app/`.
+## Hosting Infrastructure
+
+- **Vercel** — Static edge hosting for the live application deployment at [https://marswalk-jet.vercel.app/](https://marswalk-jet.vercel.app/) (serving commit `b6669fb`).

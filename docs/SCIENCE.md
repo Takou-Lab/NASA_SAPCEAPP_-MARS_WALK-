@@ -43,13 +43,13 @@ Full record-by-record source passages and verification gaps are documented in [d
 
 ## 4. English Project Summary (50–200 words)
 
-**MARSWALK** is a client-side Angular Progressive Web App (PWA) designed for planetary-science exploration rehearsal across the **Mount Sharp boxwork region of Gale Crater, Mars**. Live on Vercel (**https://marswalk-jet.vercel.app/**) and integrated in main `f6567ca`, the app pairs real NASA HiRISE imagery with three verified Curiosity rover observations, supporting interactive traverse sketching, draft-resilient field notes, and versioned JSON mission import/export.
+**MARSWALK** is a client-side Angular Progressive Web App (PWA) designed for planetary-science exploration rehearsal across the **Mount Sharp boxwork region of Gale Crater, Mars**. Deployed live on Vercel at [https://marswalk-jet.vercel.app/](https://marswalk-jet.vercel.app/) (serving commit `b6669fb`) and integrated in repository main (baseline `f6567ca`, advancing to `7896e8b`), the app pairs real NASA HiRISE imagery with three verified Curiosity rover observations, supporting interactive traverse sketching, draft-resilient field notes, and versioned JSON mission import/export.
 
-Because metric scale and terrain elevation data remain unverified on the prepared raster, the system strictly enforces a "Visual Review Only" policy: no pins, calibrated distances, slopes, or safety ratings are fabricated. Production service worker caching and offline restart checks pass; physical standalone device acceptance and outside-user sessions remain pending. By emphasizing provenance and explicit unknowns alongside portable mission files, MARSWALK provides a trustworthy learning and analogue rehearsal tool for science students, educators, and field teams.
+Because metric scale and terrain elevation data remain unverified on the prepared raster, the system strictly enforces a "Visual Review Only" policy: no pins, calibrated distances, slopes, or safety ratings are fabricated. Production service worker caching and browser offline restart checks pass; physical standalone device acceptance and outside-user sessions remain pending. By emphasizing provenance and explicit unknowns alongside portable mission files, MARSWALK provides a trustworthy learning and analogue rehearsal tool for science students, educators, and field teams.
 
 ## 5. Presentation & Rehearsal Notes
 
-- **Internal Rehearsal Script:** See [docs/DEMO_SCRIPT.md](DEMO_SCRIPT.md) for the 60-second pacing guide covering raster inspection, route sketching, evidence checks, note recovery, JSON transfer, and PWA offline state.
+- **Internal Rehearsal Script:** See [docs/DEMO_SCRIPT.md](DEMO_SCRIPT.md) for the 2-minute primary demonstration and 45-second fallback scripts covering raster inspection, route sketching, evidence checks, note recovery, JSON transfer, and PWA offline state.
 - **3D Rehearsal Prototype:** The optional 3D viewer is an opt-in, flat WebGL canvas built with Three.js. It is labeled **Prototype: 3D training view** and cleanly releases GPU memory on teardown without claiming to supply measured terrain relief or immersive VR.
 - **Usability Evaluation:** See [docs/USABILITY.md](USABILITY.md) for the standardized three-task protocol. Qualitative sessions remain marked `PENDING` until coordinator testing is conducted.
 

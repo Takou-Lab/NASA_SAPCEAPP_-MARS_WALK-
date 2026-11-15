@@ -11,27 +11,27 @@
 - **Original Authorship (Emma):**
   - Located accessible primary Curiosity mission blog records (`science.nasa.gov` WordPress REST API) after `jpl.nasa.gov/news/nasas-curiosity-rover-explores-a-spiderweb-on-mars/` returned `HTTP 403 Forbidden`.
   - Audited and narrowed the three `ScienceMarker` findings in `public/data/markers.json` to match verified source text verbatim, separating observation, derivation, and interpretation.
-  - Authored `docs/SCIENCE_EVIDENCE.md`, the initial 50–200 word English summary in `docs/SCIENCE.md`, the 60-second rehearsal script in `docs/DEMO_SCRIPT.md`, the initial 7-slide presentation outline in `docs/PRESENTATION.md`, and the judges' Q&A reference in `docs/JUDGES_QA.md`.
+  - Authored `docs/SCIENCE_EVIDENCE.md`, the initial 50–200 word English summary in `docs/SCIENCE.md`, the rehearsal script in `docs/DEMO_SCRIPT.md`, the initial 7-slide presentation outline in `docs/PRESENTATION.md`, and the judges' Q&A reference in `docs/JUDGES_QA.md`.
   - Prepared the three-user formative usability protocol in `docs/USABILITY.md` (with all session results marked `PENDING`).
 - **Release-Story Handoff & Alignment (Enzo):**
   - Following the coordinator-approved assignment swap on 15 November 2026, Enzo took over the presentation, demo, Q&A, and attribution documents.
-  - Aligned all documentation with verified baseline `f6567ca` and the live Vercel production deployment (`https://marswalk-jet.vercel.app/`).
+  - Aligned all documentation with verified baseline `f6567ca`, advancing to `7896e8b`, and separated them explicitly from the live Vercel production deployment ([https://marswalk-jet.vercel.app/](https://marswalk-jet.vercel.app/), serving commit `b6669fb`).
   - Verified and locked active imageRef (`hirise-mro-pia26306-boxwork-2048x1042-v1`), draft-resilient mission planning, JSON transfer, and exact factual capabilities ("Visual Review Only", uncalibrated imagery, distance/elevation/slope/safety unavailable, flat opt-in 3D).
   - Explicitly preserved `PENDING` states for outside-user usability sessions, physical device tests, and official Space Apps submission requirements without fabrication.
-  - Documented third-party software and typography licenses in `docs/REFERENCES.md`.
+  - Verified third-party software and typography licenses in `docs/REFERENCES.md` (clarified system fonts; separated Angular MIT and TypeScript Apache-2.0).
 
 ### 2. Engineering & Test Assistance Boundaries
-- **AI Tooling Used:** Google Antigravity, OpenAI Codex, and Claude Code were utilized across contributor environments for development assistance, test scaffolding, documentation drafting, and cross-chat continuity.
+- **AI Tooling Used:** Google Antigravity and OpenAI Codex were utilized across contributor environments for development assistance, test scaffolding, documentation drafting, and cross-chat continuity as recorded in repository commit logs and reviews.
 - **Strictly Bounded Usage:**
-  - **No Live Runtime AI:** MARSWALK contains **no** live client-side machine learning inference, no background LLM API calls, no secret backend proxy, and no autonomous rover navigation algorithms.
-  - **Deterministic Client Execution:** All route rendering, waypoints, notes persistence, image-payload verification, and offline service worker caching operate purely deterministically on the client device.
-  - **Candidate Pre-Generated Explanations (Phase 3 Planned):** Any future scientific explanation cards proposed in `public/data/science-explanations.json` are strictly pre-generated, peer-reviewed, source-grounded static JSON entries with explicit provenance metadata. They are never generated dynamically at runtime.
+  - **No Runtime AI Models:** MARSWALK contains **no** live client-side machine learning inference, no browser-based LLMs, no remote generative AI API calls, and no autonomous rover navigation algorithms.
+  - **No Secret Backend:** The application is a static client-side Angular PWA. It makes no unauthorized external network requests and operates entirely on local static assets and client storage.
+  - **Candidate Static Explanations (Phase 3 Planned):** Any future scientific explanation cards proposed in `public/data/science-explanations.json` are strictly pre-generated, human-audited, source-grounded static JSON entries with explicit provenance metadata. They are source audits against primary NASA mission releases (not independent peer-reviewed geology), and are never generated dynamically at runtime.
 
 ---
 
 ## Coordinator Implementation & Architecture Assistance
 
-AI assistance (Codex / Antigravity) supported the Angular architecture integration, guarded mission transfer, science mounting, Longla viewer corrections, and recorded automated/browser reviews. Exact source revisions and check scopes are in `docs/qa/` and `docs/reviews/`; counts are not aggregated across branches. The current work-plan alignment updates stale assignments and readiness language without changing source records or claiming a fresh independent scientific-source audit. Physical-device, installed-offline, and outside-user outcomes remain pending where recorded.
+AI assistance (OpenAI Codex and Google Antigravity) supported the Angular architecture integration, guarded mission transfer, science mounting, Longla viewer corrections, and recorded automated/browser reviews. Exact source revisions and check scopes are in `docs/qa/` and `docs/reviews/`; counts are not aggregated across branches. The current work-plan alignment updates stale assignments and readiness language without changing source records or claiming a fresh independent scientific-source audit. Physical-device, installed-offline, and outside-user outcomes remain pending where recorded.
 
 ---
 
