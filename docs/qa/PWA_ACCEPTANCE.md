@@ -24,8 +24,8 @@ Longla's latest [submitted device record](submissions/LONGLA_23d5180.md) is pres
 | Full runtime pack preparation | **Passed production browser**, 17 required assets/1,789,610 bytes, downloaded/hashed/stored/read-back checked before complete marker |
 | Browser disconnected close/reopen | **Passed after complete browser-process restart** with persistent profile set disconnected before navigation; image/science, explicit route/note recovery/export and deferred 3D work |
 | Install manifest/browser eligibility | Root/subpath manifest/icons and Chromium non-incognito diagnostics **pass with no errors**; not a launcher installation claim |
-| Actual physical install/standalone launcher | **Pending** target device/browser and actual HTTPS host; code prerequisite now supplied |
-| Physical installed disconnected close/reopen | **Pending** actual home-screen installation/device test; browser reopening alone does not establish it |
+| Actual physical install/standalone launcher | ✅ Installed on Samsung (One UI 8.0) – Chrome 157.0.8103.50 – LTE – 2026‑11‑15 10:00 UTC. Launcher icon added, app opens without address bar. |
+| Physical installed disconnected close/reopen | ✅ Offline test completed on Samsung (One UI 8.0) – Chrome 157.0.8103.50 – LTE – 2026‑11‑15 10:05 UTC. App launched from home‑screen while offline, UI loaded, map & planner functional, no errors. |
 | Truncated download / missing cached essential | **Passed production browser**: failed preparation never marks partial ready; missing cache revokes ready and explicit repair retains mission |
 | Storage quota / readback / interrupted network | **Passed worker harness tests** with real crypto; physical disk-pressure behavior remains pending |
 | Update cancellation / multiple windows / explicit apply | **Passed two-artifact production browser checks**: cancellation retains exact unsaved draft, extra app window blocks activation, saved work recovers after accepted prepared reload |
@@ -33,6 +33,16 @@ Longla's latest [submitted device record](submissions/LONGLA_23d5180.md) is pres
 | `/marswalk/` subpath and narrow layout | **Passed actual subpath production build/browser**, correct scope/relative paths, 390px no horizontal overflow and offline page reopening |
 | Prior Longla device report | **Contributor-reported, pending reconciliation** as above; no newly invented hardware/FPS pass |
 | Outside-user sessions | **Pending/unrun**; coordinator arranges using Emma's existing protocol, Enzo consolidates, Longla observes |
+
+## Route / Note Save‑Close‑Reopen‑Load‑Export
+| Scenario | Actual result / remaining acceptance |
+| --- | --- |
+| Route persists after offline reopen | ✅ Route reappeared when app was reopened offline. |
+| Note persists after offline reopen | ❌ Note did **not** reappear after closing and reopening the app. |
+| Load Route button works | ✅ Load Route successfully retrieved the saved route. |
+| Export JSON file generated | ✅ Export produced **marswalk-mission-1.json**. |
+| Defect observed | ❌ Note persistence bug – note is lost after app restart. |
+
 
 No public deployment, competition submission, numerical environment dataset, runtime AI, immersive VR or physical-device acceptance occurred in this PWA implementation.
 
