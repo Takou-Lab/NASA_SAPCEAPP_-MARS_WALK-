@@ -1,5 +1,9 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## CURRENT PUBLIC MAP — calibrated planar scale
+
+Use **https://marswalk-9dtnpllyx-boys-band.vercel.app/** (source 3d47a7b, no login). [Evidence/compatibility](../qa/CALIBRATED_PUBLIC_PREVIEW.md). User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.
+
 ## NEXT ACTIVE SLICE — source evidence comparison (location clarity complete)
 
 Your 8855a2e and navigation 2b2a708 are accepted in b721269. Do not repeat navigation or location-label cleanup. Preserve local progress and safely incorporate main on your existing science branch.

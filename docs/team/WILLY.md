@@ -1,5 +1,9 @@
 # Willy — Remaining map, installation and deployment work
 
+## CURRENT PUBLIC MAP — calibrated planar scale
+
+Use **https://marswalk-9dtnpllyx-boys-band.vercel.app/** (source 3d47a7b, no login). [Evidence/compatibility](../qa/CALIBRATED_PUBLIC_PREVIEW.md). User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.
+
 ## New crop calibration — current implementation
 
 User-supplied 2048² Mars GeoTIFF inspected: 0.25 m projected pixels, 512 m square. New imageRef hirise-psp001752-red-center-2048-025m-v2; shared assessment derives planar distance, old-image imports rejected and old storage untouched. [Evidence and exact limits](../data/CALIBRATED_CROP_RELEASE.md). This supersedes “active image uncalibrated” in older task text, but does not supply terrain, safety or located science. Keep current ownership; update actual screenshots/claims only after candidate deployment, and never reuse old routes on the new crop.

@@ -12,9 +12,9 @@ Repository: boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-, main. Local checkou
 
 Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6669fb; anonymous inventory fetched this turn still reports pack `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`. Current local build pack differs: `2d175fcf490efe85d3d75ff3d7114bd814ef0b96edbb2808330511371c46e1e6`. Main is ahead of production. No deployment in this handoff task. Automatic GitHub deployment is not connected. Follow [Vercel runbook](docs/VERCEL_SETUP.md) and [deployment evidence](docs/qa/VERCEL_PRODUCTION.md); authenticate through supported tools, never copy secrets into chat/Git.
 
-## Current designated PUBLIC preview — source 38516f8
+## Current designated PUBLIC preview — calibrated source 3d47a7b
 
-https://marswalk-pfoqdsf41-boys-band.vercel.app/ is READY and anonymous HTTP/browser checks pass; **no Vercel login needed**. [Evidence and precise source limitations](docs/qa/PUBLIC_SCIENCE_PREVIEW.md). 223 Angular tests, 54 data tests/build, all 19 asset hashes and unauthenticated full-process offline route/note recovery pass. Contains Emma UI, accepted Enzo navigation and two limited-provenance REMS excerpt summaries (not independently archive-authenticated/full-day). MARSWALK preview protection disabled at explicit user request; no secrets shared. Production remains older and unchanged. This origin supersedes prior previews for tests/screenshots; storage does not transfer automatically between origins.
+https://marswalk-9dtnpllyx-boys-band.vercel.app/ (no login). [Exact evidence/limits](docs/qa/CALIBRATED_PUBLIC_PREVIEW.md). New 2048² Mars crop, 0.25 m projected spacing, planar distance enabled; terrain/slope/safety and exact science/boxwork overlap still unavailable. New imageRef hirise-psp001752-red-center-2048-025m-v2 protects old missions; old-image imports rejected and old storage untouched. 237 Angular/54 data tests/build, all 19 asset hashes, public full-process offline route/note recovery pass. Includes latest Emma mission workspace/briefing and Enzo location/nav work. Production alias not promoted. Supersedes previous preview URLs for new tests/screenshots.
 
 ## Official Details text supplied — alignment now available
 

@@ -1,5 +1,9 @@
 # Willy 2 — Installation and release verification agent
 
+## CURRENT PUBLIC MAP — calibrated planar scale
+
+Use **https://marswalk-9dtnpllyx-boys-band.vercel.app/** (source 3d47a7b, no login). [Evidence/compatibility](../qa/CALIBRATED_PUBLIC_PREVIEW.md). User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.
+
 ## NEXT ACTIVE SLICE — reproducible installed mission acceptance
 
 Your Windows/root/subpath report 9b4093d is accepted. Do not repeat asset generation/build-only checks as the next deliverable. Test the currently designated PUBLIC candidate from PROJECT_HANDOFF.md with a unique isolated test note and route: raster load, route drawing, successful note save, route save, export observations, prepare verified pack, full app close, disconnected reopen, explicit Load Route, Notebook and export comparison. Confirm no Vercel login needed and record exact source/pack/origin, device model/OS/browser and each pass/failure. Changing preview origin does not transfer local storage.

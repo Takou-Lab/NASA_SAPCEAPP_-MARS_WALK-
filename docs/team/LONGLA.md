@@ -1,5 +1,9 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## CURRENT PUBLIC MAP — calibrated planar scale
+
+Use **https://marswalk-9dtnpllyx-boys-band.vercel.app/** (source 3d47a7b, no login). [Evidence/compatibility](../qa/CALIBRATED_PUBLIC_PREVIEW.md). User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.
+
 ## Exact 6a5e351 handoff — fix compilation before requesting preview
 
 Coordinator reproduced `npm test` and `npm run build` failures in an unmodified isolated copy of your requested SHA. [Errors/corrections](../reviews/LONGLA.md#exact-commit-6a5e351--compilation-fails-preview-blocked): malformed notebook @if/@else at HTML line 50, incompatible mock cast at spec line 142, plus existing checkbox set(true) regression. Restore conditional structure, use a typed mock reference and true toggling; preserve draft/current-main native notebook behavior. Push a new SHA after both commands pass. A corrected build cannot honestly be called exact 6a5e351. No merge or preview deployment occurred; use current public candidate for existing device tests and identify its revision correctly.
