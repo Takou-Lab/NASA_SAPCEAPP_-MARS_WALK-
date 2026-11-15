@@ -1,5 +1,12 @@
 # Willy 2 — Installation and release verification agent
 
+## ACTIVE — final 90-minute survival-planning release
+
+Physical installed-device note/route recovery on exact final candidate, before pressing Load or Save. Preserve old site data. Own WILLY_2_INSTALL_VERIFICATION.md, coordinate device scenarios with Royce.
+
+Read [the exact shared assignment, ownership and clock](../FINAL_90_MINUTES.md). This section supersedes older future-work lists. Preserve/push existing work first; use current main and stable review URL. First handoff by minute 35, integration freeze at minute 55, submission reserved for final 15 minutes. No inferred safe-route or life-support claims.
+
+
 ## CURRENT PUBLIC MAP — mobile layout and automatic recovery
 
 Use **https://marswalk-review-boys-band.vercel.app/** (source b28f6ad, no login). [Mobile recovery evidence](../qa/MOBILE_MAP_RECOVERY_FIX.md). Mobile map now retains height; saved routes and observations restore automatically on startup. Physical device acceptance remains pending. Use this stable origin for subsequent tests; older preview storage remains on its original origin. User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.

@@ -1,5 +1,12 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## ACTIVE — final 90-minute survival-planning release
+
+Reconcile corrected Notebook 334bc7f only. Preserve current coordinator recovery; no MissionService edits. Verify loading guard, reversible checkbox and physical Android note persistence with exact candidate/pack.
+
+Read [the exact shared assignment, ownership and clock](../FINAL_90_MINUTES.md). This section supersedes older future-work lists. Preserve/push existing work first; use current main and stable review URL. First handoff by minute 35, integration freeze at minute 55, submission reserved for final 15 minutes. No inferred safe-route or life-support claims.
+
+
 ## Uploaded AI relief integrated
 
 Runtime 2bfbd8d at https://marswalk-review-boys-band.vercel.app/. Existing 3D section now offers AI-generated relief and model-only inclination metrics alongside the flat mission view. [Evidence and measurement limits](../qa/AI_RELIEF_VIEWER.md). Verify physical device orbit/pinch/tap and offline reopening; do not represent generated heights as measured terrain or project mission pins onto an unverified transform.
