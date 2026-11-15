@@ -105,7 +105,9 @@ These specifications apply strictly while the committed image and manifest remai
    See [OFFLINE_DATA_PACK.md](OFFLINE_DATA_PACK.md) for full byte counts, SHA-256 hashes, and runtime vs. archival distinctions.
 2. **Release Data & Cache Handoff:**
    See [RELEASE_DATA_HANDOFF.md](RELEASE_DATA_HANDOFF.md) for the complete runtime data inventory, production build copy comparison, and cache include/exclude guidance for the coordinator and offline verifier.
-3. **Offline Package Verifier:**
+3. **Environmental Source Audit & Schema Proposal:**
+   See [ENVIRONMENT_SOURCE_AUDIT.md](ENVIRONMENT_SOURCE_AUDIT.md) for the raw-source audit of Curiosity REMS and RAD observation samples, reviewable source rows, radiation feasibility evaluation, and version 1 schema proposal.
+4. **Offline Package Verifier:**
    A dedicated read-only verification script is available under `tools/data/verify_pack.py`.
    Pillow is required for strict byte-level `.load()` pixel decoding:
    ```bash

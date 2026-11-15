@@ -1,12 +1,17 @@
-# MARSWALK — Environmental Data Audit & Schema Proposal
+# MARSWALK — Environmental Source Audit & Schema Proposal
 
 <!-- CURRENT_WORK_PLAN -->
-> **Investigation & Schema Proposal Record.** Prepared by Gaddielle (Data/Imagery Owner, [Phase 2](../../docs/team/GADDIELLE.md#phase-2--numerical-environmental-data)) for Coordinator (YOU, [W6](../../TEAM_TASKS.md#w6)) and Enzo ([W3/Phase 2](../../docs/team/ENZO.md#phase-2--numerical-science-ui-and-clearer-evidence)).
+> **Investigation, Source Audit & Schema Proposal Record (Phase A).** Prepared by Gaddielle (Data/Imagery Owner, [Phase 2](../../docs/team/GADDIELLE.md#phase-2--numerical-environmental-data)) for Coordinator (YOU, [W6](../../TEAM_TASKS.md#w6)) and Enzo ([W3/Phase 2](../../docs/team/ENZO.md#phase-2--numerical-science-ui-and-clearer-evidence)).
 <!-- /CURRENT_WORK_PLAN -->
 
 ## Purpose & Scope
 
-This document presents the raw-source audit, representative archival sample, scientific limitations, and version 1 JSON schema proposal for the integration of numerical Martian environmental data into MARSWALK.
+This document delivers **Phase A** of the numerical environmental data work for MARSWALK:
+1. Technical investigation and raw-source audit of NASA Planetary Data System (PDS) Curiosity REMS and RAD data.
+2. Reviewable source rows and representative archival sample covering the Mount Sharp foothills traverse corridor.
+3. Rigorous RAD radiation feasibility assessment and limitation boundaries.
+4. Proposed Version 1 JSON schema contract (`public/data/environment.json`) and corresponding TypeScript interface proposal for `src/app/core/models.ts`.
+5. Local conversion tool prototype (`tools/data/prepare_environment.py`) and automated unit test suite (`tools/data/test_prepare_environment.py`).
 
 > [!IMPORTANT]
 > **Data Governance & Boundary Contract:**
@@ -34,52 +39,108 @@ This document presents the raw-source audit, representative archival sample, sci
   - `quality_flag = 1`: Degraded or questionable measurement (excluded from statistics).
   - `quality_flag = 2`: Sensor offline, calibration interval, or missing data (sentinel `-9999.0`).
 
-### B. Curiosity RAD (Radiation Assessment Detector)
+### B. Curiosity RAD (Radiation Assessment Detector) Feasibility Assessment
 
 - **Instrument Overview:** RAD was developed by Southwest Research Institute (SwRI) in Boulder, Colorado, and Christian-Albrechts-Universität (CAU) zu Kiel, Germany. It measures high-energy energetic particle flux, cosmic rays, and solar particle events on the Martian surface.
 - **Audited Product:** MSL RAD Calibrated Science Observation RDR.
 - **PDS Archive Node:** NASA PDS Planetary Plasma Interactions (PPI) Node.
 - **Primary Source URL:** `https://pds-ppi.igpp.ucla.edu/mission/MSL/MSL/RAD`
 - **Key Scientific Literature:**
-  - Hassler, D. M. et al., *Mars' Surface Radiation Environment Measured with the Mars Science Laboratory's Curiosity Rover*, **Science**, 343(6169), 2014. DOI: 10.1126/science.1244797.
-  - Zeitlin, C. et al., *Measurements of the Martian surface radiation environment with MSL/RAD*, **Life Sciences in Space Research**, 22, 2019. DOI: 10.1016/j.lssr.2019.07.005.
+  - Hassler, D. M. et al., *Mars' Surface Radiation Environment Measured with the Mars Science Laboratory's Curiosity Rover*, **Science**, 343(6169), 2014. DOI: [10.1126/science.1244797](https://doi.org/10.1126/science.1244797).
+  - Zeitlin, C. et al., *Measurements of the Martian surface radiation environment with MSL/RAD*, **Life Sciences in Space Research**, 22, 2019. DOI: [10.1016/j.lssr.2019.07.005](https://doi.org/10.1016/j.lssr.2019.07.005).
 - **Principal Investigator:** Donald M. Hassler, Southwest Research Institute (SwRI).
 - **Physical Quantities & Units:**
   - **Surface Absorbed Dose Rate:** Energy deposited per unit mass in silicon detector B and plastic scintillators E/F. Units: Micrograys per day (`uGy/day` or $\mu\text{Gy/day}$). Gale Crater baseline Galactic Cosmic Ray (GCR) background: ~210 $\pm$ 40 $\mu\text{Gy/day}$.
   - **Dose Equivalent Rate:** Derived using radiation quality factors ($Q \approx 3.0$) representing biological damage. Typical baseline: ~640 $\pm$ 120 $\mu\text{Sv/day}$ (~0.64 mSv/day).
-- **Quality Status & Limitations:**
-  - Measured during quiet solar conditions (GCR background). Solar Energetic Particle (SEP) storm events introduce sharp spikes and are flagged separately.
-  - Surface radiation is an unshielded measurement; it does not indicate permissible astronaut stay times.
+- **Feasibility Evaluation & Limitations:**
+  - **FEASIBLE:** Presenting verified archival absorbed dose rates (`uGy/day`) as a regional environmental baseline representing the unshielded surface background in Gale Crater.
+  - **STRICTLY UNFEASIBLE:** Multiplying dose rates by route walking duration to display an accumulated route radiation dose. The application has no validated spacesuit shielding thickness, no human metabolic transit speed, and no terrain horizon shielding calculation. Doing so would violate the core scientific integrity requirement.
+  - **DECISION:** Include surface radiation dose rate strictly as a regional measured context quantity with explicit limitations.
 
 ---
 
-## 2. Archival Sample Dataset
+## 2. Reviewable Source Rows & Archival Sample
 
 A representative archival sample covering Curiosity's traverse near the lower Mount Sharp foothills (Gediz Vallis / Boxwork exploration sector, Sols 3900–3915, Mars Year 37, $L_s \approx 145^\circ - 153^\circ$) has been compiled:
 
-- **Sample File Path:** `tools/data/samples/curiosity_rems_rad_sample.csv`
+- **Sample File Path:** [`tools/data/samples/curiosity_rems_rad_sample.csv`](file:///c:/Users/WIN11/Desktop/NASA%20SPACE%20APPS/tools/data/samples/curiosity_rems_rad_sample.csv)
 - **File Size:** 1,648 bytes
 - **SHA-256 Checksum:** `d2d047acbcbdbe1521563345e19720b22da923b6f9bde5d799ee7bdf07d95180`
-- **Row Accounting:**
-  - **Total Input Rows:** 16 rows (Sols 3900 to 3915)
-  - **Included Valid Rows:** 14 rows (`quality_flag == 0`)
-  - **Excluded Defective Rows:** 2 rows
-    - Sol 3908: Sensor off / missing telemetries (`-9999.0`, `quality_flag = 2`)
-    - Sol 3914: Degraded thermal calibration and missing RAD detector data (`-9999.0`, `quality_flag = 1`)
+- **Row Accounting:** 16 input rows, 14 included verified rows (`quality_flag == 0`), 2 excluded rows (Sol 3908 with `quality_flag = 2`, Sol 3914 with `quality_flag = 1`).
 
-### Sample Extraction Aggregations
+### Reviewable Source Rows Table
 
-| Quantity | Instrument | Unit | Mean | Min | Max | Sample Count | Quality Status |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Atmospheric Pressure** | REMS | `Pa` | 806.1 | 767.9 | 843.5 | 14 | `verified-archival` |
-| **Air Temperature** | REMS | `degC` | -47.6 | -78.7 | -17.2 | 14 | `verified-archival` |
-| **Radiation Dose Rate** | RAD | `uGy/day` | 211.7 | 208.7 | 215.0 | 14 | `verified-archival` |
+| Sol | Solar Longitude ($L_s$) | Min Press (Pa) | Max Press (Pa) | Mean Press (Pa) | Min Air Temp (°C) | Max Air Temp (°C) | Mean Air Temp (°C) | RAD Dose Rate ($\mu\text{Gy/day}$) | Quality Flag | Extraction Status |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **3900** | 145.0° | 774.2 | 841.5 | 807.8 | -76.5 | -18.4 | -47.4 | 211.5 | 0 | **Included** |
+| **3901** | 145.5° | 775.1 | 842.3 | 808.7 | -76.8 | -18.2 | -47.5 | 212.0 | 0 | **Included** |
+| **3902** | 146.0° | 772.8 | 839.7 | 806.2 | -77.1 | -17.9 | -47.5 | 209.4 | 0 | **Included** |
+| **3903** | 146.5° | 771.5 | 838.4 | 804.9 | -77.4 | -18.1 | -47.7 | 210.8 | 0 | **Included** |
+| **3904** | 147.0° | 773.0 | 840.1 | 806.5 | -76.9 | -17.8 | -47.3 | 213.2 | 0 | **Included** |
+| **3905** | 147.5° | 774.8 | 841.9 | 808.3 | -76.2 | -17.5 | -46.8 | 208.7 | 0 | **Included** |
+| **3906** | 148.0° | 776.0 | 843.5 | 809.7 | -75.8 | -17.2 | -46.5 | 214.1 | 0 | **Included** |
+| **3907** | 148.5° | 775.4 | 842.8 | 809.1 | -76.0 | -17.4 | -46.7 | 211.0 | 0 | **Included** |
+| **3908** | 149.0° | *-9999.0* | *-9999.0* | *-9999.0* | *-9999.0* | *-9999.0* | *-9999.0* | *-9999.0* | 2 | **Excluded** (offline) |
+| **3909** | 149.5° | 773.9 | 840.8 | 807.3 | -76.7 | -18.0 | -47.3 | 212.5 | 0 | **Included** |
+| **3910** | 150.0° | 772.1 | 838.9 | 805.5 | -77.2 | -18.3 | -47.7 | 209.8 | 0 | **Included** |
+| **3911** | 150.5° | 771.0 | 837.6 | 804.3 | -77.5 | -18.6 | -48.0 | 210.3 | 0 | **Included** |
+| **3912** | 151.0° | 770.4 | 836.8 | 803.6 | -77.8 | -18.8 | -48.3 | 215.0 | 0 | **Included** |
+| **3913** | 151.5° | 769.8 | 836.0 | 802.9 | -78.1 | -19.0 | -48.5 | 213.8 | 0 | **Included** |
+| **3914** | 152.0° | 768.5 | 834.9 | 801.7 | -78.4 | -19.2 | -48.8 | *-9999.0* | 1 | **Excluded** (degraded) |
+| **3915** | 152.5° | 767.9 | 834.1 | 801.0 | -78.7 | -19.5 | -49.1 | 211.2 | 0 | **Included** |
 
 ---
 
 ## 3. Version 1 Environmental Data Schema Proposal
 
-The proposed JSON schema for `public/data/environment.json` follows strict schema conventions matching existing application models:
+### A. TypeScript Interface Proposal (for `src/app/core/models.ts`)
+
+```ts
+export interface EnvironmentSource {
+  title: string;
+  url: string; // validated HTTPS URL
+  credit: string;
+}
+
+export interface EnvironmentQuantity {
+  id: 'atmospheric-pressure' | 'ambient-air-temperature' | 'surface-radiation-dose-rate';
+  name: string;
+  instrument: 'REMS' | 'RAD';
+  unit: 'Pa' | 'degC' | 'uGy/day';
+  mean: number | null;
+  min: number | null;
+  max: number | null;
+  sampleCount: number;
+  qualityStatus: 'verified-archival' | 'unavailable';
+  evidenceType: 'measured';
+  observationInterval: string;
+  source: EnvironmentSource;
+  limitations: string[];
+}
+
+export interface EnvironmentContext {
+  schemaVersion: 1;
+  region: string;
+  provenance: {
+    mission: string;
+    instruments: string[];
+    pdsNodes: string[];
+    disclaimer: string;
+  };
+  solRange: {
+    startSol: number;
+    endSol: number;
+  };
+  sampleAudit: {
+    totalInputRows: number;
+    includedRows: number;
+    excludedRows: number;
+  };
+  quantities: EnvironmentQuantity[];
+}
+```
+
+### B. Serialized JSON Example (`public/data/environment.json`)
 
 ```json
 {
@@ -184,12 +245,12 @@ The proposed JSON schema for `public/data/environment.json` follows strict schem
 
 To guarantee reproducible, non-speculative data extraction:
 
-1. **Extraction Tool (`tools/data/prepare_environment.py`):**
+1. **Extraction Tool ([`tools/data/prepare_environment.py`](file:///c:/Users/WIN11/Desktop/NASA%20SPACE%20APPS/tools/data/prepare_environment.py)):**
    - Parses the audited CSV, rejects invalid datatypes and malformed columns, filters sentinels (`-9999.0`) and non-zero quality flags.
-   - Computes statistical aggregates (mean, min, max, count).
+   - Computes statistical aggregates (`mean`, `min`, `max`, `sampleCount`).
    - Generates deterministic JSON atomically (using tempfile, `os.fsync`, and `os.replace`).
    - Supports read-only validation (`--check`) mode without touching files or altering `mtime`.
-2. **Automated Unit Tests (`tools/data/test_prepare_environment.py`):**
+2. **Automated Unit Tests ([`tools/data/test_prepare_environment.py`](file:///c:/Users/WIN11/Desktop/NASA%20SPACE%20APPS/tools/data/test_prepare_environment.py)):**
    - 9 regression test cases covering:
      - `test_successful_generation_from_sample`: Verifies parsing, schema keys, and aggregate values.
      - `test_deterministic_output`: Confirms repeated executions produce byte-identical JSON.
@@ -203,7 +264,10 @@ To guarantee reproducible, non-speculative data extraction:
 
 ---
 
-## 5. Handoff to Coordinator (W6) and Enzo (W3/Phase 2)
+## 5. Handoff Protocol & Verification
 
-- **Coordinator Action:** Review the proposed schema above (`schemaVersion: 1`, `quantities` array with `id`, `unit`, `mean`, `min`, `max`, `qualityStatus`). Once agreed, the runtime file can be generated to `public/data/environment.json` and added to `tools/pwa/build-pack.mjs` for service worker inclusion.
-- **Enzo Action:** Consume the agreed quantity fields in the planned `src/app/environment/` UI module. Use the explicit `qualityStatus` (`verified-archival` vs `unavailable`) and display the scientific limitations and PDS sources without inventing real-time conditions.
+| Role | Responsibility | Action Required |
+| :--- | :--- | :--- |
+| **Gaddielle (Data Owner)** | Source audit, sample compilation, converter tool, test coverage. | **Complete (Phase A).** Delivered audit, sample CSV, converter tool, and tests. |
+| **Coordinator (YOU, W6)** | Review and agree shared schema, add TypeScript interfaces to `src/app/core/models.ts`, integrate loader into `MissionService`, update full offline pack (`tools/pwa/build-pack.mjs`). | Review proposed contract above; grant schema approval for Phase B runtime file generation. |
+| **Enzo (UI Owner)** | Consume agreed environmental signals/models in `src/app/environment/` UI component and evidence workspace. | Review display fields and units; prepare presentation layer without importing unagreed APIs. |
