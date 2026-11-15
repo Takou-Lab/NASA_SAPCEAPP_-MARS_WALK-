@@ -1,5 +1,11 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Two-agent split — current ownership
+
+**Agent 1 (this file):** confidence/evidence content simplification, existing science/environment UI tasks only when agreed data APIs exist. Preserve the accepted verifier. Emma owns the three shared SCSS theme fixes. Do not edit the presentation/usability documents assigned below while Agent 2 works.
+
+**Agent 2:** follow [ENZO 2.md](<ENZO 2.md>) for presentation, demonstration, judges' answers, references/AI attribution and actual usability results. Those named Phase 3/4 documentation files are exclusively delegated to Agent 2 for this slice; Agent 1's later checklist does not authorize overlapping edits. Use separate checkouts/branches, preserve unpublished work and reconcile only through coordinator review. No runtime AI, speculative environmental API or independent deployment is assigned.
+
 ## Current task — verifier accepted; evidence clarity next
 
 Your fc79cf8 passes coordinator integration: **193 Angular tests**, root/subpath production builds and pack verification. The previous cross-realm correction is closed. [Acceptance](../reviews/ENZO.md#verifier-correction-fc79cf8--accepted). Preserve local work and safely incorporate published main; do not repeat the verifier or change locked dependency versions to solve Windows registry problems.

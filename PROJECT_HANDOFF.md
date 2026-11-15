@@ -20,7 +20,7 @@ Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6
 | Emma (he/him) | Phase 1 cdd2417 accepted in be4ac2b. Phase 2 visual specification/header and three delegated SCSS theme fixes remain. [Plan](docs/team/EMMA.md) |
 | Willy Agent 1 | Existing map/navigation/retry accepted. Map usability/release workflow. [Plan](docs/team/WILLY.md) |
 | Willy Agent 2 | Windows/root/subpath install verification, separate QA and device evidence. [Plan](<docs/team/WILLY 2.md>) |
-| Enzo | fc79cf8 verifier correction accepted: 193 integrated Angular tests and root/subpath builds pass. Pure verifier remains unmounted; next is evidence-content simplification. [Correction](docs/reviews/ENZO.md) |
+| Enzo | fc79cf8 verifier correction accepted: 193 integrated Angular tests and root/subpath builds pass. Pure verifier remains unmounted; Agent 1 handles evidence-content simplification, Agent 2 owns release-story documentation per docs/team/ENZO 2.md. [Correction](docs/reviews/ENZO.md) |
 | Gaddielle (she/her) | Earlier imagery/tooling accepted. Environmental prototype 0f6bd95 plus coordinator C1/C2 corrections accepted as illustrative tooling only; 52 integrated data tests pass. Original verified REMS products/labels/extraction are next. No runtime environment dataset/schema accepted. [Review](docs/reviews/GADDIELLE.md) |
 | Royce/Longla | Existing 3D accepted; physical device/release QA pending. [Plan](docs/team/LONGLA.md) |
 
