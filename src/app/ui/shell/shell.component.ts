@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, OnDestroy, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnDestroy, signal } from '@angular/core';
 import { MissionService } from '../../core/mission.service';
 import { Viewer3dComponent } from '../../viewer3d/viewer3d.component';
 import { MapComponent } from '../../map/map.component';
@@ -25,12 +25,23 @@ export type ActiveTab = 'confidence' | 'planner' | 'notebook' | 'transfer' | 're
 })
 export class ShellComponent implements OnDestroy {
   private missionService = inject(MissionService);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   readonly observations = this.missionService.observations;
 
   readonly activeTab = signal<ActiveTab>('confidence');
   readonly viewerOpen = signal(false);
+  readonly plannerOpened = signal(false);
+  readonly notebookOpened = signal(false);
   readonly isPanelCollapsed = signal<boolean>(false);
+
+  private readonly tabOrder: readonly ActiveTab[] = [
+    'confidence',
+    'planner',
+    'notebook',
+    'transfer',
+    'rehearsal',
+  ];
 
   // Resizable sidebar state
   readonly panelWidth = signal<number>(380);
@@ -80,11 +91,43 @@ export class ShellComponent implements OnDestroy {
   }
 
   setActiveTab(tab: ActiveTab): void {
+    if (tab === 'planner') this.plannerOpened.set(true);
+    if (tab === 'notebook') this.notebookOpened.set(true);
     if (tab !== 'rehearsal') this.viewerOpen.set(false);
     this.activeTab.set(tab);
     if (this.isPanelCollapsed()) {
       this.isPanelCollapsed.set(false);
     }
+  }
+
+  onTabKeydown(event: KeyboardEvent): void {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const target = event.target as HTMLElement | null;
+    const tabButton = target?.closest?.('[role="tab"]') as HTMLElement | null;
+    if (!tabButton) return;
+
+    const rawId = tabButton.id.startsWith('tab-') ? (tabButton.id.slice(4) as ActiveTab) : null;
+    const currentIndex =
+      rawId && this.tabOrder.includes(rawId)
+        ? this.tabOrder.indexOf(rawId)
+        : this.tabOrder.indexOf(this.activeTab());
+
+    let nextTab: ActiveTab | null = null;
+    if (event.key === 'ArrowRight') {
+      nextTab = this.tabOrder[(currentIndex + 1) % this.tabOrder.length];
+    } else if (event.key === 'ArrowLeft') {
+      nextTab = this.tabOrder[(currentIndex - 1 + this.tabOrder.length) % this.tabOrder.length];
+    } else if (event.key === 'Home') {
+      nextTab = this.tabOrder[0];
+    } else if (event.key === 'End') {
+      nextTab = this.tabOrder[this.tabOrder.length - 1];
+    }
+
+    if (!nextTab) return;
+
+    event.preventDefault();
+    this.setActiveTab(nextTab);
+    this.elementRef.nativeElement.querySelector<HTMLElement>(`#tab-${nextTab}`)?.focus();
   }
 
   togglePanel(): void {
