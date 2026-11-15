@@ -1,0 +1,117 @@
+# Takou release QA — baseline, persistence and smoke results
+
+Takou (Charles) with a coding agent, 15 November 2026. Branch
+`feature/takou-release-integration` from `main` **2626a6b016d0f40385ff3c3f1b4adbb19ccf1605**
+(2026-11-15 13:35 UTC). Every number below was produced in this environment on this date;
+no historical count is copied. Blockers: [TAKOU_RELEASE_BLOCKERS.md](TAKOU_RELEASE_BLOCKERS.md).
+
+## Environment
+
+| Item | Value |
+| --- | --- |
+| OS | Windows 10 Pro 10.0.19045, Intel i5-6200U, 11.9 GB RAM (not the Linux setup in the brief) |
+| Node / npm | v24.11.1 / 11.6.2. **Below** the repository `engines` range (`^24.15.0`) and the documented 24.22.1 / 11.9.0. |
+| Git | 2.54.0.windows.1, `core.autocrlf=true`; `.gitattributes` keeps scientific JSON LF (checked: `i/lf w/lf`). |
+| Python | 3.14.6 (`python`; `python3` is not available on this Windows install) |
+| Browser | Google Chrome 157.0.8103.51 (installed, used by the Playwright harness) |
+| Network | Unstable and slow: DNS `EAI_AGAIN`, repeated `ECONNRESET`, about 57 KB/s measured on a 924 KB tarball |
+| Runtime vs public candidate | `git diff 38516f8 2626a6b -- src public tools/pwa angular.json package*.json vercel.json` changes only `public/data/terrain/README.md` (not in the offline pack). |
+
+## Package 1 — reproducible release baseline
+
+| Step | Command | Actual result |
+| --- | --- | --- |
+| Install (system Node) | `npm ci` on Node 24.11.1 / npm 11.6.2 | Two attempts failed on the network (`Exit handler never called!` after `ECONNRESET`, then `ECONNRESET` after 804 s). Third attempt with `--prefer-offline --maxsockets=3 --fetch-retries=10`: **added 303 packages in 22 min, 0 vulnerabilities**, 46 `EBADENGINE` warnings. |
+| Angular CLI on system Node | `ng version` | **Refused**: "The Angular CLI requires a minimum Node.js version of v22.22.3 or v24.15.0 or v26.0.0." System Node 24.11.1 cannot run `npm test` or `npm run build`. |
+| Supported Node | Official `node-v24.22.1-win-x64.zip` from nodejs.org, SHA-256 `d2046d28…b95fa5` matched `SHASUMS256.txt`; extracted outside the repo, put first on `PATH` | Node **v24.22.1**, npm **11.19.1** (system install unchanged) |
+| Install (supported Node) | `npm ci --prefer-offline` | **exit 0 in 371 s**, 0 engine warnings. npm 11.19 printed that install scripts were not run for `@parcel/watcher`, `esbuild`, `lmdb`, `msgpackr-extract`; tests and build below still pass. |
+| Unit tests | `npm test` | **21 files, 232 tests passed**, 55.5 s (223 existing + 9 new in `mission-recovery.spec.ts`; the new file alone: 9/9 passed with the verbose reporter) |
+| Worker tests | `npm run test:pwa` | **11 passed, 0 failed** (Node 24.22.1; also 11/11 on 24.11.1) |
+| Production build | `npm run build` | **exit 0 in 35 s.** Initial 450.97 kB raw / 114.62 kB transfer; lazy viewer 597.05 kB, planner 15.54 kB, notebook 13.68 kB. Existing warning: Leaflet is CommonJS. "Offline pack ce81d3668c27: 19 assets, 1678092 bytes. Archive excluded." |
+| Data tests, no Pillow | `python -m unittest discover -s tools/data -p "test_*.py"` | 54 run, **8 failures + 7 errors**; every one says "Pillow is required for full image verification" |
+| Data tests, with Pillow | Same command using a venv outside the repo with `pip install -r tools/data/requirements.txt` (Pillow 13.0.0) | **54 passed** in 37.8 s; no tracked file changed |
+| Production serve | `node tools/qa/takou/serve.mjs --root dist/marswalk/browser` (mirrors `vercel.json`: no SPA fallback, `no-store`/`no-cache`/`nosniff`) | Served at `http://127.0.0.1:4310/`; self-test: webmanifest `application/manifest+json`, missing file 404, encoded `../` traversal 404 |
+
+### Build identity vs public candidate
+
+Local pack `ce81d3668c27…` (1,678,092 bytes) differs from the public candidate's
+`a80ff718c27e…` (1,678,076 bytes, fetched anonymously today, HTTP 200). Per-file hash comparison:
+**only `index.html` differs**, and only by 16 carriage returns. `src/index.html` is checked out
+with CRLF on Windows (`git ls-files --eol`: `i/lf w/crlf`) because `.gitattributes` pins only
+JSON, the webmanifest and SVG icons to LF. Same app, different pack version. Blocker **B4** (low).
+
+### Production checks in the browser (from the Package 3 run)
+
+Clean profile, Chrome 157.0.8103.51 headless: raster `PIA26306_derived_2048.jpg` decoded at
+2048 × 1042 (manifest values); worker registered with scope `http://127.0.0.1:4310/`;
+webmanifest served as `application/manifest+json`; all three manifest icons HTTP 200
+`image/png`; offline pack prepared and verified (pack `ce81d366…`; one Cache Storage cache named
+`marswalk-pack:<origin>:<version>:<id>` holding 20 entries for the 19 pack files; the extra
+entry was not itemised). **0 page errors, 0 console errors, 0 failed requests,
+0 server 404s** across the whole run.
+
+Offline-pack contents (19): three lazy chunks, `main-*.js`, `styles-*.css`, `index.html`,
+`favicon.ico`, `manifest.webmanifest`, three Leaflet media images, three icons, and
+`data/environment.json`, `data/image-pack.json`, `data/imagery/PIA26306_derived_2048.jpg`,
+`data/manifest.json`, `data/markers.json`. The 2.6 MB archival `PIA26306.jpg` is excluded.
+
+## Package 2 — mission persistence investigation
+
+### Finding
+
+Saved notes are never lost by closing and reopening on their own. They **are** lost if, after
+reopening, the user saves anything before pressing **Load Route**. Details, file/line and
+proposed fix: blocker **B1** (and **B2** for unreadable records).
+
+| Question from the brief | Answer from code and tests |
+| --- | --- |
+| Unsaved draft vs saved observation | The Notebook draft lives only in component memory (`notebook.component.ts` `draftText`). It is never written to storage, so a draft typed but not saved is gone after a restart by design. A note is saved only when the green success message appears; `addObservation()` then writes route + notes to `localStorage` key `marswalk:v1:<imageRef>`. |
+| Startup display vs explicit recovery | Startup never restores (`mission.service.ts:62`). The Notebook shows "No observations recorded yet for this mission session." even when a saved mission exists. Only **Load Route** restores, and it restores notes too. |
+| Data loss vs confusing instructions | Both. Confusing: the empty Notebook and the route-only button label. Real loss: `saveRoute()` (`:140`) and `addObservation()` (`:183`) overwrite the stored record with the in-memory state; after a restart that state is empty. |
+| Different preview origins | Each Vercel preview URL is a separate origin with separate `localStorage`. A note saved on one preview URL (or in a browser tab) is not visible in an app installed from another URL. Royce's report must state the exact origin used for saving and for the installed app. |
+
+### Regression tests added
+
+`src/app/core/mission-recovery.spec.ts` (new file; `mission.service.ts` untouched). Each
+"session" is a new TestBed + MissionService sharing only `localStorage`.
+
+| Test | What it proves |
+| --- | --- |
+| restores the exact saved route and observation only after explicit Load Route | Startup shows nothing and does not touch storage; Load Route restores identical route, note ids and timestamps; second export equals first in imageRef, route and observations |
+| persists a successfully saved note (and the current route) without pressing Save Route | A note save also saves the current route |
+| keeps the previously saved mission when a later note save fails | Failed save leaves stored bytes and visible notes unchanged |
+| REPRODUCES DATA LOSS: a note saved after restart but before Load Route replaces earlier notes | B1, note path |
+| REPRODUCES DATA LOSS: Save Route after restart but before Load Route erases saved notes | B1, route path (matches Royce's report) |
+| reports a corrupt saved record without changing state or deleting the stored bytes | Corrupt JSON is kept for recovery |
+| REPRODUCES DATA LOSS: a note saved after a failed load overwrites the unreadable record | B2 |
+| reports unavailable storage on load and save without publishing unsaved notes | `SecurityError` on get/set handled; state unchanged |
+| keeps missions for a different image reference separate and untouched | imageRef isolation |
+
+The three `REPRODUCES DATA LOSS` tests assert today's behaviour so the reproduction runs in CI.
+They will fail when the coordinator fixes B1/B2; that is intended. Invert them to the expected
+behaviour written in their comments.
+
+**Run:** `npx ng test --watch=false --include src/app/core/mission-recovery.spec.ts
+--reporters=verbose` on Node 24.22.1 → **9/9 passed**, including the three reproductions. The
+full suite (`npm test`) passes 232/232 with this file included.
+
+The Package 3 browser run confirms the same picture end to end: after a full browser-process
+restart offline, the Notebook showed "No observations recorded yet for this mission session."
+and the planner had no points, while the saved record was still in storage. Load Route then
+restored the exact route and note, and the second export matched the first.
+
+### Manual device reproduction for Royce (isolated test data)
+
+1. Use one exact origin and write it down (preferably the public candidate URL).
+2. Draw start, waypoint, destination. Save a note `ROYCE-<time>`; wait for "Observation saved".
+3. Save Route. Export. Check the note text is in `observations` of the JSON.
+4. Prepare offline; wait for "Pack verified".
+5. Close the app fully (recent-apps swipe). Turn on airplane mode. Reopen from the launcher.
+6. **Before touching anything else**, Route Planner → Load Route. Open Notebook. Export again.
+7. Compare `imageRef`, `route`, `observations` of both exports.
+8. Separately, to confirm B1 on the device: repeat 1–5, then at step 6 press Save Route first,
+   then Load Route. The note should be missing; that is B1, not a device storage fault.
+
+## Package 3 — end-to-end release smoke test
+
+Harness and results are added in the next commit (`tools/qa/takou/`).
