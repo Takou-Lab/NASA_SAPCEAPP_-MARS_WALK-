@@ -26,7 +26,6 @@
         Focus Route
       </button>
     </div>
-
   </div>
 
   <div class="map-frame">
@@ -41,7 +40,6 @@
       <button type="button" aria-label="Zoom out" (click)="zoomOut()">−</button>
     </div>
 
-
     @if (
       mission.dataStatus() === 'loading' ||
       (mission.dataStatus() === 'ready' && imageDisplayState() === 'loading')
@@ -51,12 +49,10 @@
       <div class="map-state" role="status">
         Imagery is unavailable. No verified image manifest was loaded.
       </div>
-
     } @else if (mission.dataStatus() === 'error') {
       <div class="map-state map-state-error" role="alert">
         {{ mission.dataError() || 'Image metadata could not be loaded.' }}
       </div>
-
     } @else if (imageDisplayState() === 'error') {
       <div class="map-state map-state-error" role="alert">
         <p>{{ imageDisplayError() || 'The image could not be displayed.' }}</p>
@@ -64,7 +60,6 @@
           <button class="retry-image" type="button" (click)="retryImage()">Retry Image</button>
         }
       </div>
-
     }
   </div>
 
@@ -85,7 +80,6 @@
         }
       </ul>
     </div>
-
   }
 
   @if (selectedMarker; as marker) {

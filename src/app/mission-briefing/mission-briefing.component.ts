@@ -1,10 +1,26 @@
 import { Component, computed, inject } from '@angular/core';
 import { MissionService } from '../core/mission.service';
+import type { ScienceMarker } from '../core/models';
+
+export interface SafeBriefingRecord {
+  readonly id: string;
+  readonly name: string;
+  readonly instrument: string | null;
+  readonly date: string | null;
+  readonly finding: string;
+  readonly evidenceType: ScienceMarker['evidenceType'];
+  readonly positionStatus: ScienceMarker['positionStatus'];
+  readonly sourceTitle: string;
+  readonly sourceCredit: string;
+  readonly safeSourceUrl: string | null;
+  readonly limitations: readonly string[];
+}
 
 /**
- * Read‑only mission briefing for Emma 2.
- * Presents the scientific question, evidence, limits and a truthful checklist.
- * No mutations, storage or navigation actions are performed here.
+ * Standalone, read-only mission briefing component for Emma 2.
+ * Presents the scientific question, MRO/HiRISE and Curiosity/MSL evidence,
+ * explicit scientific/spatial limitations, workflow guidance, and a truthful
+ * reactive structural checklist. Performs zero mutations, storage calls, or navigation.
  */
 @Component({
   selector: 'app-mission-briefing',
@@ -14,36 +30,85 @@ import { MissionService } from '../core/mission.service';
   styleUrl: './mission-briefing.component.scss',
 })
 export class MissionBriefingComponent {
-  private readonly mission = inject(MissionService);
+  readonly mission = inject(MissionService);
 
-  // === Briefing data ====================================================
-  readonly title = 'What evidence supports the interpretation that ancient groundwater helped form Mount Sharp\'s boxwork?';
+  readonly title =
+    "What evidence supports the interpretation that ancient groundwater helped form Mount Sharp's boxwork?";
 
-  // Pull image source info (readonly)
-  readonly imageSource = computed(() => {
+  readonly dataStatus = computed(() => this.mission.dataStatus());
+  readonly dataError = computed(() => this.mission.dataError());
+
+  readonly imageInfo = computed(() => {
     const img = this.mission.image();
-    return img ? { url: img.source.url, title: img.source.title, credit: img.source.credit } : null;
+    if (!img) {
+      return null;
+    }
+    return {
+      imageRef: img.imageRef,
+      title: img.source.title,
+      credit: img.source.credit,
+      safeUrl: this.toSafeExternalUrl(img.source.url),
+      observationDate: img.observationDate,
+      coverageStatus: img.coverageStatus,
+      calibrationVerified: img.calibration.verified,
+      metersPerPixel: img.calibration.metersPerPixel,
+      limitations: img.limitations,
+    };
   });
 
-  // Markers (science records) – displayed as a simple list
-  readonly markers = computed(() => this.mission.markers());
+  readonly records = computed<readonly SafeBriefingRecord[]>(() =>
+    this.mission.markers().map((marker) => ({
+      id: marker.id,
+      name: marker.name,
+      instrument: marker.instrument,
+      date: marker.date,
+      finding: marker.finding,
+      evidenceType: marker.evidenceType,
+      positionStatus: marker.positionStatus,
+      sourceTitle: marker.source.title,
+      sourceCredit: marker.source.credit,
+      safeSourceUrl: this.toSafeExternalUrl(marker.source.url),
+      limitations: marker.limitations,
+    })),
+  );
 
-  // === Truthful checklist (read‑only, computed) =========================
-  private readonly hasStart = computed(() => !!this.mission.route().start);
-  private readonly hasDestination = computed(() => !!this.mission.route().destination);
-  private readonly hasStartAndDest = computed(() => this.hasStart() && this.hasDestination);
-
-  private readonly hasSelectedMarker = computed(() => {
-    const id = this.mission.selectedMarkerId();
-    return !!id && this.mission.markers().some(m => m.id === id);
+  readonly hasStartAndDestination = computed(() => {
+    const route = this.mission.route();
+    return route.start !== null && route.destination !== null;
   });
 
-  private readonly hasObservations = computed(() => this.mission.observations().length > 0);
+  readonly selectedRecord = computed<SafeBriefingRecord | null>(() => {
+    const selectedId = this.mission.selectedMarkerId();
+    if (!selectedId) {
+      return null;
+    }
+    return this.records().find((record) => record.id === selectedId) ?? null;
+  });
 
-  /** Checklist truth values – never imply success, only presence of inputs. */
+  readonly hasSelectedRecord = computed(() => this.selectedRecord() !== null);
+
+  readonly observationCount = computed(() => this.mission.observations().length);
+  readonly hasObservation = computed(() => this.observationCount() > 0);
+
+  /**
+   * Truthful structural checklist over readonly signals.
+   * Reflects current state presence only; never implies a safe or completed mission.
+   */
   readonly checklist = computed(() => ({
-    startAndDestination: this.hasStartAndDest(),
-    markerSelected: this.hasSelectedMarker(),
-    observationPresent: this.hasObservations(),
+    startAndDestination: this.hasStartAndDestination(),
+    markerSelected: this.hasSelectedRecord(),
+    observationPresent: this.hasObservation(),
   }));
+
+  toSafeExternalUrl(rawUrl: string | null | undefined): string | null {
+    if (!rawUrl) {
+      return null;
+    }
+    try {
+      const parsed = new URL(rawUrl.trim());
+      return parsed.protocol === 'https:' ? parsed.toString() : null;
+    } catch {
+      return null;
+    }
+  }
 }
