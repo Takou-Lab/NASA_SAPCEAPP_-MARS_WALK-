@@ -1,5 +1,15 @@
 # Gaddielle — environmental review: changes required
 
+## Latest 65141b7 — reconciliation incomplete; not merged
+
+Reviewed 15 November 2026. New commit changes four files (audit, pending environment JSON, fixture comments, converter tests); original full archive extractor and measurements are unchanged from previously reviewed branch. Isolated full branch run: **55 tests executed, suite reports 3 failures** (including temperature subtests). No source/schema acceptance, merge or deployment.
+
+- Tests include coordinator temperature cases but branch converter still drops below -200 degC intervals and accepts below-absolute-zero records. Reconcile the accepted main converter fix and tests together; do not remove the failing tests to claim success. Existing exact reproduction is in the C1/C2 review.
+- Submitted public/data/environment.json is the old pending/empty metadata. Current main has a reviewed limited-excerpt payload and calibrated crop. Do not overwrite current runtime status/data or the new image identity while resolving conflicts. Coordinator remains runtime owner.
+- ENVIRONMENT_SOURCE_AUDIT.md is reduced to 30 lines, retains contradictory verified versus unverified claims, references absent Section 1.C and ends literally `[... rest of original content unchanged ...]`. Restore actual source/processing/quality/limitations evidence; a placeholder is not a merge resolution. Full extractor provenance/finite/quality/integrity findings stay open.
+
+Next: safely incorporate main preserving raw/unpublished work, resolve source audit completely, retain coordinator runtime contract and converter fixes, run the entire data suite and send actual results. Our calibrated crop/limited excerpt remain accepted separately. No additional data quantity or terrain claim is approved by this push. Do not duplicate the coordinator calibration task or silently replace current scientific assets.
+
 ## Bounded excerpt admission — user-authorized limited context
 
 15 November 2026: user prioritized a physical-quantity subset. Coordinator processed only the existing contributor-supplied 25-row Sol 3900 excerpt with its normalized label: exact pinned hashes, identity/shape/finite/mask checks, pressure shadow and air reliability selections, reproducible summary tests. **Not an independently authenticated NASA download, full-sol statistic or acceptance of the entire source branch.** UI labels limited review and parent-product interval, and states source limitations. Means: 800.335 Pa pressure / 204.700 K air, 25 selected excerpt records each. Contract documents all caveats. Remaining daily-extractor/source findings stay open; no other environmental/terrain/AI values integrated.

@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Latest submission 65141b7 — correct reconciliation before more delivery
+
+Review finds 55 isolated tests run with 3 reported failures: accepted temperature fixes were not reconciled with the new tests. Source audit contains a literal omitted-content placeholder and conflicting source claims. Old pending runtime JSON must not replace current limited excerpt. [Exact review](../reviews/GADDIELLE.md#latest-65141b7--reconciliation-incomplete-not-merged). Preserve source downloads and local work, safely incorporate main, restore real evidence sections and run all tests. No branch code/data merged from this push. Coordinator's new calibrated crop and limited 25-row subset remain current; no new terrain/measurement delivery is inferred.
+
 ## CURRENT PUBLIC MAP — calibrated planar scale
 
 Use **https://marswalk-9dtnpllyx-boys-band.vercel.app/** (source 3d47a7b, no login). [Evidence/compatibility](../qa/CALIBRATED_PUBLIC_PREVIEW.md). User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.

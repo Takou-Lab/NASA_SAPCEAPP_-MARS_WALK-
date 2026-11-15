@@ -86,6 +86,10 @@ Both mission-workspace/release-ui branches point to dbef815. Signal-based missio
 
 User uploaded marswalk_crop.tif; inspected Mars GeoTIFF transform matches source window/label: 2048², 0.25 m projected pixels, 512 m extent. Active imageRef becomes hirise-psp001752-red-center-2048-025m-v2 with admitted planar scale. No resampling in display conversion; preserved crop/label/hash/transform under data/imagery and docs/data/evidence. Read CALIBRATED_CROP_RELEASE.md. 237 Angular/54 data tests and build pass. Old storage retained; legacy image imports rejected. Region/target tie-points, DEM/slope/safety still unavailable. Do not repeat old claims that active scale cannot be established after this new source admission.
 
+## Latest Gaddielle reconciliation review
+
+65141b7 reviewed, not merged. Isolated branch suite runs 55 tests with 3 reported failures from unreconciled temperature fixes/subtests. Audit truncated with literal omitted-content placeholder/contradictory source claims; pending-empty environment JSON would regress current runtime. Original extractor unchanged, prior source-quality blockers remain. GADDIELLE.md updated with narrow reconciliation instructions. Calibrated crop and limited excerpt on main unaffected; no deployment from this review.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.
