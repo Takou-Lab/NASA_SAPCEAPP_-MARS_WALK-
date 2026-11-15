@@ -28,7 +28,7 @@ Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Em
 
 ## Ordered next work
 
-1. Obtain official challenge/submission URL and exact deadline/timezone; requirements remain unverified. User was asked this turn. Do not invent a submission deadline.
+1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). Proxy CONNECT 403 prevents retrieval; obtain Details/resources and submission rules as pasted text/PDF or through permitted access. Exact deadline/timezone and requirement wording remain unverified. Do not invent them.
 2. Review Gaddielle original-source acquisition when submitted. Coordinator completed C1/C2 prototype fixes with 52 data tests passing; do not repeat corrections. Verify products/labels/extraction before accepting runtime data. See docs/reviews/GADDIELLE.md.
 3. Wait for Enzo's corrected verifier commit; rerun full Angular suite, not just focused Node tests. Do not merge known failing c35b021.
 4. Agree environmental schema/loader only from accepted evidence. Keep measurements historical, time/location/units/quality explicit. Calibration and compatible elevation are separate scientific priorities.

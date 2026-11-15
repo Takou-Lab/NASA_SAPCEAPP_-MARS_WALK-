@@ -4,7 +4,7 @@
 
 Start with [PROJECT_HANDOFF.md](../../PROJECT_HANDOFF.md). Fresh clean-main d6801a4 checks pass: 144 Angular tests, 11 worker tests, 33 data tests and production build (433.80 kB). [Durable evidence](../qa/CONTINUITY_BASELINE.md). This supersedes earlier “current” baseline counts below without relabeling historical results.
 
-Gaddielle 0f6bd95 illustrative prototype plus coordinator C1/C2 fixes are accepted as tooling only, with 52 integrated data tests passing. Await original product/label/extraction evidence; no runtime environmental data/schema accepted. Enzo c35b021 still needs correction for 11 integrated verifier failures. Official challenge/submission URL and deadline have been requested again and remain unverified. Current main is ahead of the documented public deployment b6669fb. Prepare the release candidate while physical device checks remain pending. This task does not authorize site/environment publication or competition submission.
+Gaddielle 0f6bd95 illustrative prototype plus coordinator C1/C2 fixes are accepted as tooling only, with 52 integrated data tests passing. Await original product/label/extraction evidence; no runtime environmental data/schema accepted. Enzo c35b021 still needs correction for 11 integrated verifier failures. The challenge URL is now recorded in RELEASE_PLAN.md; environment proxy CONNECT 403 prevents reading it. Obtain page text/PDF and separately verify deadline/timezone; requirement wording remains unverified. Current main is ahead of the documented public deployment b6669fb. Prepare the release candidate while physical device checks remain pending. This task does not authorize site/environment publication or competition submission.
 
 
 > Current work piece: [W6](../../TEAM_TASKS.md#w6).
