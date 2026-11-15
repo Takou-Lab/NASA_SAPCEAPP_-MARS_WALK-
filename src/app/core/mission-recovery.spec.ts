@@ -73,4 +73,63 @@ describe('mission startup recovery', () => {
     expect(s.service.dataStatus()).toBe('ready');
     expect(s.service.recoveryMessage()).toContain('storage may be blocked');
   });
+  it('blocks save, note and valid import after failed recovery without overwriting bytes', async () => {
+    const raw = 'broken saved JSON';
+    localStorage.setItem(key, raw);
+    const s = fresh();
+    await finish(s);
+    const valid = JSON.stringify({
+      schemaVersion: 1,
+      imageRef: image.imageRef,
+      route: { start: null, destination: null, waypoints: [] },
+      observations: [],
+    });
+    expect(s.service.saveRoute().ok).toBe(false);
+    expect(s.service.addObservation('Keep draft', null).ok).toBe(false);
+    expect(s.service.importMission(valid).ok).toBe(false);
+    expect(localStorage.getItem(key)).toBe(raw);
+    expect(s.service.observations()).toEqual([]);
+  });
+  it('blocks writes while startup recovery is pending', async () => {
+    const s = fresh();
+    await finish(s, () => {
+      expect(s.service.saveRoute().ok).toBe(false);
+      expect(s.service.addObservation('Pending draft', null).ok).toBe(false);
+      expect(localStorage.getItem(key)).toBeNull();
+    });
+  });
+  it('blocks writes after newer edits skip restoration until explicit Load reviews saved data', async () => {
+    const raw = JSON.stringify({
+      schemaVersion: 1,
+      imageRef: image.imageRef,
+      route: { start: { x: 1, y: 2 }, destination: null, waypoints: [] },
+      observations: [],
+    });
+    localStorage.setItem(key, raw);
+    const s = fresh();
+    await finish(s, () => {
+      s.service.setMode('start');
+      s.service.applyMapPoint({ x: 40, y: 50 });
+    });
+    expect(s.service.saveRoute().ok).toBe(false);
+    expect(localStorage.getItem(key)).toBe(raw);
+    expect(s.service.loadRoute().ok).toBe(true);
+    expect(s.service.addObservation('After review', null).ok).toBe(true);
+  });
+  it('protects a newer record written by another tab', async () => {
+    const s = fresh();
+    await finish(s);
+    expect(s.service.saveRoute().ok).toBe(true);
+    const other = JSON.stringify({
+      schemaVersion: 1,
+      imageRef: image.imageRef,
+      route: { start: { x: 3, y: 4 }, destination: null, waypoints: [] },
+      observations: [],
+    });
+    localStorage.setItem(key, other);
+    expect(s.service.addObservation('Current draft', null).ok).toBe(false);
+    expect(localStorage.getItem(key)).toBe(other);
+    expect(s.service.loadRoute().ok).toBe(true);
+    expect(s.service.saveRoute().ok).toBe(true);
+  });
 });

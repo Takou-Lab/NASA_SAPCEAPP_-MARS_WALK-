@@ -1,176 +1,188 @@
-<section class="viewer3d-container" aria-label="3D Rehearsal Viewer">
-  <header class="viewer3d-header">
-    <div class="title-group">
-      <span class="badge prototype-badge">Prototype: 3D training view</span>
-      <h2>3D Mission Rehearsal</h2>
-    </div>
-
-    <div class="provenance-banner" role="status">
-      <p class="terrain-notice">
-        <strong>Terrain Status:</strong> No verified terrain; elevation unavailable (flat imagery
-        plane).
-      </p>
-      <p class="exaggeration-notice">
-        <strong>Vertical Exaggeration:</strong> None. Lines, rings and marker shapes have display
-        offsets to avoid overlap; none represent measured elevation.
-      </p>
-      @if (mission.image(); as img) {
-        <p class="imagery-info">
-          <strong>Source:</strong>
-          <a [href]="img.source.url" target="_blank" rel="noopener noreferrer">{{
-            img.source.title
-          }}</a>
-          — {{ img.source.credit }} ({{ img.width }} &times; {{ img.height }} pixels) &bull;
-          <strong>Coverage:</strong> {{ img.coverageStatus }}
-        </p>
-        <p>
-          External source pages require connectivity. Image orientation and metric scale are
-          unverified.
-        </p>
-        <ul>
-          @for (limitation of img.limitations; track $index) {
-            <li>{{ limitation }}</li>
-          }
-        </ul>
-      } @else {
-        <p class="imagery-info waiting">
-          Waiting for image manifest &mdash; displaying practice grid.
-        </p>
-      }
-    </div>
-
-    <div class="controls-toolbar" role="toolbar" aria-label="Viewer camera controls">
-      <div class="btn-group">
-        <button
-          type="button"
-          class="btn"
-          [disabled]="!webglAvailable()"
-          (click)="setViewPreset('rehearsal')"
-        >
-          Rehearsal View
-        </button>
-        <button
-          type="button"
-          class="btn"
-          [disabled]="!webglAvailable()"
-          (click)="setViewPreset('topDown')"
-        >
-          Top-Down (Map)
-        </button>
-        <button
-          type="button"
-          class="btn"
-          [disabled]="!webglAvailable()"
-          (click)="setViewPreset('oblique')"
-        >
-          Low Oblique
-        </button>
-        <button type="button" class="btn" [disabled]="!webglAvailable()" (click)="resetCamera()">
-          Reset View
-        </button>
+<nav aria-label="3D display choice">
+  <button type="button" [attr.aria-pressed]="!reliefMode()" (click)="setReliefMode(false)">
+    Flat mission map
+  </button>
+  <button type="button" [attr.aria-pressed]="reliefMode()" (click)="setReliefMode(true)">
+    AI-generated relief and model slopes
+  </button>
+</nav>
+@if (reliefMode()) {
+  <app-ai-relief />
+} @else {
+  <section class="viewer3d-container" aria-label="3D Rehearsal Viewer">
+    <header class="viewer3d-header">
+      <div class="title-group">
+        <span class="badge prototype-badge">Prototype: 3D training view</span>
+        <h2>3D Mission Rehearsal</h2>
       </div>
 
-      <p class="vr-unavailable">Immersive VR is not implemented in this prototype.</p>
-    </div>
-  </header>
-
-  <div class="viewport-wrapper">
-    <div
-      #canvasContainer
-      class="canvas-viewport"
-      tabindex="0"
-      aria-label="Interactive 3D Mars Viewport"
-    >
-      @if (!webglAvailable()) {
-        <div class="webgl-fallback" role="status">
-          <p>{{ graphicsError() }}</p>
-        </div>
-      }
-    </div>
-
-    @if (webglAvailable()) {
-      @if (imageDisplayState() === 'loading') {
-        <p class="image-state" role="status">Loading 3D imagery…</p>
-      } @else if (imageDisplayState() === 'error') {
-        <p class="image-state" role="alert">{{ imageDisplayError() }}</p>
-      } @else if (imageDisplayState() === 'waiting') {
-        <p class="image-state" role="status">
-          Practice grid only (illustrative). Image coordinates are unavailable.
+      <div class="provenance-banner" role="status">
+        <p class="terrain-notice">
+          <strong>Terrain Status:</strong> No verified terrain; elevation unavailable (flat imagery
+          plane).
         </p>
-      }
-    }
-
-    <!-- Quick Hover Tooltip for Science Markers -->
-    @if (hoveredMarker(); as hov) {
-      <div class="hover-tooltip" aria-live="polite">
-        <span class="hov-name">{{ hov.name }}</span>
-        <span class="hov-status" [class.verified]="hov.positionStatus === 'verified'">
-          {{ hov.positionStatus }}
-        </span>
-        <span class="hov-hint">Click to inspect</span>
-      </div>
-    }
-
-    <!-- Detailed Marker Inspection Card -->
-    @if (selectedMarker(); as marker) {
-      <aside class="marker-card" aria-labelledby="marker-card-title">
-        <div class="card-header">
-          <h3 id="marker-card-title">{{ marker.name }}</h3>
-          <button
-            type="button"
-            class="btn-close"
-            (click)="closeMarkerCard()"
-            aria-label="Close marker details"
-          >
-            &times;
-          </button>
-        </div>
-        <p class="status-tag" [class.verified]="marker.positionStatus === 'verified'">
-          Position status: <strong>{{ marker.positionStatus }}</strong>
+        <p class="exaggeration-notice">
+          <strong>Vertical Exaggeration:</strong> None. Lines, rings and marker shapes have display
+          offsets to avoid overlap; none represent measured elevation.
         </p>
-        <p class="finding-text">{{ marker.finding }}</p>
-        <p>
-          <a [href]="marker.source.url" target="_blank" rel="noopener noreferrer">{{
-            marker.source.title
-          }}</a>
-          — {{ marker.source.credit }}
-        </p>
-        @if (marker.instrument) {
-          <p class="meta-item"><strong>Instrument:</strong> {{ marker.instrument }}</p>
-        }
-        @if (marker.evidenceType) {
-          <p class="meta-item"><strong>Evidence:</strong> {{ marker.evidenceType }}</p>
-        }
-        @if (marker.limitations.length) {
-          <ul class="limitations-list">
-            @for (lim of marker.limitations; track $index) {
-              <li>{{ lim }}</li>
+        @if (mission.image(); as img) {
+          <p class="imagery-info">
+            <strong>Source:</strong>
+            <a [href]="img.source.url" target="_blank" rel="noopener noreferrer">{{
+              img.source.title
+            }}</a>
+            — {{ img.source.credit }} ({{ img.width }} &times; {{ img.height }} pixels) &bull;
+            <strong>Coverage:</strong> {{ img.coverageStatus }}
+          </p>
+          <p>
+            External source pages require connectivity. Metric scale is described in the Image Data
+            Passport; geographic alignment remains unverified.
+          </p>
+          <ul>
+            @for (limitation of img.limitations; track $index) {
+              <li>{{ limitation }}</li>
             }
           </ul>
+        } @else {
+          <p class="imagery-info waiting">
+            Waiting for image manifest &mdash; displaying practice grid.
+          </p>
         }
-      </aside>
-    }
-  </div>
+      </div>
 
-  <footer class="viewer3d-footer">
-    <p class="instructions">
-      <strong>Controls:</strong> Left-drag rotate &bull; Right-drag pan &bull; Scroll zoom.
-    </p>
+      <div class="controls-toolbar" role="toolbar" aria-label="Viewer camera controls">
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn"
+            [disabled]="!webglAvailable()"
+            (click)="setViewPreset('rehearsal')"
+          >
+            Rehearsal View
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [disabled]="!webglAvailable()"
+            (click)="setViewPreset('topDown')"
+          >
+            Top-Down (Map)
+          </button>
+          <button
+            type="button"
+            class="btn"
+            [disabled]="!webglAvailable()"
+            (click)="setViewPreset('oblique')"
+          >
+            Low Oblique
+          </button>
+          <button type="button" class="btn" [disabled]="!webglAvailable()" (click)="resetCamera()">
+            Reset View
+          </button>
+        </div>
 
-    <div class="coords-readout" role="status" aria-label="Cursor coordinate readout">
-      @if (hoverCoords(); as c) {
-        <span class="map-coord"
-          >Map: <strong>X: {{ c.x }}px, Y: {{ c.y }}px</strong></span
-        >
-        <span class="coord-sep">&bull;</span>
-        <span class="scene-coord">Scene: ({{ c.sceneX }}, 0, {{ c.sceneZ }})</span>
-      } @else {
-        <span class="coord-placeholder">{{
-          imageDisplayState() === 'ready'
-            ? 'Hover the image for pixel coordinates'
-            : 'Image coordinates unavailable'
-        }}</span>
+        <p class="vr-unavailable">Immersive VR is not implemented in this prototype.</p>
+      </div>
+    </header>
+
+    <div class="viewport-wrapper">
+      <div
+        #canvasContainer
+        class="canvas-viewport"
+        tabindex="0"
+        aria-label="Interactive 3D Mars Viewport"
+      >
+        @if (!webglAvailable()) {
+          <div class="webgl-fallback" role="status">
+            <p>{{ graphicsError() }}</p>
+          </div>
+        }
+      </div>
+
+      @if (webglAvailable()) {
+        @if (imageDisplayState() === 'loading') {
+          <p class="image-state" role="status">Loading 3D imagery…</p>
+        } @else if (imageDisplayState() === 'error') {
+          <p class="image-state" role="alert">{{ imageDisplayError() }}</p>
+        } @else if (imageDisplayState() === 'waiting') {
+          <p class="image-state" role="status">
+            Practice grid only (illustrative). Image coordinates are unavailable.
+          </p>
+        }
+      }
+
+      <!-- Quick Hover Tooltip for Science Markers -->
+      @if (hoveredMarker(); as hov) {
+        <div class="hover-tooltip" aria-live="polite">
+          <span class="hov-name">{{ hov.name }}</span>
+          <span class="hov-status" [class.verified]="hov.positionStatus === 'verified'">
+            {{ hov.positionStatus }}
+          </span>
+          <span class="hov-hint">Click to inspect</span>
+        </div>
+      }
+
+      <!-- Detailed Marker Inspection Card -->
+      @if (selectedMarker(); as marker) {
+        <aside class="marker-card" aria-labelledby="marker-card-title">
+          <div class="card-header">
+            <h3 id="marker-card-title">{{ marker.name }}</h3>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="closeMarkerCard()"
+              aria-label="Close marker details"
+            >
+              &times;
+            </button>
+          </div>
+          <p class="status-tag" [class.verified]="marker.positionStatus === 'verified'">
+            Position status: <strong>{{ marker.positionStatus }}</strong>
+          </p>
+          <p class="finding-text">{{ marker.finding }}</p>
+          <p>
+            <a [href]="marker.source.url" target="_blank" rel="noopener noreferrer">{{
+              marker.source.title
+            }}</a>
+            — {{ marker.source.credit }}
+          </p>
+          @if (marker.instrument) {
+            <p class="meta-item"><strong>Instrument:</strong> {{ marker.instrument }}</p>
+          }
+          @if (marker.evidenceType) {
+            <p class="meta-item"><strong>Evidence:</strong> {{ marker.evidenceType }}</p>
+          }
+          @if (marker.limitations.length) {
+            <ul class="limitations-list">
+              @for (lim of marker.limitations; track $index) {
+                <li>{{ lim }}</li>
+              }
+            </ul>
+          }
+        </aside>
       }
     </div>
-  </footer>
-</section>
+
+    <footer class="viewer3d-footer">
+      <p class="instructions">
+        <strong>Controls:</strong> Left-drag rotate &bull; Right-drag pan &bull; Scroll zoom.
+      </p>
+
+      <div class="coords-readout" role="status" aria-label="Cursor coordinate readout">
+        @if (hoverCoords(); as c) {
+          <span class="map-coord"
+            >Map: <strong>X: {{ c.x }}px, Y: {{ c.y }}px</strong></span
+          >
+          <span class="coord-sep">&bull;</span>
+          <span class="scene-coord">Scene: ({{ c.sceneX }}, 0, {{ c.sceneZ }})</span>
+        } @else {
+          <span class="coord-placeholder">{{
+            imageDisplayState() === 'ready'
+              ? 'Hover the image for pixel coordinates'
+              : 'Image coordinates unavailable'
+          }}</span>
+        }
+      </div>
+    </footer>
+  </section>
+}

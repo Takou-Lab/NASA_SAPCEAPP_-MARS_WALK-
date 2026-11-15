@@ -17,8 +17,8 @@ import { ImageManifest } from './models';
  *
  * B1 (saving before Load Route erased saved notes) was reproduced on 2626a6b/842ad3d and is
  * fixed by the startup restore in b28f6ad; the tests marked "B1 fixed" guard that fix.
- * The test named "REPRODUCES DATA LOSS (B2)" still asserts current unsafe behaviour and is
- * expected to fail once B2 is fixed; then invert it as its comment says.
+ * B2 (a save after a failed restore overwrote the unreadable record) is fixed by the
+ * persistence guard in 38ad299; the "B2 fixed" test guards that fix.
  * See docs/qa/TAKOU_RELEASE_BLOCKERS.md.
  */
 
@@ -123,7 +123,7 @@ describe('Mission recovery across fresh app sessions', () => {
     });
     const failed = first.addObservation('Not saved', null);
     expect(failed.ok).toBe(false);
-    expect(failed.error).toContain('Keep your draft');
+    expect(failed.error).toMatch(/Keep your draft|not replaced/);
     expect(texts(first)).toEqual(['Saved before failure']);
     setItem.mockRestore();
     expect(localStorage.getItem(KEY)).toBe(raw);
@@ -179,7 +179,7 @@ describe('Mission recovery across fresh app sessions', () => {
     expect(localStorage.getItem(KEY)).toBe('{"schemaVersion":1,"imageRef":');
   });
 
-  it('REPRODUCES DATA LOSS (B2): a note saved after a failed restore overwrites the unreadable record', async () => {
+  it('B2 fixed: saves after a failed restore cannot overwrite the unreadable record', async () => {
     const unreadable = JSON.stringify({
       schemaVersion: 1,
       imageRef: testImage().imageRef,
@@ -200,10 +200,13 @@ describe('Mission recovery across fresh app sessions', () => {
     expect(session.recoveryMessage()).toContain('not deleted');
     expect(localStorage.getItem(KEY)).toBe(unreadable);
 
-    expect(session.addObservation('New note', null).ok).toBe(true);
-    // ...but CURRENT behaviour: the next successful save overwrites it.
-    // EXPECTED after a fix: the unreadable record is kept aside or the save is refused.
-    expect(stored().observations.map((n) => n.text)).toEqual(['New note']);
+    // B2 fixed in 38ad299: saves are refused while an unreadable record exists.
+    expect(session.addObservation('New note', null).ok).toBe(false);
+    session.setMode('start');
+    session.applyMapPoint(START);
+    expect(session.saveRoute().ok).toBe(false);
+    expect(stored().observations.map((n) => n.text)).toEqual(['Hand-recoverable note']);
+    expect(localStorage.getItem(KEY)).toBe(unreadable);
   });
 
   it('reports unavailable storage on load and save without publishing unsaved notes', async () => {

@@ -1,12 +1,19 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## ACTIVE — final 90-minute survival-planning release
+
+Freeze broad data retrieval; hand off geology 5cef4d7 and a concise accepted/proposed source table in docs/data/SURVIVAL_SOURCE_HANDOFF.md. Preserve runtime data and clearly state local-coverage/quality limits.
+
+Read [the exact shared assignment, ownership and clock](../FINAL_90_MINUTES.md). This section supersedes older future-work lists. Preserve/push existing work first; use current main and stable review URL. First handoff by minute 35, integration freeze at minute 55, submission reserved for final 15 minutes. No inferred safe-route or life-support claims.
+
+
 ## Latest submission 65141b7 — correct reconciliation before more delivery
 
 Review finds 55 isolated tests run with 3 reported failures: accepted temperature fixes were not reconciled with the new tests. Source audit contains a literal omitted-content placeholder and conflicting source claims. Old pending runtime JSON must not replace current limited excerpt. [Exact review](../reviews/GADDIELLE.md#latest-65141b7--reconciliation-incomplete-not-merged). Preserve source downloads and local work, safely incorporate main, restore real evidence sections and run all tests. No branch code/data merged from this push. Coordinator's new calibrated crop and limited 25-row subset remain current; no new terrain/measurement delivery is inferred.
 
 ## CURRENT PUBLIC MAP — mobile layout and automatic recovery
 
-Use **https://marswalk-review-boys-band.vercel.app/** (source b28f6ad, no login). [Mobile recovery evidence](../qa/MOBILE_MAP_RECOVERY_FIX.md). Mobile map now retains height; saved routes and observations restore automatically on startup. Physical device acceptance remains pending. Use this stable origin for subsequent tests; older preview storage remains on its original origin. User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.
+Use **https://marswalk-review-boys-band.vercel.app/** (source 38ad299, no login). [Mobile recovery evidence](../qa/MOBILE_MAP_RECOVERY_FIX.md). Mobile map now retains height; saved routes and observations restore automatically on startup. Physical device acceptance remains pending. Use this stable origin for subsequent tests; older preview storage remains on its original origin. User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.
 
 ## New crop calibration — current implementation
 
