@@ -12,7 +12,7 @@ Updated **15 November 2026 (Africa/Douala)**. Current code **`8a4dadc`** retains
 | [W1](TEAM_TASKS.md#w1) | [Willy](docs/team/WILLY.md) | Review/refine coordinator-supplied manifest/icons | Actual launcher appearance/deployed-device checks; no duplicate asset generation |
 | [W2](TEAM_TASKS.md#w2) | [Gaddielle](docs/team/GADDIELLE.md) | Correct environmental prototype R1–R4 on existing branch | Original product evidence; source protection; finite/consistent values; per-quantity audit; then re-review |
 | [W3](TEAM_TASKS.md#w3) | [Enzo](docs/team/ENZO.md) | Pure image-payload byte verifier | Planned contract implemented/tested, read-only cache reader handoff |
-| [W4](TEAM_TASKS.md#w4) | [Emma](docs/team/EMMA.md) | Phase 2 visual specification, real readiness header and three shared SCSS theme fixes | Phase 1 accepted; preserve logic/ownership and obtain real theme/device evidence |
+| [W4](TEAM_TASKS.md#w4) | [Emma](docs/team/EMMA.md) | Phase 3 deployed interface verification and physical device QA | Phases 1 & 2 accepted; run deployed URL and physical hardware checks after coordinator deployment |
 | [W5](TEAM_TASKS.md#w5) | [Longla](docs/team/LONGLA.md) | Clarify report; actual integrated-device QA | Exact served build/browser/messages and observed hardware outcomes |
 | [W6](TEAM_TASKS.md#w6) | [Coordinator](docs/team/YOU.md) | Host/device acceptance and remaining shared contracts | Actual HTTPS deployment and target installed mission reopen offline; implementation already supplied |
 

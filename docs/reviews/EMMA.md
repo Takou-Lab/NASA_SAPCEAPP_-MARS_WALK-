@@ -1,4 +1,4 @@
-# Emma — release UI approved; Phase 2 design/readiness next
+# Emma — release UI Phase 2 approved and integrated; Phase 3 deployed UI validation next
 
 ## Phase 2 59e00e1 — accepted and integrated
 
