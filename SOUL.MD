@@ -10,7 +10,7 @@ Updated: **15 November 2026**. This is the team's product charter and scope guid
 
 Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
 
-Emma (he/him) has delivered research, records/citations, presentation, usability protocol and the full science/evidence workspace. Willy's map/navigation/retry, Gaddielle's data/index, Enzo's shell/planner/notebook and Longla's corrected optional viewer are all integrated. The coordinator closed R3. Do not repeat accepted work. The next independent slices are install assets (Willy), factual release-data handoff (Gaddielle), pure image-byte verification (Emma), release UI accessibility/size cleanup (Enzo) and clarified hardware evidence (Longla). Actual usability sessions follow the integrated PWA prerequisites.
+Emma (he/him) has delivered research, records/citations, presentation, usability protocol and the full science/evidence workspace. Willy's map/navigation/retry, Gaddielle's data/index, Enzo's shell/planner/notebook and Longla's corrected optional viewer are all integrated. The coordinator closed R3. Do not repeat accepted work. The next independent slices are install assets (Willy), factual release-data handoff (Gaddielle), pure image-byte verification (Enzo), release UI accessibility/size cleanup (Emma) and clarified hardware evidence (Longla). Actual usability sessions follow the integrated PWA prerequisites.
 
 ## Why we exist
 
@@ -75,7 +75,7 @@ Do not present an unrun step as complete. An unlocated science record must not b
 
 ## Data passports
 
-Every displayed product has a readable provenance record: source and credit, product/image reference, observation date when verified, coverage, resolution when known, preparation steps, verification status and limitations. Gaddielle supplies imagery/processing evidence, Emma supplies scientific evidence and implements the assigned read-only science/confidence/image-passport components, Enzo integrates them in the shell, and the coordinator agrees any shared model/API extension.
+Every displayed product has a readable provenance record: source and credit, product/image reference, observation date when verified, coverage, resolution when known, preparation steps, verification status and limitations. Gaddielle supplies imagery/processing evidence. Emma authored the accepted science/evidence components; Enzo now owns their remaining scientific/environmental presentation and AI/presentation follow-ups. Emma now owns shell/planner/notebook design and accessibility; the coordinator agrees shared model/API extensions and root integration.
 
 Do not invent fields absent from inspected evidence. Preserve the prepared image's bottom-left pixel contract and version reference. Neither image brightness nor a scientific interpretation supplies measured terrain. A new derivative or coordinate interpretation requires deliberate versioning and handling of saved positions.
 
@@ -84,9 +84,9 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 | Priority | Owner | Outcome |
 | --- | --- | --- |
 | Essential | Gaddielle | Preserve package/index and closed R3; document exact runtime data/built-copy/cache guidance |
-| Essential | Emma (EMMA.md) | Preserve accepted science/evidence; implement planned pure image-payload verifier, later consolidate actual user outcomes |
+| Essential | Enzo (ENZO.md) | Preserve accepted contributions; implement planned image-payload verifier, environmental/science presentation and AI/presentation/usability follow-ups |
 | Essential | Willy | Preserve map/navigation/retry; deliver verified manifest and install icons |
-| Essential | Enzo | Preserve integrated shell/planner/notebook; improve accessibility and warning sizes without weakening behavior/budgets |
+| Essential | Emma (EMMA.md) | Preserve integrated shell/planner/notebook; improve professional design, accessibility and warning sizes; verify deployed UI |
 | Essential | Coordinator (YOU.md) | Shared state, reviewed integration, installation, complete verified offline pack/update lifecycle and end-to-end release checks |
 | Essential | Longla | Clarify submitted device report; real-device and later installed-offline QA |
 | Preserve optional delivery | Coordinator / Longla | Keep integrated viewer lazy/flat with teardown; no terrain/VR expansion |
@@ -95,7 +95,7 @@ Keep existing role ownership and completed work. The Willy/Gaddielle swap remain
 
 ## Evidence that people can use it
 
-The coordinator arranges a small test with **three people outside the team**. Emma prepares the protocol and records anonymized outcomes in `docs/USABILITY.md`; Longla supports observation and device checks. Do not fabricate participants, timings or results.
+The coordinator arranges a small test with **three people outside the team**. Emma's existing protocol is retained; Enzo now records anonymized outcomes in `docs/USABILITY.md`; Longla supports observation and device checks. Do not fabricate participants, timings or results.
 
 Ask each person to:
 

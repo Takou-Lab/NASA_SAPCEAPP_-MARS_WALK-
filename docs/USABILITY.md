@@ -14,13 +14,13 @@
 - **Session Ownership:**
   - **Coordinator (`YOU.md`):** Arranges and conducts the three sessions once the integrated offline PWA build is verified.
   - **Longla (`LONGLA.md`):** Supports independent target-device/offline QA and live session observation.
-  - **Emma (`EMMA.md`):** Prepares this protocol and records only observed, anonymized outcomes, misunderstandings, failures, and retest results.
+  - **Enzo (`ENZO.md`):** Maintains Emma's existing protocol after the user's remaining-work swap and records only observed, anonymized outcomes, misunderstandings, failures, and retest results. Emma's original authorship is retained.
 
 ## 2. Prerequisites Before Running Sessions
 
-Before conducting any session, confirm on the demonstration device that the following prerequisites are met. Current full-session readiness is **blocked by final interface/PWA integration**; the session log remains unrun:
+Before conducting any session, confirm on the demonstration device that the following prerequisites are met. The online interface is integrated; current full-session readiness is **blocked by complete installed offline PWA acceptance**. The session log remains unrun:
 1. Gaddielle's `public/data/manifest.json` + prepared image (`hirise-mro-pia26306-boxwork-2048x1042-v1`) and Emma's `public/data/markers.json` are integrated.
-2. The accepted map/science UI and the final shell/planner/notebook are integrated. Emma implements science/evidence presentation and Enzo owns shell placement; his current main reconciliation is W4. Dedicated future W3 panels are integrated only after review. This is a prerequisite, not a claim that all UI is already on main.
+2. The accepted map/science/evidence UI and final shell/planner/notebook are integrated in `b744b0b`. Enzo now owns remaining science/environment/evidence work; Emma owns remaining shell/planner/notebook design/accessibility. W3 is the new pure byte verifier, not an unimplemented panel assignment. Test the actual served revision.
 3. Coordinator's PWA manifest, service-worker caching, and production offline reopening pass independent QA checks.
 
 ## 3. Standardized Three-Task Protocol

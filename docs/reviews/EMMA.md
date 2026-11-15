@@ -11,7 +11,7 @@ The coordinator mounted `app-exploration-confidence` and `app-image-passport` on
 
 The evidence panels are now reviewed available components for Enzo's shell, not future APIs. Earlier science/research/presentation stay complete. Physical-device/PWA/outside-user outcomes remain pending.
 
-Next W3 is a bounded [read-only browser image-payload verifier](../team/tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md), delegated from coordinator preparation with an explicit planned contract. It does not own a worker, app readiness or another mission store. [Updated prompt](../team/EMMA.md).
+The user has since swapped remaining assignments: Emma now owns W4 professional UI/accessibility/deployment UI work. Enzo owns the planned W3 image verifier and subsequent science/environment/AI/presentation work. [Current Emma prompt](../team/EMMA.md), [current Enzo prompt](../team/ENZO.md). Earlier review evidence below stays historical.
 
 ---
 

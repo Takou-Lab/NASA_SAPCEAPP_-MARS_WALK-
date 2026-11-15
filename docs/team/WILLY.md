@@ -22,9 +22,9 @@ Branch default: **`feature/willy-pwa-install-assets`**, from latest published ma
 
 ## Phase 2 — Map usability and calibration integration
 
-After Phase 1 handoff, use **`feature/willy-map-release`** if no task exists. Own `src/app/map/` and map QA only; Enzo owns overall styling, coordinator owns shared state/calculation.
+After Phase 1 handoff, use **`feature/willy-map-release`** if no task exists. Own `src/app/map/` and map QA only; Emma owns overall styling, coordinator owns shared state/calculation.
 
-- [ ] Test touch/keyboard map controls, readable labels, visible focus and adequate targets. Align map control spacing/colors with Enzo's agreed tokens without editing his UI/global files.
+- [ ] Test touch/keyboard map controls, readable labels, visible focus and adequate targets. Align map control spacing/colors with Emma's agreed tokens without editing his UI/global files.
 - [ ] Clarify marker-layer empty state: three contextual records may have zero located pins. Retain readable science access; never invent coordinates to populate the map.
 - [ ] Move any map-specific next action beside its control; keep reset/focus/retry behavior and selected route intact. Do not hide relevant missing-data information.
 - [ ] If Gaddielle establishes valid scale and coordinator accepts calibration, test the existing route display against the exact active raster. Do not invent scale, change image geometry or calculate separate competing distance state.
@@ -39,7 +39,7 @@ After Phase 1 handoff, use **`feature/willy-map-release`** if no task exists. Ow
 
 ## Phase 4 — Final release handoff
 
-- [ ] Supply final map/install screenshots and credits for Emma's presentation, tied to actual deployed commit.
+- [ ] Supply final map/install screenshots and credits for Enzo's presentation, tied to actual deployed commit.
 - [ ] Report map/assets blockers, final QA evidence and actual feature commit. No late redesign after release freeze; fix reproducible blockers only.
 
 ## Agent execution and final handoff

@@ -4,7 +4,7 @@
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->
 
-**15 November integration update:** latest `16a2e66` passes 81 isolated branch tests/build and is merged into **`b744b0b`**. The coordinator resolved root conflicts, replaced duplicate presentation with the reviewed shared panels and retained transfer/drafts/navigation. Final integration passes **131 Angular tests, 28 data tests, build and actual browser workflow checks**. [Evidence](../qa/FINAL_BRANCH_INTEGRATION.md). The older integration gate below is closed. Next task: [release UI accessibility/size work](../team/tasks/ENZO_RELEASE_UI.md).
+**15 November integration update:** latest `16a2e66` passes 81 isolated branch tests/build and is merged into **`b744b0b`**. The coordinator resolved root conflicts, replaced duplicate presentation with the reviewed shared panels and retained transfer/drafts/navigation. Final integration passes **131 Angular tests, 28 data tests, build and actual browser workflow checks**. [Evidence](../qa/FINAL_BRANCH_INTEGRATION.md). The older integration gate below is closed. The user subsequently swapped remaining tasks: Enzo now owns [image-payload verification](../team/tasks/ENZO_IMAGE_PAYLOAD_VERIFIER.md) and science/environment/AI/presentation follow-ups; Emma owns release UI work. [Current Enzo plan](../team/ENZO.md).
 
 ## Historical 14 November review — superseded where noted
 

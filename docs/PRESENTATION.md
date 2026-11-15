@@ -4,7 +4,7 @@
 > **Current work and status:** [canonical team plan](../TEAM_TASKS.md). Distinguish main capabilities, verified feature branches and pending assignments; preserve completed work.
 <!-- /CURRENT_WORK_PLAN -->
 
-Author: Emma (he/him). These seven slides and [60-second rehearsal](DEMO_SCRIPT.md) are internal choices, not verified official submission limits. Status aligned **15 November 2026 (Africa/Douala)** with [REVIEW.md](../REVIEW.md) and [the work plan](../TEAM_TASKS.md).
+Original author: Emma (he/him). Enzo now maintains remaining presentation work after the user's assignment swap; original authorship is retained. These seven slides and [60-second rehearsal](DEMO_SCRIPT.md) are internal choices, not verified official submission limits. Status aligned **15 November 2026 (Africa/Douala)** with [REVIEW.md](../REVIEW.md) and [the work plan](../TEAM_TASKS.md).
 
 | Slide | Message and evidence | Actual stage / remaining artifact |
 | --- | --- | --- |

@@ -1,43 +1,66 @@
-# Enzo — Remaining professional UI and deployment work
+# Enzo — Remaining verification, science, AI and presentation work
 
-> Current work piece: [W4](../../TEAM_TASKS.md#w4).
+> Current work piece: [W3](../../TEAM_TASKS.md#w3).
 
 Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
+## Assignment swap and handoff
+
+The user swapped **remaining** Emma/Enzo assignments on 15 November 2026. Completed work, original authorship and accepted branch names stay unchanged. Preserve any unpublished progress on the previous assignment and hand off its actual commit/files/blockers through the coordinator before overlapping edits. Keep existing task branches/history if work already exists; new branch defaults below apply only when starting fresh. This assignment changes ownership, not application code or deployment status.
+
 ## Already complete — preserve
 
-Shell/planner/notebook `16a2e66` is integrated; root conflicts are resolved. Keep shared science/confidence/passport once, actual map, reachable guarded transfer, draft retention, route recovery, viewport clamp and lazy viewer destruction. Do not repeat foundation/root reconciliation.
+Your shell/planner/notebook `16a2e66` remains accepted and credited to you; root conflicts are resolved. Emma's research/records/citations, usability protocol, presentation draft, science UI `4efcb5a` and evidence workspace `3b7b1c1` remain accepted and credited to him. You now take the remaining verifier, environmental/science/evidence UI, AI explanation and presentation work. Emma takes shell/planner/notebook accessibility, professional design and deployment UI verification. Preserve existing components; no rebuilding the science audit, shell or foundation.
 
-## Phase 1 — Release accessibility and size cleanup
+## Phase 1 — Pure image-payload verifier, current task first
 
-Use **`feature/enzo-release-ui`** if no task exists. Own `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` and their tests/styles; named QA `docs/qa/RELEASE_UI.md`. No root/core/package/worker/data/evidence-component rewrite.
+Use **`feature/enzo-image-payload-verifier`** if no task exists. Own only `src/app/offline/image-payload-verifier.ts`, its spec and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md` for this slice. Implement this planned API:
 
-- [ ] Implement coherent tab/tabpanel IDs and ARIA relationships, selected state, roving focus, Left/Right/Home/End behavior. Only handle keys originating in tab controls; do not intercept notebook typing.
-- [ ] Ensure hidden/collapsed content cannot trap focus. Keep visible focus, readable contrast and usable keyboard/touch layout.
-- [ ] Reduce initial/planner/notebook style warning overruns without raising budgets or deleting features. Measure actual before/after. Any lazy splitting must preserve notebook state after first creation, retain errors/drafts and list essential chunks for offline preparation.
-- [ ] Recheck exact unsaved note across tabs/failed save, successful save, sidebar restored/keyboard clamp, mobile overflow and 3D teardown. Record actual integrated tests/build/browser results.
+```ts
+export type ReadAssetBytes = (path: string) => Promise<Uint8Array | null>;
+export interface ImagePayloadResult {
+  readonly scope: 'image-payload'; readonly ok: boolean;
+  readonly imageRef: string | null;
+  readonly verifiedPaths: readonly string[];
+  readonly totalBytes: number | null;
+  readonly errors: readonly string[];
+}
+export function verifyImagePayload(
+  index: unknown, activeImage: ImageManifest, readBytes: ReadAssetBytes,
+): Promise<ImagePayloadResult>;
+```
 
-## Phase 2 — Consistent professional design
+- [ ] Validate active manifest with existing `validManifest`, then index **before reader calls**. Exact v1 root keys: schemaVersion/imageRef/files/totalBytes; schemaVersion integer 1, matching reference. Exactly two ordered entries: `data/manifest.json`, then active assetPath; only path/bytes/sha256 keys, positive safe-integer sizes/sum, lowercase 64-hex digests. Reject unsafe/extra/missing/wrong-type/reference/path entries.
+- [ ] Injected reader is cache-only. No fetch, stores, worker, MissionService initialization/mutation or root mounting. Verify byte lengths and actual WebCrypto SHA-256; missing/read/crypto/size/digest failures return useful failure, never silent fallback.
+- [ ] Strict UTF-8/JSON manifest bytes must satisfy runtime validation and match active reference/path/coordinate system/width/height. Do not mutate inputs or decode pixels in this module.
+- [ ] Success: true, two paths in order, actual summed bytes, empty errors. Failure: false, no verified paths, null totalBytes, nonempty errors; expose imageRef only if active manifest is valid. Catch operational failures.
+- [ ] Meaningful success/invalid index/pre-read rejection/missing/corrupt/read/crypto/identity tests and actual browser WebCrypto proof. No package/core/source/Python changes. Explain that this verifies image bytes against the supplied index, not scientific validity, signature or full PWA readiness.
 
-- [ ] Agree a small visual specification with Willy/Emma: existing palette/tokens, typography scale, spacing, action hierarchy, badges, panel density and responsive behavior. Record in `docs/qa/RELEASE_UI.md`; use original branding/icons, no new UI framework/external fonts.
-- [ ] Polish owned shell/header/route/notebook using that specification. One clear next action and relevant empty/loading/error states per panel; reduce duplicated controls/content through agreed handoffs rather than editing others' files.
-- [ ] Clarify header readiness labels: metadata loaded, image displayed, persistence available, connectivity and complete offline readiness are different states. Consume only existing/agreed coordinator signals; never manufacture a green ready status from internet access or registration.
-- [ ] Reserve integration space for Emma's environmental component and actual PWA status/install/update UI. Wait for exported components and tested coordinator APIs; report exact mounting needs. Root assembly remains coordinator-owned.
-- [ ] Present update/install/preparation actions only when their real states exist. Failed preparation has recovery guidance; do not auto-reload over unsaved work. Keep unsupported grid/terrain unavailable and regional records accessible.
+## Phase 2 — Numerical science UI and clearer evidence
 
-## Phase 3 — Deployed interface verification
+After handoff use **`feature/enzo-environment-evidence`** if no task exists. Own proposed `src/app/environment/`, science/evidence UI and tests plus `docs/qa/ENVIRONMENT_CONTEXT.md`. Coordinator owns shared environmental model/loading and root/shell integration; Gaddielle owns source/generated data.
 
-- [ ] Check actual HTTPS preview in a clean browser plus existing-storage profile at desktop, tablet and narrow phone widths. Verify controls/tab/focus/scroll, no overflow, source/quantity text readability and manifest standalone viewport.
-- [ ] With coordinator/Longla test installed offline route → evidence → note → save/recover/export, failed-save draft retention and supported update behavior. Use isolated storage; do not delete someone's mission.
-- [ ] Record browser/device/build and actual defects. Hosting base-path/deep-link/cache fixes belong to coordinator; agree root/global style changes before touching those files.
-- [ ] Retest affected UI after fixes and capture final consistent screenshots for Emma. Keep logs free of uncaught normal-flow errors and explain unresolved warnings honestly.
+- [ ] While waiting for agreed data contract, prepare display examples and factual presentation text. Do not import imaginary service APIs or populate public data with placeholder measurements.
+- [ ] After contract/data acceptance, show quantity value/unit, measured/derived/assumed classification, instrument, observation interval/sol/location when supported, source and quality/missing state. Label historical regional context clearly. Charts/statistics require actual samples and stated aggregation; no fabricated smooth series.
+- [ ] Observation age uses verified observation time, separately from publication/download. Invalid/unknown/future dates have explicit states; no NaN labels or invented dates. Derived and assumed values describe their basis rather than a fake measurement age. Use an injectable/reference clock for meaningful date tests.
+- [ ] Shorten the default assessment to distinct, actionable limits. Move source metadata to passport and endpoint instructions to route summary. Keep detailed evidence accessible; changing presentation must not remove uncertainty or alter shared calculations.
+- [ ] Check zero/missing/invalid values, units, source-link safety, date boundaries, keyboard/mobile layout and no route/draft mutation. Supply exact component selector/integration handoff to coordinator/Emma.
 
-## Phase 4 — Release freeze and support
+## Phase 3 — Presentation, usability and bounded AI
 
-- [ ] Deliver final component selectors/chunks, before/after size results, accessibility evidence and commit to coordinator.
-- [ ] During release freeze fix only reproducible UI blockers. Verify public entry URL/private-window behavior after release and provide a concise known-issues list. No last-minute redesign or deployment-config ownership expansion.
+- [ ] Update existing `docs/PRESENTATION.md`, `DEMO_SCRIPT.md`, `JUDGES_QA.md`, `SCIENCE.md`, `REFERENCES.md` and `AI_USE.md` from the actual release revision. Preserve prior work. Coordinator verifies official format/deadline; do not assume seven slides, a video duration or a particular local deadline is mandatory.
+- [ ] Tell one complete mission story using actual screenshots: prepare, inspect source, sketch route, understand unknowns, save note, reopen offline and export. Only demonstrate the offline step after it actually passes. Show AI/VR as prototype or future work when appropriate.
+- [ ] With coordinator-arranged participants and Longla's observations, consolidate actual anonymized outcomes in `docs/USABILITY.md`; identify/fix/retest the main misunderstanding. No invented users, times or external messages.
+- [ ] Optional AI slice, **after core deliverables and a working release candidate**: prepare source-grounded explanations of existing records using an actual AI tool, review every assertion/citation and propose a small versioned `public/data/science-explanations.json` to coordinator. Mark these as **prepared AI-assisted explanations**, with source IDs, tool/model/date where available and review status. Never imply live personalized inference.
+- [ ] Runtime explanation display/loading uses a coordinator-agreed schema/consumer; no browser API keys, secret storage, unapproved backend or silent network dependency. Runtime model inference or image segmentation is a separate experiment requiring model/license/performance/validation evidence; not a claimed feature merely because code was AI-assisted.
+
+## Phase 4 — Deployment and final submission handoff
+
+- [ ] Verify actual HTTPS app renders the accepted records/quantities/dates/sources; no stale-build screenshots, missing source links or invented location pins.
+- [ ] With Longla confirm local evidence summaries remain readable in the prepared installed offline app; explain that external citations may need internet.
+- [ ] Finalize slides/demo script, captions/text and scientific/AI credits against the served commit and official rules. Give coordinator final artifact paths, evidence and remaining limitations; coordinator handles submission.
 
 ## Agent execution and final handoff
 

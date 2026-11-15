@@ -23,7 +23,7 @@ Continue **`feature/gaddielle-data-preparation`**, safely incorporating main. Ow
 After Phase 1 handoff use **`feature/gaddielle-environment-data`** if no task exists. Own proposed `tools/data/prepare_environment.py`, meaningful tool tests, raw-source audit under `docs/data/`, and proposed `public/data/environment.json`. These names reserve ownership; the runtime schema is **not yet agreed or implemented**.
 
 - [ ] First investigate accessible, documented Curiosity REMS reduced pressure/temperature data and RAD dose-rate products. Prefer a small interpretable archival sample. Record exact product/release/source URLs, units, time coverage, quality/missing-value flags and redistribution conditions. No live-conditions claim.
-- [ ] Within the first investigation block, deliver a source sample and schema proposal to coordinator/Emma. Do not spend the release window on an unavailable product; document access/interpretation blockers. Do not replace missing radiation with a guessed value or count walking time as an independent measurement.
+- [ ] Within the first investigation block, deliver a source sample and schema proposal to coordinator/Enzo. Do not spend the release window on an unavailable product; document access/interpretation blockers. Do not replace missing radiation with a guessed value or count walking time as an independent measurement.
 - [ ] Agree the versioned schema with coordinator **before** generating the runtime file. Proposal must distinguish quantity id/value/unit, observation time interval, instrument/location/sol where verified, quality status, source/product and any documented uncertainty. Unknown values stay explicitly unavailable. Units must match the actual product, not assumptions.
 - [ ] Implement reproducible conversion. Filter documented invalid flags/sentinels, preserve legitimate zero values, handle units/time correctly and record included/excluded sample counts. Mean/min/max require a stated sampling interval/aggregation method; do not average incompatible quantities or releases.
 - [ ] Deliver pressure and temperature plus radiation if supported by actual sourced data. Each quantity has its own provenance/time window. Different instrument locations/times remain visible; these are regional historical context, not route-local hazards.
@@ -38,7 +38,7 @@ After Phase 1 handoff use **`feature/gaddielle-environment-data`** if no task ex
 ## Phase 4 — Deployment and final data audit
 
 - [ ] Update release data handoff after accepted environmental data: paths, hashes, bytes, data version and intended offline inclusion. Do not alter the image-only index to include unrelated files.
-- [ ] Verify deployed served bytes/version match the accepted build; correct base-path/case/MIME failures through coordinator. Check date/unit/source labels with Emma.
+- [ ] Verify deployed served bytes/version match the accepted build; correct base-path/case/MIME failures through coordinator. Check date/unit/source labels with Enzo.
 - [ ] Confirm bundled records remain readable offline in the actual prepared app with Longla; external source links may require connectivity.
 - [ ] Provide final NASA/product/library credits, dataset limitations and provenance for presentation/submission. Label any missing quantity/calibration openly. Retest only changed/relevant data concerns.
 

@@ -10,6 +10,8 @@ Read [REVIEW.md](../../REVIEW.md), [TEAM_TASKS.md](../../TEAM_TASKS.md) and the 
 
 ## Status and ownership
 
+**Remaining-work swap:** Enzo owns W3 verifier/science/environment/AI/presentation; Emma owns W4 shell/planner/notebook design/accessibility/deployment UI. Accepted authorship/history stays unchanged. Preserve and hand off any previous-task local progress before overlapping edits.
+
 One shell-owned Leaflet image map, science discovery, confidence/passport, planner, draft-preserving notebook and guarded transfer are integrated. The optional flat viewer is lazy and destroyed on leaving its tab. R3 encoded/whitespace path validation is closed. Longla's submitted hardware report needs clarification; installation/full caching/update/disconnected reopening are still pending.
 
 Use Angular standalone, strict TypeScript, plain SCSS/CSS and the existing MissionService. Leaflet uses `CRS.Simple` with bottom-left image pixels. Three.js stays exclusive to the optional viewer. No competing store, scaffold, backend or UI framework. Keep source imageRef, unavailable scale/terrain/positions and existing validation/persistence guards.
@@ -19,8 +21,8 @@ Use Angular standalone, strict TypeScript, plain SCSS/CSS and the existing Missi
 | Coordinator / YOU — W6 | Root/core/shared models, build/packages, worker/install/cache/update lifecycle and main integration | Define real API before consumers use it; verify complete required asset set |
 | Willy — W1 | `public/manifest.webmanifest`, declared `public/icons/` assets, named QA handoff | Install assets only; root/index/worker wiring belongs to coordinator |
 | Gaddielle — W2 | `docs/data/RELEASE_DATA_HANDOFF.md` and necessary factual data-doc updates | R1–R3 complete; no asset regeneration/schema/API/worker changes |
-| Emma — W3 | Planned `src/app/offline/image-payload-verifier.ts`, its spec and named QA handoff | Pure read-only image-byte verification; no storage/network/worker/readiness UI |
-| Enzo — W4 | Shell/header/planner/notebook UI/tests/styles | Keyboard/ARIA/focus and size cleanup; preserve shared components/drafts/viewer teardown; no root/core/package rewrite |
+| Enzo — W3 | Planned `src/app/offline/image-payload-verifier.ts`, its spec and named QA handoff | Pure read-only image-byte verification; no storage/network/worker/readiness UI |
+| Emma — W4 | Shell/header/planner/notebook UI/tests/styles | Keyboard/ARIA/focus and size cleanup; preserve shared components/drafts/viewer teardown; no root/core/package rewrite |
 | Longla — W5 | `docs/qa/PWA_ACCEPTANCE.md` and actual defect/evidence records | Clarify submitted report, test exact integrated build on real device; no teammate code edits |
 
 Personal briefs authorize normal commits/pushes to their named feature branches; preserve existing progress/history. Proposed new branch names apply only when a follow-up has not started. Main integration follows the user's authorized coordinator workflow. Deployment, environment publication, submission and external messaging are separate.
@@ -30,9 +32,9 @@ Personal briefs authorize normal commits/pushes to their named feature branches;
 Each named personal file now contains the complete ordered plan through deployment. The table above describes the current first slices; later ownership expands only at the explicit phase gates below. Preserve unfinished local work and do not run every phase at once.
 
 - Gaddielle later owns proposed `tools/data/prepare_environment.py`, its data tests and `public/data/environment.json`, plus data provenance/release documentation. Source samples and coordinator-approved schema precede generated runtime data. No environmental schema/API currently exists.
-- Coordinator owns new shared environmental types/loading/validation and all root/package/worker/hosting changes. Emma later owns proposed `src/app/environment/` and science/evidence presentation, consuming the agreed implemented contract. No duplicate fetch/state store or invented service API.
-- Emma owns presentation/reference/AI-use/usability documents and optional proposed `public/data/science-explanations.json` after schema/content review. Gaddielle owns the underlying environmental data. Prepared AI-assisted explanations are labeled static/prepared; no claim of runtime inference or secret-bearing browser integration.
-- Willy later owns map-release usability and deployed map/install asset checks. Enzo owns professional shell/header/planner/notebook design and lifecycle presentation only through real coordinator APIs. Agree visual tokens; global/root changes stay coordinated.
+- Coordinator owns new shared environmental types/loading/validation and all root/package/worker/hosting changes. Enzo later owns proposed `src/app/environment/` and science/evidence presentation, consuming the agreed implemented contract. No duplicate fetch/state store or invented service API.
+- Enzo owns presentation/reference/AI-use/usability documents and optional proposed `public/data/science-explanations.json` after schema/content review. Gaddielle owns the underlying environmental data. Prepared AI-assisted explanations are labeled static/prepared; no claim of runtime inference or secret-bearing browser integration.
+- Willy later owns map-release usability and deployed map/install asset checks. Emma owns professional shell/header/planner/notebook design and lifecycle presentation only through real coordinator APIs. Agree visual tokens; global/root changes stay coordinated.
 - Longla's later optional WebXR experiment owns proposed `src/app/xr/`, agreed viewer adapters and QA; root/dependencies stay coordinator-owned. Unsupported hardware or failed actual session tests block an immersive-VR completion claim. Existing flat viewer stays lazy and functional.
 - Coordinator owns deployment preparation, actual authorized deployment/rollback and submission coordination. Other owners verify their area on the exact deployed artifact. Documenting this plan does not publish/deploy/submit anything.
 
@@ -42,11 +44,11 @@ Consult [the release sequence](../../TEAM_TASKS.md#one-complete-remaining-work-f
 
 Willy's map/navigation/retry (`21cf6f0`, `02134f1`) and Emma's science/research/protocol/presentation/evidence workspace (`947ff1a`, `4efcb5a`, `3b7b1c1`) are complete. Enzo `16a2e66` is reconciled with main. Root initializes once; shell uses one each of `app-science-context`, `app-exploration-confidence` and `app-image-passport`. Do not duplicate these or reopen old root conflicts. Longla's corrected viewer is already merged.
 
-W3's pure module is **planned, not yet implemented**: follow [EMMA_IMAGE_PAYLOAD_VERIFIER.md](tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md). It uses ImageManifest/runtime validation and an injected read-only cache reader, with an image-only result. No caller may assume it exists yet. W6 owns the remaining shell/science/cache/install checks and lifecycle API. MissionService currently has no install/cache/preparation/update API; Enzo must not invent signals or simulated readiness/progress.
+W3's pure module is **planned, not yet implemented**: follow [ENZO_IMAGE_PAYLOAD_VERIFIER.md](tasks/ENZO_IMAGE_PAYLOAD_VERIFIER.md). It uses ImageManifest/runtime validation and an injected read-only cache reader, with an image-only result. No caller may assume it exists yet. W6 owns the remaining shell/science/cache/install checks and lifecycle API. MissionService currently has no install/cache/preparation/update API; Emma must not invent signals or simulated readiness/progress.
 
 The existing [image index](../data/IMAGE_PACK_INDEX.md) inventories manifest + prepared image only: **524,472 bytes**, excluding the index itself, science and built shell. It is not full PWA readiness. Its R3 closure and real `--check` pass are recorded with 28 data tests; source image/manifest/index bytes remain unchanged. W2 supplies factual release paths/hashes and include/exclude guidance, W1 supplies install assets, and W6 integrates after review.
 
-Next release gate: the complete prepared installed mission reopens disconnected on a real device, retaining route/observations and supporting essential image/science/export operations. Outside-user sessions use Emma's existing protocol after prerequisites. No measured terrain, route-safety score, invented science pins or immersive VR is supplied.
+Next release gate: the complete prepared installed mission reopens disconnected on a real device, retaining route/observations and supporting essential image/science/export operations. Outside-user sessions use Emma's existing protocol after prerequisites; Enzo now maintains outcomes and presentation. No measured terrain, route-safety score, invented science pins or immersive VR is supplied.
 
 ## Version 1 models
 

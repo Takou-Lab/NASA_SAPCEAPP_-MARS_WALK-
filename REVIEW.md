@@ -27,7 +27,9 @@ Installation, complete shell/data preparation, update handling, disconnected ins
 
 ## Next work
 
-[TEAM_TASKS.md](TEAM_TASKS.md) and [NEXT_TASKS.md](NEXT_TASKS.md) assign consistent follow-ups: Willy install assets, Gaddielle release-data handoff, Emma pure image-byte verifier, Enzo release accessibility/size work, Longla corrected hardware evidence and coordinator real PWA lifecycle. Personal prompts and historical reviews are in [team briefs](docs/team/) and [reviews](docs/reviews/).
+[TEAM_TASKS.md](TEAM_TASKS.md) and [NEXT_TASKS.md](NEXT_TASKS.md) assign consistent follow-ups: Willy install assets, Gaddielle release-data handoff, Enzo pure image-byte verifier, Emma release accessibility/size work, Longla corrected hardware evidence and coordinator real PWA lifecycle. Personal prompts and historical reviews are in [team briefs](docs/team/) and [reviews](docs/reviews/).
 
 
 The complete ordered remaining-work plan for each person, including deployment and final handoff, is now in their single named [personal MD file](docs/team/). See the [owner matrix and release gates](TEAM_TASKS.md#one-complete-remaining-work-file-per-person). These plans do not represent completed numerical-data, AI, immersive-VR or PWA implementation, and no deployment was executed by this documentation update.
+
+Remaining-work ownership was swapped at the user’s request on 15 November: [Enzo](docs/team/ENZO.md) takes verifier/environment/science/AI/presentation; [Emma](docs/team/EMMA.md) takes professional shell/UI/accessibility and deployed UI checks. Accepted contribution table above remains historical and unchanged.

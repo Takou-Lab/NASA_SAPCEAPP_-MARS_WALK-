@@ -41,8 +41,8 @@ Only after Phase 1 handoff and a protected working release candidate. Use propos
 
 ## Phase 4 — Usability and demonstration evidence
 
-- [ ] Support coordinator-arranged outside-user observations using Emma's protocol; Emma consolidates anonymized results. No unauthorized participant messaging or fabricated outcomes.
-- [ ] Supply actual device screenshots/video and supported VR demonstration, with build and labels, for Emma's presentation. Record remaining defects/unsupported hardware and the final retest status.
+- [ ] Support coordinator-arranged outside-user observations using Emma's existing protocol; Enzo consolidates anonymized results. No unauthorized participant messaging or fabricated outcomes.
+- [ ] Supply actual device screenshots/video and supported VR demonstration, with build and labels, for Enzo's presentation. Record remaining defects/unsupported hardware and the final retest status.
 
 ## Agent execution and final handoff
 

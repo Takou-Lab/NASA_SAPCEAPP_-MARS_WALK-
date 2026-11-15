@@ -21,14 +21,16 @@ Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla'
 
 ## One complete remaining-work file per person
 
+**User-requested swap, 15 November:** Enzo now owns W3 verifier/science/environment/AI/presentation follow-ups; Emma owns W4 professional shell/UI/accessibility/deployment UI follow-ups. Completed authorship is unchanged. Preserve and hand off unpublished progress before overlapping edits.
+
 Each personal file now contains that person's **entire ordered checklist through deployment and final handoff**, including a coding-agent prompt. The W1–W6 slices below remain the first tasks; subsequent phases start after their stated handoffs/dependencies. Scope restrictions in earlier task specifications apply to those slices, not to unrelated later phases explicitly assigned here. Preserve already-started local work; do not start every phase simultaneously.
 
 | Person / complete file | Start now | Later implementation | Deployment / final responsibility |
 | --- | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Install manifest/icons | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
 | [Gaddielle](docs/team/GADDIELLE.md) | Release data handoff | Source numerical REMS/RAD data, reproducible conversion after schema agreement; investigate exact-raster scale | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
-| [Emma — he/him](docs/team/EMMA.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
-| [Enzo](docs/team/ENZO.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
+| [Enzo](docs/team/ENZO.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
+| [Emma — he/him](docs/team/EMMA.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
 | [Royce / Longla](docs/team/LONGLA.md) | Clarify device report; integrated hardware QA | Real WebXR feasibility/prototype on supported hardware, separately reviewed | HTTPS/install/full offline/update acceptance and actual device/demo evidence |
 | [YOU / coordinator](docs/team/YOU.md) | Shared contracts, official requirements, reviewed integration | Full PWA lifecycle, shared data loading, guarded AI/VR integration | Hosting/runbook, preview/production verification/rollback and final submission coordination |
 
@@ -36,8 +38,8 @@ Each personal file now contains that person's **entire ordered checklist through
 
 1. Verify actual official requirements/deadline/timezone and available time; preserve a known-good release candidate. No invented midnight deadline or mandatory slide/video limit.
 2. Complete current W1–W4 slices in parallel; W5 verifies integrated online behavior. Presentation text and design specification can progress while inputs arrive.
-3. Gaddielle supplies source samples/schema proposal; coordinator agrees/implements shared types/loading; Gaddielle generates validated data and Emma consumes the actual API. No guessed measurements or premature runtime contract.
-4. Coordinator integrates real PWA preparation; Enzo consumes tested lifecycle signals; all owners validate their area on the exact HTTPS preview. Numerical data and AI content are added deliberately to the required-cache/version strategy.
+3. Gaddielle supplies source samples/schema proposal; coordinator agrees/implements shared types/loading; Gaddielle generates validated data and Enzo consumes the actual API. No guessed measurements or premature runtime contract.
+4. Coordinator integrates real PWA preparation; Emma consumes tested lifecycle signals; all owners validate their area on the exact HTTPS preview. Numerical data and AI content are added deliberately to the required-cache/version strategy.
 5. Keep AI and VR experiments isolated. Prepared AI-assisted text is labeled prepared, not live inference. Real immersive VR requires supported hardware/session testing; existing flat 3D is already integrated. Failed/unverified experiments stay out of the stable release.
 6. Reserve the final third of the actual remaining time for integration, device testing, final presentation and submission. Freeze additions before consuming that reserve; prioritize observed release blockers.
 7. Coordinator executes deployment/submission when separately requested in the release workflow; this documentation change publishes no app or competition entry. Host/account/URL remain to be chosen. All owners recheck the actual production revision and hand off evidence.
@@ -50,8 +52,8 @@ No numerical environment dataset, AI feature, immersive VR or complete PWA lifec
 | --- | --- | --- | --- | --- |
 | [W1](#w1) | Willy | Manifest and install icons | Proposed `feature/willy-pwa-install-assets` | Public assets and QA only; coordinator wires discovery |
 | [W2](#w2) | Gaddielle | Release data handoff | Existing `feature/gaddielle-data-preparation` | Actual runtime paths, hashes/sizes, built-copy and cache inclusion guidance |
-| [W3](#w3) | Emma | Read-only image-payload verifier | Proposed `feature/emma-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
-| [W4](#w4) | Enzo | Release accessibility and size cleanup | Proposed `feature/enzo-release-ui` | Owned UI/tests/styles; preserve mission behavior and budgets |
+| [W3](#w3) | Enzo | Read-only image-payload verifier | Proposed `feature/enzo-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
+| [W4](#w4) | Emma | Release accessibility and size cleanup | Proposed `feature/emma-release-ui` | Owned UI/tests/styles; preserve mission behavior and budgets |
 | [W5](#w5) | Longla | Device report clarification and actual-device QA | Existing `feature/longla-3d-rehearsal` | QA records only; exact integrated build/device/outcomes |
 | [W6](#w6) | Coordinator / YOU | Real PWA install/cache/update lifecycle | Main integration workflow | Shared root/core/packages/worker and complete installed offline mission |
 
@@ -66,14 +68,14 @@ Map/navigation/retry are complete. Deliver `public/manifest.webmanifest`, the th
 R1–R3 are closed; do not repeat fixes or regenerate assets. Deliver `docs/data/RELEASE_DATA_HANDOFF.md` with the actual required runtime data paths/imageRef, sizes/hashes, production-copy comparison and exact worker include/exclude guidance. Separate manifest/image payload, science and index-control bytes from app readiness. Exclude archival masters/unused reference documents from essentials. Own this document and necessary factual data-doc updates only; no new schema/data/API/worker. [Prompt](docs/team/GADDIELLE.md), [exact spec](docs/team/tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md).
 
 <a id="w3"></a>
-## W3 — Emma: read-only image-payload verification
+## W3 — Enzo: read-only image-payload verification
 
-Science discovery and both evidence panels are complete. Implement the **planned** pure `verifyImagePayload(index, activeImage, readBytes)` module under `src/app/offline/`, its tests and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md`. Validate unknown v1 index/active manifest before reads; verify exact bytes, SHA-256 and manifest identity using an injected cache-only reader and the specified result/failures. No network fallback, storage writes, shared/root/model/source/Python/package/worker changes or readiness UI. W6 composes this with all other shell/science/install checks. [Prompt](docs/team/EMMA.md), [exact contract](docs/team/tasks/EMMA_IMAGE_PAYLOAD_VERIFIER.md).
+Science discovery and both evidence panels are complete. Implement the **planned** pure `verifyImagePayload(index, activeImage, readBytes)` module under `src/app/offline/`, its tests and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md`. Validate unknown v1 index/active manifest before reads; verify exact bytes, SHA-256 and manifest identity using an injected cache-only reader and the specified result/failures. No network fallback, storage writes, shared/root/model/source/Python/package/worker changes or readiness UI. W6 composes this with all other shell/science/install checks. [Prompt](docs/team/ENZO.md), [exact contract](docs/team/tasks/ENZO_IMAGE_PAYLOAD_VERIFIER.md).
 
 <a id="w4"></a>
-## W4 — Enzo: release UI accessibility and size cleanup
+## W4 — Emma: release UI accessibility and size cleanup
 
-The complete shell and root integration are done. Improve tab/tabpanel ARIA relationships, keyboard navigation/focus and current initial/style warning sizes without raising budgets or deleting capabilities. Preserve notebook drafts, shared components, transfer and viewer teardown. Own shell/header/planner/notebook UI/tests/styles only; root/core/packages/worker remain coordinator-owned. Record actual before/after checks in `docs/qa/RELEASE_UI.md`. Future PWA status UI awaits W6's real contract. [Prompt](docs/team/ENZO.md), [exact spec](docs/team/tasks/ENZO_RELEASE_UI.md).
+The complete shell and root integration are done. Improve tab/tabpanel ARIA relationships, keyboard navigation/focus and current initial/style warning sizes without raising budgets or deleting capabilities. Preserve notebook drafts, shared components, transfer and viewer teardown. Own shell/header/planner/notebook UI/tests/styles only; root/core/packages/worker remain coordinator-owned. Record actual before/after checks in `docs/qa/RELEASE_UI.md`. Future PWA status UI awaits W6's real contract. [Prompt](docs/team/EMMA.md), [exact spec](docs/team/tasks/EMMA_RELEASE_UI.md).
 
 <a id="w5"></a>
 ## W5 — Longla: clarify device report and verify integrated build
@@ -87,7 +89,7 @@ Test current integrated main online: route/science/note/save/recovery/transfer, 
 
 All current submissions are integrated. Review future W1–W4 deliveries without repeating completed code. Define/document the actual PWA lifecycle contract before assigning its status UI. MissionService currently has no install/cache API.
 
-Wire reviewed manifest/icons and implement production caching, complete-pack verification, separate connection/readiness states, preparation/storage/update failures and mission-safe recovery. Deliberately include required shell/data/index/science assets; 524,472 image-payload bytes exclude the rest of the app. Keep the optional viewer lazy and its cache policy explicit. Perform actual install/preparation/disconnected closing/reopening with W5; then arrange three outside-user sessions using Emma's protocol and record real outcomes. [Coordinator prompt](docs/team/YOU.md).
+Wire reviewed manifest/icons and implement production caching, complete-pack verification, separate connection/readiness states, preparation/storage/update failures and mission-safe recovery. Deliberately include required shell/data/index/science assets; 524,472 image-payload bytes exclude the rest of the app. Keep the optional viewer lazy and its cache policy explicit. Perform actual install/preparation/disconnected closing/reopening with W5; then arrange three outside-user sessions using Emma's existing protocol, now maintained by Enzo, and record real outcomes. [Coordinator prompt](docs/team/YOU.md).
 
 ## Dependencies and finish rules
 
