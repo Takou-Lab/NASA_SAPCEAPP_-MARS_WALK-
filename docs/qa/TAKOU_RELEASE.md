@@ -2,7 +2,8 @@
 
 Takou (Charles) with a coding agent, 15 November 2026. Branch
 `feature/takou-release-integration` from `main` **2626a6b016d0f40385ff3c3f1b4adbb19ccf1605**
-(2026-11-15 13:35 UTC), then rebased onto `main` **842ad3d** and re-verified (last section).
+(2026-11-15 13:35 UTC), then rebased onto `main` **842ad3d**, then merged with `main` **7798074** (B1/B3 fixes) and
+re-verified (last two sections).
 Every number below was produced in this environment on this date;
 no historical count is copied. Blockers: [TAKOU_RELEASE_BLOCKERS.md](TAKOU_RELEASE_BLOCKERS.md).
 
@@ -195,3 +196,38 @@ Observed on this revision:
 
 Screenshots in `docs/design/takou-screens/` and `tools/qa/takou/results/latest.json` are now
 from this run. The 2626a6b sections above remain the record for that revision.
+
+## Re-verification after merging main 7798074 (B1 and B3 fixes)
+
+After the push, `main` gained `b28f6ad` "Fix mobile map layout and restore saved missions on
+startup" (coordinator) and `7798074`. `b28f6ad` also added the coordinator's own
+`src/app/core/mission-recovery.spec.ts`, the path used by my first commit. Merge `e30a3fe`
+(main merged into this branch, no force push) keeps the coordinator's file unchanged, moves my
+tests to `src/app/core/mission-recovery-sessions.spec.ts` and inverts the two B1 reproductions
+into "B1 fixed: …" guards. Test names in the Package 2 table above refer to the earlier file.
+
+| Check | Result on merge e30a3fe (main 7798074 + QA) |
+| --- | --- |
+| Recovery specs (verbose) | **13 passed**: coordinator's 4 + my 9, including both "B1 fixed" tests; "REPRODUCES DATA LOSS (B2)" still passes, so **B2 is still open** |
+| `npm test` | **25 files, 250 tests passed** (241 on main + 9) |
+| `npm run test:pwa` | **11 passed** |
+| `npm run build` | **exit 0**; initial 474.97 kB raw / 119.62 kB transfer; pack `3653cf784ff4…`, 19 assets, 2,611,959 bytes. New warning from `b28f6ad`: `shell.component.scss` exceeds its 4.00 kB budget by 324 bytes (4.32 kB). Leaflet CommonJS warning as before. |
+| Python data tests | Not re-run: `public/data` and `tools/data` are unchanged since 842ad3d (54/54 there) |
+| Smoke harness | **9 passed in 22.2 s**, run `2026-11-15T15-49-52-598Z-3u6xee`; 0 page/console errors, 0 failed requests, 0 server 404s |
+| Public review URL `https://marswalk-review-boys-band.vercel.app/` (source b28f6ad) | HTTP 200; pack `41a3ae779880…` differs from the local build **only in `index.html`** (CRLF, B4) |
+
+Observed in the browser:
+
+- **B1 fixed.** After the full browser-process restart with the server stopped and offline
+  emulation, the page showed "Restored saved route and 1 observation(s) on this device."
+  **before any button was pressed**; Notebook (1) with the exact note, the same three route
+  rows, and the export equal to the first in `imageRef`, `route` and `observations`. An
+  explicit Load Route afterwards changes nothing.
+- **B3 fixed (map reachable).** At 390 × 844 the phone page now scrolls: the map starts at
+  y = 666 px, 178 px is visible on first view, and the whole 488 px map is visible once
+  scrolled into view (scrollY 310). No horizontal overflow. The design proposal (map first)
+  would still improve the first view.
+- Harness changes for this revision: check 7 now expects automatic restore; the planner is
+  lazy-loaded, so the test waits for its rows; route rows are read cell by cell (innerText
+  dropped the separators while the table was not laid out); check 9 also measures the map
+  after scrolling and measures the collapsed state from the top of the page.

@@ -3,7 +3,8 @@
 Started 15 November 2026 by Takou (Charles) with a coding agent, on branch
 `feature/takou-release-integration`. First tested on `main` **2626a6b** (runtime = public
 candidate 38516f8), then rebased onto `main` **842ad3d** (runtime = calibrated public candidate
-3d47a7b apart from CRLF in `index.html`) and every check re-run. Evidence and commands:
+3d47a7b apart from CRLF in `index.html`) and every check re-run, then merged with `main` **7798074** (coordinator fixes for B1 and B3,
+source b28f6ad) and re-run again. Evidence and commands:
 [TAKOU_RELEASE.md](TAKOU_RELEASE.md).
 
 Priority order: lost mission data → failed offline recovery → broken loading → unusable
@@ -12,15 +13,21 @@ behaviour; fixes are proposals for the named owner.
 
 | ID | Severity | Summary | Owner | State |
 | --- | --- | --- | --- | --- |
-| B1 | Data loss | Saving before Load Route after reopening overwrites saved notes | Coordinator (+ Emma 1 wording) | Open, reproduced |
-| B2 | Data loss | Saving after a failed load overwrites the unreadable record | Coordinator | Open, reproduced |
-| B3 | Unusable control | Phone 390 × 844: 0 px of map visible on 842ad3d (89 px on 2626a6b) | Emma 1 + Willy | Open, measured |
+| B1 | Data loss | Saving before Load Route after reopening overwrote saved notes | Coordinator | **Fixed in b28f6ad**, retested (unit + browser) |
+| B2 | Data loss | Saving after a failed restore overwrites the unreadable record | Coordinator | **Open**, still reproduced on 7798074 |
+| B3 | Unusable control | Phone 390 × 844: 0 px of map visible on 842ad3d (89 px on 2626a6b) | Coordinator | **Fixed in b28f6ad**: page scrolls, full 488 px map reachable |
 | B4 | Low | Windows checkout changes the pack version (CRLF `index.html`) | Coordinator | Open |
 
-**Until B1 is fixed, demo rule:** after reopening the app, press **Load Route** before saving
-anything.
+**Demo rule:** on builds before b28f6ad, press **Load Route** before saving anything after
+reopening. From b28f6ad on, the app restores automatically and shows "Restored saved route and
+N observation(s) on this device."; check that message before saving.
 
-## B1 — Saved notes are overwritten when saving before Load Route (DATA LOSS, open)
+## B1 — Saved notes are overwritten when saving before Load Route (DATA LOSS, fixed in b28f6ad)
+
+**Retest on merge e30a3fe (main 7798074):** unit tests "B1 fixed: …" in
+`mission-recovery-sessions.spec.ts` pass, and the browser run restored the exact route and note
+at startup, offline, before any button press (TAKOU_RELEASE.md, last section). Record of the
+original finding below.
 
 | Field | Detail |
 | --- | --- |
@@ -36,6 +43,11 @@ anything.
 
 ## B2 — A note saved after a failed load overwrites the unreadable record (DATA LOSS, open)
 
+**Still open on 7798074.** Startup restore now fails visibly ("…Saved data was not deleted.
+Export current work before replacing it.") and leaves the bytes, but the next successful note
+or route save still replaces them. Test: "REPRODUCES DATA LOSS (B2)" in
+`mission-recovery-sessions.spec.ts`.
+
 | Field | Detail |
 | --- | --- |
 | Reproduction | Stored record exists but fails validation (for example, one out-of-bounds point) while still holding readable notes. Load Route reports "Saved mission is invalid…". Save a new note. |
@@ -45,7 +57,12 @@ anything.
 | Owner / fix | Coordinator, same change as B1. |
 | Retest | Pending. |
 
-## B3 — On a phone the map is off-screen or nearly so (UNUSABLE CONTROL, open)
+## B3 — On a phone the map is off-screen or nearly so (UNUSABLE CONTROL, fixed in b28f6ad)
+
+**Retest on merge e30a3fe:** the phone page scrolls; map at y = 666 px, 178 px visible on first
+view, the full 488 px visible when scrolled into view; no horizontal overflow
+(`phone-390-offline.png`, `phone-390-map-scrolled-into-view.png`). The map-first layout in the
+design review remains an improvement, not a blocker. Record of the finding below.
 
 | Field | Detail |
 | --- | --- |
@@ -78,8 +95,8 @@ before judging (owner: Enzo Agent 2 for presentation documents, coordinator for 
 | # | Where | Problem | Proposed wording / action |
 | --- | --- | --- | --- |
 | C1 | `docs/JUDGES_QA.md:47` | Says official challenge requirements are unverified because of a 403. The Details text is now in `docs/challenge/` (REQUIREMENTS.md says not to keep claiming it is unknown). | "Details text supplied and assessed in docs/challenge/REQUIREMENTS.md; Resources tab, submission fields and deadline timezone still unverified." |
-| C2 | `docs/JUDGES_QA.md:46` | Calls Royce's issue "note persistence across device standby". His report says app close/reopen, and B1 now explains a real loss path. | "Saving before Load Route after reopening overwrites saved notes (B1, fix pending); browser restart recovery passes when Load Route is pressed first." |
-| C3 | `docs/DEMO_SCRIPT.md:55` | Correctly says to press Load Route, but does not warn presenters against saving first. | Add: "Do not press Save Route or save a note before Load Route" until B1 is fixed. |
+| C2 | `docs/JUDGES_QA.md:46` (after b28f6ad: say startup restores automatically) | Calls Royce's issue "note persistence across device standby". His report says app close/reopen, and B1 now explains a real loss path. | "Saving before Load Route after reopening overwrites saved notes (B1, fix pending); browser restart recovery passes when Load Route is pressed first." |
+| C3 | `docs/DEMO_SCRIPT.md:55` (after b28f6ad: show the restore message instead) | Correctly says to press Load Route, but does not warn presenters against saving first. | Add: "Do not press Save Route or save a note before Load Route" until B1 is fixed. |
 | C4 | `docs/PRESENTATION.md:26` | "WebGL resources released on exit" is stronger than the evidence. The code disposes geometries, materials and textures and the smoke test shows the viewer DOM is removed; GPU memory release is not measured. | "Viewer is removed and its Three.js objects disposed when closed." |
 | C5 | `docs/AI_USE.md:24`, `docs/JUDGES_QA.md:59` | AI disclosure names OpenAI Codex and Google Antigravity only. Takou's QA branch (tests, harness, these documents) was produced with Anthropic Claude Code under his supervision. | Add Claude Code to the tool list with the scope above. Development tooling only; no runtime AI. |
 | C6 | `docs/DEMO_SCRIPT.md:31` | Says distance is "reported as unavailable: pixel scale is uncalibrated". Since 3d47a7b the app shows a derived planar distance (observed "Derived planar: 400.4 m (0.25 m/px …)"). The script now contradicts the screen. | "Planar distance in the projected map plane from the verified 0.25 m crop; not terrain-following; slope and safety unavailable." |
@@ -99,8 +116,8 @@ commands and raw results.
 | Python data tests | **Pass** 54/54 with Pillow 13.0.0; 15 fail without Pillow (dependency missing, not data) |
 | Production build | **Pass**, initial 450.97 kB, Leaflet CommonJS warning only |
 | Production serve, console/network, manifest/icons/worker/pack | **Pass** locally: 0 page/console errors, 0 failed requests, 0 404s; 3 icons 200; worker registered; 19-file pack verified |
-| Disconnected full-process recovery (desktop Chrome) | **Pass when Load Route is pressed first**; B1 explains the loss path otherwise |
-| Phone-width usability | **Fails** B3 (0 px visible map on 842ad3d); no horizontal overflow |
+| Disconnected full-process recovery (desktop Chrome) | **Pass**, restored automatically at startup on 7798074 (B1 fixed); B2 still open for unreadable records |
+| Phone-width usability | **Pass** on 7798074 (map reachable by scrolling, 488 px); was 0 px on 842ad3d |
 | Public candidate link | **Reachable** anonymously (HTTP 200 for `/`, manifest, worker, pack); pack `a80ff718…` matches its record. Production `marswalk-jet.vercel.app` also 200 but older. |
 | Physical Android/iOS installed recovery | **Pending** (Royce / Willy 2). Browser emulation is not device acceptance. |
 | Official submission portal fields, upload limits, deadline timezone | **Unverified.** Only the Details text is in `docs/challenge/`. The 10 pm deadline is user-reported; timezone unconfirmed. Owner: coordinator/user. |

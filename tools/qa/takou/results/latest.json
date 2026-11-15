@@ -1,7 +1,7 @@
 {
-  "runId": "2026-11-15T15-18-08-462Z-vcdn2y",
+  "runId": "2026-11-15T15-49-52-598Z-3u6xee",
   "source": {
-    "sha": "ff34e499d2fcf20c0a8a543117c56fb5661ac1e3",
+    "sha": "3f93d267216d5ab125cffa420df1102ff333bf8f",
     "dirty": true
   },
   "channel": "chrome",
@@ -13,8 +13,8 @@
       "h": 2048,
       "src": "http://127.0.0.1:4310/data/imagery/PSP_001752_1750_RED_crop_2048.jpg",
       "serviceWorker": {
-        "registered": false,
-        "scope": null
+        "registered": true,
+        "scope": "http://127.0.0.1:4310/"
       },
       "manifestType": "application/manifest+json; charset=utf-8",
       "icons": [
@@ -51,14 +51,14 @@
     {
       "name": "route",
       "rows": [
-        "1\tStart\t337.9\t607.7",
-        "2\tWaypoint\t1022.7\t1149.7",
-        "3\tDestination\t1707.5\t902.5"
+        "1 | Start | 337.9 | 607.7",
+        "2 | Waypoint | 1022.7 | 1149.7",
+        "3 | Destination | 1707.5 | 902.5"
       ]
     },
     {
       "name": "note-and-export",
-      "note": "TAKOU-SMOKE-2026-11-15T15-18-08-462Z-vcdn2y",
+      "note": "TAKOU-SMOKE-2026-11-15T15-49-52-598Z-3u6xee",
       "draftRetained": true,
       "exportedObservations": 1
     },
@@ -72,21 +72,25 @@
     {
       "name": "offline-pack",
       "panel": [
-        "Install & offline · Connection available · Pack verified",
+        "Install & offline · Connection available · Pack checking",
         "",
         "Offline pack verified. Save your route and notes before closing.",
         ""
       ],
       "cacheEntries": {
-        "marswalk-pack:http://127.0.0.1:4310/:f3ac6a3865bf2e48f5178625f1ab560516216333ebbcd053a86d5cbe608eac82:3f670361-180f-493d-88b6-9adbf0e0405c": 20
+        "marswalk-pack:http://127.0.0.1:4310/:3653cf784ff40e1ccf62acefd591ad998b3978a458e51be1cd9087b6761e26e7:ea932263-4600-4df3-96d3-2faa4b852f6a": 20
       }
     },
     {
       "name": "offline-recovery",
-      "startupCount": 0,
-      "startupRows": [],
-      "startupEmptyText": "No observations recorded yet for this mission session.\n\nUse the form above to document boxwork morphology, rock textures, and site observations.",
-      "recovered": true
+      "recoveryMessage": "Restored saved route and 1 observation(s) on this device.",
+      "startupCount": 1,
+      "startupRows": [
+        "1 | Start | 337.9 | 607.7",
+        "2 | Waypoint | 1022.7 | 1149.7",
+        "3 | Destination | 1707.5 | 902.5"
+      ],
+      "exportsEqual": true
     },
     {
       "name": "viewer",
@@ -104,12 +108,14 @@
       "bodyScroll": 390,
       "mapElement": {
         "x": 8.25,
-        "y": 898,
+        "y": 666.25,
         "width": 373.5,
         "height": 487.515625
       },
-      "visibleDefault": 0,
-      "visibleCollapsed": 0
+      "visibleDefault": 178,
+      "visibleCollapsed": 178,
+      "visibleAfterScroll": 488,
+      "scrollY": 310
     }
   ],
   "consoleErrors": [],
@@ -117,12 +123,12 @@
   "failedResponses": [],
   "url": "http://127.0.0.1:4310/",
   "pack": {
-    "version": "f3ac6a3865bf2e48f5178625f1ab560516216333ebbcd053a86d5cbe608eac82",
+    "version": "3653cf784ff40e1ccf62acefd591ad998b3978a458e51be1cd9087b6761e26e7",
     "files": 19,
-    "totalBytes": 2609930
+    "totalBytes": 2611959
   },
   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
   "browserVersion": null,
   "serverRequests404": [],
-  "finishedAt": "2026-11-15T15:18:38.516Z"
+  "finishedAt": "2026-11-15T15:50:13.196Z"
 }

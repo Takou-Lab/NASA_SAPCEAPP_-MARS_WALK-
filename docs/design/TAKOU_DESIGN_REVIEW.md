@@ -5,15 +5,16 @@ Styling work starts only after an explicit file-ownership handoff from Emma.
 
 - Tested revisions: `main` **842ad3d** (runtime = calibrated public candidate **3d47a7b**, which
   adds the 0.25 m/px crop, planar distance and Emma's mission decision workspace) and, before the
-  rebase, `main` **2626a6b** (= public candidate 38516f8). Screenshots are from 842ad3d.
+  rebase, `main` **2626a6b** (= public candidate 38516f8). Screenshots are from the merge with
+  `main` **7798074** (coordinator fixes b28f6ad: startup restore, scrolling phone layout).
 - Screenshots: `docs/design/takou-screens/` (source, URL and viewport in the table below).
 - Scope: existing tokens in `src/styles.scss`, existing components, existing capabilities.
   No new scientific values, map positions, readiness states, fonts or frameworks.
 
 ## Screenshots
 
-All captured by the Package 3 harness run `2026-11-15T15-18-08-462Z-vcdn2y`: production build
-of 842ad3d + QA commits served at `http://127.0.0.1:4310/`, Chrome 157.0.8103.51 headless, default
+All captured by the Package 3 harness run `2026-11-15T15-49-52-598Z-3u6xee`: production build
+of merge e30a3fe (main 7798074 + QA commits) served at `http://127.0.0.1:4310/`, Chrome 157.0.8103.51 headless, default
 light colour scheme, synthetic test mission only.
 
 | File | Viewport | State |
@@ -21,10 +22,11 @@ light colour scheme, synthetic test mission only.
 | `desktop-1366-initial.png` | 1366 × 768 | First load online, pack not prepared |
 | `desktop-1366-route.png` | 1366 × 768 | Route drawn (start, waypoint, destination), Route Planner tab |
 | `desktop-1366-notebook-failed-save.png` | 1366 × 768 | Simulated full storage: error shown, draft kept |
-| `desktop-1366-offline-startup-before-load.png` | 1366 × 768 | Offline after full restart, **before** Load Route: Notebook (0) |
+| `desktop-1366-offline-startup-restored.png` | 1366 × 768 | Offline after full restart: restored automatically, Notebook (1), restore message |
 | `desktop-1366-viewer.png` | 1366 × 768 | Optional flat viewer open, offline |
-| `phone-390-offline.png` | 390 × 844 | Offline, default layout: decision summary above the map, **0 px of map visible** |
-| `phone-390-panel-collapsed.png` | 390 × 844 | Same with Collapse Panel: still 0 px without scrolling |
+| `phone-390-offline.png` | 390 × 844 | Offline, top of page: 178 px of map visible |
+| `phone-390-map-scrolled-into-view.png` | 390 × 844 | Same, map scrolled into view: full 488 px |
+| `phone-390-panel-collapsed.png` | 390 × 844 | After Collapse Panel (page scrolled to that button) |
 | `prototype-phone-390.png` | 390 × 844 | **Prototype** `tools/design/takou/index.html` (file URL, not the app): map 436 px |
 | `prototype-desktop-1366.png` | 1366 × 768 | **Prototype**, desktop: map + 380 px panel |
 
@@ -34,6 +36,10 @@ failures in problem 5 apply to the dark theme.
 ## The five most serious usability problems (ranked by mission impact)
 
 ### 1. Saved work looks lost after reopening, and saving first erases it
+
+**Status on 7798074:** largely addressed by the coordinator (b28f6ad): automatic restore with a
+visible "Restored saved route and N observation(s)" message. Remaining: B2 (unreadable record
+overwritten on next save) and the "Load Route" label that still says route only.
 
 After a restart the Notebook says "No observations recorded yet for this mission session."
 (`notebook.component.html:166`) and the Route Planner is empty. The only restore is **Load
@@ -54,6 +60,10 @@ of Royce's Samsung report.
   inverted and passing).
 
 ### 2. On a phone the map is almost invisible
+
+**Status on 7798074:** fixed as a blocker by b28f6ad; the page scrolls and the full 488 px map
+is reachable (178 px on first view). The proposal below still makes the map the first thing
+seen on a phone.
 
 Measured at 390 × 844 with the smoke harness (on-screen height, clipping included). On
 **842ad3d** the new Mission Decision Summary sits between the header and the map; the map
