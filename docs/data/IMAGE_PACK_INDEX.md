@@ -142,4 +142,3 @@ For future PWA service-worker precaching, the coordinator can ingest `public/dat
 1. Obtain the exact list of image URLs to precache: `data/manifest.json` and `data/imagery/PIA26306_derived_2048.jpg`.
 2. Verify cached response sizes and digests against `files[].sha256`.
 3. Display the verified offline image payload size (`524,472 bytes` / `~512 KB`) in the UI storage/offline indicator.
-

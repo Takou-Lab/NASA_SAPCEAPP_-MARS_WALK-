@@ -1,0 +1,125 @@
+<div class="notebook-container">
+  <!-- 1. New Observation Form -->
+  <section class="notebook-card form-card">
+    <div class="card-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+      </svg>
+      <span>Record Scientific Observation</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="note-form" novalidate>
+      <div class="field-group">
+        <label for="obs-input" class="field-label">Field Notes & Geological Observations:</label>
+        <textarea
+          id="obs-input"
+          class="obs-textarea"
+          rows="4"
+          placeholder="Describe visible shapes, rock textures, or a question to investigate..."
+          [ngModel]="draftText()"
+          (ngModelChange)="setDraftText($event)"
+          name="observationText"
+          aria-describedby="char-count"
+          required
+        ></textarea>
+        <div id="char-count" class="field-meta">
+          <span class="char-counter">{{ draftText().length }} characters</span>
+          <span class="safe-tag">Plain-text safely preserved</span>
+        </div>
+      </div>
+
+      <div class="location-attachment">
+        <label class="checkbox-label" [class.disabled]="!hasStartPoint()">
+          <input
+            type="checkbox"
+            [checked]="attachStartLocation()"
+            (change)="toggleAttachStart()"
+            [disabled]="!hasStartPoint()"
+            class="styled-checkbox"
+          />
+          <span>Attach Route Start Position</span>
+        </label>
+        @if (hasStartPoint()) {
+          <span class="pos-preview font-mono">
+            ({{ route().start!.x.toFixed(0) }}, {{ route().start!.y.toFixed(0) }})
+          </span>
+        } @else {
+          <span class="pos-preview text-muted">(No start point placed on map)</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="submit-btn"
+          [disabled]="isDraftEmpty()"
+          aria-label="Save observation note to mission log"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>Save Observation</span>
+        </button>
+      </div>
+
+      @if (feedback(); as fb) {
+        <div class="feedback-alert" [class]="'feedback-' + fb.type" role="status">
+          <span class="fb-icon" aria-hidden="true">{{ fb.type === 'success' ? '✓' : '⚠' }}</span>
+          <span class="fb-text">{{ fb.message }}</span>
+        </div>
+      }
+    </form>
+  </section>
+
+  <!-- 2. Saved Observations Log -->
+  <section class="notebook-card history-card">
+    <div class="card-header">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+        <span>Mission Log</span>
+      </div>
+      <span class="log-count-badge">{{ observations().length }} Recorded</span>
+    </div>
+
+    @if (observations().length > 0) {
+      <div class="obs-list" role="feed" aria-label="Recorded observations list">
+        @for (obs of observations(); track obs.id) {
+          <article class="obs-entry" tabindex="0">
+            <div class="entry-header">
+              <span class="entry-timestamp">{{ obs.createdAt | date:'medium' }}</span>
+              <span class="entry-raster font-mono" title="Raster Reference">{{ obs.imageRef }}</span>
+            </div>
+
+            <!-- Plain text rendering via Angular interpolation -->
+            <p class="entry-body">{{ obs.text }}</p>
+
+            <div class="entry-footer">
+              @if (obs.position; as pos) {
+                <span class="entry-location font-mono">
+                  Location: ({{ pos.x.toFixed(1) }}, {{ pos.y.toFixed(1) }})
+                </span>
+              } @else {
+                <span class="entry-location text-muted">Unlocated Field Note</span>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="empty-notebook">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="empty-icon">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+        </svg>
+        <p>No observations recorded yet for this mission session.</p>
+        <span class="empty-hint">Use the form above to document boxwork morphology, rock textures, and site observations.</span>
+      </div>
+    }
+  </section>
+</div>

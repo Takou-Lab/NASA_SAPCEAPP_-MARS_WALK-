@@ -1,144 +1,212 @@
 import { Component } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 import manifest from '../../public/data/manifest.json';
 import markers from '../../public/data/markers.json';
-import { App } from './app';
-import { MissionService } from './core/mission.service';
+import { MAX_MISSION_IMPORT_BYTES, MissionService } from './core/mission.service';
 import { MapComponent } from './map/map.component';
+import { App } from './app';
+import { ShellComponent } from './ui/shell/shell.component';
 
-// Root integration tests isolate Leaflet's browser renderer. Its behavior has
-// separate map tests and a real-browser smoke check.
-@Component({ selector: 'app-map', template: '' })
+// Isolate Leaflet's renderer in unit tests; the production shell owns the one real map mount.
+@Component({ selector: 'app-map', template: '<p>Waiting for a verified local image.</p>' })
 class MapMountStub {}
 
-beforeEach(() => {
-  TestBed.configureTestingModule({
-    imports: [App],
-    providers: [provideHttpClient(), provideHttpClientTesting()],
-  }).overrideComponent(App, {
-    remove: { imports: [MapComponent] },
-    add: { imports: [MapMountStub] },
-  });
-});
-
-it('mounts the map once and keeps the missing-data shell usable', async () => {
-  const fixture = TestBed.createComponent(App);
-  const http = TestBed.inject(HttpTestingController);
-  http
-    .expectOne((r) => r.url.endsWith('/data/manifest.json'))
-    .flush('', { status: 404, statusText: 'Not Found' });
-  await fixture.whenStable();
-  fixture.detectChanges();
-  expect(fixture.nativeElement.querySelectorAll('app-map')).toHaveLength(1);
-  expect(fixture.nativeElement.querySelectorAll('app-image-passport')).toHaveLength(1);
-  expect(fixture.nativeElement.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
-  expect(fixture.nativeElement.textContent).toContain('unavailable');
-  expect(fixture.nativeElement.textContent).toContain('Waiting for a verified local image');
-  http.verify();
-});
-
-it('loads the delivered image and three unlocated science records through the real service', async () => {
-  const fixture = TestBed.createComponent(App);
-  const mission = TestBed.inject(MissionService);
-  const http = TestBed.inject(HttpTestingController);
-  http.expectOne((r) => r.url.endsWith('/data/manifest.json')).flush(manifest);
+async function loadMission(http: HttpTestingController): Promise<void> {
+  http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush(manifest);
   await Promise.resolve();
-  http.expectOne((r) => r.url.endsWith('/data/markers.json')).flush(markers);
-  await fixture.whenStable();
-  fixture.detectChanges();
-  expect(fixture.nativeElement.querySelectorAll('app-map')).toHaveLength(1);
-  expect(mission.dataStatus()).toBe('ready');
-  expect(mission.dataError()).toBeNull();
-  expect(mission.image()?.imageRef).toBe(manifest.imageRef);
-  expect(mission.markers()).toHaveLength(3);
-  expect(
-    mission
-      .markers()
-      .every((marker) => marker.position === null && marker.positionStatus === 'unavailable'),
-  ).toBe(true);
-  expect(mission.assessment().planarDistanceMeters).toBeNull();
-  expect(fixture.nativeElement.querySelector('app-image-passport').textContent).toContain(
-    manifest.imageRef,
-  );
-  expect(fixture.nativeElement.querySelector('app-exploration-confidence').textContent).toContain(
-    'Metric distance unavailable',
-  );
-  expect(fixture.nativeElement.textContent).toContain('3 contextual science records');
-  const buttons = fixture.nativeElement.querySelectorAll(
-    'app-science-context .science-record-button',
-  ) as NodeListOf<HTMLButtonElement>;
-  expect(buttons).toHaveLength(3);
-  const route = mission.route();
-  const mode = mission.mode();
-  const observations = mission.observations();
-  buttons[0].click();
-  fixture.detectChanges();
-  expect(mission.selectedMarkerId()).toBe(markers[0].id);
-  const details = fixture.nativeElement.querySelector(
-    'app-science-context .science-record-details',
-  );
-  expect(details.textContent).toContain(markers[0].finding);
-  expect(details.textContent).toContain('Unavailable on this image');
-  expect(mission.route()).toBe(route);
-  expect(mission.mode()).toBe(mode);
-  expect(mission.observations()).toBe(observations);
-  http.verify();
-});
+  http.expectOne((request) => request.url.endsWith('/data/markers.json')).flush(markers);
+}
 
-it('reads a selected mission and exposes the actual import result', async () => {
-  const fixture = TestBed.createComponent(App);
-  const http = TestBed.inject(HttpTestingController);
-  http.expectOne((r) => r.url.endsWith('/data/manifest.json')).flush(manifest);
-  await Promise.resolve();
-  http.expectOne((r) => r.url.endsWith('/data/markers.json')).flush(markers);
-  await fixture.whenStable();
-  const raw = JSON.stringify({
-    schemaVersion: 1,
-    imageRef: manifest.imageRef,
-    route: { start: { x: 30, y: 40 }, destination: null, waypoints: [] },
-    observations: [],
+describe('App integration', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [App],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).overrideComponent(ShellComponent, {
+      remove: { imports: [MapComponent] },
+      add: { imports: [MapMountStub] },
+    });
   });
-  const event = {
-    target: { files: [{ name: 'mission.json', size: raw.length, text: async () => raw }] },
-  } as unknown as Event;
-  await fixture.componentInstance.selectMissionFile(event);
-  fixture.componentInstance.importSelectedMission();
-  fixture.detectChanges();
-  expect(fixture.nativeElement.textContent).toContain('Mission imported and saved on this device.');
-  expect(TestBed.inject(MissionService).route().start).toEqual({ x: 30, y: 40 });
-  http.verify();
-});
 
-it('keeps a newer file selection when an older file finishes reading later', async () => {
-  const fixture = TestBed.createComponent(App);
-  const app = fixture.componentInstance;
-  const http = TestBed.inject(HttpTestingController);
-  http
-    .expectOne((r) => r.url.endsWith('/data/manifest.json'))
-    .flush('', { status: 404, statusText: 'Not Found' });
-  let finishOld!: (raw: string) => void;
-  const old = app.selectMissionFile({
-    target: {
-      files: [
-        {
-          name: 'old.json',
-          size: 2,
-          text: () =>
-            new Promise<string>((resolve) => {
-              finishOld = resolve;
-            }),
-        },
-      ],
-    },
-  } as unknown as Event);
-  await app.selectMissionFile({
-    target: { files: [{ name: 'new.json', size: 2, text: async () => '{}' }] },
-  } as unknown as Event);
-  finishOld('old');
-  await old;
-  expect(app.missionFileName()).toBe('new.json');
-  expect(app.readingMission()).toBe(false);
-  http.verify();
+  it('initializes shared data once and mounts one shell-owned map and science component', async () => {
+    const fixture = TestBed.createComponent(App);
+    const http = TestBed.inject(HttpTestingController);
+    const mission = TestBed.inject(MissionService);
+    await loadMission(http);
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(mission.dataStatus()).toBe('ready');
+    expect(mission.image()?.imageRef).toBe(manifest.imageRef);
+    expect(mission.markers()).toHaveLength(3);
+    expect(fixture.nativeElement.querySelector('app-shell')).toBeTruthy();
+    expect(fixture.nativeElement.querySelectorAll('app-map')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('app-science-context')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('app-image-passport')).toHaveLength(1);
+
+    const buttons = fixture.nativeElement.querySelectorAll(
+      'app-science-context .science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+    expect(buttons).toHaveLength(3);
+    expect(mission.markers().every((marker) => marker.position === null)).toBe(true);
+
+    const route = mission.route();
+    const mode = mission.mode();
+    const notes = mission.observations();
+    const image = mission.image();
+    buttons.forEach((button, index) => {
+      button.click();
+      fixture.detectChanges();
+      expect(mission.selectedMarkerId()).toBe(markers[index].id);
+      expect(mission.markers()[index].position).toBeNull();
+      expect(fixture.nativeElement.textContent).toContain(markers[index].name);
+      expect(fixture.nativeElement.textContent).toContain(markers[index].finding);
+      expect(fixture.nativeElement.textContent).toContain('Unavailable on this image');
+      expect(mission.route()).toBe(route);
+      expect(mission.mode()).toBe(mode);
+      expect(mission.observations()).toBe(notes);
+      expect(mission.image()).toBe(image);
+    });
+    http.verify();
+  });
+
+  it('keeps the missing-data shell usable and still mounts the map only once', async () => {
+    const fixture = TestBed.createComponent(App);
+    const http = TestBed.inject(HttpTestingController);
+    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('app-map')).toHaveLength(1);
+    expect(fixture.nativeElement.textContent).toContain('unavailable');
+    expect(fixture.nativeElement.textContent).toContain('Waiting for a verified local image');
+    http.verify();
+  });
+
+  it('makes mission import and export reachable and warns before replacement', async () => {
+    const fixture = TestBed.createComponent(App);
+    const http = TestBed.inject(HttpTestingController);
+    await loadMission(http);
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const tabs = Array.from(
+      fixture.nativeElement.querySelectorAll('[role="tab"]') as NodeListOf<HTMLButtonElement>,
+    );
+    const transferTab = tabs.find((tab) => tab.textContent?.includes('Mission Transfer'));
+    expect(transferTab).toBeTruthy();
+    transferTab!.click();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('Import replaces the current route and saved notes');
+    expect(fixture.nativeElement.querySelector('#mission-file')).toBeTruthy();
+    expect(fixture.nativeElement.textContent).toContain('Export mission');
+    expect(fixture.nativeElement.textContent).toContain('Import selected mission');
+    http.verify();
+  });
+
+  it('reads a selected mission and shows the canonical import result', async () => {
+    const fixture = TestBed.createComponent(App);
+    const http = TestBed.inject(HttpTestingController);
+    await loadMission(http);
+    await fixture.whenStable();
+
+    const raw = JSON.stringify({
+      schemaVersion: 1,
+      imageRef: manifest.imageRef,
+      route: { start: { x: 30, y: 40 }, destination: null, waypoints: [] },
+      observations: [],
+    });
+    await fixture.componentInstance.selectMissionFile({
+      target: { files: [{ name: 'mission.json', size: raw.length, text: async () => raw }] },
+    } as unknown as Event);
+    fixture.componentInstance.importSelectedMission();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('Mission imported and saved on this device.');
+    expect(TestBed.inject(MissionService).route().start).toEqual({ x: 30, y: 40 });
+    http.verify();
+  });
+
+  it('rejects a mismatched image file with the actual service feedback', async () => {
+    const fixture = TestBed.createComponent(App);
+    const http = TestBed.inject(HttpTestingController);
+    await loadMission(http);
+    await fixture.whenStable();
+    const mission = TestBed.inject(MissionService);
+    const routeBefore = mission.route();
+    const raw = JSON.stringify({
+      schemaVersion: 1,
+      imageRef: 'another-image-version',
+      route: { start: null, destination: null, waypoints: [] },
+      observations: [],
+    });
+
+    await fixture.componentInstance.selectMissionFile({
+      target: { files: [{ name: 'different-image.json', size: raw.length, text: async () => raw }] },
+    } as unknown as Event);
+    fixture.componentInstance.importSelectedMission();
+
+    expect(fixture.componentInstance.transferMessage()).toContain('image');
+    expect(mission.route()).toBe(routeBefore);
+    http.verify();
+  });
+
+  it('enforces the 1 MiB file limit before reading', async () => {
+    const fixture = TestBed.createComponent(App);
+    const http = TestBed.inject(HttpTestingController);
+    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+    const text = async () => {
+      throw new Error('Oversized file should not be read');
+    };
+    await fixture.componentInstance.selectMissionFile({
+      target: {
+        files: [{ name: 'oversized.json', size: MAX_MISSION_IMPORT_BYTES + 1, text }],
+      },
+    } as unknown as Event);
+    expect(fixture.componentInstance.transferMessage()).toBe('Mission files must be 1 MiB or smaller.');
+    expect(fixture.componentInstance.readingMission()).toBe(false);
+    http.verify();
+  });
+
+  it('keeps a newer file selection when an older file finishes reading later', async () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    const http = TestBed.inject(HttpTestingController);
+    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush('', {
+      status: 404,
+      statusText: 'Not Found',
+    });
+    let finishOld!: (raw: string) => void;
+    const old = app.selectMissionFile({
+      target: {
+        files: [
+          {
+            name: 'old.json',
+            size: 2,
+            text: () => new Promise<string>((resolve) => (finishOld = resolve)),
+          },
+        ],
+      },
+    } as unknown as Event);
+    await app.selectMissionFile({
+      target: { files: [{ name: 'new.json', size: 2, text: async () => '{}' }] },
+    } as unknown as Event);
+    finishOld('old');
+    await old;
+
+    expect(app.missionFileName()).toBe('new.json');
+    expect(app.readingMission()).toBe(false);
+    http.verify();
+  });
 });

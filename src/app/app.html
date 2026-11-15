@@ -1,23 +1,5 @@
-<main>
-  <header>
-    <p class="eyebrow">MARSWALK · Exploration rehearsal</p>
-    <h1>Explore with evidence.</h1>
-    <p>Mount Sharp boxwork region · Gale Crater · Mars</p>
-  </header>
-  <section aria-labelledby="status">
-    <h2 id="status">Mission data</h2>
-    <p role="status">Data status: {{ mission.dataStatus() }}</p>
-    @if (mission.dataError()) {
-      <p>{{ mission.dataError() }}</p>
-    }
-    @if (!mission.image()) {
-      <p>Waiting for a verified local image and manifest from the data team.</p>
-    }
-  </section>
-  <app-map />
-  <app-science-context />
-  <app-image-passport />
-  <section aria-labelledby="transfer-title">
+<app-shell>
+  <section mission-transfer class="transfer-panel" aria-labelledby="transfer-title">
     <h2 id="transfer-title">Carry your mission between devices</h2>
     <p>Export a mission here, then import it on another device using the same image version.</p>
     <p id="import-help">
@@ -57,17 +39,6 @@
     @if (transferMessage()) {
       <p role="status">{{ transferMessage() }}</p>
     }
-    <p>Coordinates stay tied to this image. Distance and terrain limits remain visible below.</p>
+    <p>Coordinates stay tied to this image. Distance and terrain limits remain visible.</p>
   </section>
-  <app-exploration-confidence />
-  <section>
-    <h2>Team integration</h2>
-    <p>
-      The map, regional imagery and {{ mission.markers().length }} contextual science records are
-      integrated, with image recovery, science discovery, confidence and image provenance panels.
-      Route controls and the notebook interface await final shell integration. PWA installation and
-      verified offline reopening remain pending.
-    </p>
-  </section>
-  <footer>Research prototype. Not a certified navigation or astronaut safety system.</footer>
-</main>
+</app-shell>

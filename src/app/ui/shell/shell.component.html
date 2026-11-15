@@ -1,0 +1,116 @@
+<div class="shell-layout">
+  <app-header />
+
+  <main
+    class="main-workspace"
+    [class.panel-collapsed]="isPanelCollapsed()"
+    [class.is-resizing]="isResizing()"
+  >
+    <!-- Map / Primary Workspace Area -->
+    <section class="map-workspace" aria-label="Mars Surface Workspace">
+      <div id="map-container" class="map-container"><app-map /></div>
+
+      <!-- Quick status footer inside map workspace -->
+      <footer class="workspace-footer">
+        <div class="status-left">
+          <span class="footer-label">Coordinate System:</span>
+          <span class="footer-val font-mono">image-pixels-bottom-left (2D Raster)</span>
+        </div>
+        <div class="status-right">
+          <button
+            type="button"
+            class="panel-toggle-btn"
+            (click)="togglePanel()"
+            [attr.aria-expanded]="!isPanelCollapsed()"
+            aria-label="Toggle Side Panel"
+          >
+            {{ isPanelCollapsed() ? 'Show Panel ◂' : 'Collapse Panel ▸' }}
+          </button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- Resizable Splitter Handle (Drag to widen/narrow, double click to reset) -->
+    @if (!isPanelCollapsed()) {
+      <div
+        class="panel-resizer"
+        role="separator"
+        tabindex="0"
+        aria-orientation="vertical"
+        [attr.aria-valuenow]="panelWidth()"
+        aria-valuemin="300"
+        [attr.aria-valuemax]="maxPanelWidth()"
+        aria-label="Resize side panel (drag or use arrow keys, double click to reset)"
+        title="Drag left/right to resize sidebar. Double-click to reset."
+        (mousedown)="startResize($event)"
+        (touchstart)="startResize($event)"
+        (dblclick)="resetPanelWidth()"
+        (keydown)="onResizerKeydown($event)"
+      >
+        <div class="resizer-bar" aria-hidden="true"></div>
+      </div>
+    }
+
+    <!-- Side Panel (Resizable & Collapsible) -->
+    <aside
+      class="side-panel"
+      [style.width.px]="isPanelCollapsed() ? 0 : panelWidth()"
+      aria-label="Mission Controls & Data Panel"
+    >
+      <nav class="panel-tabs" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'confidence'"
+          [attr.aria-selected]="activeTab() === 'confidence'"
+          (click)="setActiveTab('confidence')"
+        >
+          Confidence & Data
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'planner'"
+          [attr.aria-selected]="activeTab() === 'planner'"
+          (click)="setActiveTab('planner')"
+        >
+          Route Planner
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'notebook'"
+          [attr.aria-selected]="activeTab() === 'notebook'"
+          (click)="setActiveTab('notebook')"
+        >
+          Notebook ({{ observations().length }})
+        </button>
+
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'transfer'"
+          [attr.aria-selected]="activeTab() === 'transfer'"
+          (click)="setActiveTab('transfer')"
+        >
+          Mission Transfer
+        </button>
+      </nav>
+
+      <div class="tab-content">
+        <app-confidence-panel [hidden]="activeTab() !== 'confidence'" />
+        <app-route-planner [hidden]="activeTab() !== 'planner'" />
+        <app-notebook [hidden]="activeTab() !== 'notebook'" />
+        <div [hidden]="activeTab() !== 'transfer'">
+          <ng-content select="[mission-transfer]"></ng-content>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
