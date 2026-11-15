@@ -1,5 +1,9 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## Latest push 38cd2b3 — incomplete correction handoff
+
+Coordinator checked your new push: only the presentation status note changed; the three explanation texts did not. [Exact remaining corrections](../reviews/ENZO.md#agent-2-38cd2b3--status-note-only-source-corrections-still-open). Edit the explanation sentences themselves and supply sentence-to-source passages, not another proposal banner. Stay within your existing branch/files and the mission-map priority; no runtime AI/public JSON. Agent 1 navigation is already accepted. Send the correcting commit when ready for source review.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Current priority — source-backed mission evidence, AI optional

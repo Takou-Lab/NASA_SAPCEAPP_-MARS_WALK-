@@ -1,5 +1,11 @@
 # Enzo review — final shell integrated
 
+## Agent 2 38cd2b3 — status note only; source corrections still open
+
+Reviewed 15 November 2026. Compared with e161e41, the only change is a five-line note in PRESENTATION.md identifying the explanation package as proposal-only. The three explanation bodies, pending review claims and missing sentence-to-source mapping are unchanged. No new runtime feature or corrected source package; not merged. Agent 1 remains accepted at 2b2a708 with no newer navigation tip.
+
+Finish the actual text/source correction rather than another status banner: Entry 1 must retain planned MAHLI/APXS bedrock work versus completed drill-hole imaging; Entry 2 must remove the unsupported result that surface measurements revealed mineralization differences beyond orbital observations; Entry 3 must remove unsupported co-location/evaporation/drying certainty or supply precise passages. Give a sentence/passages table and leave unverified model identity unknown. Remove “100% deterministic”. Work within existing assigned QA/story files and preserve authorship. Current mission-map priority remains in force; no new optional AI expansion or runtime integration. Documentation-only review; no unrelated code tests or deployment.
+
 ## Agent 1 science navigation 2b2a708 — accepted
 
 Reviewed 15 November 2026. Only science TS/HTML/tests changed: signal-derived filtered position and bounded Previous/Next native controls, hidden selection preservation, no core/style edits. Added behavior tests cover endpoints, single/hidden/removed selection, filter order and unchanged mission state. Combined integration with limited environmental excerpt passes **223 Angular tests**, build (450.97 kB) and local browser mission/offline recovery. No merge of Agent 2 pending AI proposals. Next Agent 1: verify navigation/source readability on the designated public candidate; do not introduce another dataset/loader or overlap Emma styles. Preserve unpublished work and incorporate published main safely.

@@ -54,6 +54,10 @@ Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is li
 
 [CALIBRATION_TAKEOVER.md](docs/data/CALIBRATION_TAKEOVER.md): actual JPEG hashes/decode/resize similarity audited, no embedded georeferencing. Original HiRISE/DTM/Photojournal catalogs blocked HTTP 403. Metric/terrain go-no-go remains **no-go with available evidence**; need original image/DTM labels and georeferenced source/processing chain. Read-only audit tool and JSON saved; existing terrain README overclaims corrected. Gaddielle branch/raw work untouched. No calibration values, imageRef or deployment changed.
 
+## Latest Enzo Agent 2 review
+
+38cd2b3 adds only a presentation proposal-status note; source-overreach sentences in three explanations are unchanged from e161e41. Not merged; source mapping/text corrections remain open. Agent 1 2b2a708 remains accepted with no new push. See docs/reviews/ENZO.md; do not mark AI package complete based on the new commit title.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.
