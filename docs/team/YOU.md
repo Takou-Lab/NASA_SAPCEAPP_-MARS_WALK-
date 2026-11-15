@@ -1,5 +1,10 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Uploaded AI relief integrated
+
+Runtime 2bfbd8d at https://marswalk-review-boys-band.vercel.app/. Existing 3D section now offers AI-generated relief and model-only inclination metrics alongside the flat mission view. [Evidence and measurement limits](../qa/AI_RELIEF_VIEWER.md). Verify physical device orbit/pinch/tap and offline reopening; do not represent generated heights as measured terrain or project mission pins onto an unverified transform.
+
+
 ## CURRENT PUBLIC MAP — mobile layout and automatic recovery
 
 Use **https://marswalk-review-boys-band.vercel.app/** (source b28f6ad, no login). [Mobile recovery evidence](../qa/MOBILE_MAP_RECOVERY_FIX.md). Mobile map now retains height; saved routes and observations restore automatically on startup. Physical device acceptance remains pending. Use this stable origin for subsequent tests; older preview storage remains on its original origin. User-supplied 512 m square crop now supports **derived planar meters at 0.25 m/pixel**. Terrain/slope/safety and exact science/boxwork-target overlap remain unverified. Emma mission workspace/briefing and Enzo navigation/location clarity included. New imageRef; do not reuse old image coordinates or change legacy import IDs. Preserve old exports/origin storage. Update actual screenshots/tests against this candidate; older “active image uncalibrated” instructions are superseded. No change to ownership or new optional feature assignment.

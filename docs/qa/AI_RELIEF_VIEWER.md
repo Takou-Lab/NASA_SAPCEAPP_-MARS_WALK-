@@ -17,3 +17,9 @@ Pixal3D output has no verified elevation scale, DEM, geographic alignment or ima
 247 Angular tests (26 files) and 11 service-worker tests; production build. Added mathematical checks for flat/45-degree/vertical/degenerate triangles and transformed geometry, plus load/error/late-callback/disposal behavior. Browser verification at 390px with touch emulation: real GLB/texture decoding, displayed metrics, triangle tap, camera controls, return to flat view and teardown; complete browser-process restart disconnected loads the model from the verified offline pack. Physical Android/iOS testing remains pending.
 
 Full offline preparation now includes the 7 MB GLB and its lazy code, increasing the pack to approximately 9.7 MB. Existing Leaflet CommonJS and shell stylesheet warning remain; budgets were not raised. Production alias is unchanged; the stable public review URL is updated after deployment.
+
+## Public preview
+
+Runtime source 2bfbd8d, deployment https://marswalk-bl65kwmwb-boys-band.vercel.app/ (dpl_2wRrQNLjp4RjGagW9PqWHMt7s7ao), stable public alias https://marswalk-review-boys-band.vercel.app/. Anonymous HTTP verification confirms all 20 assets match local hashes, including the uploaded GLB; pack 8b9f4d072221d97002a99a015cbdd902e3254ae54526f36bb744f9484e2c0e27; total 9,695,212 bytes. Production alias was not promoted.
+
+Anonymous browser verification on the stable HTTPS alias passed the same real-model touch-emulation/triangle/camera/flat-return scenario and full-process offline restart. No browser page errors were observed. To update an existing installed version, save/export work, use Install & offline → Check for updates → Prepare & apply update when offered. Never clear site data as an update step.

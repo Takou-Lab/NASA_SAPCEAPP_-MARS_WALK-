@@ -4,7 +4,7 @@ Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assert
 
 ## AI-generated relief in the existing 3D section
 
-[Model and verification](docs/qa/AI_RELIEF_VIEWER.md). Uploaded Pixal3D GLB is selectable alongside the flat view. Model-only inclination/range/area and triangle taps are implemented; they never populate real terrain/slope/safety or route assessments. Full offline pack now includes the model. Stable review URL remains https://marswalk-review-boys-band.vercel.app/. Production alias unchanged.
+[Model and verification](docs/qa/AI_RELIEF_VIEWER.md). Runtime source 2bfbd8d is deployed on the stable review alias. Uploaded Pixal3D GLB is selectable alongside the flat view. Model-only inclination/range/area and triangle taps are implemented; they never populate real terrain/slope/safety or route assessments. Full offline pack now includes the model. Stable review URL remains https://marswalk-review-boys-band.vercel.app/. Production alias unchanged.
 
 ## Current mobile recovery fix
 
