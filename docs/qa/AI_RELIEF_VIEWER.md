@@ -23,3 +23,7 @@ Full offline preparation now includes the 7 MB GLB and its lazy code, increasing
 Runtime source 2bfbd8d, deployment https://marswalk-bl65kwmwb-boys-band.vercel.app/ (dpl_2wRrQNLjp4RjGagW9PqWHMt7s7ao), stable public alias https://marswalk-review-boys-band.vercel.app/. Anonymous HTTP verification confirms all 20 assets match local hashes, including the uploaded GLB; pack 8b9f4d072221d97002a99a015cbdd902e3254ae54526f36bb744f9484e2c0e27; total 9,695,212 bytes. Production alias was not promoted.
 
 Anonymous browser verification on the stable HTTPS alias passed the same real-model touch-emulation/triangle/camera/flat-return scenario and full-process offline restart. No browser page errors were observed. To update an existing installed version, save/export work, use Install & offline → Check for updates → Prepare & apply update when offered. Never clear site data as an update step.
+
+## Discoverability correction
+
+The uploaded relief now opens by default when Open 3D viewer is selected. Flat mission map remains an explicit alternative; selected controls have theme-aware styling and touch targets. 252 Angular tests/build pass; a 390px touch-emulated browser loads the supplied model without selecting a second mode, taps triangles, returns to the flat view and reopens the model after full-process offline restart.

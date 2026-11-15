@@ -187,3 +187,29 @@ a:focus-visible {
 .coord-sep {
   margin: 0 4px;
 }
+
+.view-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.view-selector button {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  font: inherit;
+  cursor: pointer;
+}
+.view-selector button[aria-pressed='true'] {
+  border-color: var(--mars-accent);
+  box-shadow: inset 0 -3px var(--mars-accent);
+  font-weight: 700;
+}
+.view-selector button:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}

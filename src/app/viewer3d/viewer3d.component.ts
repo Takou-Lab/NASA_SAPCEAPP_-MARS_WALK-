@@ -30,7 +30,7 @@ type ImageDisplayState = 'waiting' | 'loading' | 'ready' | 'error';
 })
 export class Viewer3dComponent implements AfterViewInit, OnDestroy {
   @ViewChild('canvasContainer') private containerRef?: ElementRef<HTMLDivElement>;
-  readonly reliefMode = signal(false);
+  readonly reliefMode = signal(true);
   setReliefMode(value: boolean): void {
     if (this.reliefMode() === value) return;
     this.cleanup();

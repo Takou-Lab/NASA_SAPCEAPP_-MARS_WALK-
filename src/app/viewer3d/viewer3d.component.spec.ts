@@ -7,6 +7,7 @@ import { testImage } from '../core/fixtures.spec-helper';
 import { ImageManifest, Route, ScienceMarker } from '../core/models';
 import { VIEWER_GRAPHICS, ViewerGraphics } from './viewer3d.graphics';
 import { getRasterCornerPositions } from './transform';
+import { RELIEF_LOADER } from './ai-relief.component';
 import { Viewer3dComponent } from './viewer3d.component';
 
 type PendingLoad = {
@@ -94,6 +95,7 @@ describe('Viewer3dComponent', () => {
       imports: [Viewer3dComponent],
       providers: [
         { provide: VIEWER_GRAPHICS, useValue: graphicsFactory },
+        { provide: RELIEF_LOADER, useValue: { load: vi.fn() } },
         {
           provide: MissionService,
           useValue: {
@@ -115,6 +117,7 @@ describe('Viewer3dComponent', () => {
   function mount() {
     fixture = TestBed.createComponent(Viewer3dComponent);
     component = fixture.componentInstance;
+    component.reliefMode.set(false); // These cases explicitly exercise the flat-map mode.
     view = component as unknown as View;
     fixture.detectChanges();
   }
@@ -129,6 +132,15 @@ describe('Viewer3dComponent', () => {
     fixture.detectChanges();
   }
 
+  it('opens the uploaded relief by default, with flat map remaining an explicit option', () => {
+    fixture = TestBed.createComponent(Viewer3dComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    expect(component.reliefMode()).toBe(true);
+    expect(fixture.nativeElement.querySelector('app-ai-relief')).not.toBeNull();
+    expect(graphics.loads).toHaveLength(0);
+    expect(fixture.nativeElement.textContent).toContain('Flat mission map');
+  });
   it('instantiates and displays prototype, terrain limits and truthful VR status', () => {
     mount();
     expect(component).toBeTruthy();
