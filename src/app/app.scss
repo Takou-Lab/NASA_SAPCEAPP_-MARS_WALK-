@@ -56,3 +56,13 @@ app-shell {
 .transfer-actions input {
   max-width: 100%;
 }
+
+button[aria-controls='viewer-panel'] {
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+button[aria-controls='viewer-panel']:focus-visible {
+  outline: 3px solid #f0ab7d;
+  outline-offset: 2px;
+}

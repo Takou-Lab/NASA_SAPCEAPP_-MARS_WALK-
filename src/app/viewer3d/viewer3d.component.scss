@@ -1,0 +1,189 @@
+:host {
+  display: block;
+  min-width: 0;
+  color: #edf2f7;
+}
+.viewer3d-container {
+  border: 1px solid #44505c;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #11141a;
+}
+.viewer3d-header,
+.viewer3d-footer {
+  padding: 12px;
+  background: #1a202c;
+}
+.title-group,
+.controls-toolbar,
+.btn-group,
+.viewer3d-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.prototype-badge {
+  background: #922d32;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+.provenance-banner {
+  margin: 10px 0;
+  border-left: 3px solid #dd6b20;
+  padding: 8px;
+  background: #0d1117;
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+}
+.provenance-banner p {
+  margin: 4px 0;
+}
+.terrain-notice,
+.status-tag {
+  color: #ecc94b;
+}
+.vr-unavailable,
+.connectivity-note {
+  color: #cbd5e1;
+}
+a {
+  color: #9fd4ff;
+  overflow-wrap: anywhere;
+}
+button {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 10px;
+  border: 1px solid #65748a;
+  border-radius: 4px;
+  background: #2d3748;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+button:hover {
+  background: #39485e;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #f0ab7d;
+  outline-offset: 2px;
+}
+.viewport-wrapper {
+  position: relative;
+  width: 100%;
+  height: clamp(280px, 50vh, 480px);
+  background: #06080d;
+  overflow: hidden;
+}
+.canvas-viewport {
+  width: 100%;
+  height: 100%;
+}
+.canvas-viewport:focus-visible {
+  outline: 3px solid #f0ab7d;
+  outline-offset: -3px;
+}
+.canvas-viewport canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+.webgl-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  padding: 20px;
+  background: #101820;
+  color: #ffd7d7;
+  text-align: center;
+}
+.image-state {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  padding: 12px;
+  background: #18232e;
+}
+.hover-tooltip {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  width: fit-content;
+  padding: 6px 8px;
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  background: #111827;
+  pointer-events: none;
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+}
+.hov-name {
+  font-weight: 600;
+  color: #93c5fd;
+}
+.hov-status,
+.hov-hint {
+  margin-left: 6px;
+}
+.marker-card {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: min(270px, calc(100% - 44px));
+  max-height: calc(100% - 44px);
+  overflow: auto;
+  overflow-wrap: anywhere;
+  padding: 10px;
+  border: 1px solid #65748a;
+  border-radius: 6px;
+  background: #1a202c;
+  font-size: 0.85rem;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.card-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.status-tag.verified,
+.hov-status.verified {
+  color: #a7f3d0;
+}
+.limitations-list {
+  padding-left: 20px;
+}
+.viewer3d-footer {
+  border-top: 1px solid #44505c;
+  font-size: 0.85rem;
+}
+.instructions {
+  margin: 0;
+}
+.coords-readout {
+  font-family: monospace;
+  overflow-wrap: anywhere;
+}
+.map-coord {
+  color: #9fd4ff;
+}
+.coord-sep {
+  margin: 0 4px;
+}

@@ -21,7 +21,7 @@ async function loadMission(http: HttpTestingController): Promise<void> {
 }
 
 describe('App integration', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [App],
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -29,6 +29,7 @@ describe('App integration', () => {
       remove: { imports: [MapComponent] },
       add: { imports: [MapMountStub] },
     });
+    await TestBed.compileComponents();
   });
 
   it('initializes shared data once and mounts one shell-owned map and science component', async () => {
@@ -77,10 +78,12 @@ describe('App integration', () => {
   it('keeps the missing-data shell usable and still mounts the map only once', async () => {
     const fixture = TestBed.createComponent(App);
     const http = TestBed.inject(HttpTestingController);
-    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush('', {
-      status: 404,
-      statusText: 'Not Found',
-    });
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('', {
+        status: 404,
+        statusText: 'Not Found',
+      });
     await fixture.whenStable();
     fixture.detectChanges();
 
@@ -105,7 +108,9 @@ describe('App integration', () => {
     transferTab!.click();
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.textContent).toContain('Import replaces the current route and saved notes');
+    expect(fixture.nativeElement.textContent).toContain(
+      'Import replaces the current route and saved notes',
+    );
     expect(fixture.nativeElement.querySelector('#mission-file')).toBeTruthy();
     expect(fixture.nativeElement.textContent).toContain('Export mission');
     expect(fixture.nativeElement.textContent).toContain('Import selected mission');
@@ -130,7 +135,9 @@ describe('App integration', () => {
     fixture.componentInstance.importSelectedMission();
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.textContent).toContain('Mission imported and saved on this device.');
+    expect(fixture.nativeElement.textContent).toContain(
+      'Mission imported and saved on this device.',
+    );
     expect(TestBed.inject(MissionService).route().start).toEqual({ x: 30, y: 40 });
     http.verify();
   });
@@ -150,7 +157,9 @@ describe('App integration', () => {
     });
 
     await fixture.componentInstance.selectMissionFile({
-      target: { files: [{ name: 'different-image.json', size: raw.length, text: async () => raw }] },
+      target: {
+        files: [{ name: 'different-image.json', size: raw.length, text: async () => raw }],
+      },
     } as unknown as Event);
     fixture.componentInstance.importSelectedMission();
 
@@ -162,10 +171,12 @@ describe('App integration', () => {
   it('enforces the 1 MiB file limit before reading', async () => {
     const fixture = TestBed.createComponent(App);
     const http = TestBed.inject(HttpTestingController);
-    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush('', {
-      status: 404,
-      statusText: 'Not Found',
-    });
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('', {
+        status: 404,
+        statusText: 'Not Found',
+      });
     const text = async () => {
       throw new Error('Oversized file should not be read');
     };
@@ -174,7 +185,9 @@ describe('App integration', () => {
         files: [{ name: 'oversized.json', size: MAX_MISSION_IMPORT_BYTES + 1, text }],
       },
     } as unknown as Event);
-    expect(fixture.componentInstance.transferMessage()).toBe('Mission files must be 1 MiB or smaller.');
+    expect(fixture.componentInstance.transferMessage()).toBe(
+      'Mission files must be 1 MiB or smaller.',
+    );
     expect(fixture.componentInstance.readingMission()).toBe(false);
     http.verify();
   });
@@ -183,10 +196,12 @@ describe('App integration', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     const http = TestBed.inject(HttpTestingController);
-    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush('', {
-      status: 404,
-      statusText: 'Not Found',
-    });
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('', {
+        status: 404,
+        statusText: 'Not Found',
+      });
     let finishOld!: (raw: string) => void;
     const old = app.selectMissionFile({
       target: {

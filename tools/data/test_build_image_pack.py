@@ -391,5 +391,41 @@ class BuildImagePackTests(unittest.TestCase):
             self.assertFalse(missing_target.exists())
 
 
+    def assert_browser_normalized_path_rejected(self, asset_path):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            pub = Path(temp_dir) / "public"
+            manifest = pub / "data/manifest.json"
+            image = pub / asset_path
+            image.parent.mkdir(parents=True)
+            shutil.copyfile(REAL_IMAGE, image)
+            data = json.loads(REAL_MANIFEST.read_text(encoding="utf-8"))
+            data["assetPath"] = asset_path
+            manifest.write_text(json.dumps(data), encoding="utf-8")
+            output = pub / "data/image-pack.json"
+            output.write_bytes(b"UNCHANGED\n")
+            before = (output.read_bytes(), output.stat().st_mtime_ns)
+            for check in (False, True):
+                result = self.run_cli(manifest, pub, output, check=check)
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                self.assertNotIn("Traceback", result.stderr)
+                self.assertEqual((output.read_bytes(), output.stat().st_mtime_ns), before)
+
+    def test_encoded_paths_fail_without_changing_destination(self):
+        for path in ("data/imagery/%2e%2e/texture.jpg", "data/imagery/texture%23image.jpg"):
+            with self.subTest(path=path):
+                self.assert_browser_normalized_path_rejected(path)
+
+    def test_trailing_space_path_fails_without_changing_destination(self):
+        self.assert_browser_normalized_path_rejected("data/imagery/texture.jpg ")
+
+    def test_browser_path_syntax_rejects_whitespace_controls_and_percent(self):
+        import build_image_pack
+        for path in ("data/imagery/a\t.jpg", "data/imagery/a\n.jpg", "data/imagery/a%20b.jpg", "data/imagery/a b.jpg"):
+            with self.subTest(path=path):
+                valid, error = build_image_pack.validate_browser_asset_path(path, str(PUBLIC_ROOT), "Image asset")
+                self.assertFalse(valid)
+                self.assertTrue(error)
+
+
 if __name__ == "__main__":
     unittest.main()

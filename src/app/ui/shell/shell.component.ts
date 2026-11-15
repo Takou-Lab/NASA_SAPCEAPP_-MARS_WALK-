@@ -1,18 +1,20 @@
 import { Component, HostListener, inject, OnDestroy, signal } from '@angular/core';
 import { MissionService } from '../../core/mission.service';
+import { Viewer3dComponent } from '../../viewer3d/viewer3d.component';
 import { MapComponent } from '../../map/map.component';
 import { NotebookComponent } from '../../notebook/notebook.component';
 import { RoutePlannerComponent } from '../../planner/route-planner.component';
 import { ConfidencePanelComponent } from '../confidence-panel/confidence-panel.component';
 import { HeaderComponent } from '../header/header.component';
 
-export type ActiveTab = 'confidence' | 'planner' | 'notebook' | 'transfer';
+export type ActiveTab = 'confidence' | 'planner' | 'notebook' | 'transfer' | 'rehearsal';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
   imports: [
     MapComponent,
+    Viewer3dComponent,
     HeaderComponent,
     ConfidencePanelComponent,
     RoutePlannerComponent,
@@ -27,6 +29,7 @@ export class ShellComponent implements OnDestroy {
   readonly observations = this.missionService.observations;
 
   readonly activeTab = signal<ActiveTab>('confidence');
+  readonly viewerOpen = signal(false);
   readonly isPanelCollapsed = signal<boolean>(false);
 
   // Resizable sidebar state
@@ -49,7 +52,8 @@ export class ShellComponent implements OnDestroy {
   }
 
   maxPanelWidth(): number {
-    const viewportWidth = typeof window === 'undefined' ? this.MAX_WIDTH + this.MIN_MAP_WIDTH : window.innerWidth;
+    const viewportWidth =
+      typeof window === 'undefined' ? this.MAX_WIDTH + this.MIN_MAP_WIDTH : window.innerWidth;
     return Math.max(this.MIN_WIDTH, Math.min(this.MAX_WIDTH, viewportWidth - this.MIN_MAP_WIDTH));
   }
 
@@ -76,6 +80,7 @@ export class ShellComponent implements OnDestroy {
   }
 
   setActiveTab(tab: ActiveTab): void {
+    if (tab !== 'rehearsal') this.viewerOpen.set(false);
     this.activeTab.set(tab);
     if (this.isPanelCollapsed()) {
       this.isPanelCollapsed.set(false);

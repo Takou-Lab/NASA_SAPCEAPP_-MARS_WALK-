@@ -91,7 +91,9 @@ describe('ConfidencePanelComponent', () => {
 
   it('shows Distance unavailable when endpoints are missing', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.metric-value')?.textContent).toContain('Metric distance unavailable');
+    expect(compiled.querySelector('.metric-value')?.textContent).toContain(
+      'Metric distance unavailable',
+    );
     expect(compiled.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
     expect(compiled.querySelectorAll('app-image-passport')).toHaveLength(1);
   });
@@ -103,7 +105,9 @@ describe('ConfidencePanelComponent', () => {
     service.applyMapPoint({ x: 400, y: 0 }); // 400 px * 0.25 m/px = 100 meters
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('app-exploration-confidence .metric-value').textContent).toContain('100 m');
+    expect(
+      fixture.nativeElement.querySelector('app-exploration-confidence .metric-value').textContent,
+    ).toContain('100 m');
   });
 
   it('renders selected science marker details and allows deselection', () => {
@@ -130,6 +134,8 @@ describe('ConfidencePanelComponent', () => {
     expect(service.selectedMarkerId()).toBe('m2');
     expect(service.markers()[1].position).toBeNull();
     expect(service.route()).toEqual({ start: null, destination: null, waypoints: [] });
-    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Curiosity Mastcam Sol 3120');
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain(
+      'Curiosity Mastcam Sol 3120',
+    );
   });
 });

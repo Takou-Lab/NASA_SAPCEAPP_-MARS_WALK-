@@ -101,9 +101,50 @@
         >
           Mission Transfer
         </button>
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [class.active]="activeTab() === 'rehearsal'"
+          [attr.aria-selected]="activeTab() === 'rehearsal'"
+          (click)="setActiveTab('rehearsal')"
+        >
+          3D Rehearsal
+        </button>
       </nav>
 
       <div class="tab-content">
+        <section
+          class="rehearsal-panel"
+          [hidden]="activeTab() !== 'rehearsal'"
+          aria-labelledby="viewer-title"
+        >
+          <h2 id="viewer-title">Optional 3D rehearsal</h2>
+          <p>A flat image view. No verified terrain or immersive VR is supplied.</p>
+          <button
+            type="button"
+            class="viewer-toggle"
+            [attr.aria-expanded]="viewerOpen()"
+            aria-controls="viewer-panel"
+            (click)="viewerOpen.set(!viewerOpen())"
+          >
+            {{ viewerOpen() ? 'Close 3D viewer' : 'Open 3D viewer' }}
+          </button>
+          <div id="viewer-panel">
+            @if (activeTab() === 'rehearsal' && viewerOpen()) {
+              @defer (on immediate) {
+                <app-viewer3d />
+              } @loading {
+                <p role="status">Loading optional 3D viewer…</p>
+              } @error {
+                <p role="alert">
+                  The optional viewer could not be loaded. Export your work before reloading to
+                  retry; the 2D mission remains available.
+                </p>
+              }
+            }
+          </div>
+        </section>
         <app-confidence-panel [hidden]="activeTab() !== 'confidence'" />
         <app-route-planner [hidden]="activeTab() !== 'planner'" />
         <app-notebook [hidden]="activeTab() !== 'notebook'" />

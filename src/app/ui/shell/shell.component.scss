@@ -240,3 +240,18 @@
     border-top: none;
   }
 }
+
+.rehearsal-panel {
+  padding: 14px;
+  min-width: 0;
+}
+.viewer-toggle {
+  min-height: 44px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+.viewer-toggle:focus-visible {
+  outline: 3px solid #f0ab7d;
+  outline-offset: 2px;
+}

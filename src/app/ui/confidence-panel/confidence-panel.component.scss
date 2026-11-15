@@ -1,3 +1,16 @@
-:host { display: block; min-width: 0; }
-.confidence-container { display: grid; gap: 14px; padding: 14px; min-width: 0; }
-app-exploration-confidence, app-science-context, app-image-passport { display: block; min-width: 0; }
+:host {
+  display: block;
+  min-width: 0;
+}
+.confidence-container {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  min-width: 0;
+}
+app-exploration-confidence,
+app-science-context,
+app-image-passport {
+  display: block;
+  min-width: 0;
+}

@@ -22,6 +22,7 @@ Usage:
 import argparse
 import json
 import os
+import re
 import sys
 import tempfile
 
@@ -75,6 +76,9 @@ def validate_browser_asset_path(path: str, public_root: str, label: str) -> tupl
         return False, f"{label} path '{path}' contains forbidden URL scheme or authority"
     if path.startswith("/"):
         return False, f"{label} path '{path}' must not be an absolute path"
+
+    if re.fullmatch(r"[a-zA-Z0-9_./-]+", path) is None:
+        return False, f"{label} path '{path}' contains characters outside the runtime browser-path contract"
 
     segments = path.split("/")
     if any(seg in ("", ".", "..") for seg in segments):
@@ -161,7 +165,7 @@ def validate_index_schema(data: any) -> tuple[bool, list[str]]:
             p = entry.get("path")
             if not isinstance(p, str) or not p.strip():
                 errors.append(f"files[{idx}].path must be a non-empty string, found {type(p).__name__}")
-            elif "\\" in p or "?" in p or "#" in p or p.startswith("/") or any(s in ("", ".", "..") for s in p.split("/")):
+            elif re.fullmatch(r"[a-zA-Z0-9_./-]+", p) is None or "\\" in p or "?" in p or "#" in p or p.startswith("/") or any(s in ("", ".", "..") for s in p.split("/")):
                 errors.append(f"files[{idx}].path '{p}' is not a valid app-relative browser path")
 
             b = entry.get("bytes")
