@@ -1,8 +1,10 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
-## Immediate handoff — review of 0f6bd95
+## Current handoff — coordinator completed C1/C2; collect original sources next
 
-All 50 submitted data tests pass; alias protection and primary numeric failure preservation are independently confirmed. Illustrative labeling is accepted as a test-only fallback, not source verification. Before merge, fix **C1 temperature range exclusions incorrectly counted as sentinels** and **C2 remaining archival/measurement claims about illustrative rows**. [Exact reproduction and correction instructions](../reviews/GADDIELLE.md#correction-review-0f6bd95--progress-verified-changes-still-required). Stay on your existing branch and preserve work. No environmental runtime data/schema or feature merge is approved yet. After correction acceptance, your next priority is original REMS product/label acquisition and reproducible extraction, not more illustrative quantities.
+The user authorized coordinator help. Your 0f6bd95 prototype and coordinator fixes are accepted as **illustrative test-only tooling**, with 52 integrated Python tests passing. Numeric fixture rows are unchanged; header wording and generated descriptions are corrected. See [acceptance scope](../reviews/GADDIELLE.md#coordinator-assisted-c1c2-fixes--tooling-accepted-data-still-pending). Do not repeat these corrections. Preserve all ongoing source-collection work and safely merge published main into your current branch; no reset or competing converter.
+
+Your next slice: deliver a small original REMS pressure/temperature product plus label/documentation, exact product/version/download, raw bytes/hash, units/time/quality semantics and reproducible row extraction. Record unavailable fields explicitly; do not use illustrative values as NASA observations. RAD is separate if traceable. No public environment.json, shared loader/API or Enzo integration before source/schema review. After a useful verified handoff, prioritize exact-raster calibration and compatible elevation evidence.
 
 ## Byte-verification compatibility handoff
 

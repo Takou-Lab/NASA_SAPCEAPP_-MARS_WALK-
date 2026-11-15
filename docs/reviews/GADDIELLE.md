@@ -1,5 +1,16 @@
 # Gaddielle — environmental review: changes required
 
+## Coordinator-assisted C1/C2 fixes — tooling accepted, data still pending
+
+15 November 2026: user authorized helping while Gaddielle continues source collection. Separate branch `fix/gaddielle-environment-review` merges her 0f6bd95 history and adds narrowly scoped corrections. **52 integrated Python tests pass** (33 prior + 19 converter cases). No runtime application/worker/data contract changed; no environmental runtime file generated or deployed.
+
+C1: removed the undocumented -200 degC filtering from all three temperature summary inputs; finite ordered non-sentinel intervals now contribute coherently. Added a physical lower-bound rejection below -273.15 degC, with destination bytes/mtime preserved. Regressions cover fully below -200 intervals, intervals crossing that threshold, and impossible temperatures. This is basic input validation, not validated instrument quality metadata.
+
+C2: fixture headers and source audit now consistently identify test-only values; numeric CSV rows remain unchanged. Removed unsupported archival/location/height/solar-detector claims from generated descriptions and replaced the audit example with actual current converter output. Recorded updated fixture bytes/hash after comment-only edits. Archive links remain discovery references, not original-product evidence.
+
+**Accepted scope:** local illustrative converter/tests/documentation only. **Not accepted:** verified observations, runtime schema/API, geographic calibration, elevation or environmental UI integration. Previous C1/C2 and R1–R4 prototype corrections are closed within that limited scope. Gaddielle's next work is traceable original REMS pressure/temperature acquisition with labels, metadata, raw hashes and reproducible row extraction; RAD separately if documented. Existing imagery work remains accepted. Preserve unpublished collection work; safely merge published main into her current branch after coordinator integration rather than resetting or redoing these fixes.
+
+
 ## Correction review `0f6bd95` — progress verified, changes still required
 
 Reviewed 15 November 2026 against main f6567ca in an isolated archive with committed public assets. **50 Python tests pass** (33 existing + 17 environmental). No application source, scientific runtime data or feature merge/deployment occurred. Earlier review below remains historical.
