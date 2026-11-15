@@ -26,6 +26,15 @@ dependency or budget change.
    merged phone rule set instead of two overlapping ones). Visible map on first view at 390 × 844:
    **215 px → 359 px** (screenshot script) and **178 px → 323 px** in the smoke harness.
 
+## Pass two (mission-control detail)
+
+- Exploration Confidence and Image Passport: one card per panel; the inner sections are
+  separated by a rule instead of nested bordered boxes.
+- Section headings (mission summary, confidence, passport, science, transfer) carry a small
+  Mars-red marker; header status pills use the monospace telemetry face. Both are single shared
+  rules in `src/styles.scss`, so no component style budget grows.
+- Science panel padding on the shared scale.
+
 ## Measurements (production build, Chrome 157 headless)
 
 | Check | Before (ff875d3) | After |
@@ -62,6 +71,4 @@ certification.
 - The PWA "Install & offline" bar is styled inside `src/app/core/pwa-panel.component.ts`
   (coordinator scope) and still competes with the header.
 - The Mission Briefing card (`src/app/mission-briefing/`) keeps its own uppercase label style.
-- Exploration Confidence and Image Passport still nest cards inside a card; flattening them is
-  the next step in this pass.
 - 200 % zoom was not separately measured.
