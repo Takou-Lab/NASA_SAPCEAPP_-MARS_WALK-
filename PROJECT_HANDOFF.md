@@ -24,7 +24,7 @@ See [mobile fix evidence](docs/qa/MOBILE_MAP_RECOVERY_FIX.md). Phone map clippin
 
 ## Goal and product boundary
 
-Angular PWA for Mars visual mission planning: image map, route, contextual science, notes, local save/export and prepared offline recovery. Current imagery is uncalibrated; distance, elevation, slope and safety are unavailable. Flat opt-in 3D is implemented; terrain 3D, immersive VR and runtime AI are not. Environmental observations are not yet accepted runtime data.
+Angular PWA for Mars visual mission planning: image map, route, contextual science, notes, local save/export and prepared offline recovery. The active crop has calibrated projected pixel spacing and derived planar distance. Real elevation, slope and safety remain unavailable. Optional AI-generated relief has model-only metrics; immersive VR and runtime AI inference are absent. Historical environmental excerpt is limited context. Route Planner includes saved objective/user declarations, time-budget scenario and combined text brief. Current public runtime c5fee84; later baseline sections retain historical evidence.
 
 ## Repository and baseline
 
