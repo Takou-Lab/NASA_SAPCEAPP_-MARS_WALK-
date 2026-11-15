@@ -1,5 +1,9 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
 ## Expanded available-agent package — source-grounded science and final story
 
 This current package supersedes any suggestion that your AI proposal or official Details wording is still absent. e161e41 was reviewed: three drafts exist but require the source corrections in docs/reviews/ENZO.md. Official Details are now supplied in [requirements assessment](../challenge/REQUIREMENTS.md); Resources/submission fields/deadline timezone remain pending. Work independently of Enzo Agent 1 and Emma Agent 2.
