@@ -1,5 +1,7 @@
 # MARSWALK — Current handoff checklist
 
+> **Current priority override:** [MISSION_MAP_FINISH_PLAN.md](docs/MISSION_MAP_FINISH_PLAN.md). Exact-raster alignment/calibrated route context, science/location clarity and real mission recovery take precedence over optional AI/VR or broad data collection. See updated personal briefs for non-overlapping assignments.
+
 > **Available-agent packages:** [Emma 2 mission briefing](<docs/team/EMMA 2.md>), [Enzo 2 science/story](<docs/team/ENZO 2.md>) and [user/coordinator persistence/integration](docs/team/YOU.md). These supplement ongoing teammates' work with non-overlapping ownership; no completion implied.
 
 > **Cross-chat continuation:** read [PROJECT_HANDOFF.md](PROJECT_HANDOFF.md) first. It records the latest baseline, pending reviews and distinction between main and production; older counts below remain historical.

@@ -1,5 +1,19 @@
 # Willy 2 — Installation and release verification agent
 
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Agent 2 priority now — actual mission acceptance
+
+Accepted Windows report stays complete. On the current public candidate, run real raster HTTP/decode and map/route/notebook/save/export checks, then actual available-device installation/disconnected reopen. Record URL/source/pack/device and explicit Load Route before inspecting notes. Coordinate with Royce to avoid duplicate device runs; do not interpret a blank startup Notebook as confirmed loss before load/export evidence. New image/calibration candidate requires case-sensitive asset, pack and origin/storage compatibility retest. Keep unrun hardware pending; no new icons/framework/worker changes or speculative data collection.
+
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
 ## Current review — Windows report accepted; remaining checks next
 
 Your 9b4093d report is accepted as scoped contributor evidence: locked Windows install, LF/source fingerprints, both production builds and named static HTTP paths. [Review](../reviews/WILLY.md#agent-2-windows-report-9b4093d--accepted-as-scoped-contributor-evidence). Do not repeat asset generation. Preserve stash/local work and continue existing feature/willy-pwa-install-assets; no new branch needed.

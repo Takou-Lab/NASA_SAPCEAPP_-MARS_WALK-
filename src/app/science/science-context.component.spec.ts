@@ -251,6 +251,146 @@ describe('ScienceContextComponent', () => {
     );
   });
 
+  it('navigates records in filtered order, disables at both ends, and leaves mission state unchanged', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const initialRoute = structuredClone(missionMock.route!());
+    const initialMode = missionMock.mode!();
+    const initialLayers = structuredClone(missionMock.layers!());
+    const initialObservations = structuredClone(missionMock.observations!());
+    const recordButtons = root.querySelectorAll(
+      'button.science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+
+    expect(root.querySelector('.record-navigation')).toBeNull();
+    expect(root.querySelector('.science-no-selection')?.textContent).toContain(
+      'Select a science record to view its finding',
+    );
+
+    recordButtons[0].click();
+    fixture.detectChanges();
+
+    let previous = root.querySelector(
+      'button[aria-label="Previous science record"]',
+    ) as HTMLButtonElement;
+    let next = root.querySelector('button[aria-label="Next science record"]') as HTMLButtonElement;
+    let position = root.querySelector('.record-navigation-position') as HTMLElement;
+
+    expect(previous.tagName).toBe('BUTTON');
+    expect(previous.type).toBe('button');
+    expect(next.type).toBe('button');
+    expect(previous.disabled).toBe(true);
+    expect(next.disabled).toBe(false);
+    expect(position.getAttribute('role')).toBe('status');
+    expect(position.textContent?.trim()).toBe('Record 1 of 3 matching records');
+
+    next.click();
+    fixture.detectChanges();
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-2');
+    expect(root.querySelector('.record-navigation-position')?.textContent?.trim()).toBe(
+      'Record 2 of 3 matching records',
+    );
+
+    previous = root.querySelector('button[aria-label="Previous science record"]')!;
+    next = root.querySelector('button[aria-label="Next science record"]')!;
+    expect(previous.disabled).toBe(false);
+    expect(next.disabled).toBe(false);
+
+    next.click();
+    fixture.detectChanges();
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-3');
+    expect(root.querySelector('.record-navigation-position')?.textContent?.trim()).toBe(
+      'Record 3 of 3 matching records',
+    );
+
+    next = root.querySelector('button[aria-label="Next science record"]')!;
+    previous = root.querySelector('button[aria-label="Previous science record"]')!;
+    expect(next.disabled).toBe(true);
+    expect(previous.disabled).toBe(false);
+    next.click();
+    fixture.detectChanges();
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-3');
+
+    previous.click();
+    fixture.detectChanges();
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-2');
+    expect(missionMock.route!()).toEqual(initialRoute);
+    expect(missionMock.mode!()).toBe(initialMode);
+    expect(missionMock.layers!()).toEqual(initialLayers);
+    expect(missionMock.observations!()).toEqual(initialObservations);
+  });
+
+  it('navigates only within matching records and keeps a hidden selection until filters include it again', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const recordButtons = root.querySelectorAll(
+      'button.science-record-button',
+    ) as NodeListOf<HTMLButtonElement>;
+    recordButtons[0].click();
+    fixture.detectChanges();
+    selectMarker.mockClear();
+
+    setSelectValue('Evidence type', 'interpreted');
+
+    const previous = root.querySelector(
+      'button[aria-label="Previous science record"]',
+    ) as HTMLButtonElement;
+    const next = root.querySelector(
+      'button[aria-label="Next science record"]',
+    ) as HTMLButtonElement;
+    expect(previous.disabled).toBe(true);
+    expect(next.disabled).toBe(true);
+    expect(root.querySelector('.record-navigation-position')?.textContent?.trim()).toBe(
+      'Selected record is outside the current filter results.',
+    );
+    expect(root.querySelector('.hidden-notice')?.textContent).toContain(
+      'outside the current filter results',
+    );
+    next.click();
+    expect(selectMarker).not.toHaveBeenCalled();
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-1');
+
+    setSelectValue('Evidence type', 'all');
+    expect(state.selectedMarkerId()).toBe('synthetic-rec-1');
+    expect(root.querySelector('.record-navigation-position')?.textContent?.trim()).toBe(
+      'Record 1 of 3 matching records',
+    );
+    const restoredNext = root.querySelector(
+      'button[aria-label="Next science record"]',
+    ) as HTMLButtonElement;
+    expect(restoredNext.disabled).toBe(false);
+  });
+
+  it('disables both controls for one matching record and removes navigation if the selected record disappears', () => {
+    const root = fixture.nativeElement as HTMLElement;
+    const searchInput = setSearchInput('boxwork');
+    const onlyRecord = root.querySelector('button.science-record-button') as HTMLButtonElement;
+    onlyRecord.click();
+    fixture.detectChanges();
+
+    expect(root.querySelector('.record-navigation-position')?.textContent?.trim()).toBe(
+      'Record 1 of 1 matching records',
+    );
+    const previous = root.querySelector(
+      'button[aria-label="Previous science record"]',
+    ) as HTMLButtonElement;
+    const next = root.querySelector(
+      'button[aria-label="Next science record"]',
+    ) as HTMLButtonElement;
+    expect(previous.disabled).toBe(true);
+    expect(next.disabled).toBe(true);
+
+    state.markers.set(threeUnlocatedRecords().filter((record) => record.id !== 'synthetic-rec-2'));
+    fixture.detectChanges();
+    expect(root.querySelector('article.science-record-details')).toBeNull();
+    expect(root.querySelector('.record-navigation')).toBeNull();
+    expect(root.querySelector('.science-no-selection')?.textContent).toContain(
+      'Select a science record to view its finding',
+    );
+    expect(searchInput.value).toBe('boxwork');
+    component.navigateToPreviousRecord();
+    component.navigateToNextRecord();
+    expect(selectMarker).toHaveBeenCalledTimes(1);
+  });
+
   it('leaves route(), mode(), observations(), and image() untouched when selecting and clearing', () => {
     const initialRoute = structuredClone(missionMock.route!());
     const initialMode = missionMock.mode!();

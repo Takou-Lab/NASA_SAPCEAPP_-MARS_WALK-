@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "reviewStatus": "limited",
+  "scope": "historical-rover-context",
+  "instrument": "REMS",
+  "sourceUrl": "https://atmos.nmsu.edu/PDS/data/mslrem_1001/DATA/SOL_03779_03902/SOL03900/RME_743666663RMD39000000000_______P2.TAB",
+  "reviewNote": "Limited source review: calculated from Gaddielle\u2019s submitted 25-row Sol 3900 excerpt and normalized product label. Original archive download is blocked here, so NASA byte provenance is not independently verified. This is not a full-sol dataset, current weather, or conditions across the mapped route.",
+  "readings": [
+    {
+      "quantity": "pressure",
+      "unit": "Pa",
+      "value": 800.335,
+      "minimum": 800.18,
+      "maximum": 800.49,
+      "sampleCount": 25,
+      "sol": 3900,
+      "startUtc": "2023-07-26T19:01:00.924Z",
+      "endUtc": "2023-07-27T18:45:06.732Z",
+      "sourceUrl": "https://atmos.nmsu.edu/PDS/data/mslrem_1001/DATA/SOL_03779_03902/SOL03900/RME_743666663RMD39000000000_______P2.TAB",
+      "qualityNote": "Contributor-supplied rows 1\u201325 only. Bounds above are the parent product interval, not exact excerpt times. PS_CONFIDENCE_LEVEL shadow flag = 1. Other instrument flags/calibration are not independently certified. Unweighted excerpt mean; not a daily mean."
+    },
+    {
+      "quantity": "air-temperature",
+      "unit": "K",
+      "value": 204.7,
+      "minimum": 204.58,
+      "maximum": 204.85,
+      "sampleCount": 25,
+      "sol": 3900,
+      "startUtc": "2023-07-26T19:01:00.924Z",
+      "endUtc": "2023-07-27T18:45:06.732Z",
+      "sourceUrl": "https://atmos.nmsu.edu/PDS/data/mslrem_1001/DATA/SOL_03779_03902/SOL03900/RME_743666663RMD39000000000_______P2.TAB",
+      "qualityNote": "Contributor-supplied rows 1\u201325 only. Bounds above are the parent product interval, not exact excerpt times. AMBIENT_TEMP_CONFIDENCE_LEVEL reliability flag = 1. Other instrument flags/calibration are not independently certified. Unweighted excerpt mean; not a daily mean."
+    }
+  ]
+}

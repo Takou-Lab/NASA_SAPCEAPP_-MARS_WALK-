@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { EnvironmentService } from './core/environment.service';
+import environment from '../../public/data/environment.json';
+import { Component, signal } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
@@ -24,7 +26,19 @@ describe('App integration', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        {
+          provide: EnvironmentService,
+          useValue: {
+            initialize: () => {},
+            reload: () => {},
+            status: signal('pending'),
+            context: signal({ ...environment, reviewStatus: 'pending', readings: [] }),
+          },
+        },
+      ],
     }).overrideComponent(ShellComponent, {
       remove: { imports: [MapComponent] },
       add: { imports: [MapMountStub] },
@@ -49,6 +63,8 @@ describe('App integration', () => {
     expect(fixture.nativeElement.querySelectorAll('app-science-context')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-image-passport')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('app-environment-context')).toHaveLength(1);
+    expect(fixture.nativeElement.textContent).toContain('measurements withheld');
 
     const buttons = fixture.nativeElement.querySelectorAll(
       'app-science-context .science-record-button',

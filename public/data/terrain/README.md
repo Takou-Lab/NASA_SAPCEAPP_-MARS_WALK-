@@ -11,19 +11,11 @@ As specified in `docs/team/CODING_AGENTS.md` (v1 schema: `terrainStatus: 'unavai
 - **Image brightness is never interpreted as elevation.**
 - The application activates the **visual review only** fallback mode.
 
-## Sourced Authoritative Terrain Assets Identified
+## Candidate terrain product — metadata and overlap unverified
 
-During the data-preparation terrain search, the following real NASA/HiRISE digital terrain model was identified covering this exact area of interest:
+Contributor reports candidate `DTEEC_001488_1750_001752_1750_U02`, stereo pair `PSP_001488_1750` / `PSP_001752_1750`, catalog https://www.uahirise.org/dtm/PSP_001488_1750 . Catalog retrieval is HTTP 403 in the coordinator environment; original label/raster have not been independently inspected. This is a lead, not proof of exact AOI coverage.
 
-- **Product ID:** `DTEEC_001488_1750_001752_1750_U02`
-- **Stereo Observation Pair:** `PSP_001488_1750` & `PSP_001752_1750`
-- **Provider:** HiRISE Operations Center, Lunar and Planetary Laboratory, University of Arizona / NASA PDS
-- **Repository Link:** [HiRISE DTM PSP_001488_1750](https://www.uahirise.org/dtm/PSP_001488_1750)
-- **Direct PDS Product:** `DTEEC_001488_1750_001752_1750_U02.IMG` (360 MB)
-- **Horizontal Resolution / Post Spacing:** 1.01 meters/pixel
-- **Vertical Units:** Meters elevation relative to the Mars reference datum (areoid)
-- **Projection:** Equirectangular (clon = 137.3°E, clat = -4.83°N)
-- **Datum:** Mars 2000 ellipsoid
+Previously listed 360 MB size, 1.01 m/pixel, equirectangular parameters, vertical datum and complete overlap are **unverified contributor assertions**, not accepted runtime metadata. Do not use them for distance, elevation or slope. Sharing a parent observation does not prove alignment with our Photojournal derivative. [Calibration takeover and required source evidence](../../../docs/data/CALIBRATION_TAKEOVER.md).
 
 ## Transform Guidance for Longla (3D Rehearsal Prototype)
 

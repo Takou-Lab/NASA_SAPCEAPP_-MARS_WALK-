@@ -1,5 +1,25 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Coordinator takeover while unavailable
+
+User and coordinator are handling the calibration/terrain slice now; preserve your branch/raw downloads and do not duplicate edits when you return. [Actual checks and smallest source handoff](../data/CALIBRATION_TAKEOVER.md). Local imagery is readable but not georeferenced; original catalogs are HTTP 403 here. Candidate DTM overlap/scale claims remain unverified. If you already have original image/DTM labels or a georeferenced small crop, hand off exact files/hashes/commands rather than another catalog summary. No reset or overwrite of your collection work.
+
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Priority now — exact-raster calibration and terrain evidence
+
+Pause expansion into more REMS quantities; preserve current downloads and existing extractor corrections. Latest d6ab8aa includes a promising DTM identifier and corrected THEMIS discussion, not a delivered aligned raster. Your full dataset remains unmerged; limited 25-row context is already integrated, so do not redo it.
+
+Within one focused hour, obtain the actual original image/DTM labels and report product IDs, exact footprint/CRS/scale/vertical units/nodata and reproducible crop/resize/reprojection chain for the displayed raster. Verify or withdraw “100% overlap”, 1.01 m/px, 0.2 m precision and proposed compressed-size assertions unless source metadata/output measurements support them. Matching parent stereo image or dimensions does not establish alignment. Deliver source URLs/raw hashes/processing commands and a small traceable AOI or exact missing input; do not invent tie-points. If this visual derivative cannot be calibrated, propose a georeferenced replacement with an explicit new imageRef plan for coordinator review. Keep raw archives out of public assets. Original data collection/source integrity findings remain open but secondary to this bounded map-location decision; no discard/reset of work.
+
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
+## Integration handoff — existing environmental loader/panel now available
+
+Coordinator reviewed 437a777 and added [runtime contract and review-status UI](../data/ENVIRONMENT_RUNTIME_CONTRACT.md). Numerical values are withheld pending source/quality/integrity acceptance; no unreviewed data merged. Latest extractor no longer invents Ls, but finite-value/quality population/original hash/record matching and safe regeneration remain. Your 53 branch tests pass; add real extractor failure/reproduction coverage rather than only helper tests. Continue your bounded original-source retrieval, preserving local work. Once accepted, coordinator converts a reviewed small subset; do not create a competing loader/component or change runtime reviewStatus yourself.
+
 ## In-progress delivery cdd5b45 — continue collection and extractor validation
 
 New source catalog/FMT/extractor/observations received; 53 isolated branch tests pass but scientific/runtime approval is pending. Keep retrieving original products. Before final review resolve [latest extractor findings](../reviews/GADDIELLE.md#latest-data-delivery-cdd5b45--received-extractor-not-ready-for-scientificruntime-approval): synthetic Ls, NaN/Infinity, confidence population semantics, input/hash/record matching and safe output. These refine your existing task, not a reset/new branch. Preserve all source evidence and incorporate accepted main corrections safely. No runtime environment file/API authorized yet.

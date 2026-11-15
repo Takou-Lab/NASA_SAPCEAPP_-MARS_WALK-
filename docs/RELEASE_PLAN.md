@@ -1,5 +1,7 @@
 # Release coordination status
 
+> **Public test candidate:** https://marswalk-pfoqdsf41-boys-band.vercel.app/ (source 38516f8, no Vercel login). [Verified scope and caveats](qa/PUBLIC_SCIENCE_PREVIEW.md). Production alias unchanged; earlier protected-preview entries retain historical scope.
+
 > **Challenge Details now supplied:** [wording, requirement matrix and priorities](challenge/REQUIREMENTS.md). User-provided official-page extract is preserved; independent page retrieval remains blocked. Multiple-mission integrated exploration context is central; three data kinds are suggested, AI/VR/live data are not required. Resources/submission rules/deadline timezone remain pending.
 
 > Designated preview **cf0ffb7**: https://marswalk-m3n37k8ne-boys-band.vercel.app/ (Vercel authentication). [Checks and next gates](qa/VERCEL_PREVIEW_CF0FFB7.md). Production unchanged; user reports a 10 pm deadline but its timezone and official requirements remain unverified.

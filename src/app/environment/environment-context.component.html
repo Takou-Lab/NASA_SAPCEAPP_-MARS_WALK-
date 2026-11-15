@@ -1,0 +1,71 @@
+<section aria-labelledby="environment-heading">
+  <h3 id="environment-heading">Historical environmental context</h3>
+  <p>
+    Curiosity REMS observations describe the rover's location and observation interval, not current
+    conditions along your route. They do not assess route safety.
+  </p>
+  @switch (environment.status()) {
+    @case ('loading') {
+      <p role="status">Loading environmental context…</p>
+    }
+    @case ('error') {
+      <p role="alert">
+        Environmental context could not be loaded or validated. No measurements are shown; your
+        route and notes are unchanged.
+      </p>
+      <button type="button" (click)="environment.reload()">Retry environmental context</button>
+    }
+    @case ('pending') {
+      <p role="status"><strong>Source review pending — measurements withheld</strong></p>
+      <p>{{ environment.context()?.reviewNote }}</p>
+      <details>
+        <summary>What is being checked?</summary>
+        <p>
+          Pressure (Pa), air and ground temperature (K), humidity (%) and ultraviolet irradiance
+          (W/m²): original products, units, timestamps, sample counts and confidence rules must pass
+          review before values appear.
+        </p>
+      </details>
+    }
+    @case ('limited') {
+      <p role="status"><strong>Limited source review — excerpt only</strong></p>
+      <p>{{ environment.context()?.reviewNote }}</p>
+    }
+    @case ('ready') {
+      <p>Reviewed historical observations, not live forecasts.</p>
+    }
+  }
+  @if (environment.status() === 'ready' || environment.status() === 'limited') {
+    @for (
+      reading of environment.context()?.readings;
+      track reading.quantity + ':' + reading.sol + ':' + reading.startUtc
+    ) {
+      <article>
+        <h4>{{ reading.quantity }} · Sol {{ reading.sol }}</h4>
+        <p>
+          Excerpt mean {{ reading.value }} {{ reading.unit }} · Range {{ reading.minimum }}–{{
+            reading.maximum
+          }}
+          {{ reading.unit }}
+        </p>
+        <p>Parent product interval: {{ reading.startUtc }} to {{ reading.endUtc }}</p>
+        <p>{{ reading.sampleCount }} selected excerpt samples</p>
+        <details>
+          <summary>Source and quality limitations</summary>
+          <p>{{ reading.qualityNote }}</p>
+          <a [href]="reading.sourceUrl" target="_blank" rel="noopener noreferrer"
+            >Referenced REMS product</a
+          >
+        </details>
+      </article>
+    }
+  }
+
+  @if (environment.context(); as context) {
+    <a [href]="context.sourceUrl" target="_blank" rel="noopener noreferrer">REMS source archive</a>
+    <p>
+      External sources require internet. Wind and RAD radiation measurements are not supplied. No
+      route-wide weather, terrain or human-dose estimate is derived.
+    </p>
+  }
+</section>

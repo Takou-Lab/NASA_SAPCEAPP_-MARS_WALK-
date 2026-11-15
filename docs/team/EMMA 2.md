@@ -1,5 +1,17 @@
 # Emma 2 — Guided boxwork mission briefing
 
+## Coordination with Agent 1's mission workspace
+
+Your original standalone briefing remains your assignment; preserve any completed/unpublished work and send its actual branch/SHA. No new briefing branch is advertised in the latest check, so completion cannot yet be reviewed. Agent 1 now implements a compact operational summary and shell tab-navigation actions in src/app/ui only. You keep scientific question/background, evidence-location explanation and readonly structural checklist under src/app/mission-briefing only. Avoid duplicated route/quantity dashboards or shell edits; coordinator reconciles mounting. Deliver a small reviewable component promptly, not additional documentation in place of code. Existing no-fake-position/scale/mission-success boundaries apply.
+
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Current priority — mission question linked to actual map evidence
+
+Continue the already assigned standalone briefing; no branch is advertised, so unpublished progress must be preserved and reported rather than assumed absent. Deliver a small reviewable component now instead of expanding onboarding. Explain the boxwork science question and what MRO versus Curiosity contributes. Make location status unmistakable: our records are regional and unlocated on this raster, not destinations an astronaut can currently navigate to.
+
+Checklist represents existing structural state only (endpoints/selected record/observation), never completed science, saved/recovered mission or safe route. Provide a concise pre-route evidence/location explanation and explicit unavailable distance/terrain. Use only your new folder and QA; no root/core/shell/Agent 1 styles. Coordinator mounts once. Include exact controls/integration selector, important state-transition tests and actual narrow/keyboard evidence; no requirement to wait for georeferencing to finish this informational slice.
+
 Assigned 15 November 2026 by the user. This is a new bounded implementation slice for Emma's second agent, independent of Agent 1's accepted shell/theme work. Read [challenge requirements](../challenge/REQUIREMENTS.md), [project handoff](../../PROJECT_HANDOFF.md), [shared contracts](CODING_AGENTS.md) and [science evidence](../SCIENCE_EVIDENCE.md). Emma uses he/him.
 
 ## Outcome

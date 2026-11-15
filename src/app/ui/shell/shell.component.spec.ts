@@ -355,7 +355,7 @@ describe('ShellComponent', () => {
     setItemSpy.mockRestore();
   });
 
-  it('projects [pwa-status] and [environmental-context] slots and displays the environmental slot card notice', () => {
+  it('projects lifecycle and environmental content once in the expected order', () => {
     const hostFixture = TestBed.createComponent(ShellSlotHostComponent);
     hostFixture.detectChanges();
     const hostEl = hostFixture.nativeElement as HTMLElement;
@@ -370,22 +370,12 @@ describe('ShellComponent', () => {
     const envProjected = confidencePanel.querySelector(
       '[data-testid="projected-env"]',
     ) as HTMLElement;
-    const envCard = confidencePanel.querySelector('.env-slot-card') as HTMLElement;
     expect(envProjected).toBeTruthy();
-    expect(envCard).toBeTruthy();
+    expect(confidencePanel.querySelector('.env-slot-card')).toBeNull();
     expect(envProjected.previousElementSibling?.tagName.toLowerCase()).toBe(
       'app-exploration-confidence',
     );
-    expect(envProjected.nextElementSibling).toBe(envCard);
-    expect(envCard.nextElementSibling?.tagName.toLowerCase()).toBe('app-science-context');
-    expect(envCard.getAttribute('aria-label')).toBe('Environmental context integration slot');
-    expect(envCard.querySelector('h3')?.textContent).toContain(
-      'Environmental Context (REMS / RAD)',
-    );
-    expect(envCard.querySelector('.env-slot-badge')?.textContent).toContain(
-      'Pending verified dataset',
-    );
-    expect(envCard.textContent).toContain('No environmental values are estimated or simulated.');
+    expect(envProjected.nextElementSibling?.tagName.toLowerCase()).toBe('app-science-context');
     hostFixture.destroy();
   });
 });

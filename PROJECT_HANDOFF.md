@@ -12,9 +12,9 @@ Repository: boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-, main. Local checkou
 
 Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6669fb; anonymous inventory fetched this turn still reports pack `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`. Current local build pack differs: `2d175fcf490efe85d3d75ff3d7114bd814ef0b96edbb2808330511371c46e1e6`. Main is ahead of production. No deployment in this handoff task. Automatic GitHub deployment is not connected. Follow [Vercel runbook](docs/VERCEL_SETUP.md) and [deployment evidence](docs/qa/VERCEL_PRODUCTION.md); authenticate through supported tools, never copy secrets into chat/Git.
 
-## Current designated preview — source cf0ffb7
+## Current designated PUBLIC preview — source 38516f8
 
-https://marswalk-m3n37k8ne-boys-band.vercel.app/ is READY and tested; **Vercel authentication required**. [Evidence/access/scope](docs/qa/VERCEL_PREVIEW_CF0FFB7.md). 194 Angular tests, 11 worker tests, build and authenticated preview offline full-process route/note recovery pass. Source pack prefix 4bb8ec987ae0. Production remains b6669fb; no promotion. Royce/Willy can test this exact candidate with their Vercel access; do not share automation secrets. Emma's pending changes and optional AI/VR are not included.
+https://marswalk-pfoqdsf41-boys-band.vercel.app/ is READY and anonymous HTTP/browser checks pass; **no Vercel login needed**. [Evidence and precise source limitations](docs/qa/PUBLIC_SCIENCE_PREVIEW.md). 223 Angular tests, 54 data tests/build, all 19 asset hashes and unauthenticated full-process offline route/note recovery pass. Contains Emma UI, accepted Enzo navigation and two limited-provenance REMS excerpt summaries (not independently archive-authenticated/full-day). MARSWALK preview protection disabled at explicit user request; no secrets shared. Production remains older and unchanged. This origin supersedes prior previews for tests/screenshots; storage does not transfer automatically between origins.
 
 ## Official Details text supplied — alignment now available
 
@@ -37,6 +37,38 @@ Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Em
 ## Available-agent split — current user instruction
 
 Emma Agent 2: new standalone read-only boxwork mission briefing, computed structural checklist and QA in a new folder; [EMMA 2.md](<docs/team/EMMA 2.md>). Emma Agent 1 remains on accepted UI/deployed checks. Enzo Agent 2: source-corrected explanations, sentence-to-source mapping and complete mission-story/demo package in existing documentation; [ENZO 2.md](<docs/team/ENZO 2.md>). Enzo Agent 1 navigation and Gaddielle collection continue independently. User/coordinator: persistence regression, accepted environmental/explanation contracts, reviewed component integration and updated preview, ordered in YOU.md. Separate checkouts and file ownership; no invented future API or runtime dataset approval. No new product code implemented by this assignment update.
+
+## Environmental integration state
+
+Coordinator implemented src/app/core/environment.ts, EnvironmentService and projected environmental panel with runtime review-status metadata (readings empty). [Contract](docs/data/ENVIRONMENT_RUNTIME_CONTRACT.md). Gaddielle 437a777 remains unmerged with unresolved finite-value/quality/source guards; its 53 data tests pass but no numeric dataset accepted. Latest extractor removed synthetic Ls. This is functional loader/UI/offline infrastructure, not verified atmospheric measurements. Never claim environmental values are deployed or approved from this status record.
+
+## Latest limited scientific context and navigation
+
+Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is limited to Gaddielle's supplied 25-row Sol 3900 pressure/air-temperature excerpt (800.335 Pa / 204.700 K means), reproducibly processed, explicitly **not independently archive-authenticated or full-day**. See ENVIRONMENT_RUNTIME_CONTRACT.md. Other submitted data/extractor remain unmerged. 223 Angular tests, 54 data tests/build/local offline browser pass. Public preview access enabled for MARSWALK at user request; no tokens need sharing. Production promotion remains separate.
+
+## Mission-map priority reset — current user instruction
+
+[MISSION_MAP_FINISH_PLAN.md](docs/MISSION_MAP_FINISH_PLAN.md) overrides older optional work. Exact raster alignment/calibration → supported metric route context → aligned terrain if available; source/location clarity and actual recovery remain release-critical. All nine personal briefs updated with distinct tasks; pause VR/live AI/extra environmental breadth. Latest branches: Emma 59e00e1/Enzo navigation 2b2a708/Willy 9b4093d accepted; Enzo 2 e161e41 source corrections pending; Gaddielle d6ab8aa candidate spatial metadata unverified; Royce 498ee2e auto-restore/notebook changes unreviewed with checkbox toggle regression visible in diff. No new runtime feature or acceptance from this assignment update. One-hour evidence go/no-go, then honest fallback/release rather than unbounded data search.
+
+## User/coordinator took over Gaddielle calibration task
+
+[CALIBRATION_TAKEOVER.md](docs/data/CALIBRATION_TAKEOVER.md): actual JPEG hashes/decode/resize similarity audited, no embedded georeferencing. Original HiRISE/DTM/Photojournal catalogs blocked HTTP 403. Metric/terrain go-no-go remains **no-go with available evidence**; need original image/DTM labels and georeferenced source/processing chain. Read-only audit tool and JSON saved; existing terrain README overclaims corrected. Gaddielle branch/raw work untouched. No calibration values, imageRef or deployment changed.
+
+## Latest Enzo Agent 2 review
+
+38cd2b3 adds only a presentation proposal-status note; source-overreach sentences in three explanations are unchanged from e161e41. Not merged; source mapping/text corrections remain open. Agent 1 2b2a708 remains accepted with no new push. See docs/reviews/ENZO.md; do not mark AI package complete based on the new commit title.
+
+## Enzo Agent 2 expanded package
+
+User requested substantial additional work. ENZO 2.md now assigns ordered commits for actual source-text corrections, science-target location dossier, mission/layer evidence matrix, candidate-specific demo/screenshots/judges answers and submission readiness drafts. Three new documentation files allowed; no runtime/core/calibration edits. Coordinator/user retain raster task, Agent 1 retains science code. Unsupported coordinates and official portal rules stay pending; no deployment/submission authorization. First source-correction handoff is the priority, not new optional AI expansion.
+
+## Emma next implementation package
+
+User requested substantial objective-focused work. Published UI tip still 59e00e1 accepted, no newer mission-briefing branch visible. EMMA.md now assigns Agent 1 an owned mission decision summary plus typed shell navigation to route/science/notebook/transfer, no automatic state mutations or invented readiness. EMMA 2.md retains separate briefing/science-purpose component. Preserve unpublished progress; request actual commit before treating it complete. Tests must cover focus/collapse/draft/state preservation and scientific unavailable states. No new runtime implementation in this brief update.
+
+## Royce exact-SHA review
+
+6a5e351 requested for preview, but unmodified isolated test/build both fail NG5002 notebook HTML unmatched @else; test compilation also TS2352 mock cast. Checkbox regression remains. No working preview or merge of that SHA. LONGLA.md lists corrections and requires a new SHA. Public candidate 38516f8 stays available; main runtime unchanged by this review.
 
 ## Ordered next work
 

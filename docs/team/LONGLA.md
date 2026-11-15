@@ -1,5 +1,25 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## Exact 6a5e351 handoff — fix compilation before requesting preview
+
+Coordinator reproduced `npm test` and `npm run build` failures in an unmodified isolated copy of your requested SHA. [Errors/corrections](../reviews/LONGLA.md#exact-commit-6a5e351--compilation-fails-preview-blocked): malformed notebook @if/@else at HTML line 50, incompatible mock cast at spec line 142, plus existing checkbox set(true) regression. Restore conditional structure, use a typed mock reference and true toggling; preserve draft/current-main native notebook behavior. Push a new SHA after both commands pass. A corrected build cannot honestly be called exact 6a5e351. No merge or preview deployment occurred; use current public candidate for existing device tests and identify its revision correctly.
+
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Current priority — persistence blocker before terrain/VR
+
+Latest branch 498ee2e adds initialization auto-restore, notebook changes and tests; it is unreviewed and unmerged. Preliminary diff shows toggleAttachStart now set(true), preventing the checkbox from being unticked. Restore true toggle behavior and its user-event regression; preserve other work. Separate core auto-restore from notebook fixes for coordinator review, rather than treating it as an accepted device fix. Auto-restore must not overwrite newer in-memory/imported work during delayed initialization; failures need observable guidance and tests. Shared core belongs to coordinator; do not add further persistence changes without concrete handoff.
+
+Provide the actual Samsung save/success/export/reopen/Load Route/Notebook/export evidence on current public candidate, with exact source/pack and original report correction. After persistence acceptance, help verify a genuinely aligned terrain tile if coordinator provides one; do not invent elevations from image brightness or integrate a paper clipping estimate. Pause VR expansion until core route/data/phone acceptance is ready. Existing flat viewer remains accepted.
+
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
 ## Current task — reconcile 3af60d1 and reproduce the missing note
 
 Your QA-only 3af60d1 is received and preserved. No new 3D code is submitted. Reported Samsung installation/offline opening is useful, but final acceptance remains pending exact revision and mission-recovery evidence. Do this follow-up before VR or redesign:

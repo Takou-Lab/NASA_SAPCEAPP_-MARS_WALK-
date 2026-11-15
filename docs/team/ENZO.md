@@ -1,5 +1,21 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Agent 1 priority now — location-aware science presentation
+
+Navigation 2b2a708 is accepted/integrated/public; do not repeat it. Next audit science details for the actual map decision: distinguish measured/derived/interpreted claims and verified/illustrative/unavailable positions, and explain regional records cannot be treated as route stops. Own science TS/HTML/tests; Emma owns its SCSS. Use current models/signals; do not invent target coordinates, add unverified pins or mutate notes/routes to represent a visit.
+
+If a supported point is delivered later, require exact raster imageRef/position provenance and coordinator acceptance before map linking. Until then improve only concrete confusing copy/accessibility states found in the candidate; coordinate briefing text with Emma 2 without duplicating the mission guide. Test filter/navigation/selection and unchanged mission state. No duplicate environment loader/component, new map distance service or speculative API. Agent 2 owns scientific explanations/presentation and its source mapping.
+
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
+## Science navigation accepted — 2b2a708
+
+Your Previous/Next submission passes review and combined checks (223 Angular tests/build). No repeat implementation needed. Safely incorporate main preserving work; next verify keyboard/bounded/filtered navigation on the designated public candidate and report exact revision/results. Coordinator supplies the environment loader/panel; do not create a duplicate. Agent 2 source-explanation corrections remain separate.
+
 ## Two-agent split — current ownership
 
 **Agent 1 (this file):** confidence/evidence content simplification, existing science/environment UI tasks only when agreed data APIs exist. Preserve the accepted verifier. Emma owns the three shared SCSS theme fixes. Do not edit the presentation/usability documents assigned below while Agent 2 works.

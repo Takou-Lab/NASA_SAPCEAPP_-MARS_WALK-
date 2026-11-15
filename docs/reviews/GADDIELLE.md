@@ -1,5 +1,17 @@
 # Gaddielle — environmental review: changes required
 
+## Bounded excerpt admission — user-authorized limited context
+
+15 November 2026: user prioritized a physical-quantity subset. Coordinator processed only the existing contributor-supplied 25-row Sol 3900 excerpt with its normalized label: exact pinned hashes, identity/shape/finite/mask checks, pressure shadow and air reliability selections, reproducible summary tests. **Not an independently authenticated NASA download, full-sol statistic or acceptance of the entire source branch.** UI labels limited review and parent-product interval, and states source limitations. Means: 800.335 Pa pressure / 204.700 K air, 25 selected excerpt records each. Contract documents all caveats. Remaining daily-extractor/source findings stay open; no other environmental/terrain/AI values integrated.
+
+## 437a777 integration review — metadata panel integrated, measurements withheld
+
+15 November 2026. User requested app integration. Latest per-quantity CSV/extractor/FMT/catalog and thermal/terrain/geology candidate documents inspected in an isolated archive. **53 branch data tests pass.** Excerpt extraction yields 25-row pressure summaries, but cannot prove complete daily values; independent parse_float_safe('inf') returns Infinity and actual extraction includes nonnegative Infinity. Confidence counters do not consistently select the summary population; original-file hash/label count/quality rules and atomic replacement remain unresolved. Latest v2 removes synthetic Ls, so that older finding is superseded for this extractor. Exact original Sol 3900 label fetch remains HTTP 403; no independent raw-source verification claimed.
+
+No feature branch or numeric CSV merged. Coordinator independently implemented the app contract/loader/panel with **pending status and no readings**. This makes source-review/quantity expectations visible offline while preventing unchecked measurements from appearing as verified. [Runtime contract and next handoff](../data/ENVIRONMENT_RUNTIME_CONTRACT.md). Original data/tool authorship retained; previous illustrative converter remains accepted separately. New component admission checks are not scientific-source verification.
+
+Next Gaddielle: continue source collection, narrow to one reproducible product, finite-value/exact-record guards, explicit per-quantity accepted population, source/normalized hashes and label counts, then regeneration checks. Submit exact outputs and commands for review. No second app component/loader, invented values, changed scientific hashes or forced branch reset. Candidate DEM/thermal metadata are investigations, not accepted spatial layers. No deployment occurred.
+
 ## Latest data delivery cdd5b45 — received; extractor not ready for scientific/runtime approval
 
 15 November 2026. User describes partial collection; branch includes FINAL_HANDOFF_REPORT.md but no completion inferred beyond actual files. New source catalog, MODRDR6.FMT, extractor and observations.csv are useful progress. Isolated full branch **53 data tests pass**; these mainly cover prior pack/converter and confidence-parser helpers, not reproducibility of the full archive-to-summary delivery. No feature merge, runtime schema approval or deployment.

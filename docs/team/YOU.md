@@ -1,5 +1,25 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Active takeover — calibration/terrain evidence
+
+User requested taking Gaddielle's slice while she is unavailable. [Audit/go-no-go/source inputs](../data/CALIBRATION_TAKEOVER.md) records successful image integrity/similarity checks and HTTP 403 original catalog access. No metric/terrain admission with present files. Need small original labels/georeferenced raster and exact processing chain; preserve her branch and current image identities. Tool tools/data/audit_spatial_inputs.py is read-only and produces the durable evidence JSON. Do not call nominal source resolution a calibrated derivative. No deployment in this slice.
+
+> **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
+
+## Coordinator priority now — deliver one geographically meaningful map
+
+Read [critical path and checked branch status](../MISSION_MAP_FINISH_PLAN.md). Within one focused hour, pair Gaddielle's actual labels/raster processing with an exact displayed-image transform go/no-go. Product metadata/parent-image association alone is insufficient. If verified, implement one shared tested image-to-ground/planar-distance contract with image/version compatibility; terrain stays unavailable until aligned samples/units/nodata verified. Protect saved missions when any image changes. If blocked, preserve truthful visual scope and finish submission rather than inventing measurements.
+
+Review Royce 498ee2e separately (checkbox regression and async auto-restore overwrite/error behavior); no silent core merge. Coordinate Willy map consumer only after real shared API, Emma 2 briefing mount only after review, and Enzo source/location claims without fake pins. Existing limited REMS excerpt remains explicitly limited; no whole-dataset promotion. Run affected tests/build/public offline recovery on each actual candidate, then production promotion only through authorized release workflow. Keep final submission resources/portal/timezone verification and upload buffer active. Freeze new VR/live AI/cosmetic work; preserve all contributors' unpublished progress.
+
+## Current PUBLIC candidate — 38516f8
+
+Use **https://marswalk-pfoqdsf41-boys-band.vercel.app/**. No Vercel login or access-request approval needed. [Exact capabilities, tests and data caveats](../qa/PUBLIC_SCIENCE_PREVIEW.md). Includes Emma UI, accepted science navigation and limited contributor-supplied REMS excerpt summaries; do not call them independently authenticated NASA data or full-day weather. Supersedes older preview URLs for new assigned testing/screenshots. Preserve personal exports before changing origins; saved missions are origin-specific. Existing production URL remains older. Physical/user acceptance and submission still need actual evidence.
+
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
 ## Available-work package — user and coordinator
 
 User authorized this next implementation sequence; keep teammate ownership intact:
