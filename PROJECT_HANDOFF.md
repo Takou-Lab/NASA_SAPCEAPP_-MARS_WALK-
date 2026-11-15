@@ -12,23 +12,35 @@ Repository: boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-, main. Local checkou
 
 Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6669fb; anonymous inventory fetched this turn still reports pack `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`. Current local build pack differs: `2d175fcf490efe85d3d75ff3d7114bd814ef0b96edbb2808330511371c46e1e6`. Main is ahead of production. No deployment in this handoff task. Automatic GitHub deployment is not connected. Follow [Vercel runbook](docs/VERCEL_SETUP.md) and [deployment evidence](docs/qa/VERCEL_PRODUCTION.md); authenticate through supported tools, never copy secrets into chat/Git.
 
+## Current designated preview — source 4b8b6f6
+
+https://marswalk-lhw5a1lgq-boys-band.vercel.app/ is READY with Emma Phase 2; **Vercel authentication required**. [Updated evidence and next tests](docs/qa/VERCEL_PREVIEW_4B8B6F6.md). 208 Angular tests/build and actual authenticated preview full-process offline route/note recovery pass. Pack prefix d8e95e80624b, 18 assets. Supersedes cf0ffb7 as the testing candidate; origins/storage are separate. Production remains b6669fb, no promotion. Emma/Willy/Royce can test the exact updated candidate using project access. No optional AI/environment/VR runtime included.
+
+## Official Details text supplied — alignment now available
+
+Read [challenge assessment](docs/challenge/REQUIREMENTS.md) and preserved user-supplied text. Central goal is a layered integrated location/route using multiple NASA science missions. Three data kinds are suggested, historical data is allowed, AI/VR/DEM/live feeds are not mandatory in supplied Details. Prioritize science-goal/location integration, reproducible data and reliable mission recovery. Independent webpage retrieval still blocked; Resources tab/submission fields/deadline timezone remain unverified. Do not treat all Details wording as missing now.
+
 ## People and current review states
 
 | Owner | State and next step |
 | --- | --- |
 | Coordinator/user | [YOU.md](docs/team/YOU.md): verify official event requirements, review pending submissions, prepare candidate, then authorized deployment/device acceptance |
-| Emma (he/him) | Phase 1 cdd2417 accepted in be4ac2b. Phase 2 visual specification/header and three delegated SCSS theme fixes remain. [Plan](docs/team/EMMA.md) |
+| Emma (he/him) | Phase 1 cdd2417 accepted in be4ac2b. Phase 2 59e00e1 accepted: 208 tests/build/browser pass, initial 442.83 kB. Deployed UI verification next; existing preview is older. [Plan](docs/team/EMMA.md) |
 | Willy Agent 1 | Existing map/navigation/retry accepted. Map usability/release workflow. [Plan](docs/team/WILLY.md) |
 | Willy Agent 2 | Windows report 9b4093d accepted as contributor evidence; missing raster HTTP, browser offline and physical-device checks next, separate QA. [Plan](<docs/team/WILLY 2.md>) |
-| Enzo | fc79cf8 verifier correction accepted: 193 integrated Angular tests and root/subpath builds pass. Pure verifier remains unmounted; Coordinator completed Agent 1 evidence clarity with 194 tests/build/browser checks; Agent 1 next is bounded science-record navigation, Agent 2 release-story 0731a49 accepted with minor coordinator wording fixes; final candidate screenshots/rehearsal and real device/user inputs remain pending; see docs/team/ENZO 2.md. [Correction](docs/reviews/ENZO.md) |
-| Gaddielle (she/her) | Earlier imagery/tooling accepted. Environmental prototype 0f6bd95 plus coordinator C1/C2 corrections accepted as illustrative tooling only; 52 integrated data tests pass. New REMS fe69663 reviewed: S1–S4 extraction/count/hash/reconciliation corrections pending, not merged. No runtime environment dataset/schema accepted. [Review](docs/reviews/GADDIELLE.md) |
+| Enzo | fc79cf8 verifier correction accepted: 193 integrated Angular tests and root/subpath builds pass. Pure verifier remains unmounted; Coordinator completed Agent 1 evidence clarity with 194 tests/build/browser checks; Agent 1 next is bounded science-record navigation, Agent 2 release-story 0731a49 accepted with minor coordinator wording fixes; cbddb0e checklist accepted with technical corrections; candidate screenshots/rehearsal remain pending. Agent 2 e161e41 three-record AI proposal received; planned/observed and source-overreach corrections pending, no runtime approval; see docs/team/ENZO 2.md. [Correction](docs/reviews/ENZO.md) |
+| Gaddielle (she/her) | Earlier imagery/tooling accepted. Environmental prototype 0f6bd95 plus coordinator C1/C2 corrections accepted as illustrative tooling only; 52 integrated data tests pass. Latest REMS cdd5b45 received; 53 isolated tests pass, but extractor synthetic Ls/nonfinite/quality/integrity issues remain. Not merged; collection ongoing. No runtime environment dataset/schema accepted. [Review](docs/reviews/GADDIELLE.md) |
 | Royce/Longla | Existing 3D accepted; QA report 3af60d1 integrated as contributor-reported only. Samsung installation reported; missing-note reproduction/build identity needed before physical acceptance. [Plan](docs/team/LONGLA.md) |
 
 Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Emma has a styling-only exception for science-context, exploration-confidence and image-passport SCSS. Coordinator owns root/core/build/worker. Original completed work retains its authorship. Use independent checkouts for Willy's two agents; never change the same checkout's branch/build concurrently.
 
+## Available-agent split — current user instruction
+
+Emma Agent 2: new standalone read-only boxwork mission briefing, computed structural checklist and QA in a new folder; [EMMA 2.md](<docs/team/EMMA 2.md>). Emma Agent 1 remains on accepted UI/deployed checks. Enzo Agent 2: source-corrected explanations, sentence-to-source mapping and complete mission-story/demo package in existing documentation; [ENZO 2.md](<docs/team/ENZO 2.md>). Enzo Agent 1 navigation and Gaddielle collection continue independently. User/coordinator: persistence regression, accepted environmental/explanation contracts, reviewed component integration and updated preview, ordered in YOU.md. Separate checkouts and file ownership; no invented future API or runtime dataset approval. No new product code implemented by this assignment update.
+
 ## Ordered next work
 
-1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). Proxy CONNECT 403 prevents retrieval; obtain Details/resources and submission rules as pasted text/PDF or through permitted access. Exact deadline/timezone and requirement wording remain unverified. Do not invent them.
+1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.
 2. Review Gaddielle original-source acquisition when submitted. Coordinator completed C1/C2 prototype fixes with 52 data tests passing; do not repeat corrections. Verify products/labels/extraction before accepting runtime data. See docs/reviews/GADDIELLE.md.
 3. Enzo fc79cf8 correction is accepted with 193 tests and both builds passing. Evidence clarity completed centrally; preserve his new science-navigation slice; coordinator owns future cache-lifecycle composition. Do not repeat the closed correction.
 4. Agree environmental schema/loader only from accepted evidence. Keep measurements historical, time/location/units/quality explicit. Calibration and compatible elevation are separate scientific priorities.

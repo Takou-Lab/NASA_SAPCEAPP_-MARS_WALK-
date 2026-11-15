@@ -1,5 +1,29 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
+## Available-work package — user and coordinator
+
+User authorized this next implementation sequence; keep teammate ownership intact:
+
+1. **Persistence first:** reproduce Royce's save-note/save-route/full-process-reopen/explicit-Load-Route/export sequence. Add a real fresh-service persistence regression and isolate any loss versus discoverability issue. Protect saved missions; do not add user notes to offline-pack.json. Confirm served revision; physical Android remains Royce's observation, not desktop proof.
+2. **Environmental integration contract:** define/version units, quantity-specific quality/counts, time/sol/location, original source identity, processing provenance, missingness and derived-versus-observed values before dependent UI. Review Gaddielle's extractor fixes (synthetic Ls/nonfinite/quality/integrity); never mount illustrative/unreviewed CSV values as verified. A proposed schema is not a delivered API. Implement typed validator/loader only after accepted source semantics; include approved runtime files in full-pack essentials deliberately.
+3. **Explanation contract:** after Enzo Agent 2's three drafts pass sentence/source review, agree a small versioned static content contract keyed to existing markers. Preserve original findings; explicit AI-assisted/prepared label, source/review metadata and missing/mismatch fallback. No runtime model/secret/network requirement. Coordinator loader/root/shared files only; delegate component consumer only with a concrete contract.
+4. **Integration:** review Emma Agent 2's standalone read-only briefing, mount once using its real selector and retain map/tab/drafts/PWA controls. Preserve Emma Agent 1 styles and Enzo Agent 1 science navigation. Test imports, empty/missing/error states and unchanged mission data.
+5. **Release:** produce updated preview containing accepted Emma Phase 2 and any reviewed new components; run test/build/full-pack plus actual served-origin mission/offline recovery, then arrange physical tests. Do not silently promote production or submit the competition entry. User requested a preview; promotion remains a separate release step.
+
+[Emma Agent 2 assignment](<EMMA 2.md>), [Enzo Agent 2 package](<ENZO 2.md>), [official Details alignment](../challenge/REQUIREMENTS.md). User reports 10 pm submission; confirm timezone/portal rules. Protect a review gate and feature freeze rather than extending optional AI/VR indefinitely. This checklist assigns work, not completion or deployment evidence.
+
+## Challenge product alignment — Details received
+
+User supplied official Details extract; [assessment and preserved wording](../challenge/REQUIREMENTS.md) now guide priorities. Multiple-mission integrated science/route context is central; three data kinds suggested; historical observations allowed; AI/VR/DEM/live feeds are not mandatory in the supplied text. Product wording is available, while official Resources, portal rules and deadline timezone remain pending. Prioritize tested mission recovery and one traceable useful data integration over optional effects. Do not mark the entire official-submission checklist complete from Details alone.
+
+## Designated preview ready — cf0ffb7
+
+User-authorized preview deployed: https://marswalk-m3n37k8ne-boys-band.vercel.app/ (Vercel authentication required). [Artifact/browser evidence](../qa/VERCEL_PREVIEW_CF0FFB7.md). Fresh 194 Angular/11 worker tests and build pass; authenticated full-process offline route/note recovery passes. Production remains unchanged. Next coordinate Royce device missing-note reproduction and Willy installation/icon checks, then review Emma's new work and deploy a revised candidate if needed. No promotion/submission performed.
+
 ## Current continuation task — 15 November 2026
 
 Start with [PROJECT_HANDOFF.md](../../PROJECT_HANDOFF.md). Fresh clean-main d6801a4 checks pass: 144 Angular tests, 11 worker tests, 33 data tests and production build (433.80 kB). [Durable evidence](../qa/CONTINUITY_BASELINE.md). This supersedes earlier “current” baseline counts below without relabeling historical results.

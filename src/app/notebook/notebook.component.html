@@ -1,4 +1,20 @@
 <div class="notebook-container">
+  @if (dataStatus() === 'loading') {
+    <p class="notebook-state" role="status">
+      Loading raster metadata… Editor drafts remain preserved while metadata loads.
+    </p>
+  } @else if (dataStatus() === 'unavailable') {
+    <p class="notebook-state" role="status">
+      {{ dataError() || 'Raster metadata is unavailable.' }} Editor drafts remain preserved.
+    </p>
+  } @else if (dataStatus() === 'error') {
+    <p class="notebook-state notebook-state-error" role="alert">
+      {{ dataError() || 'Raster metadata could not be loaded.' }} Editor drafts remain preserved.
+    </p>
+  }
+
+  <p class="next-step-banner" role="status">{{ nextActionHint() }}</p>
+
   <!-- 1. New Observation Form -->
   <section class="notebook-card form-card">
     <div class="card-title">
@@ -61,7 +77,7 @@
           type="submit"
           class="submit-btn"
           [disabled]="isDraftEmpty()"
-          aria-label="Save observation note to mission log"
+          aria-label="Save observation to mission log"
         >
           <svg
             viewBox="0 0 24 24"

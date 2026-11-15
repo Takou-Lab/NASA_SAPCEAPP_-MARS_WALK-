@@ -1,5 +1,9 @@
 # Release coordination status
 
+> **Challenge Details now supplied:** [wording, requirement matrix and priorities](challenge/REQUIREMENTS.md). User-provided official-page extract is preserved; independent page retrieval remains blocked. Multiple-mission integrated exploration context is central; three data kinds are suggested, AI/VR/live data are not required. Resources/submission rules/deadline timezone remain pending.
+
+> Designated preview **cf0ffb7**: https://marswalk-m3n37k8ne-boys-band.vercel.app/ (Vercel authentication). [Checks and next gates](qa/VERCEL_PREVIEW_CF0FFB7.md). Production unchanged; user reports a 10 pm deadline but its timezone and official requirements remain unverified.
+
 Updated **15 November 2026**. Working baseline `3879f3f` is preserved in Git; PWA foundation is `8a4dadc`. [Runbook](DEPLOYMENT.md), [verified browser results](qa/PWA_FOUNDATION.md), [remaining owner plan](../TEAM_TASKS.md).
 
 | Item | Actual status / next action |

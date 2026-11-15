@@ -1,5 +1,9 @@
 # Willy 2 — Installation and release verification agent
 
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
 ## Current review — Windows report accepted; remaining checks next
 
 Your 9b4093d report is accepted as scoped contributor evidence: locked Windows install, LF/source fingerprints, both production builds and named static HTTP paths. [Review](../reviews/WILLY.md#agent-2-windows-report-9b4093d--accepted-as-scoped-contributor-evidence). Do not repeat asset generation. Preserve stash/local work and continue existing feature/willy-pwa-install-assets; no new branch needed.

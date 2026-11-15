@@ -82,10 +82,52 @@ These steps are a script, not a new observed rehearsal or timing result. The dem
 
 ---
 
-## 5. Artifact & Screenshot Status
+## 5. Candidate Screenshot & Rehearsal Acceptance Checklist
 
-- **Screenshots:** Marked **PENDING**. Per team instructions, screenshots must be captured from an actually served release candidate rather than capturing unmerged local development features and mislabeling them as public production. Once the next release candidate is deployed, fresh high-resolution screenshots will be placed in `docs/demo/` with commit, URL, and viewport recorded.
-- **Visual Design:** System fonts require no external font download; full offline readiness still depends on successful pack preparation.
+This checklist defines the exact environment, required scenes, expected persistence behavior, and step-by-step verification log for the next designated release candidate:
+
+### A. Environment Specifications (To be logged upon candidate designation)
+- **Designated Candidate URL:** `PENDING (Coordinator will designate served candidate URL; currently public host is b6669fb)`
+- **Served Source Commit:** `PENDING (To be recorded from active candidate deployment)`
+- **Served Pack Hash:** `PENDING (To be extracted from /offline-pack.json (`version` field))`
+- **Demonstration Device & OS:** `PENDING (e.g., Windows 11 PC / macOS 14 / iPadOS 17 / Android 14)`
+- **Browser & Version:** `PENDING (e.g., Chrome 124.0 / Safari 17.4 / Edge 124.0)`
+- **Viewport Dimensions:** `PENDING (e.g., Desktop 1920×1080, Tablet 1024×768, or Mobile 390×844)`
+
+### B. Required Screenshot Scenes (`docs/demo/`)
+*Screenshots will be captured only from the coordinator-designated candidate and stored under `docs/demo/` with commit, URL, and viewport logged; none are fabricated in advance.*
+
+| Scene ID | Target View & UI State | Required Visible Elements | Capture Status |
+| --- | --- | --- | --- |
+| `scene-01-map-loaded` | Initial map workspace on raster `PIA26306` | Prepared raster image, NASA/JPL attribution badge, exploration confidence alert ("Visual Review Only"). | `PENDING (Awaiting designated deployment)` |
+| `scene-02-route-sketched` | Active route planner with 3 points | Start, intermediate Waypoint, Destination markers; connected polyline; distance reported as unavailable. | `PENDING (Awaiting designated deployment)` |
+| `scene-03-science-context` | Contextual science panel expanded | Curiosity observation findings (e.g. Mount Sharp boxwork), source link, evidence type, visible contextual/unlocated position label (exported record has `position: null`). | `PENDING (Awaiting designated deployment)` |
+| `scene-04-note-saved` | Notebook view with saved field note | Entered observation text, confirmed saved feedback, saved entry visible and input cleared only after success. | `PENDING (Awaiting designated deployment)` |
+| `scene-05-mission-export` | Route Planner & Mission Transfer | "Save Route" confirmation, exported JSON file download in browser downloads shelf. | `PENDING (Awaiting designated deployment)` |
+| `scene-06-offline-recovered` | Disconnected reopen after "Load Route" | Network offline state, cached raster rendered, route restored, recovered observation note displayed. | `PENDING (Awaiting designated deployment)` |
+| `scene-07-3d-rehearsal` | (Optional) 3D Rehearsal viewer tab | Flat WebGL canvas rendered with Three.js, training prototype banner, camera controls active. | `PENDING (Awaiting designated deployment)` |
+
+### C. Expected Saved & Recovered Note Behavior
+- **Test Field Note Content:** `Rehearsal note — reviewing the contextual Mount Sharp boxwork record. This is a user annotation, not a new geological measurement. Calibration unverified; visual inspection only.`
+- **Persistence Verification Criteria:**
+  1. *During Drafting:* In-progress draft must remain in the input textarea across tab switches between Route Planner, Confidence & Data, and Notebook.
+  2. *Upon Save:* Clicking **Save Observation** must display a success badge and commit the record under the active `imageRef` (`hirise-mro-pia26306-boxwork-2048x1042-v1`).
+  3. *Exported JSON:* Exported mission file must contain the note in the `observations` array with matching timestamp and reference.
+  4. *Upon Offline Reopen:* After full process close and disconnected restart, clicking **Load Route** must restore the exact saved note text without corruption. (Royce's open device defect regarding note recovery after closing and reopening will be rechecked).
+
+### D. Step-by-Step Rehearsal Log (Actual Observed vs. Unrun Steps)
+
+| Step # | Action / Milestone | Target Time | Actual Timing | Observed Result | Operational Notes / Defects |
+| --- | --- | --- | --- | --- | --- |
+| **Step 1** | Load candidate URL & verify active `imageRef` | 0:00–0:10 | `UNRUN` | `PENDING` | Awaiting candidate URL designation. |
+| **Step 2** | Click **Prepare offline** & wait for "ready" pack | Pre-demo | `UNRUN` | `PENDING` | Must verify full pack byte count before disconnecting. |
+| **Step 3** | Sketch 3-point traverse (Start, Waypoint, Destination) | 0:10–0:30 | `UNRUN` | `PENDING` | Verify polyline renders cleanly without metric distance. |
+| **Step 4** | Inspect Curiosity contextual science record | 0:30–0:50 | `UNRUN` | `PENDING` | Verify record opens and shows contextual/unlocated status without invented pins. |
+| **Step 5** | Type & save test field note in Notebook | 0:50–1:10 | `UNRUN` | `PENDING` | Verify draft preservation and save confirmation. |
+| **Step 6** | Click **Save Route** & download mission JSON export | 1:10–1:25 | `UNRUN` | `PENDING` | Verify downloaded file matches schema. |
+| **Step 7** | Disconnect network, close the full browser/app process, reopen while disconnected | 1:25–1:40 | `UNRUN` | `PENDING` | True offline restart test (not just DevTools toggle). |
+| **Step 8** | Click **Load Route** to restore route and notes | 1:40–1:55 | `UNRUN` | `PENDING` | Confirm explicit "Load Route" restored observations. |
+| **Step 9** | (Optional) Launch flat 3D viewer & close | 1:55–2:00 | `UNRUN` | `PENDING` | Verify WebGL memory teardown on exit. |
 
 ---
 

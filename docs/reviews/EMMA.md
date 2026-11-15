@@ -1,4 +1,14 @@
-# Emma — release UI approved; Phase 2 design/readiness next
+# Emma — release UI Phase 2 approved and integrated; Phase 3 deployed UI validation next
+
+## Phase 2 59e00e1 — accepted and integrated
+
+Reviewed 15 November 2026 against main 1f6c81a. Owned shell/header/planner/notebook, three expressly delegated shared SCSS theme files and QA only. Header consumes existing PwaService read-only signals to distinguish metadata/network/full-pack readiness; no duplicated initialization or action surface. Native controls, next-action hints and theme tokens preserve coordinator evidence disclosures and mission state. Environmental projection slot is reserved with honest pending status, not a fabricated data API.
+
+**New coordinator checks:** 208 Angular tests across 17 files pass; production build/full pack pass, initial **442.83 kB**, below unchanged warning budget; Leaflet CommonJS warning remains. Pack prefix **039f9d9dbb88**, 18 assets / 1,667,943 bytes. Browser harness initially required updated accessible control labels; no application fix was needed. Production Chromium verifies keyboard tabs/disclosures, source visibility, native note entry/exact draft retention through tabs and induced failed save, successful save/export, wrong-image transfer rejection, inert collapse, resizer bounds and 390px no overflow in both themes. Complete browser-process restart disconnected before navigation recovers image/science, route/notes via explicit load and export; prepared opt-in flat viewer opens/tears down.
+
+Contributor contrast/multi-viewport measurements in RELEASE_UI.md remain contributor-scoped; coordinator browser checks do not establish universal WCAG compliance or physical device acceptance. Local test logs/results are temporary /tmp/emma-phase2-*. No public/preview deployment, physical installation or outside-user sessions performed in this integration. Current designated preview still cf0ffb7 until separately updated.
+
+Phase 2 complete. Next Emma: preserve work, incorporate published main safely and perform Phase 3 deployed-interface verification once coordinator publishes this revision. Use a revision-specific screenshot/keyboard/theme check and coordinate device/user observations; do not invent unavailable hardware or repeat accepted design work. Freeze new redesigns while release work proceeds.
 
 ## Release UI `cdd2417` — accepted and integrated
 

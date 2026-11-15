@@ -1,22 +1,24 @@
 # Emma — Remaining professional UI and deployment work
 
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
+## Two-agent ownership
+
+Agent 1 follows this existing release UI/deployed verification plan; accepted Phase 2 is complete. Agent 2 follows [EMMA 2.md](<EMMA 2.md>): new standalone mission-briefing folder and own QA only. Keep separate checkouts/branches and preserve unpublished work. Agent 2 must not modify your shell/styles or mount root; coordinator integrates the reviewed briefing. Coordinate copy with Enzo Agent 2 without overlapping his files.
+
 > Current work piece: [W4](../../TEAM_TASKS.md#w4).
 
 Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. Current reviewed UI integration is `be4ac2b`: 144 Angular tests, production build and local production-browser checks pass. The earlier `b744b0b`/`27b1171` results are historical baseline evidence, not checks of future work. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
-## Current W4 handoff — Phase 1 accepted, Phase 2 starts now
+## Current W4 handoff — Phase 2 accepted; deployed verification next
 
-Your `cdd2417` is approved and integrated at **`be4ac2b`**. Branch 139 tests/build pass; current integration **144 tests/build/browser offline checks pass**. Coordinator completed the unused-router bootstrap cleanup outside your ownership. Initial 433.80 kB is below 500 kB; planner/notebook style budgets pass. [Review/evidence](../reviews/EMMA.md#release-ui-cdd2417--accepted-and-integrated). Do not repeat Phase 1.
+Your 59e00e1 is accepted: **208 integrated Angular tests**, production build (initial **442.83 kB**) and local production-browser/full-process offline route/note recovery pass. Coordinator evidence simplification is preserved, header uses real read-only PWA states, theme styles stay within delegated ownership. [Review](../reviews/EMMA.md#phase-2-59e00e1--accepted-and-integrated). Do not repeat Phase 1/2 or start a new redesign.
 
-1. **Agree one visual specification** with Willy/Enzo using existing tokens, typography/spacing, panel density, badges/actions and both-theme screenshots. Keep one owner per edited file and preserve unpublished work.
-2. **Readiness/header work is unblocked.** `src/app/core/pwa.service.ts` is real and documented in CODING_AGENTS.md. Read existing signals/actions; clarify mission metadata versus connection/verified offline pack. Display only supported states. Root already has PwaPanelComponent and initializes once: coordinate removal/relocation centrally before duplicating install/prepare/update controls. No new worker/model/API or pretend image/persistence-ready signals.
-3. **Narrow styling exception granted:** own light/dark fixes in `src/app/science/science-context.component.scss`, `src/app/evidence/exploration-confidence.component.scss`, and `src/app/evidence/image-passport.component.scss`. Use existing theme tokens, readable text/borders/alerts/focus and actual contrast checks. Enzo retains their TS/HTML/tests/data logic; do not rewrite those components or touch his environmental implementation.
-4. **Environmental slot:** coordinate a mounting handoff when Enzo's component and agreed data API exist. Keep this dependency explicit; complete the other design/header work now without inventing measurements or service exports.
-5. **Phase 3/4:** use the exact coordinator-deployed UI revision for HTTPS clean/existing-profile and screenshot checks. Actual Android/iOS/touch/installed standalone acceptance and outside-user sessions remain unrun until observed. Coordinator arranges users; Enzo maintains outcomes. Do not reuse browser checks as physical evidence.
-
-Continue existing **`feature/emma-release-ui`**, preserve work and incorporate published main safely. No reset/force-push or duplicate branch. Record actual results/revisions in `docs/qa/RELEASE_UI.md`. No independent deployment or main merge.
+Preserve unpublished work and safely incorporate main on feature/emma-release-ui. Next Phase 3: verify exact served UI candidate after coordinator updates deployment; current designated preview cf0ffb7 is older than this UI. Record source/URL/browser/viewport, both-theme desktop/phone screenshots, keyboard/scroll/focus, readability and recovered mission. Candidate is Vercel-authenticated; no automation secrets may be shared. Physical Android/iOS/standalone/outside-user results require actual observations; keep unavailable checks pending. Enzo Agent 2 owns presentation screenshot consolidation, so provide UI evidence/handoff without editing his documents. Environmental mounting remains pending accepted dataset/schema/component.
 
 ## Public host is ready for your acceptance checks
 
@@ -47,11 +49,11 @@ Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app
 
 ## Phase 2 — Consistent professional design
 
-- [ ] Agree a small visual specification with Willy/Enzo: existing palette/tokens, typography scale, spacing, action hierarchy, badges, panel density and responsive behavior. Record in `docs/qa/RELEASE_UI.md`; use original branding/icons, no new UI framework/external fonts.
-- [ ] Polish owned shell/header/route/notebook using that specification. One clear next action and relevant empty/loading/error states per panel; reduce duplicated controls/content through agreed handoffs rather than editing others' files.
-- [ ] Clarify header readiness labels: metadata loaded, image displayed, persistence available, connectivity and complete offline readiness are different states. Consume only existing/agreed coordinator signals; never manufacture a green ready status from internet access or registration.
-- [ ] Reserve integration space for Enzo's environmental component and actual PWA status/install/update UI. Wait for exported components and tested coordinator APIs; report exact mounting needs. Root assembly remains coordinator-owned.
-- [ ] Present update/install/preparation actions only when their real states exist. Failed preparation has recovery guidance; do not auto-reload over unsaved work. Keep unsupported grid/terrain unavailable and regional records accessible.
+- [x] Agree a small visual specification with Willy/Enzo: existing palette/tokens, typography scale, spacing, action hierarchy, badges, panel density and responsive behavior. Record in `docs/qa/RELEASE_UI.md`; use original branding/icons, no new UI framework/external fonts.
+- [x] Polish owned shell/header/route/notebook using that specification. One clear next action and relevant empty/loading/error states per panel; reduce duplicated controls/content through agreed handoffs rather than editing others' files.
+- [x] Clarify header readiness labels: metadata loaded, image displayed, persistence available, connectivity and complete offline readiness are different states. Consume only existing/agreed coordinator signals; never manufacture a green ready status from internet access or registration.
+- [x] Reserve integration space for Enzo's environmental component and actual PWA status/install/update UI. Wait for exported components and tested coordinator APIs; report exact mounting needs. Root assembly remains coordinator-owned.
+- [x] Present update/install/preparation actions only when their real states exist. Failed preparation has recovery guidance; do not auto-reload over unsaved work. Keep unsupported grid/terrain unavailable and regional records accessible.
 
 ## Phase 3 — Deployed interface verification
 

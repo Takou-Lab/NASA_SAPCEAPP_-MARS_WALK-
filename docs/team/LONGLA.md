@@ -1,5 +1,9 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## Current deployed UI candidate — 4b8b6f6
+
+Use **https://marswalk-lhw5a1lgq-boys-band.vercel.app/** for the next assigned candidate checks. [Deployment/evidence/access](../qa/VERCEL_PREVIEW_4B8B6F6.md). Emma Phase 2 is now present; previous cf0ffb7 preview is historical. Vercel authentication required, production unchanged. Record actual source/pack/device and use isolated missions; preview origins have separate storage. This removes the old “Emma UI not yet deployed to preview” dependency but does not claim physical or user acceptance.
+
 ## Current task — reconcile 3af60d1 and reproduce the missing note
 
 Your QA-only 3af60d1 is received and preserved. No new 3D code is submitted. Reported Samsung installation/offline opening is useful, but final acceptance remains pending exact revision and mission-recovery evidence. Do this follow-up before VR or redesign:

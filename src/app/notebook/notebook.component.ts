@@ -1,5 +1,5 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { Point } from '../core/models';
+import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { Observation, Point, Route } from '../core/models';
 import { MissionService } from '../core/mission.service';
 
 @Component({
@@ -11,21 +11,33 @@ import { MissionService } from '../core/mission.service';
 export class NotebookComponent {
   private missionService = inject(MissionService);
 
-  readonly observations = this.missionService.observations;
+  readonly observations: Signal<readonly Observation[]> = this.missionService.observations;
   readonly image = this.missionService.image;
-  readonly route = this.missionService.route;
+  readonly route: Signal<Route> = this.missionService.route;
+  readonly dataStatus: Signal<'loading' | 'ready' | 'unavailable' | 'error'> = this.missionService.dataStatus;
+  readonly dataError: Signal<string | null> = this.missionService.dataError;
 
   // Local component draft state (retained on failure)
   readonly draftText = signal<string>('');
   readonly attachStartLocation = signal<boolean>(false);
   readonly feedback = signal<{ message: string; type: 'success' | 'error' } | null>(null);
 
-  readonly isDraftEmpty = computed(() => {
+  readonly isDraftEmpty: Signal<boolean> = computed(() => {
     return this.draftText().trim().length === 0;
   });
 
-  readonly hasStartPoint = computed(() => {
+  readonly hasStartPoint: Signal<boolean> = computed(() => {
     return this.route().start !== null;
+  });
+
+  readonly nextActionHint: Signal<string> = computed(() => {
+    if (this.dataStatus() !== 'ready') {
+      return 'Mission metadata is not ready; you can draft notes here, and save once raster metadata is loaded.';
+    }
+    if (this.isDraftEmpty()) {
+      return 'Next step: Enter a geological or traverse observation above, then select Save Observation.';
+    }
+    return 'Next step: Select Save Observation to persist your draft to the local mission log.';
   });
 
   setDraftText(text: string): void {

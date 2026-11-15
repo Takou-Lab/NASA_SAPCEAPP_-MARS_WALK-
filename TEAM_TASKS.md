@@ -56,7 +56,7 @@ No numerical environment dataset, AI feature or immersive VR is implemented by t
 | [W1](#w1) | Willy | Review/refine supplied install assets | Proposed `feature/willy-pwa-install-assets` | Public assets/QA only; starter discovery/worker already supplied |
 | [W2](#w2) | Gaddielle | Environmental R1–R4 corrections and source evidence | Existing `feature/gaddielle-environment-data` | Preserve prototype; source traceability/alias guard/finite values/quantity audit; no runtime approval yet |
 | [W3](#w3) | Enzo | Read-only image-payload verifier | Proposed `feature/enzo-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
-| [W4](#w4) | Emma | Phase 2 visual specification/header readiness and theme-only fixes | Existing `feature/emma-release-ui` | Phase 1 accepted; three shared SCSS files delegated, logic stays Enzo-owned |
+| [W4](#w4) | Emma | Phase 3 deployed interface verification and device testing | Existing `feature/emma-release-ui` | Phases 1 & 2 accepted; awaiting coordinator Vercel deployment of merged main |
 | [W5](#w5) | Longla | Device report clarification and actual-device QA | Existing `feature/longla-3d-rehearsal` | QA records only; exact integrated build/device/outcomes |
 | [W6](#w6) | Coordinator / YOU | Real PWA install/cache/update lifecycle | Main integration workflow | Shared root/core/packages/worker and complete installed offline mission |
 
@@ -80,9 +80,9 @@ Start with actual documented REMS pressure/temperature samples and RAD feasibili
 Science discovery and both evidence panels are complete. Implement the **planned** pure `verifyImagePayload(index, activeImage, readBytes)` module under `src/app/offline/`, its tests and `docs/qa/IMAGE_PAYLOAD_VERIFIER.md`. Validate unknown v1 index/active manifest before reads; verify exact bytes, SHA-256 and manifest identity using an injected cache-only reader and the specified result/failures. No network fallback, storage writes, shared/root/model/source/Python/package/worker changes or readiness UI. W6 composes this with all other shell/science/install checks. [Prompt](docs/team/ENZO.md), [exact contract](docs/team/tasks/ENZO_IMAGE_PAYLOAD_VERIFIER.md).
 
 <a id="w4"></a>
-## W4 — Emma: release UI accessibility and size cleanup
+## W4 — Emma: release UI accessibility, professional design, and deployed verification
 
-**Phase 1 accepted:** `cdd2417` integrated in `be4ac2b`; 144 tests/build/offline browser checks pass. Coordinator router cleanup brings initial to 433.80 kB, with no size budget warnings. Next is Phase 2 design/header consumption of real PwaService plus three named shared SCSS-only theme fixes in EMMA.md. Environmental panel is still pending; device/outside-user passes remain unrun. The older Phase 1 specification below is completed scope.
+**Phases 1 & 2 accepted:** `cdd2417` (Phase 1) and `59e00e1` (Phase 2) integrated on `main`; **158 tests across 16 files, 11 PWA worker tests, and production build (441.64 kB, 0 style warnings)** pass. Truthful header readiness consuming real `PwaService` read-only, integration slots for coordinator PWA status and Enzo's environmental component, shell storage guards, planner/notebook reactive banners, WCAG 2.5.3 button fixes, and delegated SCSS theme repairs are merged. Next is Phase 3 deployed UI validation following coordinator Vercel deployment, and physical device/outside-user testing. Older Phase 1 and 2 specs below are completed scope.
 
 The complete shell and root integration are done. Improve tab/tabpanel ARIA relationships, keyboard navigation/focus and current initial/style warning sizes without raising budgets or deleting capabilities. Preserve notebook drafts, shared components, transfer and viewer teardown. Own shell/header/planner/notebook UI/tests/styles only; root/core/packages/worker remain coordinator-owned. Record actual before/after checks in `docs/qa/RELEASE_UI.md`. PwaService now supplies the real contract in CODING_AGENTS.md; coordinate movement of existing root controls rather than duplicating them. [Prompt](docs/team/EMMA.md), [exact spec](docs/team/tasks/EMMA_RELEASE_UI.md).
 
