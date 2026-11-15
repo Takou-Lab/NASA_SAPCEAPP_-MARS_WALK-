@@ -44,6 +44,7 @@ describe('App integration', () => {
     expect(mission.image()?.imageRef).toBe(manifest.imageRef);
     expect(mission.markers()).toHaveLength(3);
     expect(fixture.nativeElement.querySelector('app-shell')).toBeTruthy();
+    expect(fixture.nativeElement.querySelectorAll('app-pwa-panel')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-map')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-science-context')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
