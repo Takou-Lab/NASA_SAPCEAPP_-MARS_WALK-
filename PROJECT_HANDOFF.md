@@ -58,6 +58,10 @@ Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is li
 
 38cd2b3 adds only a presentation proposal-status note; source-overreach sentences in three explanations are unchanged from e161e41. Not merged; source mapping/text corrections remain open. Agent 1 2b2a708 remains accepted with no new push. See docs/reviews/ENZO.md; do not mark AI package complete based on the new commit title.
 
+## Enzo Agent 2 expanded package
+
+User requested substantial additional work. ENZO 2.md now assigns ordered commits for actual source-text corrections, science-target location dossier, mission/layer evidence matrix, candidate-specific demo/screenshots/judges answers and submission readiness drafts. Three new documentation files allowed; no runtime/core/calibration edits. Coordinator/user retain raster task, Agent 1 retains science code. Unsupported coordinates and official portal rules stay pending; no deployment/submission authorization. First source-correction handoff is the priority, not new optional AI expansion.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

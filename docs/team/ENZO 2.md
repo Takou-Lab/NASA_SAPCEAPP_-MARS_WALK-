@@ -1,5 +1,48 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## Active substantial package — mission evidence and submission readiness
+
+User explicitly requested a larger assignment. Complete these deliverables in order on existing feature/enzo-release-story, preserving unpublished work. This expands your source/story package, not runtime AI or another owner's map work. Coordinator/user are handling raster calibration; do not wait idle for it or invent its outcome.
+
+### A. Correct the actual science content
+
+Resolve 38cd2b3/e161e41 findings in the explanation text itself. For all three marker IDs, provide a sentence-to-source table with exact source URL, passage/section, observed/planned/derived/interpreted classification and what it does not establish. Preserve planned MAHLI/APXS versus completed imaging. Remove unsupported mineral-result/evaporation/co-location claims unless exact cited text supports them. Do not claim an exact acquisition date from a webpage update date. Tool/model may be unknown; human review stays pending until performed.
+
+Deliver in docs/qa/ENZO_2_RELEASE_STORY.md. This is the first reviewable commit; do not hold it until all presentation work is finished. No runtime science-explanations.json, public data edit, model/backend or secret key.
+
+### B. Build the science-location dossier
+
+Create docs/science/SCIENCE_TARGET_DOSSIER.md for the same three records. For each: scientific question, actual target/site, mission/instruments, observation time/sol evidence, supported finding, source passages, any published coordinate value with original reference frame/convention/precision and source, and geographic relationship to our active image.
+
+If coordinate/footprint evidence is absent, explicitly mark unlocated/regional and list the exact missing input. A matching place name or the fact that Curiosity visited Gale Crater is not pixel registration. Do not turn target names into coordinates via guesses, a generic geocoder or image appearance. Any coordinates are proposals for coordinator review, never ready-to-render pins. Keep rover science locations separate from the REMS Sol 3900 excerpt. No file changes under public/data or src/app.
+
+### C. Produce a mission-objective and layer-evidence matrix
+
+Create docs/science/MISSION_EVIDENCE_MATRIX.md. Start with the boxwork question and compare each implemented/proposed input: MRO optical raster, Curiosity chemical/geological context, limited REMS pressure/temperature excerpt, proposed DTM and unimplemented orbital thermal candidates. Include mission/instrument, physical quantity/unit versus interpretation, spatial/temporal footprint, raw/derived status, processing/source evidence, actual runtime availability and the planning decision it can support.
+
+Explicitly identify which are aligned map layers, regional context, user-generated route/notes, or unverified future candidates; do not imply they are equivalent. Explain why pressure is not terrain, optical brightness is not elevation, a quoted chemical finding is not a quantitative raster, and multiple quantities from one instrument do not equal multiple missions. Use official supplied Details wording: multiple-mission integration central, three data kinds suggested, historical observations allowed, AI/VR optional. Unfetched external data stays unverified.
+
+### D. Finish the release story and demonstration assets
+
+Update your existing PRESENTATION.md, DEMO_SCRIPT.md, JUDGES_QA.md, SCIENCE.md, REFERENCES.md and AI_USE.md around one end-to-end mission, preserving original authorship. Describe current visual planning honestly and give a separate conditional section for calibrated distance only if coordinator actually delivers/accepts it. No claim that terrain/safety/navigation is operationally validated.
+
+Prepare a polished two-minute rehearsal and 45-second fallback with pre-demo preparation, actual button names, source/image/pack revision, a unique test note, successful save/export, full disconnected restart, explicit Load Route and second export. Capture actual screenshots from current public candidate only, under docs/demo/ with a caption manifest recording URL/source/date/browser/viewport and actual state. Do not label screenshots as new calibrated features before they exist. If you cannot run a browser, deliver the capture checklist and mark captures blocked; do not fabricate images or timings. Match public source to docs/qa/PUBLIC_SCIENCE_PREVIEW.md, not latest Git main.
+
+Judges' answers must cover use case, scientific contribution, multiple NASA missions, spatial limitations, data quality, offline recovery, unresolved device issue, AI assistance, and exactly what remains future work. No unsupported competitor claims, invented validation users, sponsor relationships or customers.
+
+### E. Prepare submission readiness without inventing rules
+
+Create docs/submission/SUBMISSION_READINESS.md. List project title, short and longer truthful summary drafts, source/code/public candidate links, NASA/data/software/AI credits, team-name/person fields pending owner confirmation, presentation/demo paths, official challenge URL and a checklist of portal inputs still unverified. Draft a clear distinction between implemented capability and future work. The user reports 10 pm; timezone and official portal deadline still need confirmation.
+
+Resources-tab/rules text is not yet supplied: no invented video length, required executable format, required number of slides, upload limit or judging rubric. Do not register accounts, send messages, submit forms or publish/deploy. Preserve actual usability protocol; include only real observations supplied by coordinator/Royce.
+
+### Delivery order and ownership
+
+First commit A/source corrections, second B/C dossiers, third D/E release package. Push reviewable increments; send branch/SHA/files/actual checks/blockers at each handoff. Prioritize a source-correct first handoff within one focused hour and the remaining bounded package within the next two hours, adjusting to coordinator's release freeze. These are internal effort limits, not official deadlines. If interrupted by a critical submission need, deliver current state and prioritize that over optional AI.
+
+You additionally own ONLY the three new dossier/submission files above and captioned screenshots under docs/demo, plus your previously assigned documentation. Agent 1 owns science component TS/HTML/tests; Emma 2 owns mission-briefing component; coordinator owns calibration/root/core/contracts and deployment. Separate checkout/branch; no duplicate map processing or invented future API. Validate citations/relative links/JSON examples and consistency with actual runtime; no application tests for docs-only edits. Conclude with a concrete “ready for review” handoff, not merely another status note.
+
+
 ## Latest push 38cd2b3 — incomplete correction handoff
 
 Coordinator checked your new push: only the presentation status note changed; the three explanation texts did not. [Exact remaining corrections](../reviews/ENZO.md#agent-2-38cd2b3--status-note-only-source-corrections-still-open). Edit the explanation sentences themselves and supply sentence-to-source passages, not another proposal banner. Stay within your existing branch/files and the mission-map priority; no runtime AI/public JSON. Agent 1 navigation is already accepted. Send the correcting commit when ready for source review.
