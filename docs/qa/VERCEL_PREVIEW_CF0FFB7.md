@@ -11,7 +11,7 @@ Deployed and verified 15 November 2026 UTC at explicit user request. **Productio
 
 ## Access and artifact checks
 
-Preview is protected by existing Vercel authentication; an anonymous request returns HTTP 401. Team members need Vercel access. Coordinator checks used the existing automation bypass, kept out of Git/chat/URLs. These are authenticated preview checks, not anonymous public acceptance. No project-wide protection policy changed.
+Preview is protected by existing Vercel authentication; an anonymous request returns HTTP 302 to the authentication flow. Team members need Vercel access. Coordinator checks used the existing automation bypass, kept out of Git/chat/URLs. These are authenticated preview checks, not anonymous public acceptance. No project-wide protection policy changed.
 
 All 18 artifact byte sizes/SHA-256 match the local build; manifest/icon/worker paths resolve, apple-touch-icon is present, and missing archive/data/worker requests return 404. Vercel injects preview feedback-toolbar JavaScript into navigated HTML. The artifact-byte audit explicitly used `x-vercel-skip-toolbar: 1` to suppress that injection while comparing original build bytes; this header is not an end-user requirement. Ordinary preview browser full-pack preparation still passes. Do not describe transformed navigated HTML as byte-identical without that qualification.
 
