@@ -180,3 +180,11 @@ h3 {
 .limitations-list li {
   margin-bottom: 0.35rem;
 }
+
+/* One card per panel: inner sections are separated by a rule, not nested boxes. */
+.passport-card {
+  background: transparent;
+  border-width: 1px 0 0;
+  border-radius: 0;
+  padding: var(--space-3) 0 0;
+}

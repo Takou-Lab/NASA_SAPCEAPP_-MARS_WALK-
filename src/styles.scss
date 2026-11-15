@@ -223,6 +223,28 @@ a:focus-visible {
   color: var(--text-primary);
 }
 
+/* Mission-control accents shared across panels (one rule, no per-component budget cost). */
+app-mission-review .review-heading::before,
+app-exploration-confidence h2::before,
+app-image-passport h2::before,
+app-science-context h2::before,
+.transfer-panel h2::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  margin-right: var(--space-2);
+  border-radius: 2px;
+  background: var(--mars-accent);
+  vertical-align: -0.08em;
+}
+
+/* Status pills read as compact telemetry. */
+app-header .mission-meta {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+}
+
 /* Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;

@@ -170,3 +170,12 @@ h3 {
   outline: 3px solid var(--border-focus);
   outline-offset: 2px;
 }
+
+/* One card per panel: inner sections are separated by a rule, not nested boxes. */
+.confidence-card,
+.warnings-block {
+  background: transparent;
+  border-width: 1px 0 0;
+  border-radius: 0;
+  padding: var(--space-3) 0 0;
+}

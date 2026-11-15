@@ -18,7 +18,7 @@
 }
 .science-context {
   gap: 1rem;
-  padding: 1.25rem;
+  padding: var(--space-4);
   border-radius: var(--radius-lg);
   background: var(--bg-card);
 }
