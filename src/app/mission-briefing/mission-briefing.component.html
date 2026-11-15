@@ -1,0 +1,191 @@
+<section class="mission-briefing" aria-labelledby="mission-briefing-title">
+  <header class="briefing-header">
+    <p class="briefing-kicker">Mission Briefing · Educational Exploration Rehearsal</p>
+    <h2 id="mission-briefing-title" class="briefing-title">{{ title }}</h2>
+  </header>
+
+  @if (dataStatus() === 'loading') {
+    <p class="briefing-state" role="status">
+      Loading mission imagery metadata and contextual science records…
+    </p>
+  } @else if (dataStatus() === 'error') {
+    <p class="briefing-state briefing-state--error" role="alert">
+      Mission evidence unavailable: {{ dataError() || 'Metadata could not be loaded.' }}
+    </p>
+  } @else if (dataStatus() === 'unavailable') {
+    <p class="briefing-state" role="status">
+      Mission evidence is currently unavailable. No verified image manifest is loaded.
+    </p>
+  }
+
+  <details class="briefing-disclosure" open>
+    <summary class="briefing-summary">Science Purpose, Evidence &amp; Spatial Boundaries</summary>
+    <div class="briefing-body">
+      <div class="briefing-section">
+        <h3>Purpose</h3>
+        <p>
+          Examine contextual NASA evidence for the Mount Sharp boxwork interpretation—where ancient
+          groundwater is interpreted to have deposited minerals in bedrock fractures before softer
+          surrounding rock eroded—and document a proposed exploration route and field observation.
+          This is an educational exploration rehearsal, not operational astronaut navigation or
+          confirmation of a new discovery.
+        </p>
+      </div>
+
+      <div class="briefing-section">
+        <h3>Active Orbital &amp; Rover Evidence</h3>
+        @if (imageInfo(); as img) {
+          <p class="evidence-item">
+            <strong>Orbital base frame (MRO / HiRISE):</strong>
+            @if (img.safeUrl) {
+              <a [href]="img.safeUrl" target="_blank" rel="noopener noreferrer">{{ img.title }}</a>
+            } @else {
+              <span>{{ img.title }}</span>
+            }
+            <span class="evidence-credit">({{ img.credit }}; ref: <code>{{ img.imageRef }}</code>)</span>
+          </p>
+        } @else {
+          <p class="evidence-empty">
+            No active MRO/HiRISE image source is loaded in this session.
+          </p>
+        }
+
+        @if (records().length > 0) {
+          <p class="evidence-subhead">
+            <strong>Contextual Curiosity / MSL science records ({{ records().length }}):</strong>
+          </p>
+          <ul class="record-list">
+            @for (rec of records(); track rec.id) {
+              <li class="record-item">
+                <span class="record-name">{{ rec.name }}</span>
+                <span class="record-id">(<code>{{ rec.id }}</code>)</span>
+                <span class="record-meta">
+                  · {{ rec.evidenceType }} · position: {{ rec.positionStatus }}
+                </span>
+                @if (rec.safeSourceUrl) {
+                  ·
+                  <a [href]="rec.safeSourceUrl" target="_blank" rel="noopener noreferrer">
+                    {{ rec.sourceTitle }}
+                  </a>
+                } @else {
+                  · <span>{{ rec.sourceTitle }}</span>
+                }
+                <span class="record-credit">({{ rec.sourceCredit }})</span>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="evidence-empty">No contextual science records are currently loaded.</p>
+        }
+      </div>
+
+      <div class="briefing-section briefing-limits">
+        <h3>Scientific &amp; Spatial Limits</h3>
+        <ul>
+          <li>
+            <strong>Unlocated regional records:</strong> Science records have no verified pixel
+            positions on this image frame (<code>positionStatus: unavailable</code>); exact spatial
+            overlap is unverified. Do not assume Vera Rubin Ridge or Glen Torridon lies within this
+            specific HiRISE frame.
+          </li>
+          <li>
+            <strong>Unavailable measurements:</strong> No verified metric scale, digital elevation
+            model (DEM), slope, obstacle clearance, current route weather, or route safety rating is
+            supplied.
+          </li>
+          <li>
+            <strong>Interpretation boundaries:</strong> Source findings do not establish groundwater
+            presence today, unverified mineral weight percentages, or completion of rover
+            measurements that source blogs describe as planned.
+          </li>
+        </ul>
+      </div>
+
+      <div class="briefing-section">
+        <h3>Rehearsal Workflow</h3>
+        <ol class="workflow-steps">
+          <li>
+            In <strong>Route Planner</strong>, place a <strong>Start</strong> point, optional
+            <strong>Waypoints</strong>, and a <strong>Destination</strong> on the image.
+          </li>
+          <li>
+            Open <strong>Confidence &amp; Data</strong> to inspect a contextual science record and
+            review its primary NASA source and limitations.
+          </li>
+          <li>
+            Open <strong>Notebook</strong> to record an exploration observation distinguishing visual
+            features from regional context.
+          </li>
+          <li>
+            Use <strong>Save Route</strong> in Route Planner, prepare offline caching via the
+            existing PWA controls when needed, reopen and explicitly click
+            <strong>Load Route</strong> to recover saved work, or use
+            <strong>Mission Transfer</strong> to export versioned JSON.
+          </li>
+        </ol>
+      </div>
+    </div>
+  </details>
+
+  <details class="briefing-disclosure" open>
+    <summary class="briefing-summary">Structural Session Checklist (Read-Only)</summary>
+    <div class="briefing-body">
+      <ul class="checklist" aria-label="Structural mission inputs">
+        <li class="checklist-item">
+          <span class="checklist-status" aria-hidden="true">
+            {{ checklist().startAndDestination ? '[Present]' : '[Missing]' }}
+          </span>
+          <div class="checklist-copy">
+            <strong>Start and destination selected:</strong>
+            <span>
+              {{
+                checklist().startAndDestination
+                  ? 'Start and destination points are set on the route.'
+                  : 'Select both a start point and a destination point in Route Planner.'
+              }}
+            </span>
+          </div>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-status" aria-hidden="true">
+            {{ checklist().markerSelected ? '[Present]' : '[Missing]' }}
+          </span>
+          <div class="checklist-copy">
+            <strong>Contextual science record selected:</strong>
+            @if (selectedRecord(); as sel) {
+              <span>
+                Selected <em>{{ sel.name }}</em> (<code>{{ sel.id }}</code>). Proves record
+                selection only, not that the target lies on this image or was visited.
+              </span>
+            } @else {
+              <span>
+                No record selected. Choose a record in Confidence &amp; Data to inspect its source.
+              </span>
+            }
+          </div>
+        </li>
+        <li class="checklist-item">
+          <span class="checklist-status" aria-hidden="true">
+            {{ checklist().observationPresent ? '[Present]' : '[Missing]' }}
+          </span>
+          <div class="checklist-copy">
+            <strong>Observation present:</strong>
+            <span>
+              {{
+                checklist().observationPresent
+                  ? observationCount() +
+                    ' observation(s) present in session state (may include preexisting or imported notes; does not verify scientific accuracy).'
+                  : 'No observations recorded yet. Add a note in the Notebook tab.'
+              }}
+            </span>
+          </div>
+        </li>
+      </ul>
+      <p class="checklist-disclaimer">
+        Note: These three checks reflect current in-memory structural state only. They do not
+        confirm that a mission has been saved, exported, recovered via Load Route, installed for
+        offline use, or evaluated as safe.
+      </p>
+    </div>
+  </details>
+</section>
