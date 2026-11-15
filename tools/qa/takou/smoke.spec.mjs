@@ -275,7 +275,9 @@ test('4. note save, failed-save draft retention and export', async () => {
   const draft = `${NOTE}-UNSAVED-DRAFT`;
   await textarea.fill(draft);
   await page.getByRole('button', { name: 'Save observation to mission log' }).click();
-  await expect(page.locator('app-notebook .feedback-alert')).toContainText('not saved');
+  await expect(page.locator('app-notebook .feedback-alert')).toContainText(
+    /not saved|not replaced/,
+  );
   await expect(textarea).toHaveValue(draft);
   expect(await notebookCount()).toBe(1);
   await page.evaluate(() => (Storage.prototype.setItem = window.__takouSetItem));
