@@ -33,3 +33,8 @@ Installation, complete shell/data preparation, update handling, disconnected ins
 The complete ordered remaining-work plan for each person, including deployment and final handoff, is now in their single named [personal MD file](docs/team/). See the [owner matrix and release gates](TEAM_TASKS.md#one-complete-remaining-work-file-per-person). These plans do not represent completed numerical-data, AI, immersive-VR or PWA implementation, and no deployment was executed by this documentation update.
 
 Remaining-work ownership was swapped at the user’s request on 15 November: [Enzo](docs/team/ENZO.md) takes verifier/environment/science/AI/presentation; [Emma](docs/team/EMMA.md) takes professional shell/UI/accessibility and deployed UI checks. Accepted contribution table above remains historical and unchanged.
+
+
+## Coordinator PWA implementation — `8a4dadc`
+
+Subsequent production foundation passes **136 Angular tests, 11 worker tests, 28 data tests, root/subpath builds and real browser process-restart offline/update checks**. Manifest/icons, generated complete runtime pack, lifecycle API and guarded updates are implemented without new dependencies or source data changes. Initial warning size is now 595.20 kB; existing style/CommonJS warnings remain. Previous branch review counts above retain their historical revision. [Actual evidence](docs/qa/PWA_FOUNDATION.md), [hosting runbook](docs/DEPLOYMENT.md). Actual public hosting, physical launcher installation, numerical data/AI/VR and outside-user outcomes are not established by this implementation.

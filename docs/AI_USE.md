@@ -21,3 +21,8 @@
 ## Coordinator implementation and documentation assistance
 
 AI assistance also supported the Angular integration, guarded mission transfer, science mounting, Longla viewer corrections and recorded automated/browser reviews. Exact source revisions and check scopes are in `docs/qa/` and `docs/reviews/`; counts are not aggregated across branches. The current work-plan alignment updates stale assignments and readiness language without changing source records or claiming a fresh independent scientific-source audit. Physical-device, installed-offline and outside-user outcomes remain pending where recorded.
+
+
+## Coordinator PWA foundation
+
+Codex assisted implementation/review of the production worker, build-pack generation, lifecycle UI/service, tests, original geometric install artwork and documentation in `8a4dadc`. The icon is original app artwork, not NASA branding. Real automated/browser outcomes and limitations are recorded in [PWA_FOUNDATION.md](qa/PWA_FOUNDATION.md). These development uses are not a runtime AI feature, independent scientific verification or physical-device acceptance.

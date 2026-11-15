@@ -6,6 +6,12 @@ Updated **15 November 2026**. This is your **single remaining-work checklist thr
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
+## Coordinator PWA delivery — current handoff
+
+**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.
+
+Phase 1 starter assets/discovery are already supplied by coordinator. Review/refine them using PWA_INSTALL_ASSETS.md, preserve your local progress, then continue map-release/deployed-device checks. Do not recreate the same manifest/icons from scratch.
+
 ## Already complete — preserve
 
 Map `094fce2`, navigation `21cf6f0` and explicit retry `02134f1` are accepted and integrated. Keep one map, bottom-left image pixels, decode/readiness guards, route/notes/layers/view preservation and reset/focus behavior. No repeated root mount or map rewrite.

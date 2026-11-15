@@ -85,7 +85,7 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 | --- | --- | --- |
 | Essential | Gaddielle | Preserve package/index and closed R3; document exact runtime data/built-copy/cache guidance |
 | Essential | Enzo (ENZO.md) | Preserve accepted contributions; implement planned image-payload verifier, environmental/science presentation and AI/presentation/usability follow-ups |
-| Essential | Willy | Preserve map/navigation/retry; deliver verified manifest and install icons |
+| Essential | Willy | Preserve map/navigation/retry; review/refine supplied manifest/icons and verify deployed-device behavior |
 | Essential | Emma (EMMA.md) | Preserve integrated shell/planner/notebook; improve professional design, accessibility and warning sizes; verify deployed UI |
 | Essential | Coordinator (YOU.md) | Shared state, reviewed integration, installation, complete verified offline pack/update lifecycle and end-to-end release checks |
 | Essential | Longla | Clarify submitted device report; real-device and later installed-offline QA |
@@ -123,7 +123,7 @@ Suggested pitch:
 
 Application code **`b744b0b`** includes all eight published feature tips: map/navigation/retry, science discovery/confidence/passport, shell/route/notebook, shared persistence/assessment/guarded transfer and optional lazy viewer. **131 Angular tests, 28 data tests, build and production-browser mission checks pass**. Initial/style build warnings remain below error budgets. [Evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md), [verdicts](REVIEW.md), [next pieces](TEAM_TASKS.md).
 
-Complete installation/cache/update lifecycle, physical-device confirmation, disconnected installed reopening and actual outside-user outcomes remain pending. Longla's contributor-reported hardware record needs clarification of source/messages/browser/FPS; it is not an independently verified hardware pass. Preserve Gale data and uncertainty boundaries. Build/browser success does not establish the complete installed offline mission.
+Subsequent coordinator code `8a4dadc` implements install assets, verified complete caching/preparation and guarded updates, with browser offline process-restart passing. [PWA evidence](docs/qa/PWA_FOUNDATION.md). Public hosting, physical home-screen/standalone confirmation, installed target-device reopening and outside-user outcomes remain pending. Longla's contributor-reported hardware record needs clarification of source/messages/browser/FPS; it is not an independently verified hardware pass. Preserve Gale data and uncertainty boundaries. Build/browser success does not establish the complete installed offline mission.
 
 
 ## Remaining work through deployment

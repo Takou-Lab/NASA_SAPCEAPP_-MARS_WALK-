@@ -12,19 +12,25 @@ Longla's latest [submitted device record](submissions/LONGLA_23d5180.md) is pres
 
 ## Current evidence and prerequisites
 
-| Scenario | Expected behavior | Environment / revision | Actual result and evidence |
-| --- | --- | --- | --- |
-| Initial 2D mission and science | Real image, three selectable unlocated records, truthful missing scale/terrain | Chromium 156.0.8078.79 Linux, integrated `b744b0b`; emulated tablet/narrow viewport | **Passed in browser**; viewer/science records above. Physical tablet remains pending |
-| Portable mission | Version-matching route/note import and export; failures preserve work | Automated service/root tests and isolated Chromium profiles | **Passed in automated/browser checks**; transfer/viewer records. Not an installed-device pass |
-| Optional viewer | Explicit loading, stable camera, cleanup and readable failure; 2D retained | Software-WebGL Chromium, integrated `b744b0b` | **Passed in browser**, VIEWER3D_REVIEW.md. Physical graphics hardware remains pending |
-| Target-device online rehearsal | Open actual revision, inspect source/unknowns, select records, import/export a mission, open/close optional viewer if supported | Actual demonstration device; model/OS/browser/build/URL must be recorded | **Contributor-reported, pending reconciliation** — see preserved submission and clarification above; physical tablet remains pending |
-| Complete route/notebook UI | Draw/edit route and create/save/recover a note through the normal UI; failed saves retain draft | Integrated Enzo shell/planner/notebook revision | **Passed in production browser** on `b744b0b`: actual route drawing/save/clear/undo, notebook draft retention on tabs/failed save, successful save/export and guarded transfer. Physical-device acceptance remains pending |
-| Install / standalone launch | Install from supported browser and launch from icon | HTTPS/localhost, coordinator's real PWA manifest/icons/worker | **Blocked** — install/worker lifecycle is not implemented in this baseline |
-| Prepare complete offline pack | Verify required shell and data, show real complete/failure states | Coordinator's cache/readiness implementation | **Blocked** — image-only inventory does not implement complete app caching |
-| Disconnected close/reopen | Prepare online, install, disconnect, close, reopen; image/science, route, saved note and export work | Target installed PWA with complete preparation | **Blocked** — PWA prerequisites above absent; browser viewport tests cannot establish this |
-| Interrupted preparation / insufficient storage | Truthful failure/readiness and retained mission/draft | Real preparation API plus safe isolated test data | **Blocked** for preparation. Existing storage-failure unit/browser checks cover mission operations only |
-| Update handling | Explain available update; preserve/export unsaved work before replacing running version | Two served app versions and coordinator update lifecycle | **Blocked** — update lifecycle missing; do not infer support from reload/build success |
-| Three outside-user tasks | Observe route drawing, explanation of unknown distance/slope, note recovery | Coordinator-arranged sessions using Emma's protocol | **Pending** — no participants contacted or outcomes recorded by this correction |
+**PWA update:** code `8a4dadc`, tested in production Chromium 156.0.8078.79 Linux, includes real preparation/worker/update support. [Detailed current results](PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md). Earlier `b744b0b` counts above remain historical. New checks: **136 Angular, 11 worker, 28 data tests** and root/subpath builds pass.
+
+| Scenario | Actual result / remaining acceptance |
+| --- | --- |
+| Real image/science/route/notebook/transfer | **Passed production browser**; 3 records, drawn/saved route, saved note, recovery/export, previous guarded transfer regressions retained |
+| Full runtime pack preparation | **Passed production browser**, 17 required assets/1,789,610 bytes, downloaded/hashed/stored/read-back checked before complete marker |
+| Browser disconnected close/reopen | **Passed after complete browser-process restart** with persistent profile set disconnected before navigation; image/science, explicit route/note recovery/export and deferred 3D work |
+| Install manifest/browser eligibility | Root/subpath manifest/icons and Chromium non-incognito diagnostics **pass with no errors**; not a launcher installation claim |
+| Actual physical install/standalone launcher | **Pending** target device/browser and actual HTTPS host; code prerequisite now supplied |
+| Physical installed disconnected close/reopen | **Pending** actual home-screen installation/device test; browser reopening alone does not establish it |
+| Truncated download / missing cached essential | **Passed production browser**: failed preparation never marks partial ready; missing cache revokes ready and explicit repair retains mission |
+| Storage quota / readback / interrupted network | **Passed worker harness tests** with real crypto; physical disk-pressure behavior remains pending |
+| Update cancellation / multiple windows / explicit apply | **Passed two-artifact production browser checks**: cancellation retains exact unsaved draft, extra app window blocks activation, saved work recovers after accepted prepared reload |
+| Failed update / natural activation after all clients close | **Passed production browser**: failed installation retains old prepared worker; valid waiting update already has complete pack, browser restart disconnected loads it |
+| `/marswalk/` subpath and narrow layout | **Passed actual subpath production build/browser**, correct scope/relative paths, 390px no horizontal overflow and offline page reopening |
+| Prior Longla device report | **Contributor-reported, pending reconciliation** as above; no newly invented hardware/FPS pass |
+| Outside-user sessions | **Pending/unrun**; coordinator arranges using Emma's existing protocol, Enzo consolidates, Longla observes |
+
+No public deployment, competition submission, numerical environment dataset, runtime AI, immersive VR or physical-device acceptance occurred in this PWA implementation.
 
 ## Longla's next actual-device record
 
@@ -40,4 +46,4 @@ Reconcile the preserved report, then record observations from the integrated tar
 
 Export any needed mission before storage/failure experiments; use an isolated profile and temporary test data. Report defects to the coordinator rather than changing another contributor's core/map/science/UI/worker files. Do not contact outside users through messaging tools without authorization.
 
-When the coordinator supplies the integrated PWA, execute installation/preparation/disconnection/reopening on the actual device and replace blocked states with dated, observed outcomes. Keep connectivity, validated metadata, successful image display, persistent notes and verified cache readiness distinct.
+The integrated PWA is now supplied; execute installation/preparation/disconnection/reopening on the actual device and replace blocked states with dated, observed outcomes. Keep connectivity, validated metadata, successful image display, persistent notes and verified cache readiness distinct.

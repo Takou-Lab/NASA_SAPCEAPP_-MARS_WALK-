@@ -21,7 +21,7 @@
 Before conducting any session, confirm on the demonstration device that the following prerequisites are met. The online interface is integrated; current full-session readiness is **blocked by complete installed offline PWA acceptance**. The session log remains unrun:
 1. Gaddielle's `public/data/manifest.json` + prepared image (`hirise-mro-pia26306-boxwork-2048x1042-v1`) and Emma's `public/data/markers.json` are integrated.
 2. The accepted map/science/evidence UI and final shell/planner/notebook are integrated in `b744b0b`. Enzo now owns remaining science/environment/evidence work; Emma owns remaining shell/planner/notebook design/accessibility. W3 is the new pure byte verifier, not an unimplemented panel assignment. Test the actual served revision.
-3. Coordinator's PWA manifest, service-worker caching, and production offline reopening pass independent QA checks.
+3. Coordinator PWA foundation `8a4dadc` passes production-browser preparation/offline restart/update checks. Verify actual physical installation/standalone reopening on the demonstration device before these sessions; that acceptance is still pending.
 
 ## 3. Standardized Three-Task Protocol
 

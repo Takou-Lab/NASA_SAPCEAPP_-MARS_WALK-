@@ -12,7 +12,7 @@ Read [REVIEW.md](../../REVIEW.md), [TEAM_TASKS.md](../../TEAM_TASKS.md) and the 
 
 **Remaining-work swap:** Enzo owns W3 verifier/science/environment/AI/presentation; Emma owns W4 shell/planner/notebook design/accessibility/deployment UI. Accepted authorship/history stays unchanged. Preserve and hand off any previous-task local progress before overlapping edits.
 
-One shell-owned Leaflet image map, science discovery, confidence/passport, planner, draft-preserving notebook and guarded transfer are integrated. The optional flat viewer is lazy and destroyed on leaving its tab. R3 encoded/whitespace path validation is closed. Longla's submitted hardware report needs clarification; installation/full caching/update/disconnected reopening are still pending.
+One shell-owned Leaflet image map, science discovery, confidence/passport, planner, draft-preserving notebook and guarded transfer are integrated. The optional flat viewer is lazy and destroyed on leaving its tab. R3 encoded/whitespace path validation is closed. Longla's submitted hardware report needs clarification; the PWA foundation now passes browser offline preparation/restart/update checks; physical launcher installation and public-host acceptance remain pending.
 
 Use Angular standalone, strict TypeScript, plain SCSS/CSS and the existing MissionService. Leaflet uses `CRS.Simple` with bottom-left image pixels. Three.js stays exclusive to the optional viewer. No competing store, scaffold, backend or UI framework. Keep source imageRef, unavailable scale/terrain/positions and existing validation/persistence guards.
 
@@ -44,11 +44,28 @@ Consult [the release sequence](../../TEAM_TASKS.md#one-complete-remaining-work-f
 
 Willy's map/navigation/retry (`21cf6f0`, `02134f1`) and Emma's science/research/protocol/presentation/evidence workspace (`947ff1a`, `4efcb5a`, `3b7b1c1`) are complete. Enzo `16a2e66` is reconciled with main. Root initializes once; shell uses one each of `app-science-context`, `app-exploration-confidence` and `app-image-passport`. Do not duplicate these or reopen old root conflicts. Longla's corrected viewer is already merged.
 
-W3's pure module is **planned, not yet implemented**: follow [ENZO_IMAGE_PAYLOAD_VERIFIER.md](tasks/ENZO_IMAGE_PAYLOAD_VERIFIER.md). It uses ImageManifest/runtime validation and an injected read-only cache reader, with an image-only result. No caller may assume it exists yet. W6 owns the remaining shell/science/cache/install checks and lifecycle API. MissionService currently has no install/cache/preparation/update API; Emma must not invent signals or simulated readiness/progress.
+W3's pure module is **planned, not yet implemented**: follow [ENZO_IMAGE_PAYLOAD_VERIFIER.md](tasks/ENZO_IMAGE_PAYLOAD_VERIFIER.md). It uses ImageManifest/runtime validation and an injected read-only cache reader, with an image-only result. No caller may assume it exists yet. W6 owns the remaining shell/science/cache/install checks and lifecycle API. MissionService has no install/cache/preparation/update API; use the separately implemented PwaService contract below. Do not invent signals or simulated readiness/progress.
 
-The existing [image index](../data/IMAGE_PACK_INDEX.md) inventories manifest + prepared image only: **524,472 bytes**, excluding the index itself, science and built shell. It is not full PWA readiness. Its R3 closure and real `--check` pass are recorded with 28 data tests; source image/manifest/index bytes remain unchanged. W2 supplies factual release paths/hashes and include/exclude guidance, W1 supplies install assets, and W6 integrates after review.
+The existing [image index](../data/IMAGE_PACK_INDEX.md) inventories manifest + prepared image only: **524,472 bytes**, excluding the index itself, science and built shell. It is not full PWA readiness. Its R3 closure and real `--check` pass are recorded with 28 data tests; source image/manifest/index bytes remain unchanged. W2 supplies factual release paths/hashes and include/exclude guidance, W1 now reviews coordinator-provided install assets; W6 has implemented the generated full-build worker contract. Future teammate deliveries still require review.
 
 Next release gate: the complete prepared installed mission reopens disconnected on a real device, retaining route/observations and supporting essential image/science/export operations. Outside-user sessions use Emma's existing protocol after prerequisites; Enzo now maintains outcomes and presentation. No measured terrain, route-safety score, invented science pins or immersive VR is supplied.
+
+## Implemented PWA lifecycle — available now
+
+Coordinator implementation **`8a4dadc`** adds `src/app/core/pwa.service.ts` and root-owned `PwaPanelComponent`. MissionService remains unchanged. Import `PwaService` from core; consume signals read-only and use its actions, never set them from presentation:
+
+```ts
+type OfflineState = 'checking' | 'unsupported' | 'not-prepared' | 'preparing' | 'ready' | 'error';
+// Signals: state(), online(), message(), progress() -> {completed,total}|null,
+// version() -> string|null, totalBytes() -> number|null,
+// updateAvailable(), canInstall().
+// Async actions: initialize(), check(), prepare(), checkForUpdate(),
+// applyUpdate(), install(); all return Promise<void>.
+```
+
+Initialization is idempotent; the root panel already calls it. It registers only in production on HTTPS/localhost. Connection is a separate hint, not readiness. `check()` verifies cache-only bytes, `prepare()` downloads/verifies the complete generated pack. Failure revokes ready; mission/drafts stay untouched. Actual install prompting is browser-dependent. Updates are fully prepared during installation before waiting; explicit apply asks to save/export and refuses multiple open app windows. No automatic reload while tabs remain open; normal activation after all close is safe because the pack already exists.
+
+Emma may present these existing states in owned UI after coordinating removal/movement of the existing root panel to avoid duplicate controls; no root/worker rewrite. Enzo's pure `verifyImagePayload` remains planned and is not consumed yet: the worker already verifies the generated full-build byte contract, while his assigned API adds the separately specified browser image/manifest identity checks. Do not duplicate a worker or assume that future module exists. Future data/AI/VR assets need deliberate pack inclusion. [Architecture/evidence](../qa/PWA_FOUNDATION.md), [deployment](../DEPLOYMENT.md).
 
 ## Version 1 models
 

@@ -1,5 +1,8 @@
 # Willy — PWA manifest and install icons
 
+> Coordinator supplied starter assets and root wiring in `8a4dadc`. Willy now reviews/refines them and verifies actual launcher/host/device behavior. Preserve any unpublished local progress; do not regenerate duplicate assets. [Actual handoff](../../qa/PWA_INSTALL_ASSETS.md). The original specification below remains the asset contract.
+
+
 Current piece **W1**, delegated from coordinator preparation after accepted image retry `02134f1`. Preserve map/navigation/retry; do not repeat them. This task supplies install assets. It does not implement or establish full offline readiness.
 
 ## Branch and exact deliverables

@@ -14,7 +14,7 @@ Original author: Emma (he/him). Enzo now maintains remaining presentation work a
 | 4 — Show the current app | One image map, navigation/retry, science filters and confidence/passport | Integrated main `b744b0b`; [final checks](qa/FINAL_BRANCH_INTEGRATION.md). Capture the actually served revision |
 | 5 — Complete the online mission | Draw/save/recover route, create/save note, guarded mission import/export; failed saves retain drafts | Enzo shell and Emma panels integrated; 131 Angular tests, 28 data tests/build/browser pass; build size warnings remain |
 | 6 — Optional 3D and device evidence | Integrated opt-in lazy flat viewer; no measured terrain/VR; resources released on exit | Browser checks pass; Longla's hardware report needs exact build/message/browser/FPS clarification |
-| 7 — Offline goal and next proof | Install, verify complete assets, disconnect, reopen, recover route/note and export | W6 implements lifecycle; W5 runs actual device acceptance. Outside-user sessions remain unrun; [acceptance](qa/PWA_ACCEPTANCE.md), [usability](USABILITY.md) |
+| 7 — Offline goal and next proof | Install, verify complete assets, disconnect, reopen, recover route/note and export | W6 lifecycle is implemented with verified browser offline restart/update checks; W5 now runs actual device/launcher acceptance. Outside-user sessions remain unrun; [acceptance](qa/PWA_ACCEPTANCE.md), [usability](USABILITY.md) |
 
 ## Speaker guidance
 

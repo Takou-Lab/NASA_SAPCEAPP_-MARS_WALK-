@@ -8,6 +8,12 @@ All unchecked items below are **planned**, not claims of implementation. Keep co
 
 Royce is the original-plan name for the role documented as Longla.
 
+## Coordinator PWA delivery — current handoff
+
+**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.
+
+The former implementation blocker for installed/offline/update testing is removed. Reconcile your prior report, then run the actual target-device/home-screen and HTTPS host sequence; record unrun hardware checks as pending rather than blocked by absent worker code.
+
 ## Already complete — preserve
 
 Corrected optional flat viewer is integrated through branch tip `23d5180`. It is lazy/opt-in, frames the raster in narrow panels and destroys resources on leaving the tab. No measured terrain or immersive VR is currently implemented. Do not repeat viewer corrections or root/package reconciliation.
@@ -34,7 +40,7 @@ Only after Phase 1 handoff and a protected working release candidate. Use propos
 ## Phase 3 — Preview and production acceptance
 
 - [ ] Coordinator supplies exact HTTPS preview/build. Verify clean-profile first load, case/base paths, actual installed launcher/standalone behavior on supported device and meaningful unsupported guidance.
-- [ ] After real preparation implementation: prepare online, verify full pack, install, disconnect, close, reopen from icon; inspect imagery and local science/environment, draw route, save/recover note and export. Record every step and actual build/device. Do not mark ready from registration/image-only checks.
+- [ ] With the delivered preparation implementation: prepare online, verify full pack, install, disconnect, close, reopen from icon; inspect imagery and local science/environment, draw route, save/recover note and export. Record every step and actual build/device. Do not mark ready from registration/image-only checks.
 - [ ] Exercise safe interrupted preparation, missing/stale asset, insufficient storage and new-version/update scenarios with coordinator using isolated data. Verify draft/mission and last usable version remain protected; record blocked prerequisites honestly.
 - [ ] Test optional 3D/VR according to explicit cache policy: if excluded from essentials, its unavailability must be clear/local and must not break offline 2D. Do not claim all optional models/assets are cached unless checked.
 - [ ] Verify production release URL again after promotion; report only actual regressions for urgent fixes. Preserve local data and exact release evidence.

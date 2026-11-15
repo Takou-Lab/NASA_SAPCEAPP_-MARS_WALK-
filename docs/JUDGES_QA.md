@@ -31,7 +31,7 @@ Those tools already provide substantial planetary mapping, terrain and measureme
 | Main `b744b0b` | All eight submitted tips integrated: map/navigation/retry, science discovery/confidence/passport, shell/planner/notebook, guarded transfer and optional lazy flat viewer |
 | Verification | 131 Angular tests, 28 data tests, production build and browser workflows pass; initial/style warnings remain below error budgets |
 | Next delegated pieces | W1 install assets, W2 release-data handoff, W3 pure image-byte verifier, W4 accessibility/size work |
-| Coordinator W6 / Longla W5 | Real installation/full cache/update lifecycle and installed disconnected reopening remain pending; device report needs clarification |
+| Coordinator W6 / Longla W5 | Install assets/full cache/update implementation and browser disconnected restart pass in `8a4dadc`; public host and physical launcher/offline acceptance remain pending; device report needs clarification |
 
 Do not add the test counts together; they apply to different revisions/scopes. Build success and an emulated tablet viewport are not installed-device acceptance.
 

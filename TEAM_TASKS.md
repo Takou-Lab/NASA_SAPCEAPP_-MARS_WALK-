@@ -1,15 +1,15 @@
 # MARSWALK — Current team work plan
 
-Updated **15 November 2026 (Africa/Douala)**. Reviewed application code: **`b744b0b`**. All eight advertised feature tips are integrated, preserving history. [REVIEW.md](REVIEW.md) records verdicts; [final integration evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md) records exact revisions and checks. This is the canonical assignment plan; preserve any later local work.
+Updated **15 November 2026 (Africa/Douala)**. Latest PWA application code: **`8a4dadc`** (all feature integration retained). All eight advertised feature tips are integrated, preserving history. [REVIEW.md](REVIEW.md) records verdicts; [final integration evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md) records exact revisions and checks. This is the canonical assignment plan; preserve any later local work.
 
 Product: **Angular PWA for Mars exploration rehearsal**, focused on the prepared Mount Sharp/Gale image. Read [SOUL.MD](SOUL.MD). The Willy/Gaddielle role swap remains in force. Emma uses he/him; Royce is the original-plan name for the role documented as Longla.
 
 <a id="current-state"></a>
 ## Delivered work and current state
 
-Main includes the real 2048 × 1042 image; map/navigation and explicit image retry; science discovery, confidence and image-passport panels; shell, route controls and notebook; shared assessment/persistence and guarded mission transfer; and the opt-in lazy flat viewer. **131 Angular tests, 28 Python tests, production build and recorded browser workflow checks pass.** Build size warnings remain below error thresholds.
+Main includes the real 2048 × 1042 image; map/navigation and explicit image retry; science discovery, confidence and image-passport panels; shell, route controls and notebook; shared assessment/persistence and guarded mission transfer; and the opt-in lazy flat viewer. **136 Angular tests, 11 worker tests, 28 Python tests, production build and recorded browser offline restart/update checks pass.** Build size warnings remain below error thresholds.
 
-Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla's latest device report is preserved as contributor-reported, pending clarification of source/message/browser/FPS discrepancies. Physical-device acceptance, complete installation/cache/update/reopening and actual outside-user outcomes remain pending. Science positions, metric calibration, terrain and exact AOI overlap remain unavailable/unverified.
+Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla's latest device report is preserved as contributor-reported, pending clarification of source/message/browser/FPS discrepancies. Production PWA caching/preparation/updates and browser offline restart now pass. Physical home-screen installation, public HTTPS hosting and actual outside-user outcomes remain pending. [PWA evidence](docs/qa/PWA_FOUNDATION.md). Science positions, metric calibration, terrain and exact AOI overlap remain unavailable/unverified.
 
 | Published contribution | Latest integrated tips | Verdict |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ Each personal file now contains that person's **entire ordered checklist through
 
 | Person / complete file | Start now | Later implementation | Deployment / final responsibility |
 | --- | --- | --- | --- |
-| [Willy](docs/team/WILLY.md) | Install manifest/icons | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
+| [Willy](docs/team/WILLY.md) | Review/refine supplied install assets | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
 | [Gaddielle](docs/team/GADDIELLE.md) | Release data handoff | Source numerical REMS/RAD data, reproducible conversion after schema agreement; investigate exact-raster scale | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
 | [Enzo](docs/team/ENZO.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
 | [Emma — he/him](docs/team/EMMA.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
@@ -39,18 +39,18 @@ Each personal file now contains that person's **entire ordered checklist through
 1. Verify actual official requirements/deadline/timezone and available time; preserve a known-good release candidate. No invented midnight deadline or mandatory slide/video limit.
 2. Complete current W1–W4 slices in parallel; W5 verifies integrated online behavior. Presentation text and design specification can progress while inputs arrive.
 3. Gaddielle supplies source samples/schema proposal; coordinator agrees/implements shared types/loading; Gaddielle generates validated data and Enzo consumes the actual API. No guessed measurements or premature runtime contract.
-4. Coordinator integrates real PWA preparation; Emma consumes tested lifecycle signals; all owners validate their area on the exact HTTPS preview. Numerical data and AI content are added deliberately to the required-cache/version strategy.
+4. Coordinator has integrated real PWA preparation; Emma can consume the implemented lifecycle signals; all owners validate their area on the exact HTTPS preview. Numerical data and AI content are added deliberately to the required-cache/version strategy.
 5. Keep AI and VR experiments isolated. Prepared AI-assisted text is labeled prepared, not live inference. Real immersive VR requires supported hardware/session testing; existing flat 3D is already integrated. Failed/unverified experiments stay out of the stable release.
 6. Reserve the final third of the actual remaining time for integration, device testing, final presentation and submission. Freeze additions before consuming that reserve; prioritize observed release blockers.
 7. Coordinator executes deployment/submission when separately requested in the release workflow; this documentation change publishes no app or competition entry. Host/account/URL remain to be chosen. All owners recheck the actual production revision and hand off evidence.
 
-No numerical environment dataset, AI feature, immersive VR or complete PWA lifecycle is implemented merely by adding this plan. These are planned work with explicit completion checks in each personal file.
+No numerical environment dataset, AI feature or immersive VR is implemented by this plan. The subsequent coordinator PWA foundation is implemented and tested as recorded above. These are planned work with explicit completion checks in each personal file.
 
 ## Six consistent pieces of work
 
 | Piece | Owner | Next deliverable | Branch | Exact scope |
 | --- | --- | --- | --- | --- |
-| [W1](#w1) | Willy | Manifest and install icons | Proposed `feature/willy-pwa-install-assets` | Public assets and QA only; coordinator wires discovery |
+| [W1](#w1) | Willy | Review/refine supplied install assets | Proposed `feature/willy-pwa-install-assets` | Public assets/QA only; starter discovery/worker already supplied |
 | [W2](#w2) | Gaddielle | Release data handoff | Existing `feature/gaddielle-data-preparation` | Actual runtime paths, hashes/sizes, built-copy and cache inclusion guidance |
 | [W3](#w3) | Enzo | Read-only image-payload verifier | Proposed `feature/enzo-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
 | [W4](#w4) | Emma | Release accessibility and size cleanup | Proposed `feature/emma-release-ui` | Owned UI/tests/styles; preserve mission behavior and budgets |
@@ -60,7 +60,7 @@ No numerical environment dataset, AI feature, immersive VR or complete PWA lifec
 <a id="w1"></a>
 ## W1 — Willy: PWA install assets
 
-Map/navigation/retry are complete. Deliver `public/manifest.webmanifest`, the three specified launcher/maskable PNGs under `public/icons/`, optional original icon source and `docs/qa/PWA_INSTALL_ASSETS.md`. Verify relative URLs at root/subpath, JSON, actual PNG decoding/dimensions, readable original artwork/maskable safe area and built serving. No root/index/package/worker/data edits or new dependency. Assets alone do not prove installation/readiness. [Prompt](docs/team/WILLY.md), [exact spec](docs/team/tasks/WILLY_PWA_INSTALL_ASSETS.md).
+Map/navigation/retry are complete. Coordinator `8a4dadc` has supplied the initial manifest/icons and root discovery; review/refine existing assets and continue deployed-device checks. Preserve any local work. The asset contract remains: `public/manifest.webmanifest`, the three specified launcher/maskable PNGs under `public/icons/`, optional original icon source and `docs/qa/PWA_INSTALL_ASSETS.md`. Verify relative URLs at root/subpath, JSON, actual PNG decoding/dimensions, readable original artwork/maskable safe area and built serving. No root/index/package/worker/data edits or new dependency. Assets alone do not prove installation/readiness. [Prompt](docs/team/WILLY.md), [exact spec](docs/team/tasks/WILLY_PWA_INSTALL_ASSETS.md).
 
 <a id="w2"></a>
 ## W2 — Gaddielle: release data handoff
@@ -75,25 +75,25 @@ Science discovery and both evidence panels are complete. Implement the **planned
 <a id="w4"></a>
 ## W4 — Emma: release UI accessibility and size cleanup
 
-The complete shell and root integration are done. Improve tab/tabpanel ARIA relationships, keyboard navigation/focus and current initial/style warning sizes without raising budgets or deleting capabilities. Preserve notebook drafts, shared components, transfer and viewer teardown. Own shell/header/planner/notebook UI/tests/styles only; root/core/packages/worker remain coordinator-owned. Record actual before/after checks in `docs/qa/RELEASE_UI.md`. Future PWA status UI awaits W6's real contract. [Prompt](docs/team/EMMA.md), [exact spec](docs/team/tasks/EMMA_RELEASE_UI.md).
+The complete shell and root integration are done. Improve tab/tabpanel ARIA relationships, keyboard navigation/focus and current initial/style warning sizes without raising budgets or deleting capabilities. Preserve notebook drafts, shared components, transfer and viewer teardown. Own shell/header/planner/notebook UI/tests/styles only; root/core/packages/worker remain coordinator-owned. Record actual before/after checks in `docs/qa/RELEASE_UI.md`. PwaService now supplies the real contract in CODING_AGENTS.md; coordinate movement of existing root controls rather than duplicating them. [Prompt](docs/team/EMMA.md), [exact spec](docs/team/tasks/EMMA_RELEASE_UI.md).
 
 <a id="w5"></a>
 ## W5 — Longla: clarify device report and verify integrated build
 
 Viewer corrections/integration are done. Reconcile the quoted strings, served commit, exact browser version and unsupported FPS statement in [your preserved submission](docs/qa/submissions/LONGLA_23d5180.md). Record actual physical-device observations separately from coordinator headless checks; label paraphrases and unmeasured performance honestly.
 
-Test current integrated main online: route/science/note/save/recovery/transfer, retry and optional viewer together. Record device/OS/browser/input/build/URL, actual outcomes and reproducible defects in `docs/qa/PWA_ACCEPTANCE.md`. No teammate code changes or invented pass. Installation/cache/update/disconnected close/reopen remain blocked until W6. [Prompt](docs/team/LONGLA.md), [acceptance record](docs/qa/PWA_ACCEPTANCE.md).
+Test current integrated main online: route/science/note/save/recovery/transfer, retry and optional viewer together. Record device/OS/browser/input/build/URL, actual outcomes and reproducible defects in `docs/qa/PWA_ACCEPTANCE.md`. No teammate code changes or invented pass. Worker/install assets/cache/update implementation is now available; run target-device and actual-host acceptance. Browser passes do not certify hardware installation. [Prompt](docs/team/LONGLA.md), [acceptance record](docs/qa/PWA_ACCEPTANCE.md).
 
 <a id="w6"></a>
 ## W6 — Coordinator: real installable offline release
 
-All current submissions are integrated. Review future W1–W4 deliveries without repeating completed code. Define/document the actual PWA lifecycle contract before assigning its status UI. MissionService currently has no install/cache API.
+All current submissions are integrated. Review future W1–W4 deliveries without repeating completed code. The PwaService lifecycle contract is now implemented/documented; MissionService stays unchanged. Review future contributions against it.
 
 Wire reviewed manifest/icons and implement production caching, complete-pack verification, separate connection/readiness states, preparation/storage/update failures and mission-safe recovery. Deliberately include required shell/data/index/science assets; 524,472 image-payload bytes exclude the rest of the app. Keep the optional viewer lazy and its cache policy explicit. Perform actual install/preparation/disconnected closing/reopening with W5; then arrange three outside-user sessions using Emma's existing protocol, now maintained by Enzo, and record real outcomes. [Coordinator prompt](docs/team/YOU.md).
 
 ## Dependencies and finish rules
 
-W1–W4 can progress independently from published main; W5 can verify the complete online mission now. W6 defines the lifecycle, reviews assets/verifier/data guidance, and validates all required bytes before claiming readiness. W5's installed/offline pass follows W6. Current build/test/browser evidence does not establish installation, physical hardware, scientific certification or outside-user success.
+W1–W4 can progress independently from published main; W5 can verify the complete online mission now. W6 has implemented the lifecycle/full-pack verification; review future assets/verifier/data guidance and perform host/device acceptance next. W5's installed/offline pass follows W6. Current build/test/browser evidence does not establish installation, physical hardware, scientific certification or outside-user success.
 
 Preserve local work. Proposed branch names apply only when no follow-up exists. Keep W2/W5's existing branches and all accepted history. Personal briefs authorize normal pushes to assigned feature branches. Coordinator integration follows the user's authorized workflow; deployment, environment publication, competition submission and external messages are separate.
 

@@ -8,7 +8,7 @@ Read [SOUL.MD](SOUL.MD) for the product purpose and installable offline PWA goal
 
 See [the published branch review](REVIEW.md) for accepted contributions and integration findings, and [NEXT_TASKS.md](NEXT_TASKS.md) for each contributor's next action. Completed work should not be restarted.
 
-All eight submitted feature tips are merged in application code **`b744b0b`**: **131 Angular tests, 28 data tests, production build and browser workflow checks pass**. [Final integration evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md). Complete PWA install/cache/update and disconnected reopening remain pending.
+Current PWA implementation **`8a4dadc`** retains all eight merged feature tips: **136 Angular tests, 11 worker tests, 28 data tests, production build and browser offline restart/update checks pass**. [Final integration evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md). Production PWA installation assets, verified offline preparation and guarded updates are implemented; browser process-restart disconnected passes. Public hosting and physical home-screen installation remain pending. [PWA checks](docs/qa/PWA_FOUNDATION.md).
 
 The [Martian Map guide improvements](docs/GUIDE_IMPROVEMENTS.md) retain Gale and existing assignments: portable mission files now, complete offline operation next, compatible science layers and verified terrain before measured 3D.
 
@@ -21,7 +21,7 @@ Willy's standalone Leaflet map is mounted in the Angular root with Gaddielle's p
 - Available in the root: mission JSON export/import between devices with the same image version. Import validates route/notes and saves before replacing current work; maximum file size is 1 MiB.
 - Available: Emma's selectable science list and sourced details, including all three unlocated records without fabricated map pins. The shell currently starts in inspect mode.
 - Available: integrated route controls, save/load/undo/clear, notebook with retained draft on failed save, science search/evidence/location filters, dedicated confidence/passport panels and reachable Mission Transfer tab.
-- Pending PWA work: installation manifest/icons, service-worker preparation, verified offline readiness and installed-device reopening.
+- PWA: production-only scoped worker, install manifest/icons, explicit full-pack preparation/verification and guarded updates. Actual target-device installation/standalone acceptance remains pending.
 - Metric distance, elevation and slope remain unavailable. Main includes an explicitly opened, lazy-loaded flat 3D rehearsal tab; it supplies no measured terrain or immersive VR. See [viewer verification](docs/qa/VIEWER3D_REVIEW.md).
 
 ## Development
@@ -32,6 +32,7 @@ Use Node `^22.22.3`, `^24.15.0` or `>=26.0.0` (validated with Node 24.22.1 and n
 npm ci
 npm start
 npm test
+npm run test:pwa
 npm run build
 ```
 
@@ -43,7 +44,7 @@ python3 -m http.server 8000 --directory dist/marswalk/browser
 
 In the cloud machine, set `npm_config_cache=/workspace/.npm-cache` if the default cache is not writable, and `NG_CLI_ANALYTICS=false` to disable analytics prompts. Servers must restart after environment restoration.
 
-Production build passes below configured error budgets, with initial (587.25 kB versus 500 kB) and planner/notebook style warnings, plus the Leaflet CommonJS warning. The viewer is a separate lazy 595.60 kB chunk; budgets were not raised. Do not infer PWA installability/offline behavior from a successful build.
+Production build passes below configured error budgets, with initial (595.20 kB versus 500 kB) and planner/notebook style warnings, plus the Leaflet CommonJS warning. The viewer is a separate lazy 595.60 kB chunk; budgets were not raised. Do not infer PWA installability/offline behavior from a successful build.
 
 ## Image package verification
 
@@ -73,3 +74,10 @@ See [science evidence](docs/SCIENCE_EVIDENCE.md), [references](docs/REFERENCES.m
 
 
 The complete ordered remaining-work plan for each person, including deployment and final handoff, is now in their single named [personal MD file](docs/team/). See the [owner matrix and release gates](TEAM_TASKS.md#one-complete-remaining-work-file-per-person). These plans do not represent completed numerical-data, AI, immersive-VR or PWA implementation, and no deployment was executed by this documentation update.
+
+
+## Prepare and use offline
+
+Use the production build/localhost server above (or an actual HTTPS host), expand **Install & offline**, choose **Prepare offline** and wait for **Offline pack verified**. Save route/notes before closing. Install from the supported browser menu/action, then test disconnected reopening on your device. Use **Load saved route** explicitly to recover saved route/notes. Installation alone does not prepare data; browser storage can be cleared/evicted.
+
+All required generated chunks, science and image data are checked against the build's byte lengths/SHA-256. Initial runtime pack is 17 assets/1,789,610 bytes; future builds may differ. The archival master and terrain documents are excluded from deployment output. Waiting updates prepare first and do not force-reload an open app; save/export and close other tabs before applying. [Deployment/base-path/rollback runbook](docs/DEPLOYMENT.md), [current lifecycle evidence](docs/qa/PWA_FOUNDATION.md). No public app was deployed by this source update.

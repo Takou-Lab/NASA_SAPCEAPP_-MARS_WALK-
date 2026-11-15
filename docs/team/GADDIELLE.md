@@ -6,6 +6,12 @@ Updated **15 November 2026**. This is your **single remaining-work checklist thr
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
 
+## Coordinator PWA delivery — current handoff
+
+**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.
+
+Use the generated full pack and deployment exclusion policy in your release data handoff. Image-only index stays unchanged; adding accepted environmental files later requires coordinator pack inclusion and a new build.
+
 ## Already complete — preserve
 
 Image package/passport/index `a53724a` is merged. Coordinator closed R1–R3; 28 baseline data tests and real index check pass. Preserve prepared image/manifest/index bytes, imageRef and coordinate system. Do not repeat fixes, downloads or passport construction without a new reason.
