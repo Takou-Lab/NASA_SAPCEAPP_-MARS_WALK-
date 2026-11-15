@@ -64,7 +64,7 @@ async function launch(offline = false) {
   watch(page);
 }
 const record = (name, details = {}) => state.steps.push({ name, ...details });
-const mapArea = () => page.getByRole('application', { name: 'Pan and zoom image map' });
+const mapArea = () => page.locator('.map-panel [role="application"]');
 async function clickMap(fx, fy) {
   const box = await mapArea().boundingBox();
   await page.mouse.click(box.x + box.width * fx, box.y + box.height * fy);
@@ -193,16 +193,10 @@ test('2. science selection, previous/next and filters keep the selected context'
   const position2 = await page.locator('.record-navigation-position').innerText();
   await page.getByRole('button', { name: 'Previous science record' }).click();
   await expect(details.locator('h3')).toHaveText(firstName);
-  // The details row label changed across revisions ("Evidence type" → "Record-level evidence
-  // category"); the value always starts with the evidence type.
+  // Read the evidence type from the first record's list pill; the details markup changed
+  // across revisions (label rename, then the evidence comparison), the list pill did not.
   const types = ['measured', 'derived', 'interpreted', 'simulated'];
-  const evidenceText = (
-    await details
-      .locator('.metadata-row', { hasText: /evidence/i })
-      .first()
-      .locator('dd')
-      .innerText()
-  )
+  const evidenceText = (await records.first().locator('.record-evidence').innerText())
     .trim()
     .toLowerCase();
   const evidence = types.find((v) => evidenceText.startsWith(v));
@@ -383,7 +377,11 @@ test('7. disconnected full-process restart restores the exact mission at startup
 test('8. optional flat viewer opens offline and is removed when closed or left', async () => {
   await page.locator('#tab-rehearsal').click();
   await page.getByRole('button', { name: 'Open 3D viewer' }).click();
-  const viewport = page.locator('app-viewer3d .canvas-viewport');
+  // Since 2bfbd8d the tab opens the uploaded AI-generated relief by default; the flat viewer
+  // remains the fallback. Either viewport counts as opened.
+  const viewport = page
+    .locator('app-viewer3d .canvas-viewport, app-viewer3d .relief-viewport')
+    .first();
   await expect(viewport).toBeVisible({ timeout: 30_000 });
   const opened = {
     canvases: await page.locator('app-viewer3d canvas').count(),
@@ -404,7 +402,7 @@ test('8. optional flat viewer opens offline and is removed when closed or left',
 // ancestor that hides or scrolls overflow. The element's own box can be much taller.
 const visibleMapHeight = () =>
   page.evaluate(() => {
-    const el = document.querySelector('[aria-label="Pan and zoom image map"]');
+    const el = document.querySelector('.map-panel [role="application"]');
     const box = el.getBoundingClientRect();
     let top = Math.max(box.top, 0);
     let bottom = Math.min(box.bottom, window.innerHeight);
