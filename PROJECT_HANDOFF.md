@@ -50,6 +50,10 @@ Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is li
 
 [MISSION_MAP_FINISH_PLAN.md](docs/MISSION_MAP_FINISH_PLAN.md) overrides older optional work. Exact raster alignment/calibration → supported metric route context → aligned terrain if available; source/location clarity and actual recovery remain release-critical. All nine personal briefs updated with distinct tasks; pause VR/live AI/extra environmental breadth. Latest branches: Emma 59e00e1/Enzo navigation 2b2a708/Willy 9b4093d accepted; Enzo 2 e161e41 source corrections pending; Gaddielle d6ab8aa candidate spatial metadata unverified; Royce 498ee2e auto-restore/notebook changes unreviewed with checkbox toggle regression visible in diff. No new runtime feature or acceptance from this assignment update. One-hour evidence go/no-go, then honest fallback/release rather than unbounded data search.
 
+## User/coordinator took over Gaddielle calibration task
+
+[CALIBRATION_TAKEOVER.md](docs/data/CALIBRATION_TAKEOVER.md): actual JPEG hashes/decode/resize similarity audited, no embedded georeferencing. Original HiRISE/DTM/Photojournal catalogs blocked HTTP 403. Metric/terrain go-no-go remains **no-go with available evidence**; need original image/DTM labels and georeferenced source/processing chain. Read-only audit tool and JSON saved; existing terrain README overclaims corrected. Gaddielle branch/raw work untouched. No calibration values, imageRef or deployment changed.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

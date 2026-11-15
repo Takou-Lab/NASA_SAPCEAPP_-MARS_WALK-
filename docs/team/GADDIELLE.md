@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Coordinator takeover while unavailable
+
+User and coordinator are handling the calibration/terrain slice now; preserve your branch/raw downloads and do not duplicate edits when you return. [Actual checks and smallest source handoff](../data/CALIBRATION_TAKEOVER.md). Local imagery is readable but not georeferenced; original catalogs are HTTP 403 here. Candidate DTM overlap/scale claims remain unverified. If you already have original image/DTM labels or a georeferenced small crop, hand off exact files/hashes/commands rather than another catalog summary. No reset or overwrite of your collection work.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Priority now — exact-raster calibration and terrain evidence

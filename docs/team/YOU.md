@@ -1,5 +1,9 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Active takeover — calibration/terrain evidence
+
+User requested taking Gaddielle's slice while she is unavailable. [Audit/go-no-go/source inputs](../data/CALIBRATION_TAKEOVER.md) records successful image integrity/similarity checks and HTTP 403 original catalog access. No metric/terrain admission with present files. Need small original labels/georeferenced raster and exact processing chain; preserve her branch and current image identities. Tool tools/data/audit_spatial_inputs.py is read-only and produces the durable evidence JSON. Do not call nominal source resolution a calibrated derivative. No deployment in this slice.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Coordinator priority now — deliver one geographically meaningful map
