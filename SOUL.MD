@@ -13,7 +13,7 @@ Updated: **15 November 2026**. This is the team's product charter and scope guid
 
 Preserve completed contributions and each teammate's current small slice. The charter guides integration and the next phase; it does not reset earlier assignments, require a new project/branch, or invalidate completed learning. Finish or hand off work already in progress before taking a new follow-up, unless a concrete blocker requires a change. Reuse existing results and address specific review findings rather than repeating whole assignments.
 
-Emma (he/him) has delivered research, records/citations, presentation, usability protocol and the full science/evidence workspace. Willy's map/navigation/retry, Gaddielle's data/index, Enzo's shell/planner/notebook and Longla's corrected optional viewer are all integrated. The coordinator closed R3. Do not repeat accepted work. The next independent slices are install assets (Willy), factual release-data handoff (Gaddielle), pure image-byte verification (Enzo), release UI accessibility/size cleanup (Emma) and clarified hardware evidence (Longla). Actual usability sessions follow the integrated PWA prerequisites.
+Emma (he/him) has delivered research, records/citations, presentation, usability protocol and the full science/evidence workspace. Willy's map/navigation/retry, Gaddielle's data/index, Enzo's shell/planner/notebook and Longla's corrected optional viewer are all integrated. The coordinator closed R3. Do not repeat accepted work. The next independent slices are install assets (Willy), numerical environmental source samples/conversion (Gaddielle), pure image-byte verification (Enzo), release UI accessibility/size cleanup (Emma) and clarified hardware evidence (Longla). Actual usability sessions follow the integrated PWA prerequisites.
 
 ## Why we exist
 
@@ -86,7 +86,7 @@ Do not invent fields absent from inspected evidence. Preserve the prepared image
 
 | Priority | Owner | Outcome |
 | --- | --- | --- |
-| Essential | Gaddielle | Preserve package/index and closed R3; document exact runtime data/built-copy/cache guidance |
+| Essential | Gaddielle | Preserve accepted package/index/R3/release handoff; source documented numerical REMS/RAD data, then implement agreed conversion |
 | Essential | Enzo (ENZO.md) | Preserve accepted contributions; implement planned image-payload verifier, environmental/science presentation and AI/presentation/usability follow-ups |
 | Essential | Willy | Preserve map/navigation/retry; review/refine supplied manifest/icons and verify deployed-device behavior |
 | Essential | Emma (EMMA.md) | Preserve integrated shell/planner/notebook; improve professional design, accessibility and warning sizes; verify deployed UI |

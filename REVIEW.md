@@ -1,5 +1,8 @@
 # MARSWALK — Submitted branches reviewed and integrated
 
+> **Latest Gaddielle review:** environmental tip `286374b` requires changes and is **not merged/deployed**. All 42 isolated tests pass, but temporary probes reproduce source overwrite, Infinity JSON and inconsistent statistics; original-product provenance remains missing. [Findings and correction prompt](docs/reviews/GADDIELLE.md#latest-environmental-submission--changes-required-before-merge). Prior R3/release handoff and the live app remain accepted.
+
+
 > **Live deployment update — 15 November:** https://marswalk-jet.vercel.app/ is public and passes production-origin browser offline restart/mission recovery checks. Source `b6669fb`; [deployment evidence](docs/qa/VERCEL_PRODUCTION.md), [Vercel runbook](docs/VERCEL_SETUP.md). Physical home-screen acceptance remains pending; automatic GitHub deployment is not connected. Earlier revision-scoped statements below retain their historical scope.
 
 
@@ -46,3 +49,8 @@ Subsequent production foundation passes **136 Angular tests, 11 worker tests, 28
 ## Gaddielle follow-up `42a0dd2` — approved
 
 Integrated at `c7ac053` with all existing coordinator regressions preserved. Isolated branch: 30 data tests and index check pass; integrated: 33 tests and index check pass. No application/PWA/source-asset changes or duplicate R3 task. [Review](docs/reviews/GADDIELLE.md), [next phases](docs/team/GADDIELLE.md).
+
+
+## Gaddielle release-data handoff `0514da1`
+
+Accepted/integrated with narrow documentation corrections for canonical LF versus CRLF byte/hash values, full-pack membership and verifier scope. Four runtime files match production copies; source assets/code remain unchanged. Numerical source evidence/converter is now her active assignment. [Review](docs/reviews/GADDIELLE.md), [single-file plan](docs/team/GADDIELLE.md).

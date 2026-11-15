@@ -10,7 +10,7 @@ This document provides the definitive data inventory, verification hashes, produ
 
 > [!IMPORTANT]
 > **Data Boundary Notice:**
-> - **Image Payload vs. Full App:** The client image payload totals exactly **524,472 bytes** (manifest + prepared raster). With science context (`markers.json`, 4,515 B) and index control (`image-pack.json`, 452 B), runtime data totals **529,439 bytes**. This must **never** be cited as the full application size or proof of offline readiness.
+> - **Image Payload vs. Full App:** The client image payload totals exactly **524,472 bytes** (manifest + prepared raster). With science context (`markers.json`, 4,452 B) and index control (`image-pack.json`, 452 B), runtime data totals **529,376 bytes**. This must **never** be cited as the full application size or proof of offline readiness.
 > - **PWA Lifecycle Boundary:** Full PWA service-worker lifecycle, cache installation, home-screen addition, and disconnected-device reopening belong to the Coordinator (W6) and independent QA (W5). File existence and SHA-256 validation verify local payload integrity, not service-worker caching state.
 > - **No Guessed Data:** Missing elevation remains explicitly `unavailable` (`terrainStatus: 'unavailable'`). Metric scale remains unverified (`calibration.verified: false`).
 
@@ -24,15 +24,15 @@ The application requires four static data files under `data/` for complete clien
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Mission Manifest** | `public/data/manifest.json` | `data/manifest.json` | 1,200 bytes | `40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82` | `schemaVersion: 1`, active `imageRef` |
 | **Active Map Texture** | `public/data/imagery/PIA26306_derived_2048.jpg` | `data/imagery/PIA26306_derived_2048.jpg` | 523,272 bytes | `7b814497d98d7e5fb89dd122c65b01c32e5c2099b039ef62887a606af199bfa8` | 2048 × 1042 px, JPEG 4:2:0 |
-| **Science Context** | `public/data/markers.json` | `data/markers.json` | 4,515 bytes | `dcc13b2d4bc5160dcdfb416f1c289b3c1c4d913775a2a480024884b7cf7dfd67` | 3 Curiosity observation records |
+| **Science Context** | `public/data/markers.json` | `data/markers.json` | 4,452 bytes | `103cf8dcf7d6b61d8b8878ac26cb19db620a9c5eecc7c3cf395cfcb62a68edf2` | 3 Curiosity observation records |
 | **Image-Pack Index** | `public/data/image-pack.json` | `data/image-pack.json` | 452 bytes | `f7b8950489f8053323c0a19e15eb03e19aa1d033e522e9a5b0e0c596096bc7bf` | v1 control index (excludes itself) |
 
 ### Byte Size Summary & Boundaries
 
 - **Image Payload Total:** `1,200 + 523,272 = 524,472 bytes` (~512.2 KB).
   Governed by `tools/data/verify_pack.py` and `tools/data/build_image_pack.py`.
-- **Runtime Data Total:** `524,472 + 4,515 + 452 = 529,439 bytes` (~517.0 KB).
-- **Full PWA Offline Pack (Coordinator W6):** 17 total assets, `1,789,704 bytes` (~1.71 MB), including Angular application chunks, styles, icons, leaflet media assets, `manifest.webmanifest`, `service-worker.js`, and `offline-pack.json`.
+- **Runtime Data Total:** `524,472 + 4,452 + 452 = 529,376 bytes` (~517.0 KB).
+- **Current deployed runtime pack (source `b6669fb`):** 17 assets, **1,789,610 bytes**, version `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`. Includes Angular chunks/styles, required data, favicon/icons, Leaflet media and install manifest. The worker bootstrap and generated `offline-pack.json` control inventory are **outside** this declared cache payload; they are not two additional entries hidden inside the 17-file total.
 
 ---
 
@@ -44,7 +44,7 @@ The Angular production build (`node tools/pwa/build.mjs`) compiles the applicati
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `data/manifest.json` | 1,200 | 1,200 | `40381b96e243b687...` | `40381b96e243b687...` | **Identical** |
 | `data/imagery/PIA26306_derived_2048.jpg` | 523,272 | 523,272 | `7b814497d98d7e5f...` | `7b814497d98d7e5f...` | **Identical** |
-| `data/markers.json` | 4,515 | 4,515 | `dcc13b2d4bc5160d...` | `dcc13b2d4bc5160d...` | **Identical** |
+| `data/markers.json` | 4,452 | 4,452 | `103cf8dcf7d6b61d...` | `103cf8dcf7d6b61d...` | **Identical** |
 | `data/image-pack.json` | 452 | 452 | `f7b8950489f80533...` | `f7b8950489f80533...` | **Identical** |
 
 Verification was performed on `dist/marswalk/browser/data/` immediately following `npm run build`:
@@ -72,7 +72,7 @@ To ensure rapid offline installation without exceeding device memory or cache qu
    Required for core `MissionService` bootstrap, bounding box configuration, and image metadata.
 2. `data/imagery/PIA26306_derived_2048.jpg` (523,272 bytes):
    The active map texture layer required by `MapComponent` (`Leaflet CRS.Simple`).
-3. `data/markers.json` (4,515 bytes):
+3. `data/markers.json` (4,452 bytes):
    Curiosity science observation context for `ScienceContextComponent`.
 4. `data/image-pack.json` (452 bytes):
    Control index for offline payload integrity audits (`verifyImagePayload` in W3).
@@ -84,7 +84,7 @@ To ensure rapid offline installation without exceeding device memory or cache qu
    - **Reason:** Full-resolution raw NASA/JPL 7488×3813 download. Preserved for provenance and future multi-resolution processing only; not consumed by the active runtime.
    - **Enforcement:** Explicitly excluded in `angular.json` under `assets[0].ignore: ["data/imagery/PIA26306.jpg", "data/terrain/**"]` and omitted by `tools/pwa/build-pack.mjs`. Must **never** be cached by the service worker.
 2. **Terrain Search Documentation:**
-   - **File:** `public/data/terrain/README.md` (2,356 bytes, SHA-256: `e0cc90e4393f44f471e60f6f4064da294e9486147377a28f83430d4786981969`).
+   - **File:** `public/data/terrain/README.md` (2,319 bytes, SHA-256: `03b1107c2eb0e5ed270fff96d853e9c45d3a415454a04ab276ecddfe418654bb`).
    - **Reason:** Development documentation recording the Mount Sharp DEM investigation and absence of aligned high-resolution terrain.
    - **Enforcement:** Excluded by `angular.json` asset ignore rules.
 3. **Indiscriminate Directory Precaching:**
@@ -104,7 +104,7 @@ The application is deployed to static hosting (e.g. Vercel, GitHub Pages) and ma
    - All paths avoid leading slashes (`/data/...`), ensuring seamless resolution under both root and subpath deployments.
 2. **Strict Browser Syntax Compliance (R3 Closure):**
    - The image path strictly adheres to runtime regex `^data/imagery/[a-zA-Z0-9_./-]+$`.
-   - Forbidden syntax (percent-encoding `%2e%2e` / `%23`, whitespace, control characters, URL query parameters `?`, URL fragments `#`, backslashes `\`, path traversal `..`) is rejected by both `tools/data/build_image_pack.py` and `tools/data/verify_pack.py`.
+   - Forbidden syntax (percent-encoding `%2e%2e` / `%23`, whitespace, control characters, URL query parameters `?`, URL fragments `#`, backslashes `\`, path traversal `..`) is rejected by the generator `tools/data/build_image_pack.py` and the app runtime manifest validator. `verify_pack.py` separately enforces its documented containment/manifest/decode checks; it is not the full percent/whitespace syntax gate.
 
 ---
 
@@ -120,9 +120,9 @@ For W3's pure `verifyImagePayload(index, activeImage, readBytes)` function in `s
 
 ---
 
-## 6. Verification Commands & Observed Results
+## 6. Contributor-reported checks at `0514da1`
 
-The following test suites were executed to validate data tooling, PWA worker logic, and application integration:
+The contributor reported these checks and timings. They are retained with their original scope, not represented as new coordinator reruns of a documentation-only submission:
 
 | Test Suite | Command | Tests Run | Result | Duration |
 | :--- | :--- | :--- | :--- | :--- |
@@ -131,3 +131,12 @@ The following test suites were executed to validate data tooling, PWA worker log
 | **PWA Service Worker Tests** | `node --test tools/pwa/worker.test.mjs` | 11 | **11 passed** | 382ms |
 | **Angular Application Tests** | `ng test --watch=false` | 136 | **136 passed** (16 test files) | 14.60s |
 | **Production Build & Pack** | `node tools/pwa/build.mjs` | 1 | **Built successfully** (`9407bc02eaae`, 17 assets, 1.78 MB) | 12.52s |
+
+
+## 7. Coordinator acceptance and canonical byte audit
+
+Reviewed submission **`0514da1`**, 15 November 2026. The four actual source files and their production copies were read and compared byte-for-byte. The current Git/Linux production inventory is the corrected table above: **529,376 runtime-data bytes**, distinct from **524,472 image-only bytes** and **1,789,610 full-runtime-pack bytes**. No image/manifest/markers/index or application code was changed by this review.
+
+The originally submitted 4,515-byte science hash and 2,356-byte terrain-document hash match CRLF-transformed copies exactly. Canonical Git/deployed files use LF: science is 4,452 bytes and terrain document is 2,319 bytes, with corrected hashes above. Hash the exact committed/deployed bytes; line-ending conversion changes byte identity even when JSON semantics stay the same. Future generators should explicitly emit deterministic UTF-8/LF bytes.
+
+The reported `9407bc02eaae` build belongs to the contributor record. Current deployed pack/source and public verification are recorded in [VERCEL_PRODUCTION.md](../qa/VERCEL_PRODUCTION.md). The separate worker/control files are not members of the declared 17-entry cache pack. These narrow factual corrections complete this handoff; Gaddielle proceeds to the numerical-data assignment in [GADDIELLE.md](../team/GADDIELLE.md).

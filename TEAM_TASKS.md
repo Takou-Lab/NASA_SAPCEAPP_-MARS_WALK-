@@ -18,7 +18,7 @@ Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla'
 | --- | --- | --- |
 | Willy map/navigation/retry | `21cf6f0`, `02134f1` | Accepted, merged |
 | Emma research/science/evidence workspace | `947ff1a`, `4efcb5a`, `3b7b1c1` | Accepted, merged; three shared UI components mounted once |
-| Gaddielle package/index/R3 follow-up | `42a0dd2` | Approved/merged at `c7ac053`; 33 integrated data tests; index unchanged |
+| Gaddielle environmental prototype | `286374b` | Changes required R1–R4; not merged. Prior R3/release handoff remain accepted |
 | Enzo shell/planner/notebook | `16a2e66` | Accepted, merged; root conflicts resolved, transfer/drafts retained |
 | Longla optional viewer and QA submission | `23d5180` | Viewer merged; submitted hardware claims need clarification |
 
@@ -31,7 +31,7 @@ Each personal file now contains that person's **entire ordered checklist through
 | Person / complete file | Start now | Later implementation | Deployment / final responsibility |
 | --- | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Review/refine supplied install assets | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
-| [Gaddielle](docs/team/GADDIELLE.md) | Release data handoff | Source numerical REMS/RAD data, reproducible conversion after schema agreement; investigate exact-raster scale | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
+| [Gaddielle](docs/team/GADDIELLE.md) | Correct provenance, source protection and numerical validation in environmental prototype | Reproducible numerical converter after agreement; scale investigation later | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
 | [Enzo](docs/team/ENZO.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
 | [Emma — he/him](docs/team/EMMA.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
 | [Royce / Longla](docs/team/LONGLA.md) | Clarify device report; integrated hardware QA | Real WebXR feasibility/prototype on supported hardware, separately reviewed | HTTPS/install/full offline/update acceptance and actual device/demo evidence |
@@ -54,7 +54,7 @@ No numerical environment dataset, AI feature or immersive VR is implemented by t
 | Piece | Owner | Next deliverable | Branch | Exact scope |
 | --- | --- | --- | --- | --- |
 | [W1](#w1) | Willy | Review/refine supplied install assets | Proposed `feature/willy-pwa-install-assets` | Public assets/QA only; starter discovery/worker already supplied |
-| [W2](#w2) | Gaddielle | Release data handoff | Existing `feature/gaddielle-data-preparation` | Actual runtime paths, hashes/sizes, built-copy and cache inclusion guidance |
+| [W2](#w2) | Gaddielle | Environmental R1–R4 corrections and source evidence | Existing `feature/gaddielle-environment-data` | Preserve prototype; source traceability/alias guard/finite values/quantity audit; no runtime approval yet |
 | [W3](#w3) | Enzo | Read-only image-payload verifier | Proposed `feature/enzo-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
 | [W4](#w4) | Emma | Release accessibility and size cleanup | Proposed `feature/emma-release-ui` | Owned UI/tests/styles; preserve mission behavior and budgets |
 | [W5](#w5) | Longla | Device report clarification and actual-device QA | Existing `feature/longla-3d-rehearsal` | QA records only; exact integrated build/device/outcomes |
@@ -66,9 +66,13 @@ No numerical environment dataset, AI feature or immersive VR is implemented by t
 Map/navigation/retry are complete. Coordinator `8a4dadc` has supplied the initial manifest/icons and root discovery; review/refine existing assets and continue deployed-device checks. Preserve any local work. The asset contract remains: `public/manifest.webmanifest`, the three specified launcher/maskable PNGs under `public/icons/`, optional original icon source and `docs/qa/PWA_INSTALL_ASSETS.md`. Verify relative URLs at root/subpath, JSON, actual PNG decoding/dimensions, readable original artwork/maskable safe area and built serving. No root/index/package/worker/data edits or new dependency. Assets alone do not prove installation/readiness. [Prompt](docs/team/WILLY.md), [exact spec](docs/team/tasks/WILLY_PWA_INSTALL_ASSETS.md).
 
 <a id="w2"></a>
-## W2 — Gaddielle: release data handoff
+## W2 — Gaddielle: numerical environmental data
 
-R1–R3 are closed; do not repeat fixes or regenerate assets. Deliver `docs/data/RELEASE_DATA_HANDOFF.md` with the actual required runtime data paths/imageRef, sizes/hashes, production-copy comparison and exact worker include/exclude guidance. Separate manifest/image payload, science and index-control bytes from app readiness. Exclude archival masters/unused reference documents from essentials. Own this document and necessary factual data-doc updates only; no new schema/data/API/worker. [Prompt](docs/team/GADDIELLE.md), [exact spec](docs/team/tasks/GADDIELLE_RELEASE_DATA_HANDOFF.md).
+**Current gate:** `286374b` is reviewed with changes required; 42 tests pass but temporary probes expose source overwrite/non-finite/range/zero issues, and original-product provenance is missing. Complete [R1–R4](docs/reviews/GADDIELLE.md#latest-environmental-submission--changes-required-before-merge) on the same branch before proceeding. No environmental code/data has been merged.
+
+R1–R3 and release-data handoff `0514da1` are complete. Coordinator corrected CRLF/LF hash/byte differences and pack membership in the accepted handoff; no scientific assets changed. Do not reassign completed work.
+
+Start with actual documented REMS pressure/temperature samples and RAD feasibility, `docs/data/ENVIRONMENT_SOURCE_AUDIT.md`, small reviewable fixtures and a proposed schema for coordinator/Enzo. Then, after shared contract agreement, implement owned `tools/data/prepare_environment.py`, meaningful tests and `public/data/environment.json`. Source units, times, quality/sentinels and uncertainty; deterministic UTF-8/LF and output preservation on failure. Coordinator owns shared loader/validation/full-pack/deployment; Enzo owns UI. Scale research follows numerical handoff. [Full single-file plan/prompt](docs/team/GADDIELLE.md), [accepted inventory](docs/data/RELEASE_DATA_HANDOFF.md).
 
 <a id="w3"></a>
 ## W3 — Enzo: read-only image-payload verification
@@ -98,7 +102,7 @@ Wire reviewed manifest/icons and implement production caching, complete-pack ver
 
 W1–W4 can progress independently from published main; W5 can verify the complete online mission now. W6 has implemented the lifecycle/full-pack verification; review future assets/verifier/data guidance and perform host/device acceptance next. W5's installed/offline pass follows W6. Current build/test/browser evidence does not establish installation, physical hardware, scientific certification or outside-user success.
 
-Preserve local work. Proposed branch names apply only when no follow-up exists. Keep W2/W5's existing branches and all accepted history. Personal briefs authorize normal pushes to assigned feature branches. Coordinator integration follows the user's authorized workflow; deployment, environment publication, competition submission and external messages are separate.
+Preserve local work. Proposed branch names apply only when no follow-up exists. Keep W5's existing branch and all accepted history; W2 uses the proposed environmental branch only if no follow-up work already exists. Personal briefs authorize normal pushes to assigned feature branches. Coordinator integration follows the user's authorized workflow; deployment, environment publication, competition submission and external messages are separate.
 
 Hand off **commit, files/selectors, actual checks, one observed workflow and blockers**. Official competition requirements/deadline must be verified separately; internal rehearsal timing is not an official rule.
 
