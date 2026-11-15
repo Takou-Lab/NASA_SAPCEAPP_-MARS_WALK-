@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Survival return budget implemented
+
+Coordinator took over Enzo 2’s slice by user request. Route Planner now includes a reactive out-and-back time/reserve card, explicit user assumptions, separate saved scenario and downloadable TXT brief. [Evidence](docs/qa/SURVIVAL_BUDGET.md). 266 Angular tests/build and phone-size full-process offline scenario/route/note recovery pass. No operational safety rating, oxygen model or automatic optimal path. Enzo 2 should not duplicate this component; Takou CSS ownership is unchanged.
+
 ## Final 90-minute release ownership
 
 See [exact team assignments](docs/FINAL_90_MINUTES.md). Personal task files have ACTIVE overrides; Emma 1 owns new survival-brief, Enzo 2 new survival-budget, coordinator core/root/release, other owners source/review/device/demo work. Takou's older local baseline is superseded; his unpushed QA work must be handed off before acceptance. Current runtime 38ad299 adds guards against unreadable/unrestored/changed saved records; 251 tests and build pass. Stable public review URL unchanged. No raw-data or outstanding feature branch is accepted merely by this plan.

@@ -1,11 +1,13 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
 import { Assessment, ImageManifest, Mode, Point, Route } from '../core/models';
 import { MissionService } from '../core/mission.service';
+import { SurvivalBudgetComponent } from '../survival-budget/survival-budget.component';
 import { routePoints } from '../core/route';
 
 @Component({
   selector: 'app-route-planner',
   standalone: true,
+  imports: [SurvivalBudgetComponent],
   templateUrl: './route-planner.component.html',
   styleUrl: './route-planner.component.scss',
 })
@@ -17,7 +19,8 @@ export class RoutePlannerComponent {
   readonly canUndo: Signal<boolean> = this.missionService.canUndo;
   readonly assessment: Signal<Assessment> = this.missionService.assessment;
   readonly image: Signal<ImageManifest | null> = this.missionService.image;
-  readonly dataStatus: Signal<'loading' | 'ready' | 'unavailable' | 'error'> = this.missionService.dataStatus;
+  readonly dataStatus: Signal<'loading' | 'ready' | 'unavailable' | 'error'> =
+    this.missionService.dataStatus;
   readonly dataError: Signal<string | null> = this.missionService.dataError;
 
   readonly storageFeedback = signal<{ message: string; type: 'success' | 'error' } | null>(null);

@@ -2,7 +2,7 @@
 
 ## ACTIVE — final 90-minute survival-planning release
 
-Implement standalone SurvivalBudgetComponent under src/app/survival-budget/ only. Explicit user speed/time/task/reserve assumptions; same-path round-trip time from existing planar meters. Never a safe-route/oxygen prediction. Full formula, validation and tests in the shared plan.
+**Coordinator takeover completed at Patrick's request. Do not start a competing survival-budget component.** The return-time card is implemented and mounted in Route Planner, with saved assumptions and downloadable brief; 266 tests/build and full-process offline browser checks pass. [Implementation evidence](../qa/SURVIVAL_BUDGET.md). If you resume, review current main first and focus on truthful release/submission material rather than duplicating this component.
 
 Read [the exact shared assignment, ownership and clock](../FINAL_90_MINUTES.md). This section supersedes older future-work lists. Preserve/push existing work first; use current main and stable review URL. First handoff by minute 35, integration freeze at minute 55, submission reserved for final 15 minutes. No inferred safe-route or life-support claims.
 

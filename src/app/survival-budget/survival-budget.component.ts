@@ -1,0 +1,159 @@
+import { Component, computed, effect, inject, signal, untracked } from '@angular/core';
+import { DOCUMENT, DecimalPipe } from '@angular/common';
+import { MissionService } from '../core/mission.service';
+import { BudgetInputs, calculateBudget, validInputs } from './budget';
+@Component({
+  selector: 'app-survival-budget',
+  standalone: true,
+  imports: [DecimalPipe],
+  templateUrl: './survival-budget.component.html',
+  styleUrl: './survival-budget.component.scss',
+})
+export class SurvivalBudgetComponent {
+  readonly mission = inject(MissionService);
+  private readonly document = inject(DOCUMENT);
+  readonly inputs = signal<BudgetInputs>({
+    speedKmh: null,
+    availableMinutes: null,
+    taskMinutes: null,
+    reserveMinutes: null,
+  });
+  readonly result = computed(() =>
+    calculateBudget(this.mission.assessment().planarDistanceMeters, this.inputs()),
+  );
+  readonly message = signal(
+    'Enter your own assumptions. No suit endurance or walking speed is supplied by NASA data.',
+  );
+  private imageRef: string | null = null;
+  private dirty = false;
+  constructor() {
+    effect(() => {
+      const ref = this.mission.image()?.imageRef;
+      if (!ref || ref === this.imageRef) return;
+      this.imageRef = ref;
+      untracked(() => {
+        if (!this.dirty) this.restore();
+      });
+    });
+  }
+  set(field: keyof BudgetInputs, event: Event) {
+    this.dirty = true;
+    const raw = (event.target as HTMLInputElement).value;
+    this.inputs.update((v) => ({ ...v, [field]: raw.trim() === '' ? null : Number(raw) }));
+    this.message.set(
+      'Scenario changed. Save assumptions separately; Save Route does not save this scenario.',
+    );
+  }
+  example() {
+    this.dirty = true;
+    this.inputs.set({ speedKmh: 1, availableMinutes: 120, taskMinutes: 20, reserveMinutes: 30 });
+    this.message.set(
+      'Illustrative example only: 1 km/h, 120 minutes available, 20 task minutes, 30 reserve minutes. Replace these assumptions for your scenario.',
+    );
+  }
+  private key() {
+    return `marswalk:survival-budget:v1:${this.mission.image()!.imageRef}`;
+  }
+  private decode(raw: string): BudgetInputs | null {
+    try {
+      const v = JSON.parse(raw);
+      return v.schemaVersion === 1 &&
+        v.imageRef === this.mission.image()?.imageRef &&
+        validInputs(v.inputs)
+        ? v.inputs
+        : null;
+    } catch {
+      return null;
+    }
+  }
+  restore() {
+    if (!this.mission.image()) return;
+    try {
+      const raw = localStorage.getItem(this.key());
+      if (raw === null) return;
+      const inputs = this.decode(raw);
+      if (!inputs) {
+        this.message.set(
+          'Saved scenario is unreadable and has been preserved. Download your current brief; existing saved assumptions will not be overwritten.',
+        );
+        return;
+      }
+      this.inputs.set(inputs);
+      this.dirty = false;
+      this.message.set(
+        'Saved assumptions restored for this image. Route data is saved separately.',
+      );
+    } catch {
+      this.message.set('Scenario storage is unavailable. You can download the brief instead.');
+    }
+  }
+  save() {
+    if (!this.mission.image() || !validInputs(this.inputs())) {
+      this.message.set('Enter valid assumptions before saving.');
+      return;
+    }
+    try {
+      const old = localStorage.getItem(this.key());
+      if (old !== null && !this.decode(old)) {
+        this.message.set(
+          'Saved scenario is unreadable and was not overwritten. Download the brief to keep your current assumptions.',
+        );
+        return;
+      }
+      localStorage.setItem(
+        this.key(),
+        JSON.stringify({
+          schemaVersion: 1,
+          imageRef: this.mission.image()!.imageRef,
+          inputs: this.inputs(),
+        }),
+      );
+      this.dirty = false;
+      this.message.set(
+        'Scenario assumptions saved on this device. Save your route and observations separately.',
+      );
+    } catch {
+      this.message.set('Scenario could not be saved. Download the brief to keep a copy.');
+    }
+  }
+  brief() {
+    const image = this.mission.image();
+    const r = this.result();
+    const i = this.inputs();
+    return [
+      'MARSWALK — OUT-AND-BACK SURVIVAL PLANNING SCENARIO',
+      `Created: ${new Date().toISOString()}`,
+      `Image: ${image?.imageRef ?? 'unavailable'}`,
+      `Assumed walking speed: ${i.speedKmh ?? 'unset'} km/h`,
+      `Available time: ${i.availableMinutes ?? 'unset'} min`,
+      `Task time: ${i.taskMinutes ?? 'unset'} min`,
+      `Protected reserve: ${i.reserveMinutes ?? 'unset'} min`,
+      ...(r.ok
+        ? [
+            `One-way planar distance: ${r.oneWayMeters.toFixed(2)} m`,
+            `Same-path round trip: ${r.roundTripMeters.toFixed(2)} m`,
+            `Round-trip travel: ${r.travelMinutes.toFixed(2)} min`,
+            `Travel plus tasks: ${r.plannedMinutes.toFixed(2)} min`,
+            `Margin after reserve: ${r.marginMinutes.toFixed(2)} min`,
+            `Scenario: ${r.fits ? 'Within entered time budget' : 'Exceeds entered time budget'}`,
+          ]
+        : [`Estimate unavailable: ${r.reason}`]),
+      `Route: ${JSON.stringify(this.mission.route())}`,
+      `Observation count: ${this.mission.observations().length}`,
+      'Assumptions: follow the drawn route outward and the same path back at constant user-entered speed. Planning estimate only, not a live countdown, terrain travel time, oxygen calculation or safety decision.',
+      'Check suit/life-support endurance, communications, return access and hazards independently. Terrain, slopes, obstacles, radiation, actual supplies and route-wide weather are not verified. AI-generated relief does not supply real elevations.',
+      `Image source: ${image?.source.url ?? 'unavailable'}`,
+      `Credit: ${image?.source.credit ?? 'unavailable'}`,
+      'Use Mission Transfer to export the separate mission JSON for application import. This text brief cannot be imported as a mission.',
+    ].join('\n');
+  }
+  download() {
+    if (!this.result().ok) return;
+    const url = URL.createObjectURL(new Blob([this.brief()], { type: 'text/plain;charset=utf-8' }));
+    const link = this.document.createElement('a');
+    link.href = url;
+    link.download = 'marswalk-survival-brief.txt';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  }
+}

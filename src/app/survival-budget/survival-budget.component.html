@@ -1,0 +1,117 @@
+<section class="survival-card" aria-labelledby="survival-budget-title">
+  <p class="eyebrow">Survival planning · scenario</p>
+  <h2 id="survival-budget-title">Plan the return, not just the destination</h2>
+  <p>
+    Estimate an out-and-back excursion along your drawn route. Your entered time budget is an
+    assumption—not measured suit endurance.
+  </p>
+  <fieldset [disabled]="mission.dataStatus() !== 'ready'">
+    <legend>Your planning assumptions</legend>
+    <div class="input-grid">
+      <label for="survival-speed"
+        >Walking speed (km/h)<input
+          id="survival-speed"
+          type="number"
+          min="0.001"
+          step="any"
+          [value]="inputs().speedKmh ?? ''"
+          (input)="set('speedKmh', $event)"
+      /></label>
+      <label for="survival-available"
+        >Available excursion time (min)<input
+          id="survival-available"
+          type="number"
+          min="0.001"
+          step="any"
+          [value]="inputs().availableMinutes ?? ''"
+          (input)="set('availableMinutes', $event)"
+      /></label>
+      <label for="survival-task"
+        >Task / observation time (min)<input
+          id="survival-task"
+          type="number"
+          min="0"
+          step="any"
+          [value]="inputs().taskMinutes ?? ''"
+          (input)="set('taskMinutes', $event)"
+      /></label>
+      <label for="survival-reserve"
+        >Protected reserve (min)<input
+          id="survival-reserve"
+          type="number"
+          min="0"
+          step="any"
+          [value]="inputs().reserveMinutes ?? ''"
+          (input)="set('reserveMinutes', $event)"
+      /></label>
+    </div>
+    <button type="button" (click)="example()">Use illustrative example</button>
+  </fieldset>
+  @if (result(); as r) {
+    @if (r.ok) {
+      <div class="outcome" [class.over-budget]="!r.fits" role="status">
+        <strong>{{ r.fits ? 'Within entered time budget' : 'Exceeds entered time budget' }}</strong>
+        <p>
+          This compares arithmetic with your assumptions. It is not a departure clearance or safety
+          rating.
+        </p>
+      </div>
+      <dl>
+        <dt>One-way planar route</dt>
+        <dd>{{ r.oneWayMeters | number: '1.1-1' }} m</dd>
+        <dt>Same-path round trip</dt>
+        <dd>{{ r.roundTripMeters | number: '1.1-1' }} m</dd>
+        <dt>Round-trip travel</dt>
+        <dd>{{ r.travelMinutes | number: '1.1-1' }} min</dd>
+        <dt>Travel + tasks</dt>
+        <dd>{{ r.plannedMinutes | number: '1.1-1' }} min</dd>
+        <dt>Margin after protected reserve</dt>
+        <dd>{{ r.marginMinutes | number: '1.1-1' }} min</dd>
+        <dt>Maximum one-way distance under entered assumptions</dt>
+        <dd>{{ r.maxOutwardMeters | number: '1.1-1' }} m</dd>
+      </dl>
+      @if (!r.fits) {
+        <p class="adjust">
+          Shorten the drawn route or revise your task plan. Change speed or available time only when
+          you have a justified basis; do not remove the reserve just to make the result fit.
+        </p>
+      }
+    } @else {
+      <p class="unavailable" role="status">{{ r.reason }}</p>
+    }
+  }
+  <div class="actions">
+    <button type="button" (click)="save()" [disabled]="!mission.image()">
+      Save scenario assumptions
+    </button>
+    <button type="button" (click)="download()" [disabled]="!result().ok">
+      Download survival brief
+    </button>
+  </div>
+  <p role="status">{{ message() }}</p>
+  <details>
+    <summary>Calculation and pre-departure checks</summary>
+    <p>
+      Round-trip travel = 2 × planar route meters ÷ (assumed speed × 1,000) × 60. Margin = available
+      minutes − task minutes − reserve minutes − travel minutes.
+    </p>
+    <p>
+      Constant speed and the same outward/return path are assumed. This is a planning estimate, not
+      a live countdown. Slopes, obstacles, delays and real surface distance are unknown.
+    </p>
+    <ul>
+      <li>Independently verify suit/life support, supplies and operating limits.</li>
+      <li>Establish communications and an accessible return point.</li>
+      <li>Review terrain and hazards using validated operational sources.</li>
+      <li>
+        Save the route and observations, export the mission, and verify the offline pack before
+        disconnecting.
+      </li>
+    </ul>
+    <p>
+      Historical REMS observations and AI-generated relief cannot establish current conditions or
+      real route slope. Scenario assumptions are stored separately from route/notes; the text brief
+      is not an importable mission JSON.
+    </p>
+  </details>
+</section>

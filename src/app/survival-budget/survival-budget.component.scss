@@ -1,0 +1,119 @@
+:host {
+  display: block;
+}
+.survival-card {
+  padding: 16px;
+  margin: 12px 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+h2 {
+  font-size: 1.2rem;
+  margin: 6px 0 12px;
+}
+p,
+li {
+  line-height: 1.5;
+}
+.eyebrow {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
+}
+fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 16px 0;
+}
+legend {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  font: inherit;
+}
+button {
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  font: inherit;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+}
+.outcome {
+  border-left: 3px solid var(--science-cyan);
+  padding: 10px 12px;
+  background: var(--bg-surface);
+}
+.outcome p {
+  margin-bottom: 0;
+}
+.over-budget {
+  border-left-color: var(--warning-amber);
+}
+.adjust {
+  color: var(--warning-text);
+}
+dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 10px;
+  font-size: 0.9rem;
+}
+dd {
+  margin: 0;
+  font-weight: 600;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+summary {
+  cursor: pointer;
+  padding: 10px 0;
+}
+.unavailable {
+  color: var(--text-secondary);
+}
+@media (max-width: 420px) {
+  .input-grid {
+    grid-template-columns: 1fr;
+  }
+}
