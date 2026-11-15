@@ -1,13 +1,10 @@
-import { DatePipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Point } from '../core/models';
 import { MissionService } from '../core/mission.service';
 
 @Component({
   selector: 'app-notebook',
   standalone: true,
-  imports: [FormsModule, DatePipe],
   templateUrl: './notebook.component.html',
   styleUrl: './notebook.component.scss',
 })
@@ -33,6 +30,37 @@ export class NotebookComponent {
 
   setDraftText(text: string): void {
     this.draftText.set(text);
+  }
+
+  onDraftInput(event: Event): void {
+    const target = event.target as HTMLTextAreaElement | null;
+    if (target) {
+      this.setDraftText(target.value);
+    }
+  }
+
+  onFormSubmit(event: Event): void {
+    event.preventDefault();
+    this.onSubmit();
+  }
+
+  formatTimestamp(isoOrDate: string): string {
+    const trimmed = isoOrDate.trim();
+    if (!trimmed) {
+      return isoOrDate;
+    }
+    const parsed = new Date(trimmed);
+    if (Number.isNaN(parsed.getTime())) {
+      return isoOrDate;
+    }
+    try {
+      return new Intl.DateTimeFormat(undefined, {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+      }).format(parsed);
+    } catch {
+      return isoOrDate;
+    }
   }
 
   toggleAttachStart(): void {

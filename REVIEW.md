@@ -1,5 +1,8 @@
 # MARSWALK — Submitted branches reviewed and integrated
 
+> **Latest Gaddielle review:** environmental tip `286374b` requires changes and is **not merged/deployed**. All 42 isolated tests pass, but temporary probes reproduce source overwrite, Infinity JSON and inconsistent statistics; original-product provenance remains missing. [Findings and correction prompt](docs/reviews/GADDIELLE.md#latest-environmental-submission--changes-required-before-merge). Prior R3/release handoff and the live app remain accepted.
+
+
 > **Live deployment update — 15 November:** https://marswalk-jet.vercel.app/ is public and passes production-origin browser offline restart/mission recovery checks. Source `b6669fb`; [deployment evidence](docs/qa/VERCEL_PRODUCTION.md), [Vercel runbook](docs/VERCEL_SETUP.md). Physical home-screen acceptance remains pending; automatic GitHub deployment is not connected. Earlier revision-scoped statements below retain their historical scope.
 
 
@@ -51,3 +54,8 @@ Integrated at `c7ac053` with all existing coordinator regressions preserved. Iso
 ## Gaddielle release-data handoff `0514da1`
 
 Accepted/integrated with narrow documentation corrections for canonical LF versus CRLF byte/hash values, full-pack membership and verifier scope. Four runtime files match production copies; source assets/code remain unchanged. Numerical source evidence/converter is now her active assignment. [Review](docs/reviews/GADDIELLE.md), [single-file plan](docs/team/GADDIELLE.md).
+
+
+## Emma release UI `cdd2417` — accepted
+
+Integrated at `be4ac2b`: 144 tests/build/offline browser pass; initial 433.80 kB after coordinator router cleanup, styles below warning budgets. Phase 2 and physical/outside-user checks remain pending. Readiness API and existing HTTPS host are supplied; three shared SCSS-only theme fixes are delegated to Emma, with component logic retained by Enzo. [Evidence](docs/reviews/EMMA.md), [current prompt](docs/team/EMMA.md).

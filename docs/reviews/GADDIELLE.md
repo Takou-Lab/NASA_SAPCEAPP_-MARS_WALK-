@@ -1,4 +1,46 @@
-# Gaddielle review — merged, including coordinator R3 closure
+# Gaddielle — environmental review: changes required
+
+## Latest environmental submission — changes required before merge
+
+Reviewed **15 November 2026 (Africa/Douala)**: `feature/gaddielle-environment-data`, tip **`286374b`** (includes `b730511`). This is a new review; earlier R3 and release-data handoff acceptances remain valid. **No environmental code/sample/schema was merged or deployed.**
+
+Useful delivery: expanded source/schema proposal, a 16-row combined CSV, a local converter with atomic replacement/read-only check mode and nine new tests. No runtime `public/data/environment.json` was committed, respecting the agreement gate. Preserve that work.
+
+### R1 — P1: source provenance does not establish verified measurements
+
+The audit and CSV cite archive landing pages but provide no exact REMS/RAD data-product IDs/downloads, original label/data files, raw-product hashes or extraction/row mapping connecting the stated Sol 3900–3915 values to archived observations. The common 0/1/2 quality flag and -9999 rules also lack cited instrument-field documentation. The checked-in CSV hash proves its byte identity, not NASA origin.
+
+The converter nevertheless labels any accepted numerical input `verified-archival` and `measured` using hardcoded NASA citations. **Schema/source approval is withheld.** Do not infer authenticity from plausible numbers, passing tests or a landing-page link, and do not accuse or describe these rows as fabricated without evidence: they are currently **unverified**.
+
+**Correction:** supply a bounded original product/label sample per instrument, product/version/detector/unit/time/quality metadata, raw bytes/hash and exact reproducible extraction mapping. Keep distinct REMS/RAD intervals and flags explicit. If these rows are illustrative or cannot be traced, label them test-only/illustrative and remove verified-NASA measurement claims. Do not produce public runtime data or verified status until the source evidence is accepted. Reviewer requests to both cited archive pages were blocked by this cloud environment (CONNECT 403), so no independent archive fetch is claimed.
+
+### R2 — P1: output can overwrite the input CSV
+
+`prepare_environment.py`, CLI write path around lines 335–348 / writer 262–274, has no source/output alias guard. On a **temporary copy**, passing the same path as `--source` and `--output` returns 0 and replaces the CSV with JSON.
+
+**Correction:** reject resolved/same-file aliases (including relevant symlink/hardlink cases) before any write. Exit 1 cleanly, preserving source bytes/mtime, existing destination and filesystem state on rejection. Add actual regression cases; atomic replacement alone does not protect an aliased source.
+
+### R3 — P1: invalid numerical input can become verified invalid JSON
+
+Numeric parsing/aggregation around lines73–113 accepts non-finite floats. Temporary input `pressure_mean_pa=inf` returns 0, replaces an existing sentinel destination and writes `Infinity` with `qualityStatus: verified-archival`. Strict browser JSON parsing rejects it. A temporary row with pressure min 1000 / mean 10 / max 1 is also accepted and emitted as verified.
+
+**Correction:** validate finite numbers and documented unit/quality/range/interval consistency before aggregation/writing; reject malformed rows rather than silently certifying them. Require min≤mean≤max where those fields describe the same interval. Use strict JSON serialization (`allow_nan=False`) as defense in depth. Tests must demonstrate nonzero exit and unchanged existing output bytes/mtime for NaN, ±Infinity, overflow and inconsistent records.
+
+### R4 — P2: audit/aggregation/schema and documentation need correction
+
+- A temporary valid-quality row with radiation 0 produces `sampleCount: 0` and unavailable radiation, while overall includedRows remains 1. Preserve legitimate zeros per the actual product rules. Per-quantity valid/missing/rejected counts and reasons are needed; a single joint flag must not discard otherwise usable REMS observations just because RAD is missing.
+- Mean/min/max are computed summaries of measurements. Record the aggregation method/interval and distinguish derived summaries from raw measured observations. Do not automatically promote arbitrary supplied CSVs to scientifically verified status. Proposed schemas remain proposals until sources/semantics are agreed.
+- Replace `file:///c:/Users/...` links with repository-relative links and correct the stale personal-brief anchor. Cite evidence for period/location, detector/unit, uncertainty and quiet-Sun assertions; remove unsupported blanket statements about all Mars weather availability. This review does not require claimed human-dose/safety calculations or new UI.
+- Keep the converter as a prototype pending contract agreement; correct source/validation/metadata first. No root/core/worker/package or Enzo UI edits are assigned to Gaddielle.
+
+### Actual verification
+
+Isolated extraction of published tip into `/tmp/gaddielle-env-review`, leaving feature/main files untouched. **All 42 data tests pass (33 existing + 9 new)**. Those tests do not cover the reproduced source-alias/non-finite/inconsistent-range/zero cases and cannot establish scientific authenticity.
+
+The committed sample is 1,648 bytes, SHA-256 `d2d047acbcbdbe1521563345e19720b22da923b6f9bde5d799ee7bdf07d95180`; this matches the audit's local-file identity claim. All negative probes used temporary copies/destinations. No real source file or live mission was overwritten. No unnecessary Angular/build/device rerun is claimed for this isolated tool review.
+
+**Next:** stay on the same environmental branch, preserve work and merge published main safely to inherit the accepted corrected release handoff. Address R1–R4, rerun relevant tests and hand off exact source evidence/commit/results for re-review. [Single-file correction prompt](../team/GADDIELLE.md). Do not repeat completed R3/release-data work or start another speculative dataset/UI task.
+
 
 ## Release-data handoff `0514da1` — accepted with coordinator corrections
 

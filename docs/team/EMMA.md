@@ -2,9 +2,21 @@
 
 > Current work piece: [W4](../../TEAM_TASKS.md#w4).
 
-Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
+Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. Current reviewed UI integration is `be4ac2b`: 144 Angular tests, production build and local production-browser checks pass. The earlier `b744b0b`/`27b1171` results are historical baseline evidence, not checks of future work. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
+
+## Current W4 handoff — Phase 1 accepted, Phase 2 starts now
+
+Your `cdd2417` is approved and integrated at **`be4ac2b`**. Branch 139 tests/build pass; current integration **144 tests/build/browser offline checks pass**. Coordinator completed the unused-router bootstrap cleanup outside your ownership. Initial 433.80 kB is below 500 kB; planner/notebook style budgets pass. [Review/evidence](../reviews/EMMA.md#release-ui-cdd2417--accepted-and-integrated). Do not repeat Phase 1.
+
+1. **Agree one visual specification** with Willy/Enzo using existing tokens, typography/spacing, panel density, badges/actions and both-theme screenshots. Keep one owner per edited file and preserve unpublished work.
+2. **Readiness/header work is unblocked.** `src/app/core/pwa.service.ts` is real and documented in CODING_AGENTS.md. Read existing signals/actions; clarify mission metadata versus connection/verified offline pack. Display only supported states. Root already has PwaPanelComponent and initializes once: coordinate removal/relocation centrally before duplicating install/prepare/update controls. No new worker/model/API or pretend image/persistence-ready signals.
+3. **Narrow styling exception granted:** own light/dark fixes in `src/app/science/science-context.component.scss`, `src/app/evidence/exploration-confidence.component.scss`, and `src/app/evidence/image-passport.component.scss`. Use existing theme tokens, readable text/borders/alerts/focus and actual contrast checks. Enzo retains their TS/HTML/tests/data logic; do not rewrite those components or touch his environmental implementation.
+4. **Environmental slot:** coordinate a mounting handoff when Enzo's component and agreed data API exist. Keep this dependency explicit; complete the other design/header work now without inventing measurements or service exports.
+5. **Phase 3/4:** use the exact coordinator-deployed UI revision for HTTPS clean/existing-profile and screenshot checks. Actual Android/iOS/touch/installed standalone acceptance and outside-user sessions remain unrun until observed. Coordinator arranges users; Enzo maintains outcomes. Do not reuse browser checks as physical evidence.
+
+Continue existing **`feature/emma-release-ui`**, preserve work and incorporate published main safely. No reset/force-push or duplicate branch. Record actual results/revisions in `docs/qa/RELEASE_UI.md`. No independent deployment or main merge.
 
 ## Public host is ready for your acceptance checks
 
@@ -12,7 +24,7 @@ Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual publ
 
 ## Coordinator PWA delivery — current handoff
 
-**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.
+**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation still needs validation; public hosting is documented above. Existing 131-test statements below are historical baseline counts.
 
 Your real PWA presentation API is now available; root already mounts one PwaPanelComponent. Continue accessibility/design and coordinate any relocation of these controls rather than duplicating them or inventing readiness.
 
@@ -26,12 +38,12 @@ Emma uses **he/him**. Your research/records/citations, usability protocol, prese
 
 ## Phase 1 — Release accessibility and size cleanup
 
-Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` and their tests/styles; named QA `docs/qa/RELEASE_UI.md`. No root/core/package/worker/data/evidence-component rewrite.
+Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app/planner/`, `src/app/notebook/` and their tests/styles; named QA `docs/qa/RELEASE_UI.md`. No root/core/package/worker/data/evidence-component rewrite. The three named SCSS-only Phase 2 theme fixes above are the explicit exception; component logic remains Enzo-owned.
 
-- [ ] Implement coherent tab/tabpanel IDs and ARIA relationships, selected state, roving focus, Left/Right/Home/End behavior. Only handle keys originating in tab controls; do not intercept notebook typing.
-- [ ] Ensure hidden/collapsed content cannot trap focus. Keep visible focus, readable contrast and usable keyboard/touch layout.
-- [ ] Reduce initial/planner/notebook style warning overruns without raising budgets or deleting features. Measure actual before/after. Any lazy splitting must preserve notebook state after first creation, retain errors/drafts and list essential chunks for offline preparation.
-- [ ] Recheck exact unsaved note across tabs/failed save, successful save, sidebar restored/keyboard clamp, mobile overflow and 3D teardown. Record actual integrated tests/build/browser results.
+- [x] Implement coherent tab/tabpanel IDs and ARIA relationships, selected state, roving focus, Left/Right/Home/End behavior. Only handle keys originating in tab controls; do not intercept notebook typing.
+- [x] Ensure hidden/collapsed content cannot trap focus. Keep visible focus, readable contrast and usable keyboard/touch layout.
+- [x] Reduce initial/planner/notebook style warning overruns without raising budgets or deleting features. Measure actual before/after. Any lazy splitting must preserve notebook state after first creation, retain errors/drafts and list essential chunks for offline preparation.
+- [x] Recheck exact unsaved note across tabs/failed save, successful save, sidebar restored/keyboard clamp, mobile overflow and 3D teardown. Record actual integrated tests/build/browser results.
 
 ## Phase 2 — Consistent professional design
 
@@ -57,7 +69,7 @@ Use **`feature/emma-release-ui`** if no task exists. Own `src/app/ui/`, `src/app
 
 Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
 
-For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
+For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. The reviewed integration is within initial/style warning budgets; preserve those budgets.
 
 Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
 

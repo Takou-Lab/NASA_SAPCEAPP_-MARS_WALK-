@@ -2,9 +2,18 @@
   <!-- 1. Mode Selector Group -->
   <section class="planner-card">
     <div class="card-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="title-icon"
+        aria-hidden="true"
+      >
         <circle cx="12" cy="12" r="3" />
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
+        <path
+          d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"
+        />
       </svg>
       <span>Drawing Mode</span>
     </div>
@@ -18,7 +27,14 @@
         aria-label="Inspect Mode"
         [attr.aria-pressed]="mode() === 'inspect'"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.3-4.3" />
         </svg>
@@ -33,9 +49,15 @@
         aria-label="Set Start Point Mode"
         [attr.aria-pressed]="mode() === 'start'"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-          <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
-          <line x1="4" y1="22" x2="4" y2="15" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
+          <path d="M5 21V4l12 4-12 4" />
         </svg>
         <span>Start</span>
       </button>
@@ -48,12 +70,16 @@
         aria-label="Add Waypoint Mode"
         [attr.aria-pressed]="mode() === 'waypoint'"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
           <circle cx="12" cy="12" r="4" />
-          <line x1="12" y1="2" x2="12" y2="6" />
-          <line x1="12" y1="18" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="6" y2="12" />
-          <line x1="18" y1="12" x2="22" y2="12" />
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
         </svg>
         <span>Waypoint</span>
       </button>
@@ -66,10 +92,16 @@
         aria-label="Set Destination Point Mode"
         [attr.aria-pressed]="mode() === 'destination'"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-          <circle cx="12" cy="12" r="10" />
-          <circle cx="12" cy="12" r="6" />
-          <circle cx="12" cy="12" r="2" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9" />
+          <circle cx="12" cy="12" r="3" />
         </svg>
         <span>Destination</span>
       </button>
@@ -84,9 +116,15 @@
   <!-- 2. Action Controls (Undo, Clear) -->
   <section class="planner-card">
     <div class="card-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
-        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-        <path d="M3 3v5h5" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="title-icon"
+        aria-hidden="true"
+      >
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5" />
       </svg>
       <span>Route Actions</span>
     </div>
@@ -100,9 +138,15 @@
         aria-label="Undo last route edit"
         title="Undo last action (or restore cleared route)"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-          <path d="M3 7v6h6" />
-          <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
+          <path d="M3 7v6h6M21 17a9 9 0 0 0-15-6.7L3 13" />
         </svg>
         <span>Undo Step</span>
       </button>
@@ -115,10 +159,15 @@
         aria-label="Clear all route points"
         title="Clear all points (can be undone)"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-          <path d="M3 6h18" />
-          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
+          <path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14" />
         </svg>
         <span>Clear Route</span>
       </button>
@@ -128,8 +177,15 @@
   <!-- 3. Active Route Points Summary -->
   <section class="planner-card">
     <div class="card-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="title-icon"
+        aria-hidden="true"
+      >
+        <path d="M2 12h4l3 9 6-18 3 9h4" />
       </svg>
       <span>Route Sequence</span>
     </div>
@@ -192,7 +248,10 @@
       </div>
     } @else {
       <div class="empty-route-message">
-        <p>No route points placed yet. Switch to Start, Waypoint, or Destination mode and click the map.</p>
+        <p>
+          No route points placed yet. Switch to Start, Waypoint, or Destination mode and click the
+          map.
+        </p>
       </div>
     }
   </section>
@@ -200,10 +259,17 @@
   <!-- 4. Route Persistence (Save / Load) -->
   <section class="planner-card">
     <div class="card-title">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="title-icon">
-        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-        <polyline points="17 21 17 13 7 13 7 21" />
-        <polyline points="7 3 7 8 15 8" />
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="title-icon"
+        aria-hidden="true"
+      >
+        <path
+          d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2zM17 21v-8H7v8M7 3v5h8"
+        />
       </svg>
       <span>Local Route Storage</span>
     </div>
@@ -216,7 +282,14 @@
         (click)="save()"
         aria-label="Save route to local browser storage"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
           <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
         </svg>
         <span>Save Route</span>
@@ -228,10 +301,15 @@
         (click)="load()"
         aria-label="Load saved route from local browser storage"
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="17 8 12 3 7 8" />
-          <line x1="12" y1="3" x2="12" y2="15" />
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="btn-icon"
+          aria-hidden="true"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
         </svg>
         <span>Load Route</span>
       </button>
@@ -244,7 +322,11 @@
     }
 
     <div class="storage-notice">
-      <span>Saved routes are versioned and tied to the active raster reference ({{ image() ? image()!.imageRef : 'none' }}).</span>
+      <span
+        >Saved routes are versioned and tied to the active raster reference ({{
+          image() ? image()!.imageRef : 'none'
+        }}).</span
+      >
     </div>
   </section>
 </div>

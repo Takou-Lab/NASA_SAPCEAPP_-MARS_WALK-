@@ -8,6 +8,28 @@ All unchecked items below are **planned**, not claims of implementation. Keep co
 
 Royce is the original-plan name for the role documented as Longla.
 
+## Screenshot blocker checklist — prerequisites supplied
+
+Checked **15 November 2026 (Africa/Douala)**. Both published `feature/longla-3d` and `feature/longla-3d-rehearsal` currently point to `23d5180`, already included in main. A new branch name does not mean new code awaits merge. Preserve any unpublished local work.
+
+| Requested prerequisite | Actual location/status |
+| --- | --- |
+| Install manifest | `public/manifest.webmanifest`, linked in `src/index.html` |
+| Install icons | `public/icons/marswalk-192.png`, `marswalk-512.png`, `marswalk-maskable-512.png` |
+| Worker | Source `tools/pwa/worker.js`; generated `dist/marswalk/browser/service-worker.js` |
+| Complete pack inventory | Generated `dist/marswalk/browser/offline-pack.json`; custom implementation, no `ngsw.json` or Workbox requirement |
+| Production build | **`npm run build`**, which builds Angular and generates the worker/pack; output `dist/marswalk/browser` |
+| Device-test URL | **https://marswalk-jet.vercel.app/**, deployed source `b6669fb` |
+| Mission payload | Create a temporary route/note through actual UI, save and Export JSON; no invented science-pin fixture needed |
+| Outside-user protocol | Existing `docs/USABILITY.md`, originally prepared by Emma, now maintained by Enzo; coordinator arranges sessions |
+| Runtime environment/API keys | **None required**. Vercel CLI/OIDC credentials are deployment-only, not app QA requirements |
+
+The old missing-assets checklist is superseded. Install prompting depends on browser support; missing icons alone are not an app rule that always disables an install button. Installation and verified offline preparation are separate. Background synchronization is not implemented or required by the current mission-transfer workflow.
+
+**Do now:** preserve local work and safely incorporate published main into the QA branch already in use (`feature/longla-3d` or `feature/longla-3d-rehearsal`). Read this brief and test the live URL on the actual device. Record exact device/OS/browser/build and observations in `docs/qa/PWA_ACCEPTANCE.md`: prepare online, save route/note, install if supported, disconnect, close, reopen from icon, explicitly Load saved route, inspect image/science and export. Check optional 3D separately. Prerequisites existing is not a physical-device pass.
+
+Do not open a duplicate PR for already-merged `23d5180`; identify genuinely new/unpublished commits separately. Reconcile the prior report's message/browser/FPS differences. Phase 2 VR feasibility follows this QA handoff; no fabricated headset support or terrain data.
+
 ## Public host is ready for your acceptance checks
 
 Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual public browser preparation, offline full-process restart, route/note recovery/export and deferred flat 3D pass. [Evidence](../qa/VERCEL_PRODUCTION.md), [runbook](../VERCEL_SETUP.md). Target-device home-screen/standalone acceptance still needs actual observations; do not copy the browser pass as physical evidence. Automatic GitHub deployment is not connected, so a new main commit is not necessarily live until the coordinator deploys it.
@@ -24,7 +46,7 @@ Corrected optional flat viewer is integrated through branch tip `23d5180`. It is
 
 ## Phase 1 — Clarify report and run integrated device QA
 
-Continue **`feature/longla-3d-rehearsal`** for QA. Own `docs/qa/PWA_ACCEPTANCE.md` and actual defect/retest records. Do not rewrite teammate implementation.
+Continue the existing QA branch (`feature/longla-3d` or `feature/longla-3d-rehearsal`) and report its actual name. Own `docs/qa/PWA_ACCEPTANCE.md` and actual defect/retest records. Do not rewrite teammate implementation.
 
 - [ ] Reconcile [preserved report](../qa/submissions/LONGLA_23d5180.md): actual controls are Open 3D viewer / Close 3D viewer; canonical import error is “Invalid mission or a different image version. Current work is unchanged.” Explain differing quotes/served build, exact browser version and whether FPS was actually measured. Preserve original evidence as contributor-reported history.
 - [ ] On the actual available device record served commit/URL, device/OS/browser/version/input and observation date. Check real image/science, route edits, note save/recovery/draft failure, matching transfer and wrong-image rejection using isolated work.

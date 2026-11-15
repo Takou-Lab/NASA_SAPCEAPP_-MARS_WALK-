@@ -41,14 +41,18 @@ describe('ShellComponent', () => {
     expect(compiled.querySelector('app-confidence-panel')).toBeTruthy();
   });
 
-  it('switches between tabs on demand', () => {
+  it('switches between tabs on demand', async () => {
     component.setActiveTab('planner');
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
     expect(component.activeTab()).toBe('planner');
     let compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('app-route-planner')).toBeTruthy();
 
     component.setActiveTab('notebook');
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
     expect(component.activeTab()).toBe('notebook');
     compiled = fixture.nativeElement as HTMLElement;
@@ -109,13 +113,20 @@ describe('ShellComponent', () => {
     expect(component.isResizing()).toBe(false);
   });
 
-  it('keeps unsaved and failed-save notebook drafts while tabs change', () => {
+  it('keeps unsaved and failed-save notebook drafts while tabs change', async () => {
+    component.setActiveTab('notebook');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
     const notebook = fixture.debugElement.query(By.directive(NotebookComponent))
       .componentInstance as NotebookComponent;
     const mission = TestBed.inject(MissionService);
     notebook.setDraftText('Keep this exact field note');
     component.setActiveTab('planner');
+    fixture.detectChanges();
     component.setActiveTab('notebook');
+    fixture.detectChanges();
     expect(notebook.draftText()).toBe('Keep this exact field note');
 
     vi.spyOn(mission, 'addObservation').mockReturnValue({
@@ -124,8 +135,183 @@ describe('ShellComponent', () => {
     });
     notebook.onSubmit();
     component.setActiveTab('confidence');
+    fixture.detectChanges();
     component.setActiveTab('notebook');
+    fixture.detectChanges();
     expect(notebook.draftText()).toBe('Keep this exact field note');
     expect(notebook.feedback()?.type).toBe('error');
+  });
+
+  it('wires full ARIA tablist, tab, and tabpanel linkage with roving tabindex', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const tablist = compiled.querySelector('nav.panel-tabs[role="tablist"]');
+    expect(tablist?.getAttribute('aria-label')).toBe('Workspace Sections');
+
+    const tabIds = ['confidence', 'planner', 'notebook', 'transfer', 'rehearsal'] as const;
+    for (const id of tabIds) {
+      const tab = compiled.querySelector(`#tab-${id}`) as HTMLButtonElement | null;
+      const panel = compiled.querySelector(`#panel-${id}`) as HTMLElement | null;
+      expect(tab).toBeTruthy();
+      expect(tab?.getAttribute('role')).toBe('tab');
+      expect(tab?.getAttribute('aria-controls')).toBe(`panel-${id}`);
+      expect(panel).toBeTruthy();
+      expect(panel?.getAttribute('role')).toBe('tabpanel');
+      expect(panel?.getAttribute('aria-labelledby')).toBe(`tab-${id}`);
+      expect(panel?.getAttribute('tabindex')).toBe('0');
+    }
+
+    const assertSelected = (selectedId: (typeof tabIds)[number]) => {
+      for (const id of tabIds) {
+        const tab = compiled.querySelector(`#tab-${id}`) as HTMLButtonElement;
+        const panel = compiled.querySelector(`#panel-${id}`) as HTMLElement;
+        const isSelected = id === selectedId;
+        expect(tab.getAttribute('aria-selected')).toBe(String(isSelected));
+        expect(tab.tabIndex).toBe(isSelected ? 0 : -1);
+        expect(panel.hidden).toBe(!isSelected);
+      }
+    };
+
+    assertSelected('confidence');
+
+    component.setActiveTab('rehearsal');
+    fixture.detectChanges();
+    assertSelected('rehearsal');
+    expect(compiled.querySelector('#panel-rehearsal')?.getAttribute('aria-labelledby')).toBe(
+      'tab-rehearsal',
+    );
+    expect(compiled.querySelector('#viewer-title')?.textContent).toContain('Optional 3D rehearsal');
+  });
+
+  it('supports keyboard tab navigation with wrap-around without hijacking notebook textarea keys', async () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const tab = (id: string) => compiled.querySelector(`#tab-${id}`) as HTMLButtonElement;
+
+    tab('confidence').focus();
+    tab('confidence').dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }),
+    );
+    fixture.detectChanges();
+    expect(component.activeTab()).toBe('planner');
+    expect(document.activeElement).toBe(tab('planner'));
+
+    tab('planner').dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
+    fixture.detectChanges();
+    expect(component.activeTab()).toBe('rehearsal');
+    expect(document.activeElement).toBe(tab('rehearsal'));
+
+    tab('rehearsal').dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }),
+    );
+    fixture.detectChanges();
+    expect(component.activeTab()).toBe('confidence');
+    expect(document.activeElement).toBe(tab('confidence'));
+
+    tab('confidence').dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }),
+    );
+    fixture.detectChanges();
+    expect(component.activeTab()).toBe('rehearsal');
+    expect(document.activeElement).toBe(tab('rehearsal'));
+
+    tab('rehearsal').dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', bubbles: true }));
+    fixture.detectChanges();
+    expect(component.activeTab()).toBe('confidence');
+    expect(document.activeElement).toBe(tab('confidence'));
+
+    component.setActiveTab('notebook');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const textarea = compiled.querySelector('#obs-input') as HTMLTextAreaElement;
+    expect(textarea).toBeTruthy();
+    textarea.focus();
+    for (const key of ['ArrowLeft', 'ArrowRight', 'Home', 'End']) {
+      textarea.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+      fixture.detectChanges();
+      expect(component.activeTab()).toBe('notebook');
+    }
+
+    const directEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true });
+    Object.defineProperty(directEvent, 'target', { value: textarea });
+    component.onTabKeydown(directEvent);
+    expect(directEvent.defaultPrevented).toBe(false);
+    expect(component.activeTab()).toBe('notebook');
+  });
+
+  it('applies inert and aria-hidden on collapsed side panel, hides resizer, and restores on expand', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const aside = compiled.querySelector('#side-panel') as HTMLElement;
+    const toggleBtn = compiled.querySelector('.panel-toggle-btn') as HTMLButtonElement;
+    const resizer = compiled.querySelector('.panel-resizer') as HTMLElement;
+
+    expect(aside.hasAttribute('inert')).toBe(false);
+    expect(aside.getAttribute('aria-hidden')).toBeNull();
+    expect(toggleBtn.getAttribute('aria-expanded')).toBe('true');
+    expect(toggleBtn.getAttribute('aria-controls')).toBe('side-panel');
+    expect(resizer.hidden).toBe(false);
+    expect(resizer.tabIndex).toBe(0);
+
+    toggleBtn.click();
+    fixture.detectChanges();
+
+    expect(aside.hasAttribute('inert')).toBe(true);
+    expect(aside.getAttribute('aria-hidden')).toBe('true');
+    expect(toggleBtn.getAttribute('aria-expanded')).toBe('false');
+    expect(resizer.hidden).toBe(true);
+    expect(resizer.tabIndex).toBe(-1);
+
+    toggleBtn.click();
+    fixture.detectChanges();
+
+    expect(aside.hasAttribute('inert')).toBe(false);
+    expect(aside.getAttribute('aria-hidden')).toBeNull();
+    expect(toggleBtn.getAttribute('aria-expanded')).toBe('true');
+    expect(resizer.hidden).toBe(false);
+    expect(resizer.tabIndex).toBe(0);
+  });
+
+  it('lazily mounts planner and notebook stickily while still tearing down 3D viewer on tab leave', async () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    expect(compiled.querySelector('app-confidence-panel')).toBeTruthy();
+    expect(compiled.querySelector('app-map')).toBeTruthy();
+    expect(compiled.querySelector('app-route-planner')).toBeNull();
+    expect(compiled.querySelector('app-notebook')).toBeNull();
+    expect(compiled.querySelector('app-viewer3d')).toBeNull();
+
+    component.setActiveTab('planner');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('app-route-planner')).toBeTruthy();
+    expect(compiled.querySelector('app-notebook')).toBeNull();
+
+    component.setActiveTab('notebook');
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('app-notebook')).toBeTruthy();
+    expect(compiled.querySelector('app-route-planner')).toBeTruthy();
+
+    component.setActiveTab('rehearsal');
+    fixture.detectChanges();
+    expect(component.viewerOpen()).toBe(false);
+    expect(compiled.querySelector('app-viewer3d')).toBeNull();
+
+    const viewerToggle = compiled.querySelector('.viewer-toggle') as HTMLButtonElement;
+    viewerToggle.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(component.viewerOpen()).toBe(true);
+    expect(compiled.querySelector('app-viewer3d')).toBeTruthy();
+
+    component.setActiveTab('confidence');
+    fixture.detectChanges();
+    expect(component.viewerOpen()).toBe(false);
+    expect(compiled.querySelector('app-viewer3d')).toBeNull();
+    expect(compiled.querySelector('app-route-planner')).toBeTruthy();
+    expect(compiled.querySelector('app-notebook')).toBeTruthy();
   });
 });

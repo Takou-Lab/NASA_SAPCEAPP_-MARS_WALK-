@@ -1,4 +1,17 @@
-# Emma evidence-workspace review — approved and integrated
+# Emma — release UI approved; Phase 2 design/readiness next
+
+## Release UI `cdd2417` — accepted and integrated
+
+Reviewed **15 November 2026 (Africa/Douala)**. Emma (he/him) delivers W4 Phase 1 in `feature/emma-release-ui`: keyboard/ARIA tabs, collapsed-panel focus safety, sticky deferred planner/notebook, native notebook input/submit handling and scoped theme/style cleanup. Only owned UI/planner/notebook files and QA changed; shared core/root/data/worker/dependencies were untouched by his submission.
+
+**Isolated branch:** 139 tests/build pass; initial 508.20 kB, both planner/notebook styles below 4 kB. **Integrated code `be4ac2b`: 144 tests across 16 files/build pass.** Coordinator retained PWA/transfer/root regressions and removed the unused router bootstrap centrally (empty route config, no Router consumers). Final initial **433.80 kB** vs prior production 595.20 kB, below 500 kB warning; no component budget warnings; Leaflet CommonJS warning remains. Budgets/dependencies were not changed. Two existing jsdom canvas-not-implemented warnings occur in the unit renderer harness; actual software-WebGL browser checks pass.
+
+Local production browser verified roving linked tabs, lazy initial panels, native typing without key hijacking, exact draft retention through tabs/failed storage, successful save/export, inert collapsed sidebar, 820px clamp, both-theme 390px no overflow and guarded mission transfer. Full browser process restart disconnected recovers route/notes/export and newly deferred notebook/planner chunks; opt-in 3D closes/destroys correctly. Pack **18 assets / 1,655,285 bytes**, version `1d65813e9cd8753391cd4911296b96b1ed85aea93b721e8b6c9c46a9e0d6c1a9`. All generated lazy chunks are included by the existing full-pack generator. These checks are browser results, not physical Android/iOS/standalone or outside-user acceptance.
+
+**Remaining blockers corrected:** W6 PwaService/custom worker/full pack already exist; no @angular/service-worker/ngsw-config.json requirement. Public host already exists, but old source `b6669fb` cannot prove this new UI revision; use the coordinator's updated deployment record when available. Enzo's environmental panel is still pending accepted source/schema; it does not block other Phase 2 design/readiness work.
+
+**Next:** Phase 2 visual specification/header readiness and styling-only light/dark fixes in the three shared component SCSS files explicitly delegated in [EMMA.md](../team/EMMA.md). Enzo retains their TS/HTML/data logic. Actual physical/standalone sessions remain pending; preserve prior research and reviewed UI.
+
 
 **15 November current integration:** all submitted code is merged in `b744b0b`; 131 Angular tests, 28 data tests, build and browser checks pass. [Final evidence](../qa/FINAL_BRANCH_INTEGRATION.md). Counts/revisions below describe their earlier tested scopes.
 

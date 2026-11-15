@@ -27,6 +27,12 @@ Use Angular standalone, strict TypeScript, plain SCSS/CSS and the existing Missi
 
 Personal briefs authorize normal commits/pushes to their named feature branches; preserve existing progress/history. Proposed new branch names apply only when a follow-up has not started. Main integration follows the user's authorized coordinator workflow. Deployment, environment publication, submission and external messaging are separate.
 
+## Emma Phase 2 styling exception
+
+W4 Phase 1 `cdd2417` is integrated in `be4ac2b` with 144 tests/build/offline browser checks. Coordinator removed unused router bootstrap; initial 433.80 kB and style budgets pass. Emma may consume the existing PwaService contract now; its delivery is no longer a blocker.
+
+Emma owns theme-only edits in `src/app/science/science-context.component.scss`, `src/app/evidence/exploration-confidence.component.scss` and `src/app/evidence/image-passport.component.scss`. Enzo retains their logic/templates/tests/data contracts. No root/core/worker/model ownership transfer. Coordinate any relocation of root PWA controls to keep one action surface. Environmental mounting awaits an accepted panel/data contract; other Phase 2 work can proceed independently.
+
 ## Full remaining-work plans and later ownership
 
 Each named personal file now contains the complete ordered plan through deployment. The table above describes the current first slices; later ownership expands only at the explicit phase gates below. Preserve unfinished local work and do not run every phase at once.

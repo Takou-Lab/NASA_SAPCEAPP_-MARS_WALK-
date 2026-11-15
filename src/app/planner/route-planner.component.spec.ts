@@ -23,11 +23,13 @@ describe('RoutePlannerComponent', () => {
     service = TestBed.inject(MissionService);
     http = TestBed.inject(HttpTestingController);
     const initialized = service.initialize();
-    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush({
-      ...testImage(),
-      width: 200,
-      height: 200,
-    });
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush({
+        ...testImage(),
+        width: 200,
+        height: 200,
+      });
     await Promise.resolve();
     http.expectOne((request) => request.url.endsWith('/data/markers.json')).flush([]);
     await initialized;
@@ -121,5 +123,37 @@ describe('RoutePlannerComponent', () => {
     fixture.detectChanges();
     expect(service.route().start).toEqual({ x: 25, y: 75 });
     expect(service.route().destination).toEqual({ x: 125, y: 175 });
+  });
+
+  it('marks decorative svg icons aria-hidden and preserves button semantics', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const svgs = Array.from(compiled.querySelectorAll('svg'));
+    expect(svgs.length).toBeGreaterThan(0);
+    for (const svg of svgs) {
+      expect(svg.getAttribute('aria-hidden')).toBe('true');
+    }
+
+    const modeBtns = Array.from(compiled.querySelectorAll('.mode-btn')) as HTMLButtonElement[];
+    expect(modeBtns).toHaveLength(4);
+    for (const btn of modeBtns) {
+      expect(btn.type).toBe('button');
+      expect(btn.getAttribute('aria-label')).toBeTruthy();
+      expect(btn.hasAttribute('aria-pressed')).toBe(true);
+    }
+
+    const startBtn = compiled.querySelector('.mode-start') as HTMLButtonElement;
+    startBtn.click();
+    fixture.detectChanges();
+    expect(component.mode()).toBe('start');
+    expect(startBtn.getAttribute('aria-pressed')).toBe('true');
+
+    const actionBtns = Array.from(
+      compiled.querySelectorAll('.undo-btn, .clear-btn, .save-btn, .load-btn'),
+    ) as HTMLButtonElement[];
+    expect(actionBtns).toHaveLength(4);
+    for (const btn of actionBtns) {
+      expect(btn.type).toBe('button');
+      expect(btn.getAttribute('aria-label')).toBeTruthy();
+    }
   });
 });

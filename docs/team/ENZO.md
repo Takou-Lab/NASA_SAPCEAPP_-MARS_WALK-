@@ -1,10 +1,18 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Byte-verification compatibility handoff
+
+Coordinator added repository-controlled LF attributes for scientific JSON without changing canonical data or hashes. Root and `/marswalk/` builds, including pack verification, pass. See [Windows LF instructions and evidence](../qa/PWA_INSTALL_ASSETS.md#windows-lf-compatibility--coordinator-fix-15-november-2026). Preserve local work and refresh only clean affected files after incorporating main; no global Git changes or data regeneration. Enzo/Willy should rerun their own Windows build verification before claiming that handoff complete. Gaddielle should retain canonical LF in future scientific JSON deliveries; her environmental-data corrections remain a separate pending task.
+
 > Current work piece: [W3](../../TEAM_TASKS.md#w3).
 
 Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
 
 All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
+
+## Styling ownership clarification
+
+Emma now owns **styling only** in `science-context.component.scss`, `exploration-confidence.component.scss` and `image-passport.component.scss` to resolve fixed dark cards in light mode. You retain those components' TS/HTML/tests/scientific logic and the environment UI contract. Coordinate shared tokens; avoid concurrent edits to those three SCSS files. Your assigned verifier/environment/source-dependent work is unchanged.
 
 ## Public host is ready for your acceptance checks
 
