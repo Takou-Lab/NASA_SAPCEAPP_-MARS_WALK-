@@ -4,7 +4,7 @@ Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assert
 
 ## Current mobile recovery fix
 
-See [mobile fix evidence](docs/qa/MOBILE_MAP_RECOVERY_FIX.md). Phone map clipping and fresh-session recovery are fixed; 241 tests/build and full-process offline browser checks pass. Physical device acceptance remains pending. Stable review URL will be recorded after deployment. Production stays unchanged.
+See [mobile fix evidence](docs/qa/MOBILE_MAP_RECOVERY_FIX.md). Phone map clipping and fresh-session recovery are fixed; 241 tests/build and full-process offline browser checks pass. Physical device acceptance remains pending. Stable public review URL: https://marswalk-review-boys-band.vercel.app/ (runtime b28f6ad). Production stays unchanged.
 
 ## Goal and product boundary
 
@@ -16,9 +16,9 @@ Repository: boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-, main. Local checkou
 
 Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6669fb; anonymous inventory fetched this turn still reports pack `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`. Current local build pack differs: `2d175fcf490efe85d3d75ff3d7114bd814ef0b96edbb2808330511371c46e1e6`. Main is ahead of production. No deployment in this handoff task. Automatic GitHub deployment is not connected. Follow [Vercel runbook](docs/VERCEL_SETUP.md) and [deployment evidence](docs/qa/VERCEL_PRODUCTION.md); authenticate through supported tools, never copy secrets into chat/Git.
 
-## Current designated PUBLIC preview — calibrated source 3d47a7b
+## Current designated PUBLIC preview — mobile recovery b28f6ad
 
-https://marswalk-9dtnpllyx-boys-band.vercel.app/ (no login). [Exact evidence/limits](docs/qa/CALIBRATED_PUBLIC_PREVIEW.md). New 2048² Mars crop, 0.25 m projected spacing, planar distance enabled; terrain/slope/safety and exact science/boxwork overlap still unavailable. New imageRef hirise-psp001752-red-center-2048-025m-v2 protects old missions; old-image imports rejected and old storage untouched. 237 Angular/54 data tests/build, all 19 asset hashes, public full-process offline route/note recovery pass. Includes latest Emma mission workspace/briefing and Enzo location/nav work. Production alias not promoted. Supersedes previous preview URLs for new tests/screenshots.
+https://marswalk-review-boys-band.vercel.app/ (no login). [Exact evidence/limits](docs/qa/CALIBRATED_PUBLIC_PREVIEW.md). New 2048² Mars crop, 0.25 m projected spacing, planar distance enabled; terrain/slope/safety and exact science/boxwork overlap still unavailable. New imageRef hirise-psp001752-red-center-2048-025m-v2 protects old missions; old-image imports rejected and old storage untouched. 237 Angular/54 data tests/build, all 19 asset hashes, public full-process offline route/note recovery pass. Includes latest Emma mission workspace/briefing and Enzo location/nav work. Production alias not promoted. Supersedes previous preview URLs for new tests/screenshots.
 
 ## Official Details text supplied — alignment now available
 
