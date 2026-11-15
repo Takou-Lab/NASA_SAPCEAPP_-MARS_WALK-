@@ -32,14 +32,19 @@
     </div>
     @if (mission.mode() !== 'inspect') {
       <div class="map-route-actions" role="group" aria-label="Keyboard route drawing">
-        <button type="button" (click)="placeRoutePointAtMapCenter()" [disabled]="!canPlaceMapPoint()">
+        <button
+          type="button"
+          (click)="placeRoutePointAtMapCenter()"
+          [disabled]="!canPlaceMapPoint()"
+        >
           {{ mapPointActionLabel() }}
         </button>
       </div>
     }
   </div>
 
-  <section class="route-geometry-panel" aria-label="Route geometry review">
+  <details class="route-geometry-panel" aria-label="Route geometry review">
+    <summary>Route point details</summary>
     <div class="route-geometry-header">
       <span class="geometry-heading">Route Geometry</span>
       <span
@@ -74,7 +79,7 @@
         </ul>
       }
     </div>
-  </section>
+  </details>
 
   <div class="map-frame">
     <div

@@ -1,5 +1,10 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Latest submission decision — read before resuming
+
+REMS 99dc2d5 is now retained in main as an archived, reproducible source delivery (1a59251); sample/label/hash checks pass. It does not replace limited runtime weather or establish map positions/quality approval. Comparison already accepted. Do not duplicate either; next review should document confidence-code interpretation and qualification before any runtime adapter.
+
+
 ## ACTIVE — final 90-minute survival-planning release
 
 Hand off 99dc2d5 REMS source/extractor/tests/quality and spatial limits. No unreviewed runtime integration. Comparison e68e734 is now accepted and integrated as 73be9d1; do not reimplement it. Its checks and remaining source-review boundary are recorded in docs/qa/SOURCE_LIBRARY_AND_COMPARISON.md. Do not start another data search.

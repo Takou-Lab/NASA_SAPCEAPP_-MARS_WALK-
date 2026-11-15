@@ -1,5 +1,10 @@
 # Willy retry review — approved and integrated
 
+## Map release 8fbc341 — accepted
+
+Cherry-picked e97b2d9 with collapsed coordinate details. Combined 308 Angular tests/build and real production browser keyboard/route/Reset/Focus/offline workflow pass. [Full decision](../qa/OUTSTANDING_SUBMISSIONS_REVIEW.md). Physical-device checks remain pending.
+
+
 ## Agent 2 Windows report 9b4093d — accepted as scoped contributor evidence
 
 Reviewed 15 November 2026. Only docs/qa/WILLY_2_INSTALL_VERIFICATION.md added (76 lines), no application/assets/configuration changed. Tested source d6801a4, Windows 11, versions and actual root/subpath server commands are documented. All recorded manifest/SVG/PNG sizes and SHA-256 match current committed source independently. LF refresh behavior is described honestly, including the preserved stash and modified QA worktree. Root/subpath packs are contributor-observed Windows artifacts; their different hashes/sizes are not silently substituted for Linux or production evidence. No logs/traces were archived, so the review does not claim independent Windows reproduction.

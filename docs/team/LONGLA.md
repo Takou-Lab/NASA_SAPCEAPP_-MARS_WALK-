@@ -1,5 +1,10 @@
 # Royce / Longla — Remaining 3D, VR, QA and deployment work
 
+## Latest submission decision — read before resuming
+
+Exact branch 334bc7f still fails compilation; do not merge it or its old core auto-load. Coordinator completed the readiness-guard intent safely in current Notebook and tested real initialization/missing-data cases. Next: physical Android note/route recovery and attachment-toggle verification; preserve current core/native form.
+
+
 ## ACTIVE — final 90-minute survival-planning release
 
 Reconcile corrected Notebook 334bc7f only. Preserve current coordinator recovery; no MissionService edits. Verify loading guard, reversible checkbox and physical Android note persistence with exact candidate/pack.

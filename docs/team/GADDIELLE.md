@@ -1,5 +1,10 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Latest submission decision — read before resuming
+
+Outstanding-source review is complete: Enzo REMS source bundle and Emmanuel SIM3292 reference artifacts are retained with explicit limits. No new local hazard/geology overlay or runtime weather approval. Preserve accepted files; no broad new retrieval. See docs/qa/OUTSTANDING_SUBMISSIONS_REVIEW.md.
+
+
 ## ACTIVE — final 90-minute survival-planning release
 
 Freeze broad data retrieval; hand off geology 5cef4d7 and a concise accepted/proposed source table in docs/data/SURVIVAL_SOURCE_HANDOFF.md. Preserve runtime data and clearly state local-coverage/quality limits.

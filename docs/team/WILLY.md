@@ -1,5 +1,10 @@
 # Willy — Remaining map, installation and deployment work
 
+## Latest submission decision — read before resuming
+
+Map release 8fbc341 is integrated as e97b2d9, with collapsed coordinate details. No reimplementation needed. Next: test real-phone keyboard/touch placement, focus/reset and recovery on the exact new candidate. See docs/qa/OUTSTANDING_SUBMISSIONS_REVIEW.md.
+
+
 ## ACTIVE — final 90-minute survival-planning release
 
 Hand off 8fbc341; reconcile map controls/keyboard/bounds with v2 calibrated image and mobile layout. Map files only; coordinator reviews and mounts accepted work.

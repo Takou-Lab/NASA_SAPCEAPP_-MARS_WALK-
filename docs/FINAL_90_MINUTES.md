@@ -57,3 +57,7 @@ Emma Agent 1’s unclaimed mission-brief package is now implemented and integrat
 ## Source decluttering and Enzo comparison accepted
 
 Sources are grouped in a closed central data/methods library and contextual disclosures. Key findings, location/review status and planning limits stay visible. Enzo e68e734 accepted as 73be9d1: optional two-record evidence comparison, no route/science-selection/storage mutation. [Evidence](qa/SOURCE_LIBRARY_AND_COMPARISON.md): 278 tests/build; native disclosure/comparison and complete offline mission browser checks. Other raw-source deliveries and Takou visual branch remain independent review items.
+
+## Outstanding submissions reviewed
+
+[Decision matrix](qa/OUTSTANDING_SUBMISSIONS_REVIEW.md): Willy map accepted with collapsed geometry details; Royce exact branch rejected compilation and readiness intent implemented independently; REMS source bundle and global geology reference artifacts retained with reproducibility/provenance/coverage limits. No raw data became live route weather or local hazards. 308 Angular/60 Python/4 REMS Node/11 worker tests plus full-process offline browser checks pass. Takou styling source remains unreachable; no claim of visual-polish integration.

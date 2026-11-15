@@ -1,5 +1,10 @@
 # Enzo review — final shell integrated
 
+## REMS 99dc2d5 — retained as reproducible source bundle
+
+Cherry-picked 1a59251. Pinned local source hashes/labels, exact sample generation and four Node tests pass. Raw confidence flags and MSL_TOPO coordinates remain explicit; no confidence filtering or map alignment was invented. Runtime weather unchanged. [Scope and remaining provenance limits](../qa/OUTSTANDING_SUBMISSIONS_REVIEW.md).
+
+
 ## Evidence comparison e68e734 — accepted in 73be9d1
 
 Read-only two-record comparison reviewed and integrated with source-library decluttering. 278 combined Angular tests/build pass; phone-size browser checks validate bounded selection and unchanged route/notes/global science selection. [Evidence](../qa/SOURCE_LIBRARY_AND_COMPARISON.md). This does not approve the separate REMS raw-source branch or older Agent 2 explanation claims.

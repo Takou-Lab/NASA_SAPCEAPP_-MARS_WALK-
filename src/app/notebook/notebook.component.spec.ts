@@ -274,3 +274,54 @@ describe('NotebookComponent metadata state banners', () => {
     expect(component.draftText()).toBe('Draft retained on error');
   });
 });
+
+describe('Notebook readiness guard', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    TestBed.configureTestingModule({
+      imports: [NotebookComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+  });
+  afterEach(() => {
+    TestBed.inject(HttpTestingController).verify();
+    vi.restoreAllMocks();
+    TestBed.resetTestingModule();
+  });
+  it('preserves a loading draft and enables native submit only after real initialization', async () => {
+    const f = TestBed.createComponent(NotebookComponent);
+    const service = TestBed.inject(MissionService);
+    const http = TestBed.inject(HttpTestingController);
+    const add = vi.spyOn(service, 'addObservation');
+    f.componentInstance.setDraftText('Keep exact loading draft');
+    f.detectChanges();
+    expect(f.nativeElement.querySelector('.submit-btn').disabled).toBe(true);
+    f.componentInstance.onSubmit();
+    expect(add).not.toHaveBeenCalled();
+    expect(f.componentInstance.draftText()).toBe('Keep exact loading draft');
+    const ready = service.initialize();
+    http.expectOne((r) => r.url.endsWith('/data/manifest.json')).flush(testImage());
+    await Promise.resolve();
+    http.expectOne((r) => r.url.endsWith('/data/markers.json')).flush([]);
+    await ready;
+    f.detectChanges();
+    expect(f.nativeElement.querySelector('.submit-btn').disabled).toBe(false);
+  });
+  it('keeps a draft after missing image data and refuses submission', async () => {
+    const f = TestBed.createComponent(NotebookComponent);
+    const service = TestBed.inject(MissionService);
+    const http = TestBed.inject(HttpTestingController);
+    const add = vi.spyOn(service, 'addObservation');
+    f.componentInstance.setDraftText('Draft while unavailable');
+    const ready = service.initialize();
+    http
+      .expectOne((r) => r.url.endsWith('/data/manifest.json'))
+      .flush('', { status: 404, statusText: 'Not Found' });
+    await ready;
+    f.detectChanges();
+    f.componentInstance.onSubmit();
+    expect(add).not.toHaveBeenCalled();
+    expect(f.nativeElement.querySelector('.submit-btn').disabled).toBe(true);
+    expect(f.componentInstance.draftText()).toBe('Draft while unavailable');
+  });
+});

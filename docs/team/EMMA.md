@@ -1,5 +1,10 @@
 # Emma — Remaining professional UI and deployment work
 
+## Latest submission decision — read before resuming
+
+Your SIM3292 branch 5cef4d7 is retained as research/reference artifacts (aefaec4): 6 artifact tests pass; coarse Htu context is not a local obstacle or geology overlay. Mission brief takeover is already completed. No duplicate implementation; review source/coverage claims and help final demo/acceptance if available.
+
+
 ## ACTIVE — final 90-minute survival-planning release
 
 **Coordinator takeover completed. Do not create a competing SurvivalBriefComponent.** Mission objective, reversible user-declared checks, reactive mission/evidence summary, saved preparation and combined downloadable brief are implemented in src/app/survival-brief and integrated with the survival time card. [Evidence](../qa/SURVIVAL_BRIEF.md): 274 tests/build plus full-process offline browser restoration pass. If resuming, review current main first and report exact reproducible integration issues instead of duplicating this slice.

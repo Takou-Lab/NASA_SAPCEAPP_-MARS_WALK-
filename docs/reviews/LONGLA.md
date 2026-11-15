@@ -1,5 +1,10 @@
 # Royce / Longla — viewer merged; hardware report needs clarification
 
+## 334bc7f exact branch — compilation rejected; readiness intent replaced safely
+
+Isolated source fails NG5002 malformed Notebook markup and TS2352 mock cast. No whole-branch merge. Coordinator implemented the readiness guard in current native form with HTTP-transition tests, preserving guarded core recovery and reversible attachment. [Decision/evidence](../qa/OUTSTANDING_SUBMISSIONS_REVIEW.md). Do not overwrite main with the old core auto-loader.
+
+
 ## Exact commit 6a5e351 — compilation fails; preview blocked
 
 Reviewed 15 November 2026 at explicit request for exact-SHA testing. Unmodified git archive at /tmp/marswalk-longla-6a5e351 with locked-compatible installed dependencies; main/source branch untouched. `npm test` fails before execution: NG5002 unexpected closing block in notebook.component.html line 50 (`} @else` without matching outer @if), plus TS2352 in notebook.component.spec.ts line 142 (MissionService cast to a mock exposing incompatible WritableSignal). `npm run build` independently fails NG5002 at the same template location. No test pass or usable deployment of this exact SHA is claimed.

@@ -12,3 +12,6 @@ public/data/terrain
 
 public/data/imagery/PIA26306_derived_2048.jpg
 data/imagery
+
+# Source archives are retained in Git for review, not deployed with the PWA.
+data/environment

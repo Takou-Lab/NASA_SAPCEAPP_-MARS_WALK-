@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Outstanding-submission review completed
+
+[Decision matrix](docs/qa/OUTSTANDING_SUBMISSIONS_REVIEW.md). Willy map 8fbc341 cherry-picked as e97b2d9; coordinate details collapsed. Royce 334bc7f exact source still fails compilation; current Notebook readiness guard added independently. REMS 99dc2d5 archived reproducible delivery (1a59251), geology 5cef4d7 research artifacts (aefaec4); neither adds unqualified runtime weather/local hazards. 308 Angular/60 Python/4 REMS/11 worker tests and phone-size offline mission browser checks pass. Takou styling still not retrievable.
+
 ## Source library and evidence comparison
 
 Source links/long limitations are collapsed by default; a central Sources, data & methods disclosure indexes image, science, historical environmental and model provenance. Findings and critical location/review/planning boundaries remain visible. Enzo e68e734 cherry-picked as 73be9d1 for optional two-record comparison. [Evidence](docs/qa/SOURCE_LIBRARY_AND_COMPARISON.md); 278 tests/build pass. Takou-owned styles untouched; source-branch integration is not blanket acceptance of data deliveries.

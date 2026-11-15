@@ -76,7 +76,7 @@
         <button
           type="submit"
           class="submit-btn"
-          [disabled]="isDraftEmpty()"
+          [disabled]="!canSubmit()"
           aria-label="Save observation to mission log"
         >
           <svg

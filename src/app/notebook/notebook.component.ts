@@ -14,7 +14,8 @@ export class NotebookComponent {
   readonly observations: Signal<readonly Observation[]> = this.missionService.observations;
   readonly image = this.missionService.image;
   readonly route: Signal<Route> = this.missionService.route;
-  readonly dataStatus: Signal<'loading' | 'ready' | 'unavailable' | 'error'> = this.missionService.dataStatus;
+  readonly dataStatus: Signal<'loading' | 'ready' | 'unavailable' | 'error'> =
+    this.missionService.dataStatus;
   readonly dataError: Signal<string | null> = this.missionService.dataError;
 
   // Local component draft state (retained on failure)
@@ -25,6 +26,8 @@ export class NotebookComponent {
   readonly isDraftEmpty: Signal<boolean> = computed(() => {
     return this.draftText().trim().length === 0;
   });
+
+  readonly canSubmit = computed(() => this.dataStatus() === 'ready' && !this.isDraftEmpty());
 
   readonly hasStartPoint: Signal<boolean> = computed(() => {
     return this.route().start !== null;
@@ -82,6 +85,13 @@ export class NotebookComponent {
   }
 
   onSubmit(): void {
+    if (this.dataStatus() !== 'ready') {
+      this.setFeedback(
+        'Image data is not ready. Keep your draft and retry after loading.',
+        'error',
+      );
+      return;
+    }
     const raw = this.draftText();
     const trimmed = raw.trim();
 
