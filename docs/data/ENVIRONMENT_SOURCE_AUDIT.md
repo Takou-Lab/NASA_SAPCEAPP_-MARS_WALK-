@@ -1,24 +1,25 @@
 # MARSWALK — Environmental Source Audit & Schema Proposal
 
 <!-- CURRENT_WORK_PLAN -->
-> **Investigation, Source Audit & Schema Proposal Record (Phase A).** Prepared by Gaddielle (Data/Imagery Owner, [Phase 2](../../docs/team/GADDIELLE.md#phase-2--numerical-environmental-data)) for Coordinator (YOU, [W6](../../TEAM_TASKS.md#w6)) and Enzo ([W3/Phase 2](../../docs/team/ENZO.md#phase-2--numerical-science-ui-and-clearer-evidence)).
+> **Investigation, Source Audit & Schema Proposal Record (Phase A).** Prepared by Gaddielle (Data/Imagery Owner, [GADDIELLE.md](../team/GADDIELLE.md)) for Coordinator (YOU, [W6](../../TEAM_TASKS.md#w6)) and Enzo ([W3/Phase 2](../team/ENZO.md#phase-2--numerical-science-ui-and-clearer-evidence)).
 <!-- /CURRENT_WORK_PLAN -->
 
 ## Purpose & Scope
 
 This document delivers **Phase A** of the numerical environmental data work for MARSWALK:
-1. Technical investigation and raw-source audit of NASA Planetary Data System (PDS) Curiosity REMS and RAD data.
-2. Reviewable source rows and representative archival sample covering the Mount Sharp foothills traverse corridor.
-3. Rigorous RAD radiation feasibility assessment and limitation boundaries.
+1. Technical investigation and source audit of NASA Planetary Data System (PDS) Curiosity REMS and RAD data archives.
+2. Reviewable source rows and representative archival sample covering Curiosity's traverse sector in Gale Crater.
+3. Rigorous RAD radiation feasibility assessment, human exposure limitations, and physical boundary constraints.
 4. Proposed Version 1 JSON schema contract (`public/data/environment.json`) and corresponding TypeScript interface proposal for `src/app/core/models.ts`.
-5. Local conversion tool prototype (`tools/data/prepare_environment.py`) and automated unit test suite (`tools/data/test_prepare_environment.py`).
+5. Local conversion tool prototype ([`tools/data/prepare_environment.py`](../../tools/data/prepare_environment.py)) and comprehensive automated unit test suite ([`tools/data/test_prepare_environment.py`](../../tools/data/test_prepare_environment.py)).
 
 > [!IMPORTANT]
 > **Data Governance & Boundary Contract:**
-> 1. **No Live Weather or Forecasts:** Mars has no active real-time weather stations reporting live to client browsers. All environmental data are historical archival measurements from the Mars Science Laboratory (Curiosity) rover in Gale Crater.
-> 2. **Regional Context Only:** These values represent the general planetary boundary layer at the Gale Crater floor / Mount Sharp foothills (~-4.4 km elevation). They are **not** localized microclimates along an astronaut's drawn route.
-> 3. **No Imputed Radiation or Route-Walking Doses:** Radiation dose rates cannot be multiplied by estimated route walking time to fabricate an exposure risk. Without validated spacesuit shielding, EVA velocity, and metabolic models, missing human exposure numbers must remain explicitly `unavailable`.
-> 4. **Pre-Generation Agreement Gate:** In accordance with the shared team contract, the runtime file `public/data/environment.json` will only be committed after the Coordinator and Enzo formally agree on the schema proposed herein.
+> 1. **Archival Observations, Not Live Forecasts:** Mars atmospheric and radiation datasets from the Mars Science Laboratory (MSL Curiosity) rover in Gale Crater are released through scheduled PDS volume publications; real-time operational weather feeds are not published to public web clients.
+> 2. **Regional Context Only:** These values represent the planetary boundary layer at the Gale Crater floor / Mount Sharp foothills (~-4.4 km elevation). They are **not** localized microclimates along an astronaut's drawn route.
+> 3. **No Imputed Radiation or Route-Walking Doses:** Radiation dose rates cannot be multiplied by estimated route walking time to fabricate an exposure risk. Without validated spacesuit shielding, EVA velocity, and metabolic models, human exposure numbers must remain explicitly `unavailable`.
+> 4. **Illustrative Sample Classification (R1):** The committed 16-row sample CSV is an **illustrative test-only fixture**. Because exact original PDS product IDs, label files (.LBL), raw binary tables, and download checksums could not be retrieved from the network-restricted cloud environment during this sprint, the data is explicitly classified as `dataStatus: "illustrative-sample"` with `evidenceType: "illustrative"`, NOT confirmed NASA measurements (`verified-archival`).
+> 5. **Pre-Generation Agreement Gate:** In accordance with the shared team contract, the runtime file `public/data/environment.json` will only be committed after the Coordinator and Enzo formally agree on the schema and source provenance.
 
 ---
 
@@ -27,46 +28,48 @@ This document delivers **Phase A** of the numerical environmental data work for 
 ### A. Curiosity REMS (Rover Environmental Monitoring Station)
 
 - **Instrument Overview:** REMS was contributed to NASA's Mars Science Laboratory (MSL) mission by the Centro de Astrobiología (CAB / INTA-CSIC) in Madrid, Spain. It measures surface pressure, air and ground temperatures, relative humidity, wind speed, and ultraviolet radiation.
-- **Audited Product:** MSL REMS Reduced Data Record (RDR) & Daily Weather Summaries.
+- **Audited Product Line:** MSL REMS Reduced Data Record (RDR) & Daily Weather Summaries.
 - **PDS Archive Node:** NASA Planetary Data System (PDS) Atmospheres Node.
-- **Primary Source URL:** `https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MARS/curiosity/rems.html`
+- **Archive Collection URL:** `https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MARS/curiosity/rems.html`
 - **Principal Investigator:** Javier Gómez-Elvira, Centro de Astrobiología (CAB).
 - **Physical Quantities & Units:**
-  - **Surface Atmospheric Pressure:** Measured by a silicon barometric pressure sensor inside the rover warm electronics box. Units: Pascals (`Pa`). Typical diurnal amplitude: ~740 to 860 Pa (reflecting daily atmospheric thermal tides and seasonal $CO_2$ polar cap exchange).
+  - **Surface Atmospheric Pressure:** Measured by a barometric sensor inside the rover warm electronics box. Units: Pascals (`Pa`). Typical diurnal amplitude: ~740 to 860 Pa (reflecting daily atmospheric thermal tides and seasonal $CO_2$ polar cap sublimation/condensation cycles).
   - **Ambient Air Temperature:** Measured by thermocouple sensors on Boom 1 and Boom 2 deployed at approximately 1.5 meters height on the rover mast. Units: Degrees Celsius (`degC` or `°C`). Typical diurnal amplitude: -79°C (minimum at dawn) to -14°C (maximum in early afternoon).
-- **Sentinel & Quality Rules:**
-  - `quality_flag = 0`: Valid, calibrated science measurement.
-  - `quality_flag = 1`: Degraded or questionable measurement (excluded from statistics).
-  - `quality_flag = 2`: Sensor offline, calibration interval, or missing data (sentinel `-9999.0`).
+- **Quality & Sentinel Rules:**
+  - `quality_flag = 0`: Valid measurement row.
+  - `quality_flag = 1`: Degraded or questionable measurement.
+  - `quality_flag = 2`: Sensor offline or missing data (sentinel `-9999.0`).
+- **Provenance Limitation:** While these instrument characteristics are derived from published CAB/PDS documentation, exact PDS product IDs and raw download hashes for Sols 3900–3915 have not been validated against archive downloads. Output is labeled `illustrative-sample`.
 
 ### B. Curiosity RAD (Radiation Assessment Detector) Feasibility Assessment
 
-- **Instrument Overview:** RAD was developed by Southwest Research Institute (SwRI) in Boulder, Colorado, and Christian-Albrechts-Universität (CAU) zu Kiel, Germany. It measures high-energy energetic particle flux, cosmic rays, and solar particle events on the Martian surface.
-- **Audited Product:** MSL RAD Calibrated Science Observation RDR.
+- **Instrument Overview:** RAD was developed by Southwest Research Institute (SwRI) in Boulder, Colorado, and Christian-Albrechts-Universität (CAU) zu Kiel, Germany. It measures energetic charged particles, neutrons, and gamma rays on the Martian surface.
+- **Audited Product Line:** MSL RAD Calibrated Science Observation RDR.
 - **PDS Archive Node:** NASA PDS Planetary Plasma Interactions (PPI) Node.
-- **Primary Source URL:** `https://pds-ppi.igpp.ucla.edu/mission/MSL/MSL/RAD`
+- **Archive Collection URL:** `https://pds-ppi.igpp.ucla.edu/mission/MSL/MSL/RAD`
 - **Key Scientific Literature:**
   - Hassler, D. M. et al., *Mars' Surface Radiation Environment Measured with the Mars Science Laboratory's Curiosity Rover*, **Science**, 343(6169), 2014. DOI: [10.1126/science.1244797](https://doi.org/10.1126/science.1244797).
   - Zeitlin, C. et al., *Measurements of the Martian surface radiation environment with MSL/RAD*, **Life Sciences in Space Research**, 22, 2019. DOI: [10.1016/j.lssr.2019.07.005](https://doi.org/10.1016/j.lssr.2019.07.005).
 - **Principal Investigator:** Donald M. Hassler, Southwest Research Institute (SwRI).
 - **Physical Quantities & Units:**
-  - **Surface Absorbed Dose Rate:** Energy deposited per unit mass in silicon detector B and plastic scintillators E/F. Units: Micrograys per day (`uGy/day` or $\mu\text{Gy/day}$). Gale Crater baseline Galactic Cosmic Ray (GCR) background: ~210 $\pm$ 40 $\mu\text{Gy/day}$.
+  - **Surface Absorbed Dose Rate:** Energy deposited per unit mass in silicon detector B and plastic scintillators E/F. Units: Micrograys per day (`uGy/day` or $\mu\text{Gy/day}$). Gale Crater baseline Galactic Cosmic Ray (GCR) background: ~210 $\pm$ 40 $\mu\text{Gy/day}$ during low solar activity periods.
   - **Dose Equivalent Rate:** Derived using radiation quality factors ($Q \approx 3.0$) representing biological damage. Typical baseline: ~640 $\pm$ 120 $\mu\text{Sv/day}$ (~0.64 mSv/day).
 - **Feasibility Evaluation & Limitations:**
-  - **FEASIBLE:** Presenting verified archival absorbed dose rates (`uGy/day`) as a regional environmental baseline representing the unshielded surface background in Gale Crater.
-  - **STRICTLY UNFEASIBLE:** Multiplying dose rates by route walking duration to display an accumulated route radiation dose. The application has no validated spacesuit shielding thickness, no human metabolic transit speed, and no terrain horizon shielding calculation. Doing so would violate the core scientific integrity requirement.
-  - **DECISION:** Include surface radiation dose rate strictly as a regional measured context quantity with explicit limitations.
+  - **FEASIBLE:** Presenting verified or illustrative archival absorbed dose rates (`uGy/day`) as a regional environmental baseline representing the unshielded surface background in Gale Crater.
+  - **STRICTLY UNFEASIBLE:** Multiplying dose rates by route walking duration to display an accumulated route radiation dose. The application has no validated spacesuit shielding thickness, no human metabolic transit speed, and no terrain horizon shielding calculation. Doing so would violate scientific integrity.
+  - **DECISION:** Include surface radiation dose rate strictly as a regional context quantity with explicit limitations.
 
 ---
 
 ## 2. Reviewable Source Rows & Archival Sample
 
-A representative archival sample covering Curiosity's traverse near the lower Mount Sharp foothills (Gediz Vallis / Boxwork exploration sector, Sols 3900–3915, Mars Year 37, $L_s \approx 145^\circ - 153^\circ$) has been compiled:
+A representative sample covering Curiosity's traverse near the lower Mount Sharp foothills (Gediz Vallis / Boxwork exploration sector, Sols 3900–3915, Mars Year 37, $L_s \approx 145^\circ - 153^\circ$) has been compiled:
 
-- **Sample File Path:** [`tools/data/samples/curiosity_rems_rad_sample.csv`](file:///c:/Users/WIN11/Desktop/NASA%20SPACE%20APPS/tools/data/samples/curiosity_rems_rad_sample.csv)
+- **Sample File Path:** [`tools/data/samples/curiosity_rems_rad_sample.csv`](../../tools/data/samples/curiosity_rems_rad_sample.csv)
 - **File Size:** 1,648 bytes
 - **SHA-256 Checksum:** `d2d047acbcbdbe1521563345e19720b22da923b6f9bde5d799ee7bdf07d95180`
-- **Row Accounting:** 16 input rows, 14 included verified rows (`quality_flag == 0`), 2 excluded rows (Sol 3908 with `quality_flag = 2`, Sol 3914 with `quality_flag = 1`).
+- **Classification:** **Illustrative Test-Only Fixture** (R1).
+- **Row Accounting:** 16 input rows, 14 included rows (`quality_flag == 0`), 2 excluded rows (Sol 3908 with `quality_flag = 2`, Sol 3914 with `quality_flag = 1`).
 
 ### Reviewable Source Rows Table
 
@@ -96,6 +99,12 @@ A representative archival sample covering Curiosity's traverse near the lower Mo
 ### A. TypeScript Interface Proposal (for `src/app/core/models.ts`)
 
 ```ts
+export interface EnvironmentPerQuantityAudit {
+  includedSolCount: number;
+  sentinelExcluded: number;
+  qualityExcluded: number;
+}
+
 export interface EnvironmentSource {
   title: string;
   url: string; // validated HTTPS URL
@@ -111,9 +120,11 @@ export interface EnvironmentQuantity {
   min: number | null;
   max: number | null;
   sampleCount: number;
-  qualityStatus: 'verified-archival' | 'unavailable';
-  evidenceType: 'measured';
+  qualityStatus: 'illustrative-sample' | 'verified-archival' | 'unavailable';
+  evidenceType: 'illustrative' | 'measured';
+  aggregationMethod: string;
   observationInterval: string;
+  perQuantityAudit: EnvironmentPerQuantityAudit;
   source: EnvironmentSource;
   limitations: string[];
 }
@@ -121,6 +132,8 @@ export interface EnvironmentQuantity {
 export interface EnvironmentContext {
   schemaVersion: 1;
   region: string;
+  dataStatus: 'illustrative-sample' | 'verified-archival';
+  dataStatusNote: string;
   provenance: {
     mission: string;
     instruments: string[];
@@ -146,6 +159,8 @@ export interface EnvironmentContext {
 {
   "schemaVersion": 1,
   "region": "Mount Sharp foothills, Gale Crater, Mars",
+  "dataStatus": "illustrative-sample",
+  "dataStatusNote": "Values are from an illustrative fixture CSV. Exact original PDS product IDs, label files, raw-file hashes and row extraction have not been verified. Do not display these as confirmed NASA measurements.",
   "provenance": {
     "mission": "Mars Science Laboratory (Curiosity Rover)",
     "instruments": [
@@ -156,7 +171,7 @@ export interface EnvironmentContext {
       "Planetary Data System Atmospheres Node",
       "Planetary Data System Planetary Plasma Interactions Node"
     ],
-    "disclaimer": "Historical archival observation sample; not real-time conditions or operational forecast."
+    "disclaimer": "Illustrative fixture sample derived from documented archive landing pages. Not real-time conditions, operational forecast or verified raw-product extraction."
   },
   "solRange": {
     "startSol": 3900,
@@ -177,15 +192,22 @@ export interface EnvironmentContext {
       "min": 767.9,
       "max": 843.5,
       "sampleCount": 14,
-      "qualityStatus": "verified-archival",
-      "evidenceType": "measured",
-      "observationInterval": "Sol 3900 to Sol 3915 (Gale Crater baseline)",
+      "qualityStatus": "illustrative-sample",
+      "evidenceType": "illustrative",
+      "aggregationMethod": "mean of daily mean values; min/max span daily column minima/maxima across included sols",
+      "observationInterval": "Sol 3900 to Sol 3915 (illustrative Gale Crater sample)",
+      "perQuantityAudit": {
+        "includedSolCount": 14,
+        "sentinelExcluded": 0,
+        "qualityExcluded": 2
+      },
       "source": {
-        "title": "NASA PDS MSL REMS Daily Weather Summaries (RDR)",
+        "title": "NASA PDS MSL REMS Archive (illustrative sample; exact product/extraction unverified)",
         "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MARS/curiosity/rems.html",
-        "credit": "NASA/JPL-Caltech/CAB"
+        "credit": "NASA/JPL-Caltech/CAB (illustrative fixture only)"
       },
       "limitations": [
+        "Values are ILLUSTRATIVE ONLY. Exact product/label/extraction has not been verified against a specific PDS download.",
         "Diurnal barometric amplitude reflects regional atmospheric tidal dynamics, not terrain microrelief.",
         "Historical archival sample from Curiosity traverse; not active real-time conditions."
       ]
@@ -199,15 +221,22 @@ export interface EnvironmentContext {
       "min": -78.7,
       "max": -17.2,
       "sampleCount": 14,
-      "qualityStatus": "verified-archival",
-      "evidenceType": "measured",
-      "observationInterval": "Sol 3900 to Sol 3915 (Rover mast height)",
+      "qualityStatus": "illustrative-sample",
+      "evidenceType": "illustrative",
+      "aggregationMethod": "mean of daily mean values; min/max span daily column minima/maxima across included sols",
+      "observationInterval": "Sol 3900 to Sol 3915 (rover mast height, illustrative sample)",
+      "perQuantityAudit": {
+        "includedSolCount": 14,
+        "sentinelExcluded": 0,
+        "qualityExcluded": 2
+      },
       "source": {
-        "title": "NASA PDS MSL REMS Reduced Data Record",
+        "title": "NASA PDS MSL REMS Archive (illustrative sample; exact product/extraction unverified)",
         "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/MARS/curiosity/rems.html",
-        "credit": "NASA/JPL-Caltech/CAB"
+        "credit": "NASA/JPL-Caltech/CAB (illustrative fixture only)"
       },
       "limitations": [
+        "Values are ILLUSTRATIVE ONLY. Exact product/label/extraction has not been verified against a specific PDS download.",
         "Measured at rover mast height (~1.5 m) along Curiosity traverse path in Gale Crater.",
         "Extreme diurnal range (~60 degC) is characteristic of low-density Martian atmosphere."
       ]
@@ -221,16 +250,23 @@ export interface EnvironmentContext {
       "min": 208.7,
       "max": 215.0,
       "sampleCount": 14,
-      "qualityStatus": "verified-archival",
-      "evidenceType": "measured",
-      "observationInterval": "Sol 3900 to Sol 3915 (Quiet Sun, GCR background)",
+      "qualityStatus": "illustrative-sample",
+      "evidenceType": "illustrative",
+      "aggregationMethod": "mean/min/max of daily absorbed dose rate values across included sols",
+      "observationInterval": "Sol 3900 to Sol 3915 (illustrative surface GCR background)",
+      "perQuantityAudit": {
+        "includedSolCount": 14,
+        "sentinelExcluded": 0,
+        "qualityExcluded": 2
+      },
       "source": {
-        "title": "NASA PDS MSL RAD Calibrated Data Records (RDR)",
+        "title": "NASA PDS MSL RAD Archive (illustrative sample; exact product/extraction unverified)",
         "url": "https://pds-ppi.igpp.ucla.edu/mission/MSL/MSL/RAD",
-        "credit": "NASA/JPL-Caltech/SwRI/CAU"
+        "credit": "NASA/JPL-Caltech/SwRI/CAU (illustrative fixture only)"
       },
       "limitations": [
-        "Galactic cosmic ray (GCR) background dose rate at Gale Crater surface elevation (~-4.4 km).",
+        "Values are ILLUSTRATIVE ONLY. Exact product/label/extraction has not been verified against a specific PDS download.",
+        "Galactic cosmic ray (GCR) background dose rate; Gale Crater surface elevation (~-4.4 km) context only.",
         "Does not imply human safety or operational exploration limits without dedicated habitat shielding.",
         "Route transit time cannot be multiplied into dose without verified shielding and velocity models."
       ]
@@ -243,16 +279,18 @@ export interface EnvironmentContext {
 
 ## 4. Extraction Tooling & Test Coverage
 
-To guarantee reproducible, non-speculative data extraction:
+To ensure reproducible, defensive, non-speculative data extraction addressing review items R1–R4:
 
-1. **Extraction Tool ([`tools/data/prepare_environment.py`](file:///c:/Users/WIN11/Desktop/NASA%20SPACE%20APPS/tools/data/prepare_environment.py)):**
-   - Parses the audited CSV, rejects invalid datatypes and malformed columns, filters sentinels (`-9999.0`) and non-zero quality flags.
-   - Computes statistical aggregates (`mean`, `min`, `max`, `sampleCount`).
-   - Generates deterministic JSON atomically (using tempfile, `os.fsync`, and `os.replace`).
+1. **Extraction Tool ([`tools/data/prepare_environment.py`](../../tools/data/prepare_environment.py)):**
+   - **R1 (Provenance):** Labels output `illustrative-sample` and `evidenceType: illustrative`, removing false verified claims while exact product downloads remain unverified.
+   - **R2 (Source Protection):** Rejects source/output aliases (`paths_alias`) before any write operation; exits with code 1, leaving source and destination bytes and timestamps completely untouched.
+   - **R3 (Finite Data & Consistency):** Validates all floating-point fields are finite (`math.isfinite`), rejecting `NaN`, `±Infinity`, and overflow values. Validates interval consistency (`min <= mean <= max`) for quality-0 non-sentinel rows. Uses strict JSON serialization (`allow_nan=False`).
+   - **R4 (Independent Auditing & Legitimate Zeros):** Conducts independent per-quantity sentinel filtering (`perQuantityAudit`), ensuring missing values in one sensor do not discard valid readings in another. Preserves legitimate zero values (e.g. 0.0 radiation dose rate).
+   - Generates deterministic JSON atomically (using temporary file, `os.fsync`, and `os.replace`).
    - Supports read-only validation (`--check`) mode without touching files or altering `mtime`.
-2. **Automated Unit Tests ([`tools/data/test_prepare_environment.py`](file:///c:/Users/WIN11/Desktop/NASA%20SPACE%20APPS/tools/data/test_prepare_environment.py)):**
-   - 9 regression test cases covering:
-     - `test_successful_generation_from_sample`: Verifies parsing, schema keys, and aggregate values.
+2. **Automated Unit Tests ([`tools/data/test_prepare_environment.py`](../../tools/data/test_prepare_environment.py)):**
+   - 16 test cases covering:
+     - `test_successful_generation_from_sample`: Verifies parsing, schema keys, per-quantity audit, and aggregate values.
      - `test_deterministic_output`: Confirms repeated executions produce byte-identical JSON.
      - `test_check_mode_passes_on_matching_file`: Confirms `--check` returns exit `0` without altering `mtime`.
      - `test_check_mode_fails_on_tampered_value`: Confirms altered metrics trigger exit `1`.
@@ -261,6 +299,14 @@ To guarantee reproducible, non-speculative data extraction:
      - `test_missing_source_fails_cleanly`: Confirms nonexistent CSV exits `1` without traceback.
      - `test_malformed_csv_fails_cleanly`: Confirms bad headers exit `1` without traceback.
      - `test_atomic_write_preserves_existing_file_on_failure`: Confirms existing output file bytes and timestamps are preserved if extraction fails.
+     - `test_output_aliasing_source_fails_and_preserves_source` (R2): Confirms passing identical source and output exits 1 and preserves source.
+     - `test_output_aliasing_source_relative_path_fails` (R2): Confirms relative alias paths are caught and rejected.
+     - `test_nan_input_rejected_and_preserves_destination` (R3): Confirms NaN is rejected with exit 1 and preserves destination.
+     - `test_infinity_input_rejected_and_preserves_destination` (R3): Confirms Inf is rejected with exit 1 and preserves destination.
+     - `test_overflow_input_rejected_and_preserves_destination` (R3): Confirms 1e309 overflow is rejected with exit 1.
+     - `test_inconsistent_min_mean_max_rejected_and_preserves_destination` (R3): Confirms min > mean or mean > max is rejected with exit 1.
+     - `test_legitimate_zero_radiation_preserved` (R4): Confirms 0.0 radiation is preserved as a valid measurement.
+     - `test_per_quantity_independent_sentinel_handling` (R4): Confirms sentinel in one instrument does not discard valid data in another.
 
 ---
 
@@ -268,6 +314,6 @@ To guarantee reproducible, non-speculative data extraction:
 
 | Role | Responsibility | Action Required |
 | :--- | :--- | :--- |
-| **Gaddielle (Data Owner)** | Source audit, sample compilation, converter tool, test coverage. | **Complete (Phase A).** Delivered audit, sample CSV, converter tool, and tests. |
-| **Coordinator (YOU, W6)** | Review and agree shared schema, add TypeScript interfaces to `src/app/core/models.ts`, integrate loader into `MissionService`, update full offline pack (`tools/pwa/build-pack.mjs`). | Review proposed contract above; grant schema approval for Phase B runtime file generation. |
-| **Enzo (UI Owner)** | Consume agreed environmental signals/models in `src/app/environment/` UI component and evidence workspace. | Review display fields and units; prepare presentation layer without importing unagreed APIs. |
+| **Gaddielle (Data Owner)** | Source audit, sample compilation, converter tool, test coverage. | **Complete (Phase A Corrections).** Delivered audit, illustrative CSV, converter tool with alias/finite/range protections, and 16 tests (50 tests total in tools/data). |
+| **Coordinator (YOU, W6)** | Review and agree shared schema, add TypeScript interfaces to `src/app/core/models.ts`, integrate loader into `MissionService`, update full offline pack (`tools/pwa/build-pack.mjs`). | Review proposed illustrative contract above; agree on dataStatus/perQuantityAudit fields before Phase B runtime file generation. |
+| **Enzo (UI Owner)** | Consume agreed environmental signals/models in `src/app/environment/` UI component and evidence workspace. | Review display fields, units, and illustrative-sample status badges; prepare presentation layer without importing unagreed APIs. |

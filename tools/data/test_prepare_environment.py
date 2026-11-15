@@ -36,6 +36,8 @@ class PrepareEnvironmentTests(unittest.TestCase):
             data = json.loads(out_file.read_text(encoding="utf-8"))
             self.assertEqual(data["schemaVersion"], 1)
             self.assertEqual(data["region"], "Mount Sharp foothills, Gale Crater, Mars")
+            self.assertEqual(data["dataStatus"], "illustrative-sample")
+            self.assertIn("illustrative", data["dataStatusNote"].lower())
             self.assertEqual(data["sampleAudit"]["totalInputRows"], 16)
             self.assertEqual(data["sampleAudit"]["includedRows"], 14)
             self.assertEqual(data["sampleAudit"]["excludedRows"], 2)
@@ -52,6 +54,11 @@ class PrepareEnvironmentTests(unittest.TestCase):
             self.assertEqual(p["min"], 767.9)
             self.assertEqual(p["max"], 843.5)
             self.assertEqual(p["sampleCount"], 14)
+            self.assertEqual(p["qualityStatus"], "illustrative-sample")
+            self.assertEqual(p["evidenceType"], "illustrative")
+            self.assertEqual(p["perQuantityAudit"]["includedSolCount"], 14)
+            self.assertEqual(p["perQuantityAudit"]["sentinelExcluded"], 0)
+            self.assertEqual(p["perQuantityAudit"]["qualityExcluded"], 2)
 
             # Air temperature checks
             t = quantities["ambient-air-temperature"]
@@ -60,12 +67,22 @@ class PrepareEnvironmentTests(unittest.TestCase):
             self.assertEqual(t["min"], -78.7)
             self.assertEqual(t["max"], -17.2)
             self.assertEqual(t["sampleCount"], 14)
+            self.assertEqual(t["qualityStatus"], "illustrative-sample")
+            self.assertEqual(t["evidenceType"], "illustrative")
+            self.assertEqual(t["perQuantityAudit"]["includedSolCount"], 14)
+            self.assertEqual(t["perQuantityAudit"]["sentinelExcluded"], 0)
+            self.assertEqual(t["perQuantityAudit"]["qualityExcluded"], 2)
 
             # Radiation dose rate checks (14 valid samples with quality=0)
             r = quantities["surface-radiation-dose-rate"]
             self.assertEqual(r["unit"], "uGy/day")
             self.assertEqual(r["mean"], 211.7)
             self.assertEqual(r["sampleCount"], 14)
+            self.assertEqual(r["qualityStatus"], "illustrative-sample")
+            self.assertEqual(r["evidenceType"], "illustrative")
+            self.assertEqual(r["perQuantityAudit"]["includedSolCount"], 14)
+            self.assertEqual(r["perQuantityAudit"]["sentinelExcluded"], 0)
+            self.assertEqual(r["perQuantityAudit"]["qualityExcluded"], 2)
 
     def test_deterministic_output(self):
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -158,13 +175,192 @@ class PrepareEnvironmentTests(unittest.TestCase):
             out_file.write_bytes(sentinel_bytes)
             mtime_before = out_file.stat().st_mtime_ns
 
-            # Try generating with a bad CSV
             bad_csv = Path(temp_dir) / "corrupt.csv"
             bad_csv.write_text("sol,ls_deg\n1,2\n", encoding="utf-8")
             res = self.run_cli(bad_csv, out_file)
             self.assertEqual(res.returncode, 1)
             self.assertEqual(out_file.read_bytes(), sentinel_bytes)
             self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    # -----------------------------------------------------------------------
+    # R2: Source/output alias guard regressions
+    # -----------------------------------------------------------------------
+
+    def test_output_aliasing_source_fails_and_preserves_source(self):
+        """R2: Passing identical source and output path exits 1 and preserves source bytes."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            src_csv = Path(temp_dir) / "input.csv"
+            original_bytes = SAMPLE_CSV.read_bytes()
+            src_csv.write_bytes(original_bytes)
+            mtime_before = src_csv.stat().st_mtime_ns
+
+            # Run with --source and --output pointing to the exact same file
+            res = self.run_cli(src_csv, src_csv)
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("aliases source input", res.stderr)
+            self.assertNotIn("Traceback", res.stderr)
+            self.assertEqual(src_csv.read_bytes(), original_bytes)
+            self.assertEqual(src_csv.stat().st_mtime_ns, mtime_before)
+
+    def test_output_aliasing_source_relative_path_fails(self):
+        """R2: Passing source and output with equivalent relative paths is rejected."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            src_csv = Path(temp_dir) / "input.csv"
+            original_bytes = SAMPLE_CSV.read_bytes()
+            src_csv.write_bytes(original_bytes)
+
+            alt_path = Path(temp_dir) / "." / "input.csv"
+            res = self.run_cli(src_csv, alt_path)
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("aliases source input", res.stderr)
+            self.assertEqual(src_csv.read_bytes(), original_bytes)
+
+    # -----------------------------------------------------------------------
+    # R3: Finite number and consistent range regressions
+    # -----------------------------------------------------------------------
+
+    def test_nan_input_rejected_and_preserves_destination(self):
+        """R3: NaN float in CSV is rejected with exit 1 and does not replace destination."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "nan.csv"
+            csv_path.write_text(
+                "sol,ls_deg,pressure_min_pa,pressure_max_pa,pressure_mean_pa,temp_air_min_c,temp_air_max_c,temp_air_mean_c,rad_dose_rate_ugy_day,quality_flag\n"
+                "100,10.0,750.0,800.0,nan,-70.0,-20.0,-45.0,200.0,0\n",
+                encoding="utf-8",
+            )
+            out_file = Path(temp_dir) / "out.json"
+            sentinel_bytes = b'{"sentinel": true}\n'
+            out_file.write_bytes(sentinel_bytes)
+            mtime_before = out_file.stat().st_mtime_ns
+
+            res = self.run_cli(csv_path, out_file)
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("Non-finite value", res.stderr)
+            self.assertNotIn("Traceback", res.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel_bytes)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    def test_infinity_input_rejected_and_preserves_destination(self):
+        """R3: Infinity float in CSV is rejected with exit 1 and does not replace destination."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "inf.csv"
+            csv_path.write_text(
+                "sol,ls_deg,pressure_min_pa,pressure_max_pa,pressure_mean_pa,temp_air_min_c,temp_air_max_c,temp_air_mean_c,rad_dose_rate_ugy_day,quality_flag\n"
+                "100,10.0,750.0,800.0,inf,-70.0,-20.0,-45.0,200.0,0\n",
+                encoding="utf-8",
+            )
+            out_file = Path(temp_dir) / "out.json"
+            sentinel_bytes = b'{"sentinel": true}\n'
+            out_file.write_bytes(sentinel_bytes)
+            mtime_before = out_file.stat().st_mtime_ns
+
+            res = self.run_cli(csv_path, out_file)
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("Non-finite value", res.stderr)
+            self.assertNotIn("Traceback", res.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel_bytes)
+            self.assertEqual(out_file.stat().st_mtime_ns, mtime_before)
+
+    def test_overflow_input_rejected_and_preserves_destination(self):
+        """R3: Overflow float (1e309) in CSV is rejected with exit 1."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "overflow.csv"
+            csv_path.write_text(
+                "sol,ls_deg,pressure_min_pa,pressure_max_pa,pressure_mean_pa,temp_air_min_c,temp_air_max_c,temp_air_mean_c,rad_dose_rate_ugy_day,quality_flag\n"
+                "100,10.0,750.0,800.0,1e309,-70.0,-20.0,-45.0,200.0,0\n",
+                encoding="utf-8",
+            )
+            out_file = Path(temp_dir) / "out.json"
+            sentinel_bytes = b'{"sentinel": true}\n'
+            out_file.write_bytes(sentinel_bytes)
+
+            res = self.run_cli(csv_path, out_file)
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("Non-finite value", res.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel_bytes)
+
+    def test_inconsistent_min_mean_max_rejected_and_preserves_destination(self):
+        """R3: Inconsistent min > mean or mean > max is rejected with exit 1."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "inconsistent.csv"
+            # min=1000, mean=10, max=1 -> min > mean and mean > max
+            csv_path.write_text(
+                "sol,ls_deg,pressure_min_pa,pressure_max_pa,pressure_mean_pa,temp_air_min_c,temp_air_max_c,temp_air_mean_c,rad_dose_rate_ugy_day,quality_flag\n"
+                "100,10.0,1000.0,1.0,10.0,-70.0,-20.0,-45.0,200.0,0\n",
+                encoding="utf-8",
+            )
+            out_file = Path(temp_dir) / "out.json"
+            sentinel_bytes = b'{"sentinel": true}\n'
+            out_file.write_bytes(sentinel_bytes)
+
+            res = self.run_cli(csv_path, out_file)
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("Inconsistent pressure interval", res.stderr)
+            self.assertNotIn("Traceback", res.stderr)
+            self.assertEqual(out_file.read_bytes(), sentinel_bytes)
+
+    # -----------------------------------------------------------------------
+    # R4: Independent quantity quality/counts and legitimate zero regressions
+    # -----------------------------------------------------------------------
+
+    def test_legitimate_zero_radiation_preserved(self):
+        """R4: A valid measurement of 0.0 radiation is preserved and not treated as sentinel."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "zero_rad.csv"
+            csv_path.write_text(
+                "sol,ls_deg,pressure_min_pa,pressure_max_pa,pressure_mean_pa,temp_air_min_c,temp_air_max_c,temp_air_mean_c,rad_dose_rate_ugy_day,quality_flag\n"
+                "100,10.0,750.0,800.0,775.0,-70.0,-20.0,-45.0,0.0,0\n",
+                encoding="utf-8",
+            )
+            out_file = Path(temp_dir) / "out.json"
+            res = self.run_cli(csv_path, out_file)
+            self.assertEqual(res.returncode, 0, res.stderr)
+
+            data = json.loads(out_file.read_text(encoding="utf-8"))
+            rad_qty = [q for q in data["quantities"] if q["id"] == "surface-radiation-dose-rate"][0]
+            self.assertEqual(rad_qty["sampleCount"], 1)
+            self.assertEqual(rad_qty["mean"], 0.0)
+            self.assertEqual(rad_qty["min"], 0.0)
+            self.assertEqual(rad_qty["max"], 0.0)
+            self.assertEqual(rad_qty["qualityStatus"], "illustrative-sample")
+
+    def test_per_quantity_independent_sentinel_handling(self):
+        """R4: Sentinel in one quantity does not discard another quantity on the same sol."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            csv_path = Path(temp_dir) / "independent.csv"
+            csv_path.write_text(
+                "sol,ls_deg,pressure_min_pa,pressure_max_pa,pressure_mean_pa,temp_air_min_c,temp_air_max_c,temp_air_mean_c,rad_dose_rate_ugy_day,quality_flag\n"
+                # Sol 100: valid pressure/temp, sentinel radiation (-9999.0)
+                "100,10.0,750.0,800.0,775.0,-70.0,-20.0,-45.0,-9999.0,0\n"
+                # Sol 101: sentinel pressure (-9999.0), valid temp and valid radiation (210.0)
+                "101,10.5,-9999.0,-9999.0,-9999.0,-72.0,-22.0,-47.0,210.0,0\n",
+                encoding="utf-8",
+            )
+            out_file = Path(temp_dir) / "out.json"
+            res = self.run_cli(csv_path, out_file)
+            self.assertEqual(res.returncode, 0, res.stderr)
+
+            data = json.loads(out_file.read_text(encoding="utf-8"))
+            self.assertEqual(data["sampleAudit"]["includedRows"], 2)
+
+            q_by_id = {q["id"]: q for q in data["quantities"]}
+            # Pressure has 1 usable sol (Sol 100), Sol 101 was sentinel
+            p = q_by_id["atmospheric-pressure"]
+            self.assertEqual(p["sampleCount"], 1)
+            self.assertEqual(p["mean"], 775.0)
+            self.assertEqual(p["perQuantityAudit"]["includedSolCount"], 1)
+            self.assertEqual(p["perQuantityAudit"]["sentinelExcluded"], 1)
+
+            # Temp has 2 usable sols (Sol 100 and Sol 101)
+            t = q_by_id["ambient-air-temperature"]
+            self.assertEqual(t["sampleCount"], 2)
+
+            # Radiation has 1 usable sol (Sol 101), Sol 100 was sentinel
+            r = q_by_id["surface-radiation-dose-rate"]
+            self.assertEqual(r["sampleCount"], 1)
+            self.assertEqual(r["mean"], 210.0)
+            self.assertEqual(r["perQuantityAudit"]["includedSolCount"], 1)
+            self.assertEqual(r["perQuantityAudit"]["sentinelExcluded"], 1)
 
 
 if __name__ == "__main__":
