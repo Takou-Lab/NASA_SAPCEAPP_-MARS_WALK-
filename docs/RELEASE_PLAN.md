@@ -4,7 +4,7 @@ Updated **15 November 2026**. Working baseline `3879f3f` is preserved in Git; PW
 
 | Item | Actual status / next action |
 | --- | --- |
-| Official challenge/event URL | Pending user-provided URL; requested during implementation |
+| Official challenge/event URL | [User-supplied 2026 challenge](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details); received 15 November 2026. Proxy CONNECT 403 blocks retrieval; page contents not independently verified |
 | Official deadline/timezone/submission formats/required quantities | Unverified until actual official source is available; no assumed midnight deadline, slide/video limit or dataset count |
 | Code foundation | Complete and tested in production browser: versioned full offline pack, installation assets, guarded updates |
 | Numerical environmental data/shared loader | Planned; await Gaddielle's source sample/schema proposal before implementing shared runtime model |
@@ -20,3 +20,11 @@ Use actual remaining time after official deadline verification. Reserve the fina
 
 
 Automatic GitHub deployment is not connected: provider Git connection failed. Use reviewed CLI candidate/promote flow until owner completes project Settings → Git. Optional Vercel plugin/skills and MCP could not be installed into this managed read-only user profile; authenticated CLI works. Gaddielle R3 submission `42a0dd2` is accepted with 33 integrated data tests; next phases remain release-data handoff and real numerical-source investigation.
+
+## Challenge URL received — verification pending
+
+The user supplied the challenge URL above on 15 November 2026. Attempts with and without the query string fail at the environment proxy (CONNECT tunnel HTTP 403), before an origin page is retrieved. This is not proof that the official site itself rejects access or that the challenge does not exist.
+
+Request the Details text/resources and event/submission rules as pasted text or a page PDF. Until retrieved, do not infer required features, mandatory datasets, executable format, judging criteria or deadline/timezone from the URL/title, prior team plans or an agent's memory. The challenge page may not itself contain local-event or submission deadlines; verify those separately from the appropriate official page.
+
+Next review deliverable: map each actual quoted requirement to source URL/section, current implementation/evidence, gap, owner and release priority. Preserve the visual-planning product boundary and do not add AI/VR/terrain claims without evidence.

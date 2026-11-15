@@ -1,8 +1,16 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
-## Immediate task — verifier integration correction
+## Two-agent split — current ownership
 
-Your pushed `c35b021` was reviewed. Both production build paths pass, but the full Angular suite has **11 failing verifier tests (176 passing)** although all 43 focused Node tests pass. Resolve the byte-type/realm mismatch before starting another phase. See [exact findings and required checks](../reviews/ENZO.md#current-verifier-review--corrections-required-c35b021). Continue your existing branch; no verifier merge or deployment has occurred. Earlier accepted shell work stays complete.
+**Agent 1 (this file):** confidence/evidence content simplification, existing science/environment UI tasks only when agreed data APIs exist. Preserve the accepted verifier. Emma owns the three shared SCSS theme fixes. Do not edit the presentation/usability documents assigned below while Agent 2 works.
+
+**Agent 2:** follow [ENZO 2.md](<ENZO 2.md>) for presentation, demonstration, judges' answers, references/AI attribution and actual usability results. Those named Phase 3/4 documentation files are exclusively delegated to Agent 2 for this slice; Agent 1's later checklist does not authorize overlapping edits. Use separate checkouts/branches, preserve unpublished work and reconcile only through coordinator review. No runtime AI, speculative environmental API or independent deployment is assigned.
+
+## Current task — verifier accepted; evidence clarity next
+
+Your fc79cf8 passes coordinator integration: **193 Angular tests**, root/subpath production builds and pack verification. The previous cross-realm correction is closed. [Acceptance](../reviews/ENZO.md#verifier-correction-fc79cf8--accepted). Preserve local work and safely incorporate published main; do not repeat the verifier or change locked dependency versions to solve Windows registry problems.
+
+Start the unblocked Phase 2 evidence-content simplification: concise route state, main limitation and next useful action first; keep detailed warnings/provenance accessible. Own evidence/science TS/HTML/tests per existing scope; coordinate proposed wording and expansion behavior with Emma, who retains the three SCSS theme files. Preserve null metrics/no safety claims, science selection, route and drafts. No new measurement API, core/worker edit or environmental fixture integration. Verified environmental data/schema remain pending. Run relevant behavior tests/full suite/build and hand off exact component/files/results. Use your existing branch if it holds ongoing work; do not discard unpublished changes or create overlapping task branches.
 
 ## Byte-verification compatibility handoff
 

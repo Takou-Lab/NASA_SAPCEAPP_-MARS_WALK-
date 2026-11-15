@@ -19,18 +19,18 @@ Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6
 | Coordinator/user | [YOU.md](docs/team/YOU.md): verify official event requirements, review pending submissions, prepare candidate, then authorized deployment/device acceptance |
 | Emma (he/him) | Phase 1 cdd2417 accepted in be4ac2b. Phase 2 visual specification/header and three delegated SCSS theme fixes remain. [Plan](docs/team/EMMA.md) |
 | Willy Agent 1 | Existing map/navigation/retry accepted. Map usability/release workflow. [Plan](docs/team/WILLY.md) |
-| Willy Agent 2 | Windows/root/subpath install verification, separate QA and device evidence. [Plan](<docs/team/WILLY 2.md>) |
-| Enzo | c35b021 published on feature/enzo-image-payload-verifier. Review rejected integration: 43 focused Node tests pass but 11 integrated failures; both builds pass. Not merged. [Correction](docs/reviews/ENZO.md) |
-| Gaddielle (she/her) | Earlier imagery/tooling accepted. New environmental correction tip 0f6bd95 exists; **not reviewed or merged**. Prior R1–R4 findings remain open until independently rechecked. [Review](docs/reviews/GADDIELLE.md) |
-| Royce/Longla | Existing 3D accepted; physical device/release QA pending. [Plan](docs/team/LONGLA.md) |
+| Willy Agent 2 | Windows report 9b4093d accepted as contributor evidence; missing raster HTTP, browser offline and physical-device checks next, separate QA. [Plan](<docs/team/WILLY 2.md>) |
+| Enzo | fc79cf8 verifier correction accepted: 193 integrated Angular tests and root/subpath builds pass. Pure verifier remains unmounted; Agent 1 handles evidence-content simplification, Agent 2 release-story 25634e2 reviewed, four documentation corrections pending; see docs/team/ENZO 2.md. [Correction](docs/reviews/ENZO.md) |
+| Gaddielle (she/her) | Earlier imagery/tooling accepted. Environmental prototype 0f6bd95 plus coordinator C1/C2 corrections accepted as illustrative tooling only; 52 integrated data tests pass. New REMS fe69663 reviewed: S1–S4 extraction/count/hash/reconciliation corrections pending, not merged. No runtime environment dataset/schema accepted. [Review](docs/reviews/GADDIELLE.md) |
+| Royce/Longla | Existing 3D accepted; QA report 3af60d1 integrated as contributor-reported only. Samsung installation reported; missing-note reproduction/build identity needed before physical acceptance. [Plan](docs/team/LONGLA.md) |
 
 Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Emma has a styling-only exception for science-context, exploration-confidence and image-passport SCSS. Coordinator owns root/core/build/worker. Original completed work retains its authorship. Use independent checkouts for Willy's two agents; never change the same checkout's branch/build concurrently.
 
 ## Ordered next work
 
-1. Obtain official challenge/submission URL and exact deadline/timezone; requirements remain unverified. User was asked this turn. Do not invent a submission deadline.
-2. Review Gaddielle 0f6bd95 against R1–R4, including raw-source provenance and converter failure preservation. Passing tests alone do not verify NASA source measurements.
-3. Wait for Enzo's corrected verifier commit; rerun full Angular suite, not just focused Node tests. Do not merge known failing c35b021.
+1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). Proxy CONNECT 403 prevents retrieval; obtain Details/resources and submission rules as pasted text/PDF or through permitted access. Exact deadline/timezone and requirement wording remain unverified. Do not invent them.
+2. Review Gaddielle original-source acquisition when submitted. Coordinator completed C1/C2 prototype fixes with 52 data tests passing; do not repeat corrections. Verify products/labels/extraction before accepting runtime data. See docs/reviews/GADDIELLE.md.
+3. Enzo fc79cf8 correction is accepted with 193 tests and both builds passing. Preserve his evidence-content next slice; coordinator owns future cache-lifecycle composition. Do not repeat the closed correction.
 4. Agree environmental schema/loader only from accepted evidence. Keep measurements historical, time/location/units/quality explicit. Calibration and compatible elevation are separate scientific priorities.
 5. Reconcile approved UI/map work, run checks and create a release candidate. Do not repeat accepted merges or alter canonical data hashes for CRLF.
 6. Deploy only when instructed through the release workflow. Record source/artifact/URL and test actual public-origin offline recovery. Physical Android/iOS standalone/touch and three outside-user sessions are still pending; desktop automation cannot substitute.

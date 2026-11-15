@@ -1,5 +1,9 @@
 # Royce / Longla — viewer merged; hardware report needs clarification
 
+## QA submission 3af60d1 — report integrated, acceptance not closed
+
+Reviewed 15 November 2026. Only docs/qa/PWA_ACCEPTANCE.md changed; no new viewer implementation. Contributor reports Samsung installation/offline UI and a missing note; exact build/model/save-load ordering are absent. Report is retained with explicit contributor provenance, not accepted as a full physical mission-recovery pass. No code fix or automatic-loss diagnosis is justified yet. Current service persists saved observations in the mission envelope and restores through explicit Load Route; investigate the actual deployed revision and exports rather than assuming startup recovery. [Exact next task](../team/LONGLA.md#current-task--reconcile-3af60d1-and-reproduce-the-missing-note). Documentation-only review checks links/claims; no unrelated suites rerun or deployment performed.
+
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->

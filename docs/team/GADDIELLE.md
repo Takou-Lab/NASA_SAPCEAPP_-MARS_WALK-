@@ -1,5 +1,15 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Latest REMS handoff fe69663 — source corrections next
+
+New product inventory/label/excerpt/summary reviewed; not merged or accepted as verified data yet. Address [S1–S4](../reviews/GADDIELLE.md#rems-source-submission-fe69663--corrections-required-before-acceptance): reproducible extraction plus original format/quality documentation, inconsistent row totals/record sizes, raw-versus-LF label hashes, and safe reconciliation with accepted main C1/C2 corrections. Start with one bounded original product if needed. Preserve ongoing work and keep RAD/runtime schema unavailable; no invented replacement values. Earlier accepted converter fixes remain complete.
+
+## Current handoff — coordinator completed C1/C2; collect original sources next
+
+The user authorized coordinator help. Your 0f6bd95 prototype and coordinator fixes are accepted as **illustrative test-only tooling**, with 52 integrated Python tests passing. Numeric fixture rows are unchanged; header wording and generated descriptions are corrected. See [acceptance scope](../reviews/GADDIELLE.md#coordinator-assisted-c1c2-fixes--tooling-accepted-data-still-pending). Do not repeat these corrections. Preserve all ongoing source-collection work and safely merge published main into your current branch; no reset or competing converter.
+
+Your next slice: deliver a small original REMS pressure/temperature product plus label/documentation, exact product/version/download, raw bytes/hash, units/time/quality semantics and reproducible row extraction. Record unavailable fields explicitly; do not use illustrative values as NASA observations. RAD is separate if traceable. No public environment.json, shared loader/API or Enzo integration before source/schema review. After a useful verified handoff, prioritize exact-raster calibration and compatible elevation evidence.
+
 ## Byte-verification compatibility handoff
 
 Coordinator added repository-controlled LF attributes for scientific JSON without changing canonical data or hashes. Root and `/marswalk/` builds, including pack verification, pass. See [Windows LF instructions and evidence](../qa/PWA_INSTALL_ASSETS.md#windows-lf-compatibility--coordinator-fix-15-november-2026). Preserve local work and refresh only clean affected files after incorporating main; no global Git changes or data regeneration. Enzo/Willy should rerun their own Windows build verification before claiming that handoff complete. Gaddielle should retain canonical LF in future scientific JSON deliveries; her environmental-data corrections remain a separate pending task.

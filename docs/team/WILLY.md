@@ -1,5 +1,9 @@
 # Willy — Remaining map, installation and deployment work
 
+## Latest handoff — Agent 2 report accepted, Agent 1 map work continues
+
+Installation report 9b4093d is reviewed as scoped Windows contributor evidence. No new map code was submitted. Agent 1 continues the existing Phase 2 map-usability slice; Agent 2 follows the updated [WILLY 2.md](<WILLY 2.md>) for missing raster/browser/device checks. No duplicate assets or task-branch reset. [Review](../reviews/WILLY.md#agent-2-windows-report-9b4093d--accepted-as-scoped-contributor-evidence).
+
 ## Two-agent split
 
 **Agent 1:** continue your existing map-usability Phase 2 checklist in `src/app/map/`, with map-specific evidence in `docs/qa/WILLY_MAP_RELEASE.md`. Finish current owned work before changing slices; keep map behavior, coordinates and mission state intact. Do not concurrently edit installation assets or Agent 2's QA file.
