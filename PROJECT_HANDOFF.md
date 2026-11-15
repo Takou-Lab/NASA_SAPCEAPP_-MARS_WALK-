@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Current mobile recovery fix
+
+See [mobile fix evidence](docs/qa/MOBILE_MAP_RECOVERY_FIX.md). Phone map clipping and fresh-session recovery are fixed; 241 tests/build and full-process offline browser checks pass. Physical device acceptance remains pending. Stable review URL will be recorded after deployment. Production stays unchanged.
+
 ## Goal and product boundary
 
 Angular PWA for Mars visual mission planning: image map, route, contextual science, notes, local save/export and prepared offline recovery. Current imagery is uncalibrated; distance, elevation, slope and safety are unavailable. Flat opt-in 3D is implemented; terrain 3D, immersive VR and runtime AI are not. Environmental observations are not yet accepted runtime data.

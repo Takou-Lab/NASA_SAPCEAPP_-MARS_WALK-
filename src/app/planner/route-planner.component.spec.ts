@@ -13,6 +13,7 @@ describe('RoutePlannerComponent', () => {
   let http: HttpTestingController;
 
   beforeEach(async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [RoutePlannerComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -195,6 +196,7 @@ describe('RoutePlannerComponent metadata state banners', () => {
   let http: HttpTestingController;
 
   beforeEach(async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [RoutePlannerComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],

@@ -1,4 +1,7 @@
 <app-pwa-panel />
+@if (mission.recoveryMessage(); as message) {
+  <p class="mission-recovery" role="status">{{ message }}</p>
+}
 <app-shell>
   <app-environment-context environmental-context />
   <section mission-transfer class="transfer-panel" aria-labelledby="transfer-title">

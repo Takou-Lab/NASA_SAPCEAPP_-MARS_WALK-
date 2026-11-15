@@ -13,6 +13,7 @@ describe('NotebookComponent', () => {
   let http: HttpTestingController;
 
   beforeEach(async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [NotebookComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -209,6 +210,7 @@ describe('NotebookComponent metadata state banners', () => {
   let http: HttpTestingController;
 
   beforeEach(async () => {
+    localStorage.clear();
     await TestBed.configureTestingModule({
       imports: [NotebookComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()],
