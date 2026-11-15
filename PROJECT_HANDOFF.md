@@ -12,6 +12,10 @@ Repository: boscopatrick907-coder/NASA_SAPCEAPP_-MARS_WALK-, main. Local checkou
 
 Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6669fb; anonymous inventory fetched this turn still reports pack `95d8b5f6ee7aba0a38e8e7758ada62be20a3f0ca61efd04adce0fc4cabb7a827`. Current local build pack differs: `2d175fcf490efe85d3d75ff3d7114bd814ef0b96edbb2808330511371c46e1e6`. Main is ahead of production. No deployment in this handoff task. Automatic GitHub deployment is not connected. Follow [Vercel runbook](docs/VERCEL_SETUP.md) and [deployment evidence](docs/qa/VERCEL_PRODUCTION.md); authenticate through supported tools, never copy secrets into chat/Git.
 
+## Current designated preview — source cf0ffb7
+
+https://marswalk-m3n37k8ne-boys-band.vercel.app/ is READY and tested; **Vercel authentication required**. [Evidence/access/scope](docs/qa/VERCEL_PREVIEW_CF0FFB7.md). 194 Angular tests, 11 worker tests, build and authenticated preview offline full-process route/note recovery pass. Source pack prefix 4bb8ec987ae0. Production remains b6669fb; no promotion. Royce/Willy can test this exact candidate with their Vercel access; do not share automation secrets. Emma's pending changes and optional AI/VR are not included.
+
 ## People and current review states
 
 | Owner | State and next step |

@@ -1,5 +1,9 @@
 # YOU / Dinang — Remaining integration, PWA, deployment and submission work
 
+## Designated preview ready — cf0ffb7
+
+User-authorized preview deployed: https://marswalk-m3n37k8ne-boys-band.vercel.app/ (Vercel authentication required). [Artifact/browser evidence](../qa/VERCEL_PREVIEW_CF0FFB7.md). Fresh 194 Angular/11 worker tests and build pass; authenticated full-process offline route/note recovery passes. Production remains unchanged. Next coordinate Royce device missing-note reproduction and Willy installation/icon checks, then review Emma's new work and deploy a revised candidate if needed. No promotion/submission performed.
+
 ## Current continuation task — 15 November 2026
 
 Start with [PROJECT_HANDOFF.md](../../PROJECT_HANDOFF.md). Fresh clean-main d6801a4 checks pass: 144 Angular tests, 11 worker tests, 33 data tests and production build (433.80 kB). [Durable evidence](../qa/CONTINUITY_BASELINE.md). This supersedes earlier “current” baseline counts below without relabeling historical results.
