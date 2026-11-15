@@ -61,3 +61,7 @@ Sources are grouped in a closed central data/methods library and contextual disc
 ## Outstanding submissions reviewed
 
 [Decision matrix](qa/OUTSTANDING_SUBMISSIONS_REVIEW.md): Willy map accepted with collapsed geometry details; Royce exact branch rejected compilation and readiness intent implemented independently; REMS source bundle and global geology reference artifacts retained with reproducibility/provenance/coverage limits. No raw data became live route weather or local hazards. 308 Angular/60 Python/4 REMS Node/11 worker tests plus full-process offline browser checks pass. Takou styling source remains unreachable; no claim of visual-polish integration.
+
+## Takou/Charles visual polish now integrated
+
+Fork branch became reachable. Exact 4b8658a + 2af5fed accepted as b325575 + 6403b99 with original authorship. Current-main 308 tests/build pass; this is separate from his old-baseline report. [Current integration evidence](qa/TAKOU_POLISH_INTEGRATION.md). Preserve all newer mission/map/persistence functionality and apply the available PWA update after saving/exporting.

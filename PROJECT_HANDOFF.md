@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Takou visual polish integrated
+
+Exact source 4b8658a + 2af5fed fetched and applied as b325575 + 6403b99, preserving authorship. Eight SCSS files and attributed design artifacts; 308 tests/build pass on the current combined app. [Current evidence](docs/qa/TAKOU_POLISH_INTEGRATION.md). Older “Takou branch unreachable” sections below are historical and superseded. Shell style warning resolved; initial/map size and Leaflet warnings remain, budgets unchanged.
+
 ## Outstanding-submission review completed
 
 [Decision matrix](docs/qa/OUTSTANDING_SUBMISSIONS_REVIEW.md). Willy map 8fbc341 cherry-picked as e97b2d9; coordinate details collapsed. Royce 334bc7f exact source still fails compilation; current Notebook readiness guard added independently. REMS 99dc2d5 archived reproducible delivery (1a59251), geology 5cef4d7 research artifacts (aefaec4); neither adds unqualified runtime weather/local hazards. 308 Angular/60 Python/4 REMS/11 worker tests and phone-size offline mission browser checks pass. Takou styling still not retrievable.
