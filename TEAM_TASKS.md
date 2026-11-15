@@ -15,7 +15,7 @@ Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla'
 | --- | --- | --- |
 | Willy map/navigation/retry | `21cf6f0`, `02134f1` | Accepted, merged |
 | Emma research/science/evidence workspace | `947ff1a`, `4efcb5a`, `3b7b1c1` | Accepted, merged; three shared UI components mounted once |
-| Gaddielle package/index | `a53724a` | Merged; R3 closed in `b744b0b`, real index unchanged |
+| Gaddielle package/index/R3 follow-up | `42a0dd2` | Approved/merged at `c7ac053`; 33 integrated data tests; index unchanged |
 | Enzo shell/planner/notebook | `16a2e66` | Accepted, merged; root conflicts resolved, transfer/drafts retained |
 | Longla optional viewer and QA submission | `23d5180` | Viewer merged; submitted hardware claims need clarification |
 
@@ -98,3 +98,6 @@ W1–W4 can progress independently from published main; W5 can verify the comple
 Preserve local work. Proposed branch names apply only when no follow-up exists. Keep W2/W5's existing branches and all accepted history. Personal briefs authorize normal pushes to assigned feature branches. Coordinator integration follows the user's authorized workflow; deployment, environment publication, competition submission and external messages are separate.
 
 Hand off **commit, files/selectors, actual checks, one observed workflow and blockers**. Official competition requirements/deadline must be verified separately; internal rehearsal timing is not an official rule.
+
+
+**Latest data review:** Gaddielle `42a0dd2` is approved/merged; 30 isolated and 33 integrated Python tests pass, real image index unchanged. Her next work remains the release-data handoff followed by real environmental source samples. Application/PWA implementation and its recorded browser checks are unchanged by this tools-only merge.

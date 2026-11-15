@@ -132,6 +132,10 @@ The test suite in `tools/data/test_build_image_pack.py` validates 29 automated r
 24. `test_image_path_with_trailing_space_is_rejected_and_preserves_output`: Confirms asset paths with whitespace fail exit `1` without writing and preserve existing output.
 25. `test_image_path_with_control_character_is_rejected_and_preserves_output`: Confirms asset paths with control characters (`\t`) fail exit `1` without writing and preserve existing output.
 26. `test_check_fails_on_index_containing_percent_escape_or_whitespace`: Confirms `--check` validates image path syntax against percent escapes and whitespace, exiting code `1` and preserving existing output.
+27. `test_encoded_paths_fail_without_changing_destination`: Retains coordinator encoded traversal/filename CLI checks and output byte/mtime preservation.
+28. `test_trailing_space_path_fails_without_changing_destination`: Retains coordinator trailing-space real-file rejection in generation/check.
+29. `test_browser_path_syntax_rejects_whitespace_controls_and_percent`: Retains direct tab/newline/percent/space syntax cases.
+
 
 To run the complete data tools test suite (33 tests total: 29 indexer regressions + 4 package verifier regressions):
 

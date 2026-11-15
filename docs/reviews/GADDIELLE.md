@@ -1,5 +1,14 @@
 # Gaddielle review — merged, including coordinator R3 closure
 
+## Latest submission — approved and integrated
+
+Reviewed `42a0dd256b2da0319bdbada535836bbd786cf2c9` on `feature/gaddielle-data-preparation`, 15 November 2026. Only three files changed since its prior shared baseline: generator, regressions and image-index documentation. This independently delivers the earlier R3 request; it is not a completed release-data/environmental-data submission.
+
+Isolated submitted tools: **30 Python tests pass**, real index `--check` passes. Integrated at **`c7ac053`**, preserving all three existing coordinator regressions plus her five new cases: **33 tests pass** (29 generator + 4 verifier), real index remains exactly 524,472 image-payload bytes. Generator adopts runtime-compatible image prefix/characters and strict index paths; invalid paths fail before decoding/output writes. Previous app/PWA code and source image/manifest/markers/index remain unchanged. No unnecessary Angular rerun is represented as new evidence.
+
+**No correction required for this slice. Next:** follow the existing complete [GADDIELLE.md](../team/GADDIELLE.md): release-data handoff, then actual REMS pressure/temperature and RAD feasibility/source samples with coordinator/Enzo schema agreement. Do not repeat R3 or invent measurements. Preserve unpublished local progress. Historical reviews below retain their exact revision/counts.
+
+
 <!-- CURRENT_WORK_PLAN -->
 > **Published-commit review record.** Current work and file ownership follow [the team plan](../../TEAM_TASKS.md); historical findings below are not new assignments.
 <!-- /CURRENT_WORK_PLAN -->
