@@ -1,0 +1,11 @@
+# Coordinator evidence-panel clarity handoff
+
+15 November 2026. User authorized completing Enzo Agent 1's evidence-content slice while his Windows checkout is blocked. Base 5603248; changes are limited to confidence TS/HTML/tests and passport HTML. No Emma SCSS, mission store, scientific data, notebook, map, packages or worker changes.
+
+Route guidance now distinguishes missing start/destination, uncalibrated completed route and derived planar distance. Complete-route guidance explains science/notebook/save/export and explicit Load Route recovery. Coordinate labels round to whole pixels; underlying points remain untouched. Native details/summary keeps terrain/coverage/warnings and technical passport fields collapsed initially. Full warning content remains accessible; safety boundary, image source/credit and external-link connectivity note remain visible. Loading/error states and safe text/URL handling are retained.
+
+New verification: **194 Angular tests across 17 files pass**; production build/full-pack generation passes, initial **434.99 kB**, below unchanged warning budget. Existing Leaflet CommonJS warning remains. Root pack prefix **4bb8ec987ae0**, 18 files / 1,656,553 bytes. These supersede older size/count figures for this code slice only.
+
+Local production Chromium persistent-profile test: keyboard Enter opens/closes native disclosures; source visible before metadata expansion; linked tabs work; exact note draft survives tab change and induced failed save; successful save/export, guarded wrong-image import, collapsed-panel inert focus and width clamp pass. At 390px both themes have no document overflow. Complete browser-process restart disconnected before navigation loads image/science and prepared chunks; explicit Load Route restores route/notes/export; opt-in flat 3D opens and tears down. Normal-flow page errors are absent. Browser script/results in /tmp/coordinator-evidence-browser* are temporary; this record preserves method and scope. No new physical-device or live-deployment acceptance is claimed.
+
+Enzo's prior verifier stays accepted. His next independent task is bounded contextual-science record navigation per his personal MD; Emma continues theme/shell work and Agent 2 continues release-story corrections. No site/environment publication occurred.

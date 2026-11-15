@@ -1,5 +1,9 @@
 # Enzo review — final shell integrated
 
+## Agent 1 evidence clarity — completed by coordinator at user request
+
+15 November 2026: bounded confidence/passport presentation changes preserve all mission/scientific state and Emma's SCSS. 194 integrated Angular tests, build and local production-browser/offline recovery checks pass. [Evidence and limitations](../qa/COORDINATOR_EVIDENCE_CLARITY.md). Agent 1 should reconcile unpublished overlapping work and move to contextual-science navigation in his personal MD. Agent 2 release-story 25634e2 corrections below remain separate and open. No deployment or physical-device acceptance claimed.
+
 ## Agent 2 release story 25634e2 — corrections required
 
 Reviewed 15 November 2026. Six owned documentation files changed on feature/enzo-release-story, no runtime code. Good preservation of Emma authorship, no-safety/uncalibrated/flat-viewer boundaries and pending outside-user/official requirements. **Not merged.** Agent 1's accepted fc79cf8 remains complete; no new evidence-UI commit is published.

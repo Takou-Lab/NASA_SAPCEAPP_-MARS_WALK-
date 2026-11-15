@@ -15,7 +15,7 @@ interface CoverageSummary {
 }
 
 function formatPointStatus(point: Point | null): string {
-  return point ? `Set (${point.x}, ${point.y} px)` : 'Not set';
+  return point ? `Set (${Math.round(point.x)}, ${Math.round(point.y)} px)` : 'Not set';
 }
 
 function formatMeters(meters: number): string {
@@ -62,6 +62,27 @@ export class ExplorationConfidenceComponent {
       detail: route.start
         ? 'Route endpoints are incomplete: destination is not set.'
         : 'Route endpoints are incomplete: start is not set.',
+    };
+  });
+
+  readonly routeGuidance = computed(() => {
+    const route = this.mission.route();
+    if (!route.start || !route.destination) {
+      return {
+        title: 'Set your route endpoints',
+        next:
+          !route.start && !route.destination
+            ? 'Open Route Planner, choose Set Start, then click the image. Repeat with Set Destination.'
+            : !route.start
+              ? 'Open Route Planner and choose Set Start, then click the image.'
+              : 'Open Route Planner and choose Set Destination, then click the image.',
+      };
+    }
+    return {
+      title: this.distanceSummary().derived
+        ? 'Route drawn — planar distance available'
+        : 'Route drawn — measurements unavailable',
+      next: 'Inspect a contextual science record, add an observation in Notebook, then save or export your visual plan. After reopening, use Load Route to recover saved route and notes.',
     };
   });
 

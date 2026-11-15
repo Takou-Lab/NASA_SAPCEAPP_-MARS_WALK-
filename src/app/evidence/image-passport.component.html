@@ -50,117 +50,122 @@
               }
             </dd>
           </div>
-
-          <div class="metadata-row">
-            <dt>Image reference</dt>
-            <dd>
-              <code class="manifest-code">{{ image.imageRef }}</code>
-            </dd>
-          </div>
-
-          <div class="metadata-row">
-            <dt>Pixel dimensions</dt>
-            <dd>
-              <span>{{ image.width }} × {{ image.height }} pixels</span>
-              <small class="field-note"
-                >Pixel count only — pixel dimensions do not establish metric scale or spatial
-                resolution.</small
-              >
-            </dd>
-          </div>
-
-          <div class="metadata-row">
-            <dt>Coordinate system</dt>
-            <dd>
-              <code class="manifest-code">{{ image.coordinateSystem }}</code>
-              <span class="field-note">Image pixels, bottom-left origin</span>
-            </dd>
-          </div>
-
-          <div class="metadata-row">
-            <dt>Observation date</dt>
-            <dd>{{ formatObservationDate(image) }}</dd>
-          </div>
-
-          <div class="metadata-row">
-            <dt>Coverage status</dt>
-            <dd>
-              @if (image.coverageStatus === 'verified-aoi') {
-                <span class="badge badge-ok">Verified AOI ({{ image.coverageStatus }})</span>
-                <small class="field-note"
-                  >Manifest indicates verified exploration-area coverage.</small
-                >
-              } @else {
-                <span class="badge badge-caution"
-                  >Regional context ({{ image.coverageStatus }})</span
-                >
-                <small class="field-note"
-                  >Regional context only: does not establish exact boxwork-AOI overlap, north-up
-                  orientation, or geodetic rover alignment.</small
-                >
-              }
-            </dd>
-          </div>
-
-          <div class="metadata-row">
-            <dt>Metric calibration</dt>
-            <dd>
-              @if (verifiedCalibration(); as cal) {
-                <span class="badge badge-ok">Verified ({{ cal.metersPerPixel }} m/pixel)</span>
-                <div class="calibration-details">
-                  <span>Method: {{ cal.method }}</span>
-                  @if (cal.safeSourceUrl; as calUrl) {
-                    <span class="field-note">Calibration source:</span>
-                    <a
-                      class="external-link"
-                      [href]="calUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {{ calUrl }}
-                    </a>
-                    <small class="connectivity-note"
-                      >External calibration pages require network connectivity.</small
-                    >
-                  } @else if (cal.rawSourceUrl) {
-                    <span>Calibration source: {{ cal.rawSourceUrl }}</span>
-                    <small class="connectivity-note"
-                      >Unverified calibration URL is rendered as plain text only.</small
-                    >
-                  } @else {
-                    <span>Calibration source: Unavailable</span>
-                  }
-                </div>
-              } @else {
-                <span class="badge badge-neutral">Unverified / unavailable</span>
-                <small class="field-note"
-                  >Metric scale is unverified and unavailable for this prepared raster.</small
-                >
-              }
-            </dd>
-          </div>
         </dl>
+        <details class="passport-details">
+          <summary>Image metadata, calibration and recorded limitations</summary>
+          <dl class="passport-metadata">
+            <div class="metadata-row">
+              <dt>Image reference</dt>
+              <dd>
+                <code class="manifest-code">{{ image.imageRef }}</code>
+              </dd>
+            </div>
 
-        <div class="terrain-boundary">
-          <h3>Terrain Product Boundary</h3>
-          <p class="boundary-copy">
-            A verified terrain product is not supplied by the current image manifest contract. Never
-            treat image brightness as surface elevation or pixel dimensions as spatial resolution.
-          </p>
-        </div>
+            <div class="metadata-row">
+              <dt>Pixel dimensions</dt>
+              <dd>
+                <span>{{ image.width }} × {{ image.height }} pixels</span>
+                <small class="field-note"
+                  >Pixel count only — pixel dimensions do not establish metric scale or spatial
+                  resolution.</small
+                >
+              </dd>
+            </div>
 
-        <div class="passport-limitations">
-          <h3>Recorded Limitations</h3>
-          @if (image.limitations.length > 0) {
-            <ul class="limitations-list">
-              @for (limitation of image.limitations; track $index) {
-                <li>{{ limitation }}</li>
-              }
-            </ul>
-          } @else {
-            <p class="limitations-empty">No limitations recorded.</p>
-          }
-        </div>
+            <div class="metadata-row">
+              <dt>Coordinate system</dt>
+              <dd>
+                <code class="manifest-code">{{ image.coordinateSystem }}</code>
+                <span class="field-note">Image pixels, bottom-left origin</span>
+              </dd>
+            </div>
+
+            <div class="metadata-row">
+              <dt>Observation date</dt>
+              <dd>{{ formatObservationDate(image) }}</dd>
+            </div>
+
+            <div class="metadata-row">
+              <dt>Coverage status</dt>
+              <dd>
+                @if (image.coverageStatus === 'verified-aoi') {
+                  <span class="badge badge-ok">Verified AOI ({{ image.coverageStatus }})</span>
+                  <small class="field-note"
+                    >Manifest indicates verified exploration-area coverage.</small
+                  >
+                } @else {
+                  <span class="badge badge-caution"
+                    >Regional context ({{ image.coverageStatus }})</span
+                  >
+                  <small class="field-note"
+                    >Regional context only: does not establish exact boxwork-AOI overlap, north-up
+                    orientation, or geodetic rover alignment.</small
+                  >
+                }
+              </dd>
+            </div>
+
+            <div class="metadata-row">
+              <dt>Metric calibration</dt>
+              <dd>
+                @if (verifiedCalibration(); as cal) {
+                  <span class="badge badge-ok">Verified ({{ cal.metersPerPixel }} m/pixel)</span>
+                  <div class="calibration-details">
+                    <span>Method: {{ cal.method }}</span>
+                    @if (cal.safeSourceUrl; as calUrl) {
+                      <span class="field-note">Calibration source:</span>
+                      <a
+                        class="external-link"
+                        [href]="calUrl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {{ calUrl }}
+                      </a>
+                      <small class="connectivity-note"
+                        >External calibration pages require network connectivity.</small
+                      >
+                    } @else if (cal.rawSourceUrl) {
+                      <span>Calibration source: {{ cal.rawSourceUrl }}</span>
+                      <small class="connectivity-note"
+                        >Unverified calibration URL is rendered as plain text only.</small
+                      >
+                    } @else {
+                      <span>Calibration source: Unavailable</span>
+                    }
+                  </div>
+                } @else {
+                  <span class="badge badge-neutral">Unverified / unavailable</span>
+                  <small class="field-note"
+                    >Metric scale is unverified and unavailable for this prepared raster.</small
+                  >
+                }
+              </dd>
+            </div>
+          </dl>
+
+          <div class="terrain-boundary">
+            <h3>Terrain Product Boundary</h3>
+            <p class="boundary-copy">
+              A verified terrain product is not supplied by the current image manifest contract.
+              Never treat image brightness as surface elevation or pixel dimensions as spatial
+              resolution.
+            </p>
+          </div>
+
+          <div class="passport-limitations">
+            <h3>Recorded Limitations</h3>
+            @if (image.limitations.length > 0) {
+              <ul class="limitations-list">
+                @for (limitation of image.limitations; track $index) {
+                  <li>{{ limitation }}</li>
+                }
+              </ul>
+            } @else {
+              <p class="limitations-empty">No limitations recorded.</p>
+            }
+          </div>
+        </details>
       </article>
     } @else {
       <p class="passport-empty" role="status">No verified image manifest is currently loaded.</p>
