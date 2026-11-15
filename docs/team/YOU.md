@@ -4,7 +4,7 @@
 
 Start with [PROJECT_HANDOFF.md](../../PROJECT_HANDOFF.md). Fresh clean-main d6801a4 checks pass: 144 Angular tests, 11 worker tests, 33 data tests and production build (433.80 kB). [Durable evidence](../qa/CONTINUITY_BASELINE.md). This supersedes earlier “current” baseline counts below without relabeling historical results.
 
-Next unblocked integration task: review Gaddielle's new environmental correction tip 0f6bd95 against existing R1–R4 findings; no acceptance yet. Enzo c35b021 still needs correction for 11 integrated verifier failures. Official challenge/submission URL and deadline have been requested again and remain unverified. Current main is ahead of the documented public deployment b6669fb. Prepare the release candidate while physical device checks remain pending. This task does not authorize site/environment publication or competition submission.
+Gaddielle 0f6bd95 review is complete: 50 tests pass, but C1 temperature exclusion accounting and C2 source/illustrative wording corrections are requested. Await her next commit; no environmental code/schema accepted. Enzo c35b021 still needs correction for 11 integrated verifier failures. Official challenge/submission URL and deadline have been requested again and remain unverified. Current main is ahead of the documented public deployment b6669fb. Prepare the release candidate while physical device checks remain pending. This task does not authorize site/environment publication or competition submission.
 
 
 > Current work piece: [W6](../../TEAM_TASKS.md#w6).

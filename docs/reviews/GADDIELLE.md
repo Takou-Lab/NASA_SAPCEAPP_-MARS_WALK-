@@ -1,5 +1,31 @@
 # Gaddielle — environmental review: changes required
 
+## Correction review `0f6bd95` — progress verified, changes still required
+
+Reviewed 15 November 2026 against main f6567ca in an isolated archive with committed public assets. **50 Python tests pass** (33 existing + 17 environmental). No application source, scientific runtime data or feature merge/deployment occurred. Earlier review below remains historical.
+
+- **R1 classification addressed for test-only tooling:** generated status/evidence now explicitly illustrative; no public environment.json. Exact original products/labels/extraction still unavailable, so scientific source approval and runtime schema remain withheld. This is not a verified-data delivery.
+- **R2 addressed:** independent same-path, symlink and hardlink probes exit 1 and preserve source bytes/mtime.
+- **R3 primary write-path corrections addressed:** independent NaN, positive/negative Infinity and inconsistent pressure interval probes exit 1 and preserve existing destination bytes/mtime. Finite checks, min/mean/max validation and strict JSON serialization are present.
+- **R4 partially addressed:** zero radiation is included; independent per-quantity sentinel filtering and derived aggregation descriptions are added. Two remaining corrections below block acceptance of this prototype.
+
+### C1 — temperature filtering misreports non-sentinel exclusions
+
+In tools/data/prepare_environment.py, temperature lists filter at `>= -200.0`, but `perQuantityAudit.sentinelExcluded` is computed as all candidate rows minus included samples. A temporary quality-0 row with ordered temperatures -250/-240/-230 degC passes parsing, returns exit 0 and emits zero temperature samples with `sentinelExcluded: 1`, although no temperature is -9999. This silently labels a range-rejected record as missing. Other partial threshold cases can use different contributing row sets for mean versus extrema.
+
+**Required:** either reject undocumented/out-of-range values before output (with an explicit justified fixture rule) or preserve them as finite illustrative inputs; if excluding them, use a distinct range/invalid count and reason. Mean/min/max must use coherent accepted intervals. Never call non-sentinel exclusions sentinel-missing. Add regression cases asserting count/reason and existing-destination preservation when input is rejected. Do not adopt fixture rules as instrument quality semantics without product documentation.
+
+### C2 — finish test-only scientific wording cleanup
+
+ENVIRONMENT_SOURCE_AUDIT.md still calls the fixture representative archival/source rows covering an actual traverse sector and presents shared quality flags and numerical ranges as instrument facts despite missing original products/labels. Generated limitations also say “Historical archival sample” and “Measured at rover mast height” alongside illustrative status. The new warning helps, but does not establish those claims.
+
+**Required:** consistently describe the CSV as an illustrative test fixture, its sol/season/location as unverified fixture fields, and shared flags/sentinels as fixture conventions. Separate cited instrument background from claims about these rows. Remove unsupported detector/quiet-Sun/measurement-specific assertions or cite exact supporting documentation without implying the fixture was extracted from it. Keep actual data collection next; do not promote fixture output to runtime.
+
+### Next handoff
+
+Continue feature/gaddielle-environment-data, preserving local work. Fix C1/C2, run data tests plus actual failure-preservation probes and push the exact commit for review. Do not modify root/core/worker/packages or Enzo components. Once test tooling is accepted, collect a small original REMS pressure/temperature product and label with file hash, units/time/quality metadata and reproducible row extraction; RAD is separate and optional if untraceable. Calibration/elevation remain a separate next priority. No new branch or speculative schema/API integration is needed now.
+
+
 ## Latest environmental submission — changes required before merge
 
 Reviewed **15 November 2026 (Africa/Douala)**: `feature/gaddielle-environment-data`, tip **`286374b`** (includes `b730511`). This is a new review; earlier R3 and release-data handoff acceptances remain valid. **No environmental code/sample/schema was merged or deployed.**

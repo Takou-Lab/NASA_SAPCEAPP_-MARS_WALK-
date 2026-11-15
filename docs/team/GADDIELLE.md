@@ -1,5 +1,9 @@
 # Gaddielle — Numerical environmental data and remaining release work
 
+## Immediate handoff — review of 0f6bd95
+
+All 50 submitted data tests pass; alias protection and primary numeric failure preservation are independently confirmed. Illustrative labeling is accepted as a test-only fallback, not source verification. Before merge, fix **C1 temperature range exclusions incorrectly counted as sentinels** and **C2 remaining archival/measurement claims about illustrative rows**. [Exact reproduction and correction instructions](../reviews/GADDIELLE.md#correction-review-0f6bd95--progress-verified-changes-still-required). Stay on your existing branch and preserve work. No environmental runtime data/schema or feature merge is approved yet. After correction acceptance, your next priority is original REMS product/label acquisition and reproducible extraction, not more illustrative quantities.
+
 ## Byte-verification compatibility handoff
 
 Coordinator added repository-controlled LF attributes for scientific JSON without changing canonical data or hashes. Root and `/marswalk/` builds, including pack verification, pass. See [Windows LF instructions and evidence](../qa/PWA_INSTALL_ASSETS.md#windows-lf-compatibility--coordinator-fix-15-november-2026). Preserve local work and refresh only clean affected files after incorporating main; no global Git changes or data regeneration. Enzo/Willy should rerun their own Windows build verification before claiming that handoff complete. Gaddielle should retain canonical LF in future scientific JSON deliveries; her environmental-data corrections remain a separate pending task.

@@ -21,7 +21,7 @@ Public URL: https://marswalk-jet.vercel.app/. Last documented deployed source b6
 | Willy Agent 1 | Existing map/navigation/retry accepted. Map usability/release workflow. [Plan](docs/team/WILLY.md) |
 | Willy Agent 2 | Windows/root/subpath install verification, separate QA and device evidence. [Plan](<docs/team/WILLY 2.md>) |
 | Enzo | c35b021 published on feature/enzo-image-payload-verifier. Review rejected integration: 43 focused Node tests pass but 11 integrated failures; both builds pass. Not merged. [Correction](docs/reviews/ENZO.md) |
-| Gaddielle (she/her) | Earlier imagery/tooling accepted. New environmental correction tip 0f6bd95 exists; **not reviewed or merged**. Prior R1–R4 findings remain open until independently rechecked. [Review](docs/reviews/GADDIELLE.md) |
+| Gaddielle (she/her) | Earlier imagery/tooling accepted. Environmental correction 0f6bd95 reviewed: 50 data tests pass; aliases/numeric guards improved, but C1 temperature exclusion accounting and C2 illustrative/source wording still require correction. **Not merged**; no verified runtime data accepted. [Review](docs/reviews/GADDIELLE.md) |
 | Royce/Longla | Existing 3D accepted; physical device/release QA pending. [Plan](docs/team/LONGLA.md) |
 
 Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Emma has a styling-only exception for science-context, exploration-confidence and image-passport SCSS. Coordinator owns root/core/build/worker. Original completed work retains its authorship. Use independent checkouts for Willy's two agents; never change the same checkout's branch/build concurrently.
@@ -29,7 +29,7 @@ Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Em
 ## Ordered next work
 
 1. Obtain official challenge/submission URL and exact deadline/timezone; requirements remain unverified. User was asked this turn. Do not invent a submission deadline.
-2. Review Gaddielle 0f6bd95 against R1–R4, including raw-source provenance and converter failure preservation. Passing tests alone do not verify NASA source measurements.
+2. Obtain Gaddielle corrections to C1/C2 from the 0f6bd95 review, then re-review. 50 tests pass, but source measurements remain unverified. See docs/reviews/GADDIELLE.md; do not repeat the completed initial correction review.
 3. Wait for Enzo's corrected verifier commit; rerun full Angular suite, not just focused Node tests. Do not merge known failing c35b021.
 4. Agree environmental schema/loader only from accepted evidence. Keep measurements historical, time/location/units/quality explicit. Calibration and compatible elevation are separate scientific priorities.
 5. Reconcile approved UI/map work, run checks and create a release candidate. Do not repeat accepted merges or alter canonical data hashes for CRLF.
