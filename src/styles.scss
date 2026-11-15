@@ -3,15 +3,18 @@
 :root,
 [data-theme='dark'] {
   --bg-space: #0b0e14;
-  --bg-surface: #141a23;
-  --bg-card: #1a222e;
-  --bg-card-hover: #222d3d;
-  --border-subtle: #2a3749;
-  --border-focus: #3b82f6;
+  --bg-surface: #121821;
+  --bg-card: #18202b;
+  --bg-card-hover: #212b39;
+  --border-subtle: #2a3647;
+  --border-control: #64748b;
+  --border-focus: #60a5fa;
 
   --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-secondary: #a3b1c4;
+  --text-muted: #8a9ab0;
+  --mars-accent-text: #f07a69;
+  --on-accent: #0b0e14;
 
   --mars-accent: #e05a47;
   --mars-accent-hover: #ea6b59;
@@ -36,22 +39,44 @@
   --hud-bg: rgba(20, 26, 35, 0.75);
 
   --touch-target-min: 44px;
+  --control-h: 36px;
+
+  /* Shared scale: spacing, radius, type. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --text-xs: 11.5px;
+  --text-sm: 12.5px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 17px;
+  --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.35);
+
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
 }
 
 [data-theme='light'] {
-  --bg-space: #f1f5f9;
+  --bg-space: #eef2f6;
   --bg-surface: #ffffff;
   --bg-card: #f8fafc;
-  --bg-card-hover: #e2e8f0;
-  --border-subtle: #cbd5e1;
+  --bg-card-hover: #e8edf3;
+  --border-subtle: #d5dde7;
+  --border-control: #8592a6;
   --border-focus: #2563eb;
 
   --text-primary: #0f172a;
   --text-secondary: #334155;
-  --text-muted: #64748b;
+  --text-muted: #526075;
+  --mars-accent-text: #9a3412;
+  --on-accent: #ffffff;
+  --shadow-panel: 0 1px 2px rgba(15, 23, 42, 0.08);
 
   --mars-accent: #c2410c;
   --mars-accent-hover: #9a3412;
@@ -95,7 +120,7 @@ body {
   background-color: var(--bg-space);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: 14.5px;
+  font-size: var(--text-base);
   line-height: 1.5;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
@@ -106,7 +131,23 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+button {
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Long identifiers, URLs and source names wrap instead of widening the page. */
+a,
+code,
+.font-mono {
+  overflow-wrap: anywhere;
 }
 
 /* Touch and keyboard accessibility */
@@ -124,8 +165,62 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [tabindex='0']:focus-visible {
-  outline: 2px solid var(--border-focus);
+  outline: 3px solid var(--border-focus);
   outline-offset: 2px;
+}
+
+summary:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Touch screens keep comfortable 44px targets; precise pointers use compact 36px controls. */
+@media (pointer: coarse) {
+  :root {
+    --control-h: 44px;
+  }
+}
+
+/* Shared states used by the shell (deferred panels, optional viewer toggle). */
+.viewer-toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border-control);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-focus);
+  }
+}
+
+.defer-status,
+.defer-error {
+  margin: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+}
+
+.defer-status {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.defer-error {
+  background: var(--error-bg);
+  border: 1px solid var(--error-red);
+  color: var(--text-primary);
 }
 
 /* Scrollbars */

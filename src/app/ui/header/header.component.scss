@@ -9,11 +9,6 @@ $e: var(--error-red);
 $m: var(--mars-accent);
 :host-context([data-theme='light']) {
   --science-cyan: #0369a1;
-  --af: #9a3412;
-  --ab: #9a341273;
-  --ah: #c2410c;
-  --ahf: #fff;
-  --th: #92400e;
   --if: #0c4a6e;
   --of: #065f46;
   --ef: #991b1b;
@@ -34,11 +29,11 @@ $m: var(--mars-accent);
 }
 .mission-header {
   justify-content: space-between;
-  min-height: 60px;
-  padding: 6px 16px;
+  min-height: 56px;
+  padding: var(--space-2) var(--space-4);
   background: var(--bg-surface);
   border-bottom: 1px solid $b;
-  gap: 8px 12px;
+  gap: var(--space-2) var(--space-4);
 }
 .brand-section,
 .mission-meta,
@@ -46,9 +41,16 @@ $m: var(--mars-accent);
   gap: 8px;
   min-width: 0;
 }
-.mission-meta,
+.mission-meta {
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px;
+}
 .controls-section {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 .actions {
   gap: 8px;
@@ -71,17 +73,17 @@ $m: var(--mars-accent);
   min-width: 0;
 }
 .brand-title {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: var(--text-md);
+  font-weight: 800;
+  letter-spacing: 0.12em;
   color: $p;
   line-height: 1.1;
 }
 .brand-subtitle {
-  font-size: 11px;
+  font-size: var(--text-xs);
   color: $s;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 .status-pill,
 .dataset-tag,
@@ -92,8 +94,11 @@ $m: var(--mars-accent);
 }
 .status-pill,
 .dataset-tag {
-  font-size: 12px;
-  padding: 4px 10px;
+  flex-shrink: 0;
+  min-height: 28px;
+  font-size: var(--text-xs);
+  padding: 0 10px;
+  white-space: nowrap;
 }
 .status-pill {
   gap: 6px;
@@ -120,29 +125,18 @@ $m: var(--mars-accent);
   border-color: $g;
   color: var(--of, #d1fae5);
   --dot: #{$g};
-  .status-dot {
-    box-shadow: 0 0 6px var(--dot);
-  }
 }
 .status-loading {
   background: var(--warning-bg);
   border-color: var(--warning-border);
   color: var(--warning-text);
   --dot: var(--warning-amber);
-  .status-dot {
-    animation: pulse 1.5s infinite;
-  }
 }
 .status-error {
   background: var(--error-bg);
   border-color: $e;
   color: var(--ef, #fee2e2);
   --dot: #{$e};
-}
-.pwa-flag-pill {
-  max-width: 100%;
-  line-height: 1.3;
-  overflow-wrap: anywhere;
 }
 .dataset-tag {
   gap: 5px;
@@ -178,9 +172,9 @@ $m: var(--mars-accent);
 .action-btn {
   justify-content: center;
   gap: 6px;
-  min-width: 44px;
-  min-height: 44px;
-  border-radius: 8px;
+  min-width: var(--control-h);
+  min-height: var(--control-h);
+  border-radius: var(--radius-md);
   cursor: pointer;
 }
 .btn-icon {
@@ -208,67 +202,64 @@ $m: var(--mars-accent);
     background: $yb;
     color: $y;
     font-weight: 600;
+    box-shadow: inset 0 -2px 0 $y;
   }
 }
 .theme-toggle-btn {
   color: $s;
+  border-color: var(--border-control);
   .btn-icon {
     width: 18px;
     height: 18px;
   }
   &:hover {
-    color: var(--th, #f59e0b);
-    background: var(--bg-card-hover);
+    color: $p;
     border-color: var(--border-focus);
   }
 }
 .action-btn {
-  padding: 0 14px;
-  background: var(--mars-accent-bg);
-  border: 1px solid var(--ab, #f0ab7d73);
-  color: var(--af, #f0ab7d);
-  font-size: 13px;
-  font-weight: 600;
+  padding: 0 var(--space-4);
+  background: $m;
+  border: 1px solid $m;
+  color: var(--on-accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
   &:hover {
-    background: var(--ah, #f0ab7d);
-    color: var(--ahf, #0f172a);
-    border-color: var(--ah, #f0ab7d);
+    background: var(--mars-accent-hover);
+    border-color: var(--mars-accent-hover);
   }
 }
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.4;
-  }
-}
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .mission-header {
-    padding: 8px 14px;
     flex-wrap: wrap;
   }
   .mission-meta {
-    margin-left: auto;
+    order: 3;
+    flex: 1 1 100%;
   }
-  .controls-section {
-    flex: 1 100%;
-    justify-content: space-between;
+  .brand-section {
+    flex: 1 1 auto;
   }
 }
 @media (max-width: 900px) {
   .mission-header {
-    padding: 8px 12px;
-    gap: 8px;
-  }
-  .brand-section {
-    flex: 1 180px;
+    padding: var(--space-2) var(--space-3);
   }
   .dataset-tag {
     display: none;
   }
-  .layer-btn {
-    padding: 0 8px;
+}
+/* Phones: the map toolbar already carries the Imagery and Science-marker toggles, so the
+   duplicate header set is hidden to give the map room; theme and export stay. */
+@media (max-width: 600px) {
+  .layer-toggles {
+    display: none;
+  }
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+  }
+  .brand-title {
+    font-size: var(--text-base);
   }
 }
