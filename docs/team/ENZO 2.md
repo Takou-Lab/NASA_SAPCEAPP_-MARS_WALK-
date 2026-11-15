@@ -1,5 +1,13 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
+## Current slice — checklist accepted; bounded AI explanation proposal
+
+cbddb0e checklist accepted with coordinator technical corrections. Do not repeat it. Candidate screenshots/rehearsal remain pending actual coordinator deployment. [Review](../reviews/ENZO.md#agent-2-checklist-cbddb0e--accepted-with-technical-corrections).
+
+The user approved a time-limited AI/VR schedule. While candidate/device inputs are unavailable, prepare **three offline-ready AI-assisted explanations** for the three existing science records, as a proposal only in docs/qa/ENZO_2_RELEASE_STORY.md. Use current source findings and SCIENCE_EVIDENCE.md; no new unverified source claims. Each entry should identify its existing marker ID, a plain-language explanation (about 60–100 words), what cannot be concluded, exact source URL(s), known tool/model/date, and review status. Example fields are proposed, not a shared runtime contract. Clearly mark human/source review pending until actually performed; keep original findings separate and unchanged. Do not use the imagery to infer elevation, safety, weather, water or marker locations. No personalized route advice or live AI claim.
+
+Use available AI assistance, then compare each sentence against repository-supported source passages; flag unsupported content instead of filling gaps. Record reviewer/date only when actual. No public/data file, root/core loader, API call, model download, backend or keys. Submit a reviewable proposal on existing feature/enzo-release-story within two hours of starting; official schedule timezone/deadline remains user-supplied and should not be invented. Stop for schema/source review before integration. Agent 1 navigation remains independent. If official submission preparation needs attention, prioritize it over optional AI. Preserve local work and incorporate accepted main safely.
+
 ## Current handoff — release-story corrections accepted
 
 0731a49 passes documentation review with minor coordinator example/label corrections. [Acceptance](../reviews/ENZO.md#agent-2-release-story-0731a49--accepted-with-minor-coordinator-corrections). Do not repeat the closed 25634e2 correction request. Preserve local work and safely incorporate published main.
