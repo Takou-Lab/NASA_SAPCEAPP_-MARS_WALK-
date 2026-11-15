@@ -8,7 +8,7 @@ Updated **15 November 2026**. Working baseline `3879f3f` is preserved in Git; PW
 | Official deadline/timezone/submission formats/required quantities | Unverified until actual official source is available; no assumed midnight deadline, slide/video limit or dataset count |
 | Code foundation | Complete and tested in production browser: versioned full offline pack, installation assets, guarded updates |
 | Numerical environmental data/shared loader | Planned; await Gaddielle's source sample/schema proposal before implementing shared runtime model |
-| Public host/account/base path/URL | Not selected or deployed; choose target, use correct root/subpath build and HTTPS |
+| Public host/account/base path/URL | User selected Vercel; root-host build/config prepared and validated. Network policy blocks guide/login; account/project/URL not yet connected or deployed. See [setup status](VERCEL_SETUP.md) |
 | Target physical device installation/standalone/offline | Pending Longla/Willy/device evidence; browser tests and Chromium diagnostics pass |
 | Presentation/AI/science follow-ups | Enzo owns after current verifier handoff; preserve Emma's original work and credits |
 | Professional shell UI/accessibility | Emma owns; real PwaService contract now available for presentation |

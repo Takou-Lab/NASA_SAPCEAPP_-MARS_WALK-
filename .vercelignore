@@ -1,0 +1,9 @@
+node_modules
+.git
+.angular
+dist
+docs
+public/data/imagery/PIA26306.jpg
+public/data/terrain
+**/__pycache__
+**/*.pyc

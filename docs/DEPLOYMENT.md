@@ -1,6 +1,6 @@
 # Production build, hosting and rollback
 
-PWA foundation source: **`8a4dadc`**. No host/account/production URL has been chosen or published by this implementation. Deployment and environment publication are separate actions from pushing GitHub code. [Actual checks and limits](qa/PWA_FOUNDATION.md).
+PWA foundation source: **`8a4dadc`**. The user has now selected Vercel; [Vercel setup status](VERCEL_SETUP.md) records the prepared configuration and current network blocker. No Vercel account/project/production URL is connected or published yet. Deployment and environment publication are separate actions from pushing GitHub code. [Actual checks and limits](qa/PWA_FOUNDATION.md).
 
 ## Reproducible build
 
