@@ -34,6 +34,10 @@ Read [challenge assessment](docs/challenge/REQUIREMENTS.md) and preserved user-s
 
 Emma owns shell/planner/notebook; Willy map; Enzo evidence/environment logic. Emma has a styling-only exception for science-context, exploration-confidence and image-passport SCSS. Coordinator owns root/core/build/worker. Original completed work retains its authorship. Use independent checkouts for Willy's two agents; never change the same checkout's branch/build concurrently.
 
+## Available-agent split — current user instruction
+
+Emma Agent 2: new standalone read-only boxwork mission briefing, computed structural checklist and QA in a new folder; [EMMA 2.md](<docs/team/EMMA 2.md>). Emma Agent 1 remains on accepted UI/deployed checks. Enzo Agent 2: source-corrected explanations, sentence-to-source mapping and complete mission-story/demo package in existing documentation; [ENZO 2.md](<docs/team/ENZO 2.md>). Enzo Agent 1 navigation and Gaddielle collection continue independently. User/coordinator: persistence regression, accepted environmental/explanation contracts, reviewed component integration and updated preview, ordered in YOU.md. Separate checkouts and file ownership; no invented future API or runtime dataset approval. No new product code implemented by this assignment update.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

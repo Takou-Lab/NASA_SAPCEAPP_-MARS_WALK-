@@ -1,5 +1,9 @@
 # Emma — Remaining professional UI and deployment work
 
+## Two-agent ownership
+
+Agent 1 follows this existing release UI/deployed verification plan; accepted Phase 2 is complete. Agent 2 follows [EMMA 2.md](<EMMA 2.md>): new standalone mission-briefing folder and own QA only. Keep separate checkouts/branches and preserve unpublished work. Agent 2 must not modify your shell/styles or mount root; coordinator integrates the reviewed briefing. Coordinate copy with Enzo Agent 2 without overlapping his files.
+
 > Current work piece: [W4](../../TEAM_TASKS.md#w4).
 
 Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. Current reviewed UI integration is `be4ac2b`: 144 Angular tests, production build and local production-browser checks pass. The earlier `b744b0b`/`27b1171` results are historical baseline evidence, not checks of future work. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).

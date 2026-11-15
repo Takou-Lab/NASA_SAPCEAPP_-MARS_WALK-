@@ -1,0 +1,58 @@
+# Emma 2 — Guided boxwork mission briefing
+
+Assigned 15 November 2026 by the user. This is a new bounded implementation slice for Emma's second agent, independent of Agent 1's accepted shell/theme work. Read [challenge requirements](../challenge/REQUIREMENTS.md), [project handoff](../../PROJECT_HANDOFF.md), [shared contracts](CODING_AGENTS.md) and [science evidence](../SCIENCE_EVIDENCE.md). Emma uses he/him.
+
+## Outcome
+
+Help a first-time user understand the science objective, evidence and mission steps before drawing a route. Mission question: **What evidence supports the interpretation that ancient groundwater helped form Mount Sharp's boxwork?** This is an educational exploration rehearsal, not operational astronaut navigation or confirmation of a scientific discovery.
+
+## Ownership and branch
+
+Use an independent clone/checkout, never switch Agent 1's branch or run concurrent installs/builds in his directory. Preserve unpublished work. Continue an existing briefing branch if present; otherwise use feature/emma-mission-briefing from published main. No reset/force push.
+
+Own only new files under src/app/mission-briefing/ and docs/qa/EMMA_2_MISSION_BRIEFING.md. Create standalone MissionBriefingComponent (selector app-mission-briefing) with TS, HTML, SCSS and meaningful component tests. Use existing Angular/core dependencies, theme tokens and MissionService. Do not edit root/shell/header, science/evidence components, core/models, packages, worker, runtime data, Agent 1 styles or presentation documents. Coordinator mounts it after review. Keep it small; no new onboarding framework, router, API or persistence store.
+
+## Slice 1 — Briefing content and science boundaries
+
+Provide a concise visible title/question and native expandable briefing with:
+
+- Purpose: examine contextual NASA evidence for the boxwork interpretation and document a proposed exploration.
+- Evidence: active MRO/HiRISE image source/credit from mission.image(), and existing Curiosity/MSL contextual records. Use actual marker IDs/names and safe source links, not copied new data or an invented additional dataset.
+- Limits: science records have no verified image positions; exact overlap is unverified. Do not imply Vera Rubin Ridge or Glen Torridon lies on this frame. No verified metric scale, DEM, slope, current route weather, obstacle clearance or safety rating.
+- Workflow: choose start/destination and optional waypoints, inspect a science record in Confidence & Data, add an observation in Notebook, save route, prepare offline using existing PWA controls, reopen and explicitly Load Route, export.
+
+Keep original findings distinct from guidance and user interpretations. No groundwater presence today, detected mineral percentage or completed measurement that source evidence only calls planned. Reference the existing source audit; do not generate new geological summaries independently of Enzo Agent 2's review.
+
+## Slice 2 — Truthful reactive checklist
+
+Use computed() over existing readonly signals. Suggested directly observable labels:
+
+- Start and destination selected: route().start and route().destination.
+- Contextual science record selected: selectedMarkerId matches an existing markers() record. This proves selection only, not that someone read or understood it.
+- Observation present: observations().length > 0. Do not call a preexisting/imported observation newly created or independently scientifically verified.
+
+Do not infer successful save, export, recovery, install or complete offline preparation from those three items. List those as instructions unless a reliable existing operation-specific state is explicitly supplied by coordinator. Do not create fake completion ticks, stored duplicate counters or a “mission successful/safe” badge. No automatic route/marker selection, note creation, initialization, navigation or storage calls. Imported state may satisfy structural checks but never proves this session completed the workflow.
+
+Keep controls informational for this slice: no custom tab-switch events or core API request. Tell users the actual tabs to open. Root assembly and any future workflow-event contract are coordinator-owned.
+
+## Slice 3 — Accessible, small interface
+
+Use native details/summary, semantic headings/list, visible keyboard focus and existing theme tokens. Both themes and a 390px layout must remain readable. No remote font/media dependency or large assets. Do not trap focus, intercept text-input keys or present state by color alone. Loading/error/missing-image/empty-record states explain unavailable evidence without invented readiness.
+
+Test route transitions, record selection/removal, preexisting observations, loading/errors, source URL safety and readonly behavior. Demonstrate no mission route/notes/mode/layers mutation or storage access. Check keyboard disclosure and both-theme narrow rendering in a local harness without committing root changes. Existing complete Angular suite and npm run build must pass; record actual results or local dependency blockers honestly. Do not raise budgets or install arbitrary package versions.
+
+## Review handoff
+
+Update docs/qa/EMMA_2_MISSION_BRIEFING.md with branch/commit, owned files, selector/import/mount suggestion, source-backed copy, commands/results, actual keyboard/theme/browser evidence, unrun checks and size impact. Tell coordinator the suggested placement; do not mount it yourself. Push feature branch, say ready for review and stop for integration before expanding. Prefer a first reviewable slice within two hours of starting; official deadline timezone remains unverified. No deployment, external messages, submission or other agent's edits.
+
+## Agent prompt
+
+```text
+Read docs/team/EMMA 2.md and linked requirements/contracts. Preserve work
+and use an independent checkout. Implement the standalone read-only mission
+briefing and truthful computed checklist in your new folder only. Keep
+scientific limits and original sources explicit. No root/core/store/data
+changes, invented readiness or duplicated content framework. Test actual
+state transitions/accessibility, push the feature branch and provide the
+QA/mount handoff for coordinator review.
+```
