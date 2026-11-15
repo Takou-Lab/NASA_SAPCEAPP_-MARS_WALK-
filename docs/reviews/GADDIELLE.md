@@ -1,5 +1,12 @@
 # Gaddielle review — merged, including coordinator R3 closure
 
+## Release-data handoff `0514da1` — accepted with coordinator corrections
+
+Only four documentation files changed. The coordinator compared actual committed source and production copies: manifest 1,200 B, image 523,272 B, science 4,452 B, index 452 B; data total **529,376 B**. The submitted science/terrain hashes exactly match CRLF-transformed copies; canonical LF bytes/hashes are corrected in [the handoff](../data/RELEASE_DATA_HANDOFF.md). Full deployed pack is **1,789,610 B / 17 entries** and excludes its own control inventory and worker bootstrap; the contributor's build `9407bc02eaae` is retained as a separate reported record. Corrected the claim that verify_pack.py enforces the full encoded-path whitelist. No source assets/tool/app code changed and no unnecessary suites were rerun for documents.
+
+**Phase 1 complete. Next:** actual REMS pressure/temperature and RAD evidence samples, source audit and schema proposal; then agreed converter/runtime data. [Current full plan/prompt](../team/GADDIELLE.md). Existing R3 acceptance and 33-test evidence below remain historical.
+
+
 ## Latest submission — approved and integrated
 
 Reviewed `42a0dd256b2da0319bdbada535836bbd786cf2c9` on `feature/gaddielle-data-preparation`, 15 November 2026. Only three files changed since its prior shared baseline: generator, regressions and image-index documentation. This independently delivers the earlier R3 request; it is not a completed release-data/environmental-data submission.

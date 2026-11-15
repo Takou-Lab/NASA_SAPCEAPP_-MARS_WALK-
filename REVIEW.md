@@ -46,3 +46,8 @@ Subsequent production foundation passes **136 Angular tests, 11 worker tests, 28
 ## Gaddielle follow-up `42a0dd2` — approved
 
 Integrated at `c7ac053` with all existing coordinator regressions preserved. Isolated branch: 30 data tests and index check pass; integrated: 33 tests and index check pass. No application/PWA/source-asset changes or duplicate R3 task. [Review](docs/reviews/GADDIELLE.md), [next phases](docs/team/GADDIELLE.md).
+
+
+## Gaddielle release-data handoff `0514da1`
+
+Accepted/integrated with narrow documentation corrections for canonical LF versus CRLF byte/hash values, full-pack membership and verifier scope. Four runtime files match production copies; source assets/code remain unchanged. Numerical source evidence/converter is now her active assignment. [Review](docs/reviews/GADDIELLE.md), [single-file plan](docs/team/GADDIELLE.md).

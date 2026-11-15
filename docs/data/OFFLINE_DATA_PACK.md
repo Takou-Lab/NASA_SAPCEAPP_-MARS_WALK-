@@ -27,6 +27,7 @@ These files must be present locally under `public/data/` and deployed to `dist/m
 ### Total Required Runtime Image-Pack Size
 - **Total Payload:** **524,472 bytes** (~512.2 KB / ~0.50 MB)
 - **Caching Scope:** Bounded prepared image intended for the future essential cache. Actual device memory/performance and complete service-worker readiness require W5/W6 verification.
+- **Release Data Handoff:** See [RELEASE_DATA_HANDOFF.md](RELEASE_DATA_HANDOFF.md) for complete runtime inventory (including science and index control data), production build comparisons, and coordinator cache include/exclude guidance.
 
 ---
 

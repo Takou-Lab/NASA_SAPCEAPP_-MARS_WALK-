@@ -1,84 +1,88 @@
-# Gaddielle — Remaining data, calibration and deployment work
+# Gaddielle — Numerical environmental data and remaining release work
 
-> Current work piece: [W2](../../TEAM_TASKS.md#w2).
+> Current piece: [W2](../../TEAM_TASKS.md#w2). Updated **15 November 2026**. This is your single remaining-work file and coding-agent prompt.
 
-Updated **15 November 2026**. This is your **single remaining-work checklist through deployment and final handoff**. The current tested application is `b744b0b`, published with documentation at `27b1171`: 131 Angular tests, 28 data tests/build/browser checks passed. Those are historical baseline results, not checks of the future work below. [Integration evidence](../qa/FINAL_BRANCH_INTEGRATION.md).
+## Completed — do not repeat
 
-All unchecked items below are **planned**, not claims of implementation. Keep completed work and unseen local progress. Finish or hand off your current slice before switching. Read [the team plan](../../TEAM_TASKS.md), [shared contracts](CODING_AGENTS.md) and [product charter](../../SOUL.MD). This personal file contains the full sequence; earlier files under `tasks/` remain detailed reference specifications for their named slices.
+- Image package, Data Passport and image-only index are accepted. R3 `42a0dd2` is integrated at `c7ac053`, retaining all 33 data regressions.
+- Release-data handoff **`0514da1`** is delivered and accepted with coordinator documentation corrections. [Accepted handoff](../data/RELEASE_DATA_HANDOFF.md), [review](../reviews/GADDIELLE.md).
+- The coordinator corrected CRLF-versus-LF byte/hash figures and the full-pack membership description. Current runtime data is **529,376 bytes**; image-only payload **524,472 bytes**; deployed full runtime pack **1,789,610 bytes / 17 files**. Worker and control inventory are outside those 17 entries. No scientific assets were regenerated.
+- The PWA is live at **https://marswalk-jet.vercel.app/**. [Actual production checks](../qa/VERCEL_PRODUCTION.md). Home-screen/physical-device acceptance remains Longla/Willy's work. Automatic GitHub deployments are not connected; coordinator must deploy reviewed source changes.
 
-## Latest accepted submission and immediate next task
+Preserve local progress and original source credits. Do not repeat R1–R3, image acquisition, passport/index creation or the completed release-data handoff.
 
-Your R3 submission **`42a0dd2`** passes 30 isolated data tests and is integrated at **`c7ac053`** with **33 combined data tests** and real index check passing. Your five new regressions and the coordinator's three prior regressions are retained; source assets/index are unchanged. No repeat R3 or correction is assigned. This submission does not yet deliver the newer release-data/environmental-data phases. [Review](../reviews/GADDIELLE.md).
+## Active assignment — real pressure, temperature and radiation data
 
-Start/resume **Phase 1 release-data handoff** below. Then hand actual environmental source samples/proposal to coordinator and Enzo before generating a runtime file. Existing full remaining-work checklist stays in force. Merge published main safely into your existing data branch; preserve local progress.
+**Goal:** supply a small, reproducible numerical dataset Enzo can explain in the app, with enough source evidence for the coordinator to agree a shared typed contract. These are historical Curiosity/Gale regional measurements, not current weather or hazards along a drawn route.
 
-## Public host is ready for your acceptance checks
+First milestone is **actual source samples plus an evidence/schema proposal**. You can complete this while the runtime API is pending. Do not wait for UI work or invent fields on MissionService.
 
-Use **https://marswalk-jet.vercel.app/**, deployed source `b6669fb`. Actual public browser preparation, offline full-process restart, route/note recovery/export and deferred flat 3D pass. [Evidence](../qa/VERCEL_PRODUCTION.md), [runbook](../VERCEL_SETUP.md). Target-device home-screen/standalone acceptance still needs actual observations; do not copy the browser pass as physical evidence. Automatic GitHub deployment is not connected, so a new main commit is not necessarily live until the coordinator deploys it.
+Continue your existing branch if this work has already started. Otherwise merge published main safely and use proposed **`feature/gaddielle-environment-data`**. Keep the accepted data-preparation branch/history. Do not reset/force-push or duplicate an unpublished implementation.
 
-## Coordinator PWA delivery — current handoff
+## Phase A — source evidence, start now
 
-**`8a4dadc`** supplies production worker/full-pack verification, real PwaService state/actions, root lifecycle controls, manifest/icons and update handling. **136 Angular tests, 11 worker tests, 28 data tests/build/browser offline restart/update checks pass**. [Evidence](../qa/PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md), [actual lifecycle API](CODING_AGENTS.md#implemented-pwa-lifecycle--available-now). Physical home-screen installation and public hosting still need validation. Existing 131-test statements below are historical baseline counts.
+Own `docs/data/ENVIRONMENT_SOURCE_AUDIT.md` and small actual source fixtures under `tools/data/fixtures/environment/`. Locate collections through NASA PDS and the instruments' official archive documentation; verify collection/product URLs rather than guessing filenames.
 
-Use the generated full pack and deployment exclusion policy in your release data handoff. Image-only index stays unchanged; adding accepted environmental files later requires coordinator pack inclusion and a new build.
+- [ ] Find an interpretable **REMS reduced/processed** product containing atmospheric pressure and air temperature. Prefer a bounded, documented time window with quality information. Record original field names, units, observation timestamps/sols, location context, quality flags, missing sentinels and product/release/version.
+- [ ] Independently investigate **RAD** dose-rate products. Distinguish absorbed dose from dose equivalent; confirm units and averaging interval from actual documentation. Do not hardcode a dose unit, conversion factor or uncertainty from prior conversational suggestions.
+- [ ] Save a few genuine representative rows plus the relevant label/column definitions for review. Preserve original evidence; synthetic fixtures must be labeled test-only and never presented as NASA measurements. Keep source URL, exact source bytes/hash and extraction method traceable.
+- [ ] Write an audit table: quantity, product/collection URL, measured field, unit, time interval, instrument/location, quality/sentinel rules, uncertainty when documented and redistribution/credit requirements. Include actual download/parse commands and observations.
+- [ ] If access or interpretation is blocked, record exact URL/HTTP error or missing documentation and hand off the usable material. Do not bypass network policy, scrape random dashboard values or consume the whole release window searching one missing product.
+- [ ] Hand coordinator and Enzo the real samples, audit and proposed JSON shape. Aim for pressure, temperature and radiation; if one is unavailable, make that gap explicit. Walking time is derived from assumptions, not an independent NASA measurement substitute.
 
-## Already complete — preserve
+## Phase B — contract agreement, before runtime generation
 
-Image package/passport/index `a53724a` is merged. Coordinator closed R1–R3; 28 baseline data tests and real index check pass. Preserve prepared image/manifest/index bytes, imageRef and coordinate system. Do not repeat fixes, downloads or passport construction without a new reason.
+Coordinator owns shared models/validation/loading and worker integration; Enzo owns environmental/science/evidence UI and presentation. No environmental runtime API is implemented merely by this plan.
 
-## Phase 1 — Release data handoff, start now
+- [ ] Propose a versioned schema with stable quantity ID, value or explicit unavailable state, source unit, observation interval, instrument/location/sol where verified, quality/aggregation method, source/product and documented uncertainty or null.
+- [ ] Separate measurement time from publication/download. Do not convert a sol to an Earth date using an invented mission epoch. Unknown observation dates stay unknown. Different REMS/RAD windows remain separately identified.
+- [ ] Agree the schema/field semantics through the coordinator before producing `public/data/environment.json` or expecting Enzo to consume it. Put proposals/examples in the audit document meanwhile; do not fabricate an application service or claim a proposed contract already exists.
 
-Continue **`feature/gaddielle-data-preparation`**, safely incorporating main. Own `docs/data/RELEASE_DATA_HANDOFF.md` and necessary factual data-doc updates for this slice.
+## Phase C — reproducible converter and numerical output
 
-- [ ] Enumerate real runtime manifest, prepared image, science records and image-index control file with exact paths, imageRef, bytes and SHA-256. Verify production copies match source files.
-- [ ] Separate **524,472 image-payload bytes** from science/index and complete app size. Give coordinator explicit cache include/exclude guidance; archival master, unused terrain/readme/reference docs and external citations are not automatically essentials.
-- [ ] Record actual commands/results and supported root/subpath resolution. No new schema/API/assets or speculative inventory in this slice.
+After agreement, own `tools/data/prepare_environment.py`, `tools/data/test_prepare_environment.py`, agreed small fixtures and **`public/data/environment.json`**, plus the audit/reference documentation. Use existing tooling and standard library where practical; coordinate any new dependency centrally.
 
-## Phase 2 — Numerical environmental data
+- [ ] Parse the documented formats/labels and quality rules. Preserve legitimate zeros. Filter explicit invalid/sentinel samples; do not silently repair malformed records or substitute believable values.
+- [ ] Report sample count/time coverage and excluded counts/reasons. Mean/min/max need real samples and a stated aggregation method; handle irregular sampling as documented. Do not pool incompatible instruments/units/locations or invent a time series from one summary.
+- [ ] Preserve source units/precision unless a documented conversion is required. Label computed summaries as derived from actual observations and state their interval. Uncertainty is sourced, not guessed; no unsupported route-safety/radiation alerts.
+- [ ] Emit deterministic UTF-8/LF bytes. Validate before atomic output replacement; invalid/missing inputs, wrong units/schema or truncated records return nonzero without changing an existing destination's bytes/mtime. Never overwrite source inputs.
+- [ ] Test extraction against actual representative rows, valid zero, sentinels/quality rejection, invalid units/time/format, missing inputs, deterministic output and preserved destination on failure. Keep synthetic edge fixtures test-only.
+- [ ] Run relevant data tests and index `--check`. Run production build for the new asset and record actual outcomes. Do not claim the live PWA includes/caches the file until coordinator integrates it and deploys a new verified pack.
+- [ ] Handoff actual branch/commit, file sizes/hashes, quantity values/units/intervals, source evidence, commands/results and blockers to coordinator/Enzo through your report/MD. Push only your feature branch; no main merge, live deployment or external messages.
 
-After Phase 1 handoff use **`feature/gaddielle-environment-data`** if no task exists. Own proposed `tools/data/prepare_environment.py`, meaningful tool tests, raw-source audit under `docs/data/`, and proposed `public/data/environment.json`. These names reserve ownership; the runtime schema is **not yet agreed or implemented**.
+## Phase D — deployment data acceptance
 
-- [ ] First investigate accessible, documented Curiosity REMS reduced pressure/temperature data and RAD dose-rate products. Prefer a small interpretable archival sample. Record exact product/release/source URLs, units, time coverage, quality/missing-value flags and redistribution conditions. No live-conditions claim.
-- [ ] Within the first investigation block, deliver a source sample and schema proposal to coordinator/Enzo. Do not spend the release window on an unavailable product; document access/interpretation blockers. Do not replace missing radiation with a guessed value or count walking time as an independent measurement.
-- [ ] Agree the versioned schema with coordinator **before** generating the runtime file. Proposal must distinguish quantity id/value/unit, observation time interval, instrument/location/sol where verified, quality status, source/product and any documented uncertainty. Unknown values stay explicitly unavailable. Units must match the actual product, not assumptions.
-- [ ] Implement reproducible conversion. Filter documented invalid flags/sentinels, preserve legitimate zero values, handle units/time correctly and record included/excluded sample counts. Mean/min/max require a stated sampling interval/aggregation method; do not average incompatible quantities or releases.
-- [ ] Deliver pressure and temperature plus radiation if supported by actual sourced data. Each quantity has its own provenance/time window. Different instrument locations/times remain visible; these are regional historical context, not route-local hazards.
-- [ ] Verify extraction against representative source rows, negative/missing/invalid-quality cases, deterministic output and no source/output overwrite on failure. Document source hashes and actual test results. Add references with citations; shared app models/loaders remain coordinator-owned.
+- [ ] Update `docs/data/RELEASE_DATA_HANDOFF.md` for accepted environment data: exact committed/built bytes, hashes and runtime paths. Do not add environment/science/control files to the two-file image-only index.
+- [ ] Coordinator explicitly includes the new runtime file in the full PWA pack, adds shared loading/validation, integrates Enzo's UI and deploys. Verify the actual deployed version/URL and served bytes with the coordinator.
+- [ ] Check displayed units, source/quality/time labels and honest unavailable states with Enzo; confirm local summaries remain readable after preparation/disconnection with Longla. External citations can need internet.
+- [ ] Supply final dataset/product/instrument credits and exact limits for Enzo's presentation. No current-condition, precise-route-location or safety claim from regional archive data.
 
-## Phase 3 — Scale investigation, conditional independent improvement
+## Conditional later work — exact-raster scale
 
-- [ ] Investigate whether a documented scale bar or product mapping applies to the exact 2048×1042 derivative. Preserve original source/crop/resize evidence and quantify uncertainty where supported.
-- [ ] A trustworthy raster scale may support planar distance without full geodetic registration; geographic placement and terrain distance remain separate. Do not infer scale from image brightness or copy another product's resolution blindly.
-- [ ] Deliver evidence/proposed calibration to coordinator for shared validation/version handling. No direct coordinate/imageRef/schema changes or claimed terrain model. If evidence is insufficient, leave calibration unverified and record why.
+After the numerical-data handoff, investigate whether a documented scale bar/product mapping applies to the exact 2048×1042 raster, preserving crop/resize/source evidence. Deliver evidence and uncertainty to coordinator; leave calibration unverified if insufficient. No brightness-derived elevation, guessed terrain, source image geometry/imageRef change or shared model mutation. This investigation must not block the numerical samples or already-working offline mission.
 
-## Phase 4 — Deployment and final data audit
-
-- [ ] Update release data handoff after accepted environmental data: paths, hashes, bytes, data version and intended offline inclusion. Do not alter the image-only index to include unrelated files.
-- [ ] Verify deployed served bytes/version match the accepted build; correct base-path/case/MIME failures through coordinator. Check date/unit/source labels with Enzo.
-- [ ] Confirm bundled records remain readable offline in the actual prepared app with Longla; external source links may require connectivity.
-- [ ] Provide final NASA/product/library credits, dataset limitations and provenance for presentation/submission. Label any missing quantity/calibration openly. Retest only changed/relevant data concerns.
-
-## Agent execution and final handoff
-
-Preserve local changes; fetch published main and reconcile safely before starting a slice. Use the proposed branch only if no task branch already exists. No reset, force push or competing application/state store. Work on one slice at a time; hand it off for integration before starting the next dependent slice. A future contract is not an existing API.
-
-For code changes run the relevant behavioral tests, the integrated `npm test` and `npm run build`, plus the actual affected browser workflow. Use data tests for Python/data changes. For static documents/assets, check real facts, paths/links, JSON and decoding/build output as applicable; do not add tests that merely repeat formatting. Record actual results and warnings, not baseline counts copied as new passes. Current build has initial/style warning overruns; do not raise budgets to hide them.
-
-Each handoff includes actual **branch/commit, changed files, dependencies, commands/results, one observed workflow, remaining failures and deployment implications**. A blocked item includes the missing input/device/contract and next action. Do not fabricate numbers, coordinates, participant outcomes, timing, AI inference or hardware passes.
-
-Normal commit/push to your assigned feature branch is authorized. Main merges belong to the coordinator. This plan prepares deployment; it does not itself publish an environment, deploy a site, submit the competition entry or authorize external messages. Preserve NASA/data/library/AI attribution.
-
-Paste this into your coding agent:
+## Agent prompt — copy this
 
 ```text
-Read my personal docs/team file, TEAM_TASKS.md and CODING_AGENTS.md.
-Inspect the actual branch and preserve existing work. Identify the first
-unfinished, unblocked phase in my checklist and implement that slice only.
-Use the listed owned files, real inputs and existing/agreed contracts.
-Do not consume future APIs or modify another owner's files speculatively.
-Keep all accepted behavior. Check important failure cases and the actual
-user workflow; run relevant checks and review the diff before handoff.
-Push only my feature branch. Report the actual commit/files/checks,
-blockers and deployment effects. Do not start an unrelated redesign,
-deployment or main merge. Mark completion only when supported by evidence.
+You are Gaddielle's MARSWALK numerical-data agent.
+Read docs/team/GADDIELLE.md, TEAM_TASKS.md W2, CODING_AGENTS.md and
+docs/data/RELEASE_DATA_HANDOFF.md. Preserve completed imagery/R3/handoff.
+0514da1 is accepted with canonical-byte/cache-membership doc corrections;
+do not repeat that phase. Preserve any unpublished local work.
+
+Start with Phase A: actual documented REMS pressure/temperature samples and
+RAD feasibility, an ENVIRONMENT_SOURCE_AUDIT.md and reviewable source rows.
+Record real product/field/unit/time/quality/sentinel/uncertainty evidence.
+Propose the JSON contract; coordinator agrees shared types/loader and Enzo
+consumes the implemented UI API. No invented measurements, dates or API.
+
+After agreement implement the owned local converter/tests/environment.json.
+Emit deterministic UTF-8/LF; preserve existing output on invalid input.
+Test meaningful extraction/error cases and report actual checks/hashes.
+Keep the image-only index unchanged. Coordinator owns full-pack inclusion,
+root/core/packages/worker/deployment; Enzo owns UI/presentation.
+No guessed units, simulated records labeled measured, route safety claim,
+new terrain search before data handoff, or duplicate app/store.
+Push only the assigned feature branch and report actual commit/files,
+source evidence/results/blockers. No main merge, deployment or messages.
 ```
