@@ -32,6 +32,21 @@ This feature adds no runtime mount or readiness UI. It has no deployment effect 
 
 After merging main `ac79be5` in merge commit `740a2a1`, the manifest working copy was refreshed to canonical LF: **1,200 bytes**, SHA-256 `40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82`. The W3 branch content remains intact. On Windows with Node `v24.20.0`, npm `12.0.2` and Git `2.55.0.windows.3`, `npm test`, `npm run build` and `npm run build -- --base-href /marswalk/` all stop before tests/pack verification because `three@0.187.0` is missing from `node_modules`; registry restore timed out. No deployment or dependency-manifest change was made.
 
+## Reviewer correction — cross-realm byte views
+
+The review of `c35b021` found that `instanceof Uint8Array` rejected valid bytes created in another realm, causing 11 Angular-suite verifier failures before hashing. The verifier now confirms an actual Uint8Array view through `ArrayBuffer.isView` and the intrinsic typed-array name getter, then copies it into the module's realm. DataView, strings, signed/other typed arrays and failed copies remain rejected; size, SHA-256, manifest identity and failure semantics are unchanged.
+
+| Check after correction | Result |
+| --- | --- |
+| Focused Node verifier suite | **48 passed, 1 skipped**. The skipped case needs a document/iframe realm. |
+| Focused jsdom verifier suite | **49 passed**, including same-realm subarray offsets, a foreign-realm Uint8Array subarray, and DataView/other typed-array rejection. |
+| Strict targeted TypeScript check | **Passed**. |
+| Browser WebCrypto and cross-realm proof | **Passed** in Chrome **157.0.0.0** on a loopback secure context. The manifest reader returned a foreign-realm subarray for which `foreignBytes instanceof Uint8Array` was false; Web Crypto SHA-256 still verified both paths in order. Result: `ok: true`, image ref `synthetic-browser-proof`, **454 bytes**, no errors. Test-only fixture; no app integration. |
+| Full `npm test` after correction | **Blocked before tests ran** by missing local `three@0.187.0`; Angular reports unresolved Three.js imports. |
+| Root and `/marswalk/` production builds after correction | **Both blocked** at Angular compilation by the same missing package; pack verification did not run. |
+
+The reviewer’s earlier Linux result for `c35b021` (176/187 Angular tests and both builds passing) is pre-correction evidence, not an after-fix integrated pass. The final integrated Angular suite/build still needs to run in an environment with the locked dependency installed. No new dependency or deployment was introduced by this correction.
+
 ## Files in this slice
 
 - `src/app/offline/image-payload-verifier.ts`

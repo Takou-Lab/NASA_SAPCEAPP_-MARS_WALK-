@@ -28,6 +28,10 @@ const MANIFEST_PATH = 'data/manifest.json';
 const ROOT_KEYS = ['schemaVersion', 'imageRef', 'files', 'totalBytes'];
 const FILE_KEYS = ['path', 'bytes', 'sha256'];
 const SHA256_PATTERN = /^[0-9a-f]{64}$/;
+const typedArrayNameGetter = Object.getOwnPropertyDescriptor(
+  Object.getPrototypeOf(Uint8Array.prototype),
+  Symbol.toStringTag,
+)?.get;
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -46,6 +50,16 @@ function failure(imageRef: string | null, ...errors: string[]): ImagePayloadResu
     totalBytes: null,
     errors: errors.length > 0 ? errors : ['Image payload verification failed.'],
   };
+}
+
+function normalizeUint8Array(value: unknown): Uint8Array | null {
+  if (!ArrayBuffer.isView(value) || typedArrayNameGetter?.call(value) !== 'Uint8Array') return null;
+  try {
+    // Copy into this realm so Web Crypto and TextDecoder receive a local Uint8Array.
+    return new Uint8Array(value as Uint8Array);
+  } catch {
+    return null;
+  }
 }
 
 function validateIndex(index: unknown, activeImage: ImageManifest): ValidatedIndex | string {
@@ -136,15 +150,17 @@ export async function verifyImagePayload(
 
     const verifiedBytes: Uint8Array[] = [];
     for (const entry of validated.files) {
-      let bytes: Uint8Array | null;
+      let readValue: Uint8Array | null;
       try {
-        bytes = await readBytes(entry.path);
+        readValue = await readBytes(entry.path);
       } catch {
         return failure(imageRef, `Could not read ${entry.path} from the supplied asset reader.`);
       }
-      if (!(bytes instanceof Uint8Array)) {
+      if (readValue === null) {
         return failure(imageRef, `The supplied asset reader did not return bytes for ${entry.path}.`);
       }
+      const bytes = normalizeUint8Array(readValue);
+      if (bytes === null) return failure(imageRef, `The supplied asset reader did not return bytes for ${entry.path}.`);
       if (bytes.byteLength !== entry.bytes) {
         return failure(imageRef, `Byte length for ${entry.path} does not match the image index.`);
       }

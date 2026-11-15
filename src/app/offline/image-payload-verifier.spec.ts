@@ -74,6 +74,46 @@ describe('verifyImagePayload', () => {
     expect(Array.from(assets.get(image.assetPath) ?? [])).toEqual(imageBytesBefore);
   });
 
+  it('verifies only the bytes in a same-realm Uint8Array subarray', async () => {
+    const { index, assets } = await makeFixture();
+    const manifestBytes = assets.get('data/manifest.json');
+    if (!manifestBytes) throw new Error('Test fixture is missing manifest bytes.');
+    const padded = new Uint8Array(manifestBytes.byteLength + 2);
+    padded[0] = 0xfe;
+    padded.set(manifestBytes, 1);
+    padded[padded.length - 1] = 0xef;
+    const view = padded.subarray(1, padded.length - 1);
+    const reader = vi.fn(async (path: string) => path === 'data/manifest.json' ? view : assets.get(path) ?? null);
+
+    const result = await verifyImagePayload(index, image, reader);
+
+    expect(result.ok).toBe(true);
+    expect(result.totalBytes).toBe(index.totalBytes);
+    expect(result.errors).toEqual([]);
+  });
+
+  it.skipIf(typeof document === 'undefined')('accepts a cross-realm Uint8Array subarray without reading its sentinels', async () => {
+    const { index, assets } = await makeFixture();
+    const manifestBytes = assets.get('data/manifest.json');
+    if (!manifestBytes) throw new Error('Test fixture is missing manifest bytes.');
+    const foreignBytes = crossRealmSubarray(manifestBytes);
+    expect(ArrayBuffer.isView(foreignBytes)).toBe(true);
+    expect(foreignBytes instanceof Uint8Array).toBe(false);
+    const reader = vi.fn(async (path: string) => path === 'data/manifest.json' ? foreignBytes : assets.get(path) ?? null);
+
+    const result = await verifyImagePayload(index, image, reader);
+
+    expect(result).toMatchObject({
+      scope: 'image-payload',
+      ok: true,
+      imageRef: image.imageRef,
+      verifiedPaths: ['data/manifest.json', image.assetPath],
+      totalBytes: index.totalBytes,
+      errors: [],
+    });
+    expect(reader.mock.calls).toEqual([['data/manifest.json'], [image.assetPath]]);
+  });
+
   it('rejects an invalid active manifest without exposing its reference or reading assets', async () => {
     const { index } = await makeFixture();
     const reader = vi.fn(async () => null);
@@ -138,6 +178,24 @@ describe('verifyImagePayload', () => {
     const result = await verifyImagePayload(index, image, reader);
 
     failingResult(result);
+    expect(reader).toHaveBeenCalledTimes(1);
+  });
+
+  it.each([
+    ['DataView', new DataView(new ArrayBuffer(4))],
+    ['Int8Array', new Int8Array([1, 2, 3, 4])],
+    ['Uint16Array', new Uint16Array([1, 2])],
+    ['Uint8ClampedArray', new Uint8ClampedArray([1, 2, 3, 4])],
+  ] as const)('rejects a reader value that is not Uint8Array (%s)', async (_name, invalidValue) => {
+    const { index, assets } = await makeFixture();
+    const reader = vi.fn(async (path: string): Promise<Uint8Array | null> =>
+      path === 'data/manifest.json' ? invalidValue as unknown as Uint8Array : assets.get(path) ?? null,
+    );
+
+    const result = await verifyImagePayload(index, image, reader);
+
+    failingResult(result);
+    expect(result.errors[0]).toContain('did not return bytes');
     expect(reader).toHaveBeenCalledTimes(1);
   });
 
@@ -266,4 +324,21 @@ function deepFreeze<T>(value: T): T {
     for (const child of Object.values(value)) deepFreeze(child);
   }
   return value;
+}
+
+function crossRealmSubarray(bytes: Uint8Array): Uint8Array {
+  const frame = document.createElement('iframe');
+  document.body.appendChild(frame);
+  try {
+    const foreignWindow = frame.contentWindow;
+    if (!foreignWindow) throw new Error('Unable to create the test iframe realm.');
+    const ForeignUint8Array = (foreignWindow as Window & typeof globalThis).Uint8Array;
+    const padded = new ForeignUint8Array(bytes.byteLength + 2);
+    padded[0] = 0xfe;
+    padded.set(bytes, 1);
+    padded[padded.length - 1] = 0xef;
+    return padded.subarray(1, padded.length - 1) as unknown as Uint8Array;
+  } finally {
+    frame.remove();
+  }
 }
