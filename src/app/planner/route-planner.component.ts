@@ -17,8 +17,24 @@ export class RoutePlannerComponent {
   readonly canUndo = this.missionService.canUndo;
   readonly assessment = this.missionService.assessment;
   readonly image = this.missionService.image;
+  readonly dataStatus = this.missionService.dataStatus;
+  readonly dataError = this.missionService.dataError;
 
   readonly storageFeedback = signal<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  readonly nextActionHint = computed(() => {
+    if (this.dataStatus() !== 'ready') {
+      return 'Wait for verified raster metadata before placing or loading route points.';
+    }
+    const r = this.route();
+    if (!r.start) {
+      return 'Next step: Select Start mode and click the map raster to set the EVA start point.';
+    }
+    if (!r.destination) {
+      return 'Next step: Select Destination mode (or Waypoint) and click the map raster to complete the traverse.';
+    }
+    return 'Next step: Save Route locally for this raster or open Notebook to record field observations.';
+  });
 
   readonly hasRoute = computed(() => {
     const r = this.route();

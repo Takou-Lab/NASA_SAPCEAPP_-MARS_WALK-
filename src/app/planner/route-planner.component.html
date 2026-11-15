@@ -1,4 +1,18 @@
 <div class="planner-container">
+  @if (dataStatus() === 'loading') {
+    <p class="planner-state" role="status">Loading verified raster metadata…</p>
+  } @else if (dataStatus() === 'unavailable') {
+    <p class="planner-state" role="status">
+      {{ dataError() || 'Verified raster metadata has not been supplied yet.' }}
+    </p>
+  } @else if (dataStatus() === 'error') {
+    <p class="planner-state planner-state-error" role="alert">
+      {{ dataError() || 'Verified raster metadata could not be loaded or validated.' }}
+    </p>
+  }
+
+  <p class="next-step-banner" role="status">{{ nextActionHint() }}</p>
+
   <!-- 1. Mode Selector Group -->
   <section class="planner-card">
     <div class="card-title">
@@ -135,7 +149,7 @@
         class="route-action-btn undo-btn"
         [disabled]="!canUndo()"
         (click)="undo()"
-        aria-label="Undo last route edit"
+        aria-label="Undo step — revert last route edit"
         title="Undo last action (or restore cleared route)"
       >
         <svg
@@ -156,7 +170,7 @@
         class="route-action-btn clear-btn"
         [disabled]="!hasRoute()"
         (click)="clear()"
-        aria-label="Clear all route points"
+        aria-label="Clear route — remove all route points"
         title="Clear all points (can be undone)"
       >
         <svg
@@ -299,7 +313,7 @@
         type="button"
         class="storage-btn load-btn"
         (click)="load()"
-        aria-label="Load saved route from local browser storage"
+        aria-label="Load route from local browser storage"
       >
         <svg
           viewBox="0 0 24 24"

@@ -163,4 +163,112 @@ describe('NotebookComponent', () => {
       component.formatTimestamp(service.observations()[0].createdAt),
     );
   });
+
+  it('updates nextActionHint across draft input and keeps draft and save hint on storage failure', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const submitBtn = compiled.querySelector('.submit-btn') as HTMLButtonElement;
+    const banner = () => compiled.querySelector('.next-step-banner')?.textContent?.trim();
+
+    expect(submitBtn.getAttribute('aria-label')?.toLowerCase()).toContain('save observation');
+    expect(banner()).toBe(
+      'Next step: Enter a geological or traverse observation above, then select Save Observation.',
+    );
+
+    component.setDraftText('Fracture fill mineral band near ridge crest');
+    fixture.detectChanges();
+    expect(banner()).toBe(
+      'Next step: Select Save Observation to persist your draft to the local mission log.',
+    );
+
+    vi.spyOn(service, 'addObservation').mockReturnValue({
+      ok: false,
+      error: 'Simulated storage quota error',
+    });
+    component.onSubmit();
+    fixture.detectChanges();
+
+    expect(component.draftText()).toBe('Fracture fill mineral band near ridge crest');
+    expect(banner()).toBe(
+      'Next step: Select Save Observation to persist your draft to the local mission log.',
+    );
+
+    vi.restoreAllMocks();
+    component.onSubmit();
+    fixture.detectChanges();
+    expect(component.draftText()).toBe('');
+    expect(banner()).toBe(
+      'Next step: Enter a geological or traverse observation above, then select Save Observation.',
+    );
+  });
+});
+
+describe('NotebookComponent metadata state banners', () => {
+  let fixture: ComponentFixture<NotebookComponent>;
+  let component: NotebookComponent;
+  let service: MissionService;
+  let http: HttpTestingController;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NotebookComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(NotebookComponent);
+    component = fixture.componentInstance;
+    service = TestBed.inject(MissionService);
+    http = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => http.verify());
+
+  it('renders loading banner and preserves draft hint before metadata resolves', () => {
+    component.setDraftText('Early draft while loading');
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const state = compiled.querySelector('.notebook-state');
+    expect(state?.getAttribute('role')).toBe('status');
+    expect(state?.textContent).toContain('drafts remain preserved');
+    expect(compiled.querySelector('.next-step-banner')?.textContent?.trim()).toBe(
+      'Mission metadata is not ready; you can draft notes here, and save once raster metadata is loaded.',
+    );
+    expect(component.draftText()).toBe('Early draft while loading');
+  });
+
+  it('renders unavailable banner and preserves typed draft when manifest returns 404', async () => {
+    component.setDraftText('Draft entered without metadata');
+    const initialized = service.initialize();
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('Not found', { status: 404, statusText: 'Not Found' });
+    await initialized;
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const state = compiled.querySelector('.notebook-state');
+    expect(service.dataStatus()).toBe('unavailable');
+    expect(state?.getAttribute('role')).toBe('status');
+    expect(state?.textContent).toContain('Image data has not been supplied');
+    expect(state?.textContent).toContain('drafts remain preserved');
+    expect(component.draftText()).toBe('Draft entered without metadata');
+  });
+
+  it('renders error alert banner and preserves draft when manifest load fails', async () => {
+    component.setDraftText('Draft retained on error');
+    const initialized = service.initialize();
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush('Server error', { status: 500, statusText: 'Internal Server Error' });
+    await initialized;
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const state = compiled.querySelector('.notebook-state-error');
+    expect(service.dataStatus()).toBe('error');
+    expect(state?.getAttribute('role')).toBe('alert');
+    expect(state?.textContent).toContain('Image manifest could not be loaded or validated.');
+    expect(state?.textContent).toContain('drafts remain preserved');
+    expect(component.draftText()).toBe('Draft retained on error');
+  });
 });

@@ -14,6 +14,8 @@ export class NotebookComponent {
   readonly observations = this.missionService.observations;
   readonly image = this.missionService.image;
   readonly route = this.missionService.route;
+  readonly dataStatus = this.missionService.dataStatus;
+  readonly dataError = this.missionService.dataError;
 
   // Local component draft state (retained on failure)
   readonly draftText = signal<string>('');
@@ -26,6 +28,16 @@ export class NotebookComponent {
 
   readonly hasStartPoint = computed(() => {
     return this.route().start !== null;
+  });
+
+  readonly nextActionHint = computed(() => {
+    if (this.dataStatus() !== 'ready') {
+      return 'Mission metadata is not ready; you can draft notes here, and save once raster metadata is loaded.';
+    }
+    if (this.isDraftEmpty()) {
+      return 'Next step: Enter a geological or traverse observation above, then select Save Observation.';
+    }
+    return 'Next step: Select Save Observation to persist your draft to the local mission log.';
   });
 
   setDraftText(text: string): void {

@@ -1,143 +1,166 @@
-# W4 Release UI — Accessibility, Size Cleanup, and QA Verification
+# W4 Release UI — Accessibility, Design Specification, and Verification
 
-Date: **15 November 2026**.
-Branch: **`feature/emma-release-ui`** (based on `origin/main` commit **`3879f3f`** / `3879f3f463c064b456f910e0ccba92d694859888`, code-identical to `b744b0b`).
-Contributor commit: **`cdd2417`**. The contributor checks below retain their isolated branch scope; coordinator integration evidence is recorded in docs/reviews/EMMA.md.
-Scope: **W4 Phase 1 only** (Emma, he/him — release accessibility and size cleanup).
+Date: **15 November 2026**.  
+Branch: **`feature/emma-release-ui`** (based on `origin/main` commit **`ac79be5`**).  
+Commit SHA: **`bb599a9`** (and amended head).  
+Scope: **W4 Phase 1 & Phase 2** (Emma, he/him — release accessibility, size cleanup, shared visual specification, header readiness clarity, environmental/PWA integration slots, and delegated light/dark SCSS fixes).
 
-## 1. Scope, file ownership, and deliverable inventory
+---
 
-`git status --short` confirms ONLY the 14 W4-owned files under `src/app/ui/shell/*`, `src/app/ui/header/*`, `src/app/planner/*`, and `src/app/notebook/*` were modified (`src/app/app.*`, `src/app/core/*`, `src/app/map/*`, `src/app/science/*`, `src/app/evidence/*`, `src/app/viewer3d/*`, `src/styles.scss`, `public/*`, `angular.json`, and `package.json` are untouched):
+## 1. Scope, Deliverable Inventory, and File Ownership
 
-| File                                              | Role & Phase 1 changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/app/ui/shell/shell.component.ts`             | Sticky lazy signals (`plannerOpened`, `notebookOpened`), `tabOrder`, `onTabKeydown` (`ArrowLeft`/`ArrowRight`/`Home`/`End` with wrap-around scoped to `[role="tab"]` targets, ignoring modifier keys), `viewerOpen.set(false)` on leaving `'rehearsal'`, viewport-clamped sidebar width (`marswalk_panel_width`)                                                                                                                                                                                                                             |
-| `src/app/ui/shell/shell.component.html`           | Full ARIA `tablist`/`tab`/`tabpanel` linkage (`#tab-<id>`, `aria-controls="panel-<id>"`, `aria-selected`, roving `tabindex` `0`/`-1`, `aria-labelledby`, `tabindex="0"` on panels), `@if (...Opened()) { @defer (on immediate) { ... } }` with `@loading`/`@error` states for Planner & Notebook, opt-in `@defer` for `Viewer3dComponent`, `inert` + `aria-hidden="true"` on collapsed `#side-panel`, `[hidden]` + `tabindex="-1"` + `aria-hidden="true"` on collapsed `.panel-resizer`, `aria-controls="side-panel"` on `.panel-toggle-btn` |
-| `src/app/ui/shell/shell.component.scss`           | High-contrast dark/light tab & error tokens (`--tab-fg`, `--err-fg`, light `--science-cyan: #0369a1`), `visibility: hidden` when collapsed, inset focus outlines (`outline-offset: -2px`) on `.tab-btn`, `.panel-resizer`, and `.tab-panel`, `>= 44px` `.panel-toggle-btn` and themed `.viewer-toggle`                                                                                                                                                                                                                                       |
-| `src/app/ui/shell/shell.component.spec.ts`        | Behavioral tests (`11` tests) covering ARIA tablist/tabpanel linkage, roving `tabindex`, `ArrowLeft`/`ArrowRight`/`Home`/`End` wrap-around without hijacking `#obs-input`, collapsed `inert`/`aria-hidden`/resizer hiding, `820px` resize clamp + persistence, sticky lazy Planner/Notebook mounting, and 3D viewer teardown                                                                                                                                                                                                                 |
-| `src/app/ui/header/header.component.html`         | `aria-hidden="true"` on all decorative `<svg>` elements across themes; merged compact SVG paths; preserved accessible `aria-label` on all 5 header buttons                                                                                                                                                                                                                                                                                                                                                                                   |
-| `src/app/ui/header/header.component.scss`         | AA-compliant dark/light tokens (`--action-fg`, `--action-hbg`, `--theme-hfg`, light `--science-cyan: #0369a1`), replaced `--text-muted` with `--text-secondary`, `>= 44px` interactive controls, responsive wrapping (`<= 1080px` and `<= 900px`)                                                                                                                                                                                                                                                                                            |
-| `src/app/ui/header/header.component.spec.ts`      | Behavioral tests (`4` tests) adding decorative SVG `aria-hidden="true"` verification across theme toggle and preserved button `aria-label` assertions                                                                                                                                                                                                                                                                                                                                                                                        |
-| `src/app/planner/route-planner.component.html`    | `aria-hidden="true"` on decorative `<svg>` icons, preserved native `<button type="button">` and `aria-pressed` mode controls                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `src/app/planner/route-planner.component.scss`    | Consolidated rules and tokens (`--a`, `--s`, `--w`, `--d`, `--e`) reducing compiled style below Angular's `4 kB` warning budget; AA-compliant dark/light active modes, point badges, and alerts; `min-height: 44px` buttons and overflow-safe `.points-table-container`                                                                                                                                                                                                                                                                      |
-| `src/app/planner/route-planner.component.spec.ts` | Behavioral tests (`6` tests) adding SVG `aria-hidden` and button/mode semantics verification                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `src/app/notebook/notebook.component.ts`          | Removed `FormsModule` (`@angular/forms`) and `DatePipe` (`@angular/common`); added native `onDraftInput`, `onFormSubmit`, and `Intl.DateTimeFormat`-based `formatTimestamp()` while preserving exact draft retention on failure                                                                                                                                                                                                                                                                                                              |
-| `src/app/notebook/notebook.component.html`        | Native `[value]`/`(input)`/`(submit)` bindings, `aria-hidden="true"` on decorative SVGs, `formatTimestamp(obs.createdAt)`, and removed `tabindex="0"` from non-interactive `.obs-entry` `<article>` items                                                                                                                                                                                                                                                                                                                                    |
-| `src/app/notebook/notebook.component.scss`        | Consolidated rules and theme tokens (`--bg`, `--hv`, `--fg`, `--ok`, `--er`) reducing compiled style below Angular's `4 kB` warning budget; `min-height: 44px` `.checkbox-label` and `.submit-btn`; replaced `--text-muted` with `--text-secondary`                                                                                                                                                                                                                                                                                          |
-| `src/app/notebook/notebook.component.spec.ts`     | Behavioral tests (`7` tests) adding native textarea `input`/`submit` draft clearing, `formatTimestamp()` safety, SVG `aria-hidden`, and `.obs-entry` no-`tabindex` verification                                                                                                                                                                                                                                                                                                                                                              |
+Phase 1 (`cdd2417`) was accepted and integrated into `origin/main` at `be4ac2b`. Phase 2 delivers consistent professional design, truthful readiness indicators, coordinator mounting slots, and delegated SCSS theme repairs.
 
-## 2. Before vs. after bundle, SCSS sizes, and lazy chunks
+`git status --short` confirms strictly the 21 owned files were modified. Zero unowned core, app, map, 3D, root, package, or data files were touched, and zero `.ts`/`.html`/`.spec.ts` files under `science/` or `evidence/` were modified:
 
-Baseline build figures on `b744b0b` (source-identical to `3879f3f`) are documented in [FINAL_BRANCH_INTEGRATION.md](FINAL_BRANCH_INTEGRATION.md); baseline SCSS byte counts were measured directly from `git show 3879f3f:<path>` and compiled with `sass` (`compressed`). Production build metrics on `feature/emma-release-ui` were captured directly from `ng build` (`NG_CLI_ANALYTICS=false npm run build`) and `ng build --stats-json` (`browser-stats.json`).
+| Component / Path                       | Files modified                                                                                                                                                                                        | Phase 2 Deliverable & Role                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Header**                             | `src/app/ui/header/header.component.ts`<br>`src/app/ui/header/header.component.html`<br>`src/app/ui/header/header.component.scss`<br>`src/app/ui/header/header.component.spec.ts`                     | Injected `PwaService` read-only (zero duplicate action buttons); clarified metadata vs network vs offline pack states; added `.mission-meta` group with truthful `.status-info` for loaded metadata, `.status-neutral` for connection, and `.status-ready` strictly when offline pack is verified; conditional PWA status flags (`Install Available`, `Update Waiting`, error guidance).          |
+| **Shell**                              | `src/app/ui/shell/shell.component.ts`<br>`src/app/ui/shell/shell.component.html`<br>`src/app/ui/shell/shell.component.scss`<br>`src/app/ui/shell/shell.component.spec.ts`                             | Reserved coordinator `<ng-content select="[pwa-status]"></ng-content>` slot; projected `<ng-content select="[environmental-context]"></ng-content>` into confidence panel; guarded `stopResize()` so `ngOnDestroy()` never writes to `localStorage` unless an active resize occurred; updated `.panel-toggle-btn` for WCAG 2.5.3 Label-in-Name consistency; added footer readiness boundary text. |
+| **Confidence Panel**                   | `src/app/ui/confidence-panel/confidence-panel.component.html`<br>`src/app/ui/confidence-panel/confidence-panel.component.scss`                                                                        | Projected `[environmental-context]` and placed themed `.env-slot-card` with `Pending verified dataset` badge and explicit no-simulation notice between exploration confidence and science context.                                                                                                                                                                                                |
+| **Route Planner**                      | `src/app/planner/route-planner.component.ts`<br>`src/app/planner/route-planner.component.html`<br>`src/app/planner/route-planner.component.scss`<br>`src/app/planner/route-planner.component.spec.ts` | Exposed `dataStatus`/`dataError`; added reactive `nextActionHint()` banner providing one clear next action per state; aligned action button `aria-label`s for WCAG 2.5.3 Label-in-Name; maintained `< 4 kB` SCSS.                                                                                                                                                                                 |
+| **Notebook**                           | `src/app/notebook/notebook.component.ts`<br>`src/app/notebook/notebook.component.html`<br>`src/app/notebook/notebook.component.scss`<br>`src/app/notebook/notebook.component.spec.ts`                 | Exposed `dataStatus`/`dataError`; added reactive `nextActionHint()` banner and metadata state notices while preserving exact draft in editor; updated `.submit-btn` `aria-label` for WCAG 2.5.3 Label-in-Name; maintained `< 4 kB` SCSS.                                                                                                                                                          |
+| **Science Context** (SCSS only)        | `src/app/science/science-context.component.scss`                                                                                                                                                      | Delegated styling exception: replaced hardcoded dark hex values with shared CSS variables (`--bg-card`, `--bg-surface`, `--text-primary`, `--text-secondary`, etc.) and scoped `:host` / `:host-context([data-theme='light'])` tokens (`--sc-accent`, `--sc-link`, `--sc-err`, `--sc-sel-bg`). Full light & dark theme contrast >= 4.5:1.                                                         |
+| **Exploration Confidence** (SCSS only) | `src/app/evidence/exploration-confidence.component.scss`                                                                                                                                              | Delegated styling exception: replaced hardcoded dark colors with shared theme tokens and scoped `--ec-*` badge/error variables. Full light & dark theme contrast >= 4.5:1.                                                                                                                                                                                                                        |
+| **Image Passport** (SCSS only)         | `src/app/evidence/image-passport.component.scss`                                                                                                                                                      | Delegated styling exception: replaced hardcoded dark colors with shared theme tokens and scoped `--ip-*` variables. Full light & dark theme contrast >= 4.5:1.                                                                                                                                                                                                                                    |
 
-### Initial & total bundle comparison
+---
 
-| Metric                               | Baseline (`3879f3f` / `b744b0b`) | After (`feature/emma-release-ui`)      | Delta                      | Budget status (`angular.json`)                              |
-| ------------------------------------ | -------------------------------- | -------------------------------------- | -------------------------- | ----------------------------------------------------------- |
-| `main-*.js` raw (`transfer`)         | —                                | `494.35 kB` (`125.65 kB`)              | —                          | —                                                           |
-| `styles-*.css` raw (`transfer`)      | —                                | `13.85 kB` (`3.19 kB`)                 | —                          | —                                                           |
-| **Initial total**                    | **`587.25 kB`**                  | **`508.20 kB`** (`128.84 kB` transfer) | **`-79.05 kB` (`-13.5%`)** | Warning: `+8.20 kB` over `500.00 kB` (`maximumError: 1 MB`) |
-| `viewer3d-component` lazy chunk      | `595.60 kB`                      | `596.85 kB` (`123.14 kB` transfer)     | `+1.25 kB`                 | Lazy (not in initial)                                       |
-| `route-planner-component` lazy chunk | Bundled in `main`                | `13.86 kB` (`3.73 kB` transfer)        | Split to lazy              | Lazy (not in initial)                                       |
-| `notebook-component` lazy chunk      | Bundled in `main`                | `11.81 kB` (`3.47 kB` transfer)        | Split to lazy              | Lazy (not in initial)                                       |
+## 2. Shared Visual Specification (Willy, Enzo, Emma)
 
-### Component SCSS & compiled CSS sizes (`anyComponentStyle`: `4 kB` warning / `8 kB` error)
+To guarantee aesthetic and systematic consistency across the application without introducing heavy external frameworks or fonts, all components adhere to the following shared specification:
 
-| Component stylesheet                                          | Baseline raw (`3879f3f` LF) | Baseline compiled (`sass` compressed) | After raw (working tree)   | After compiled (`browser-stats.json`) | Status                                        |
-| ------------------------------------------------------------- | --------------------------- | ------------------------------------- | -------------------------- | ------------------------------------- | --------------------------------------------- |
-| `src/app/notebook/notebook.component.scss`                    | `5,213 B`                   | `4,329 B` (warning)                   | `4,028 B`                  | **`3,300 B`** (`3.30 kB`)             | **Fixed** (`-1,029 B` compiled, under `4 kB`) |
-| `src/app/planner/route-planner.component.scss`                | `5,592 B`                   | `4,695 B` (warning)                   | `3,990 B`                  | **`3,258 B`** (`3.26 kB`)             | **Fixed** (`-1,437 B` compiled, under `4 kB`) |
-| `src/app/ui/header/header.component.scss`                     | `4,682 B`                   | `3,943 B`                             | `4,840 B`                  | **`3,954 B`** (`3.95 kB`)             | Under `4 kB`                                  |
-| `src/app/ui/shell/shell.component.scss`                       | `4,501 B`                   | `3,703 B`                             | `4,757 B`                  | **`3,964 B`** (`3.96 kB`)             | Under `4 kB`                                  |
-| `src/app/ui/confidence-panel/confidence-panel.component.scss` | `239 B`                     | `193 B`                               | `255 B` (CRLF, unmodified) | **`194 B`** (`0.19 kB`)               | Under `4 kB`                                  |
+### A. Color Palette & Semantic Tokens (from `src/styles.scss`)
 
-All `anyComponentStyle` budget warnings are eliminated (`0` style warnings). Only two pre-existing/unowned warnings remain in `ng build`:
+- **Backgrounds**: `--bg-space` (viewport background), `--bg-surface` (workspace/header/table surface), `--bg-card` (elevated panels & cards), `--bg-card-hover` (interactive hover state).
+- **Text**: `--text-primary` (`#f1f5f9` dark, `#0f172a` light — headers & key content), `--text-secondary` (`#94a3b8` dark, `#334155` light — labels, notes, metadata), `--text-muted` (`#64748b` — tertiary captions).
+- **Accents**: `--mars-accent` (`#e05a47` dark, `#c2410c` light — primary mission branding & key actions), `--science-cyan` (`#06b6d4` dark, `#0284c7` light / `#0369a1` light text — science findings, raster tags, values).
+- **Status Badges**:
+  - _Loaded / Informational_: `--science-cyan` dot & border, cyan-tinted background (`.status-info`).
+  - _Connection / Neutral_: `--text-secondary` dot & subtle border (`.status-neutral`).
+  - _Verified / Success_: `--success-green` (`#10b981` dark, `#059669` light) dot & border, green-tinted background (`.status-ready`).
+  - _Loading / Caution_: `--warning-amber` (`#f59e0b` dark, `#b45309` light) animated pulsing dot & amber border (`.status-loading`, `.badge-caution`).
+  - _Error / Unavailable_: `--error-red` (`#ef4444` dark, `#dc2626` light) dot & border, red-tinted background (`.status-error`).
 
-1. `bundle initial exceeded maximum budget. Budget 500.00 kB was not met by 8.20 kB with a total of 508.20 kB.`
-2. `Module 'leaflet' used by 'src/app/map/map.component.ts' is not ESM` (CommonJS bailout).
+### B. Typography & Scale
 
-### Why `8.20 kB` remains over the `500.00 kB` initial warning
+- **Font Stack**: System UI (`system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`) with monospace (`ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace`) for coordinates, dimensions, timestamps, and hashes.
+- **Scale**:
+  - Large headings (`h2`): `1.25rem` (`20px`), weight `700`, line-height `1.2`.
+  - Section headings (`h3`): `1rem`–`1.1rem` (`16px`), weight `600`.
+  - Body text: `14.5px` (`0.9rem`), line-height `1.5`, letter-spacing `-0.01em`.
+  - Metadata labels & table text: `11px`–`12px`, weight `500`–`600`.
+  - Badges & pills: `11px`–`12px`, padding `3px 8px` to `4px 10px`, border-radius `99px`.
 
-`angular.json` budgets were **not** raised. Inspecting `browser-stats.json` for `main-Y3O47TND.js` (`494,350 B` final output; `614,960 B` pre-dedup metafile `bytesInOutput`) shows the dominant unowned dependencies inside the initial bundle:
+### C. Spacing Scale & Density
 
-- `npm:leaflet`: `184,950 B` (`30.1%` of metafile `bytesInOutput`) — imported eagerly by unowned `src/app/map/map.component.ts`.
-- `npm:@angular/router`: `86,426 B` (`14.1%` of metafile `bytesInOutput`) — included solely because unowned `src/app/app.config.ts` registers `provideRouter(routes)` while `src/app/app.routes.ts` exports `routes: Routes = []` with no `<router-outlet>`.
-- Coordinator follow-up: removing unused `provideRouter(routes)` in `src/app/app.config.ts` (or deferring/ESM-wrapping Leaflet in `map`) sits outside W4 file ownership and would bring initial well below `500.00 kB`.
+- Base grid: `4px` / `8px` / `12px` / `14px` / `16px`.
+- Card padding: `12px`–`14px` within sidebar panels; borders `1px solid var(--border-subtle)` with `border-radius: 8px` (`0.55rem`–`0.75rem`).
+- Touch targets: All interactive elements (`button`, `input`, `select`, `textarea`, `.tab-btn`) maintain `min-height: 44px` and `min-width: 44px`.
 
-### Lazy chunks table for W6 offline precaching (`@angular/service-worker` / `ngsw-config.json`)
+### D. Focus & Accessibility
 
-| Build chunk filename | Component / selector                          | Raw / transfer size       | Offline requirement for W6                                                                                                |
-| -------------------- | --------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `chunk-CMKkhEBb.js`  | `RoutePlannerComponent` (`app-route-planner`) | `13.86 kB` / `3.73 kB`    | **Essential offline** — loaded on first open of Route Planner tab                                                         |
-| `chunk-CJ4-SSRy.js`  | `NotebookComponent` (`app-notebook`)          | `11.81 kB` / `3.47 kB`    | **Essential offline** — loaded on first open of Notebook tab                                                              |
-| `chunk-DFIW_ROG.js`  | `Viewer3dComponent` (`app-viewer3d`)          | `596.85 kB` / `123.14 kB` | **Optional offline** — Three.js bundle loaded only on explicit `Open 3D viewer`; 2D mission remains functional without it |
+- Visible focus rings: `outline: 2px solid var(--border-focus)` (`#3b82f6` dark, `#2563eb` light) with `outline-offset: 2px` (or `-2px` for flush resizers and tabs).
+- WCAG 2.5.3 (Label-in-Name): All button accessible names (`aria-label`) start with or contain their visible rendered text.
 
-> **Note for W6:** Chunk hashes (`main-*.js`, `styles-*.css`, `chunk-*.js`) change on every build. W6's `ngsw-config.json` must prefetch all generated JS/CSS bundles in the `app` assetGroup (`/*.js`, `/*.css`, `/index.html`, `/favicon.ico`) rather than hardcoding these exact filenames.
+---
 
-## 3. Automated checks (`prettier`, `npm test`, `npm run build`)
+## 3. Coordinator Mounting Handoffs
 
-Executed directly in `c:\Users\TOUTENUN\Desktop\Project\Mars_Walk\NASA_SAPCEAPP_-MARS_WALK-` with `NG_CLI_ANALYTICS=false`:
+1. **Relocating `<app-pwa-panel />`**:
+   `src/app/ui/shell/shell.component.html` now reserves `<ng-content select="[pwa-status]"></ng-content>` immediately after `<app-header />`. The coordinator can relocate `<app-pwa-panel pwa-status />` from `src/app/app.html` into `app-shell` without duplicating action controls or breaking PWA service worker lifecycle management.
+2. **Mounting Enzo's Environmental Panel**:
+   `src/app/ui/shell/shell.component.html` projects `<ng-content select="[environmental-context]" environmental-context></ng-content>` into `<app-confidence-panel>`, which renders `<ng-content select="[environmental-context]"></ng-content>` alongside the clean `.env-slot-card` boundary. Once Enzo's component and schema are accepted, it mounts seamlessly into this reserved slot.
 
-- **Prettier on all 14 modified W4 files** (`npx prettier --check src/app/notebook/ src/app/planner/route-planner.component.html src/app/planner/route-planner.component.scss src/app/planner/route-planner.component.spec.ts src/app/ui/header/header.component.html src/app/ui/header/header.component.scss src/app/ui/header/header.component.spec.ts src/app/ui/shell/`): **passed** (`All matched files use Prettier code style!`).
-  - Note: Running Prettier across all of `src/app/ui/` warns on 7 unmodified `origin/main` (`3879f3f`) files (`src/app/ui/confidence-panel/*`, `src/app/ui/header/header.component.ts`, `src/app/ui/theme.service*`) due to existing CRLF line endings; those unowned/untouched files were left unchanged.
-- **`npm test` (`ng test --watch=false`)**: **15 test files passed, 139 tests passed** (`0` failures, `0` skipped):
-  - `src/app/ui/shell/shell.component.spec.ts`: `11` passed
-  - `src/app/ui/header/header.component.spec.ts`: `4` passed
-  - `src/app/ui/confidence-panel/confidence-panel.component.spec.ts`: `5` passed
-  - `src/app/ui/theme.service.spec.ts`: `2` passed
-  - `src/app/planner/route-planner.component.spec.ts`: `6` passed
-  - `src/app/notebook/notebook.component.spec.ts`: `7` passed
-  - `src/app/map/map.component.spec.ts`: `34` passed
-  - `src/app/viewer3d/viewer3d.component.spec.ts`: `15` passed
-  - `src/app/viewer3d/transform.spec.ts`: `5` passed
-  - `src/app/core/mission.service.spec.ts`: `14` passed
-  - `src/app/core/route.spec.ts`: `4` passed
-  - `src/app/science/science-context.component.spec.ts`: `12` passed
-  - `src/app/evidence/exploration-confidence.component.spec.ts`: `7` passed
-  - `src/app/evidence/image-passport.component.spec.ts`: `6` passed
-  - `src/app/app.spec.ts`: `7` passed
-- **`npm run build` (`ng build`)**: **passed** (`main-Y3O47TND.js` `494.35 kB`, `styles-2WTUZKL3.css` `13.85 kB`, initial total `508.20 kB`, 3 lazy chunks above, `0` component style warnings).
+---
 
-## 4. Production browser verification (`HeadlessChrome/157.0.8103.52`)
+## 4. Automated Verification Results
 
-Served `dist/marswalk/browser` over local HTTP (`127.0.0.1`) and drove **`HeadlessChrome/157.0.8103.52` (Windows x64)** with SwiftShader WebGL via Chrome DevTools Protocol:
+All automated checks executed cleanly in `NASA_SAPCEAPP_-MARS_WALK-`:
 
-| Workflow check                                         | Verified outcome                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **a) Initial load lazy-chunk isolation**               | Initial load to `Data Ready` requested `/`, `/main-Y3O47TND.js`, `/styles-2WTUZKL3.css`, `/data/manifest.json`, `/data/markers.json`, `/favicon.ico`, and `/data/imagery/PIA26306_derived_2048.jpg`. Zero `chunk-*.js` requests fired at startup (`[]`).                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| **b) Responsive layouts & zero horizontal overflow**   | Checked `1440×900`, `1024×800`, `820×900`, and `390×844` in **both dark and light themes** across Confidence, Route Planner, and Notebook tabs (plus Transfer & Rehearsal at `390×844`): `document.documentElement.scrollWidth <= window.innerWidth` in all 26 tested states (`0` overflow; header/aside/panel right bounds `<= innerWidth`).                                                                                                                                                                                                                                                                                                                                |
-| **c) Touch target sizing (`>= 44 px`)**                | Measured rendered `getBoundingClientRect()` sizes across desktop (`1440×900`) and mobile (`390×844`) in dark & light themes (`11` controls on Confidence, `19` on Planner, `13` on Notebook, plus `.viewer-toggle` at `124.2 × 44 px` on Rehearsal): `0` undersized controls (`>= 44 px`).                                                                                                                                                                                                                                                                                                                                                                                   |
-| **d) ARIA tablist/tab/tabpanel & keyboard navigation** | Confirmed `nav.panel-tabs[role="tablist"][aria-label="Workspace Sections"]`, `#tab-*` (`aria-controls`, `aria-selected`, roving `tabindex` `0`/`-1`), and `#panel-*` (`role="tabpanel"`, `aria-labelledby`, `tabindex="0"`, `[hidden]`). Real CDP keyboard `ArrowRight`, `End`, `ArrowRight` (wraps `rehearsal -> confidence`), `ArrowLeft` (wraps `confidence -> rehearsal`), and `Home` updated both `aria-selected` and `document.activeElement` identically.                                                                                                                                                                                                             |
-| **e) Non-hijacked typing inside inputs & textareas**   | Typed into `app-science-context` search input (`boxwork`) and `#obs-input` (`Exact unsaved field note alpha-42`), then dispatched real `ArrowLeft`, `ArrowRight`, `Home`, and `End` keys: active tab remained `'confidence'` and `'notebook'` respectively without losing focus or text.                                                                                                                                                                                                                                                                                                                                                                                     |
-| **f) Lazy chunk load, Notebook draft & save flow**     | Opening Route Planner fetched `/chunk-CMKkhEBb.js`; opening Notebook fetched `/chunk-CJ4-SSRy.js`. Unsaved draft `'Exact unsaved field note alpha-42'` survived `planner -> confidence -> notebook` round-trip. Throwing `QuotaExceededError` from `Storage.prototype.setItem` rendered `.feedback-alert.feedback-error` (`Observation was not saved. Keep your draft and try exporting.`) and preserved exact draft across `confidence -> notebook`. Restoring storage saved the entry, cleared `#obs-input`, updated tab count to `Notebook (1)`, rendered formatted `.entry-timestamp` (`15 Nov 2026, 06:22`), and rendered `.obs-entry` with `tabindex` absent (`null`). |
-| **g) Collapsed panel focus safety**                    | Clicking `.panel-toggle-btn` set `#side-panel[inert][aria-hidden="true"]` with computed `visibility: hidden`, `.panel-toggle-btn[aria-expanded="false"]`, and `.panel-resizer[hidden][tabindex="-1"]`. Programmatic `.focus()` on `#tab-confidence`/`#panel-confidence` and real `Tab` key from `.panel-toggle-btn` kept focus out of `#side-panel`. Re-opening cleared `inert`/`aria-hidden` and restored `#tab-confidence` focusability.                                                                                                                                                                                                                                   |
-| **h) `820px` sidebar resize clamp & persistence**      | At `820×900`, `.panel-resizer` `End` clamped `#side-panel` width to `520px` (`aria-valuenow="520"`, `aria-valuemax="520"`, `localStorage.marswalk_panel_width = "520"`); `ArrowRight` narrowed to `500px`, which persisted across reload (`500px`). Pre-seeded `750` in `localStorage` clamped to `520px` on reload at `820×900`.                                                                                                                                                                                                                                                                                                                                            |
-| **i) Theme contrast & `:focus-visible` visibility**    | Measured actual Chrome computed colors (`getComputedStyle` composited over parent backgrounds) in dark & light themes: all tested interactive controls, active tabs, modes, badges, submit button, and feedback alerts passed WCAG AA `>= 4.5:1` (dark `5.10:1` to `14.61:1`; light `4.89:1` to `17.06:1`). Real `Tab` traversal confirmed visible `:focus-visible` outlines on header buttons, map, `.panel-toggle-btn`, inset `-2px` outlines on `.panel-resizer`/`#tab-confidence`/`#panel-confidence`, integrated `app-science-context` controls (`3px solid rgb(240, 171, 125)`), and `.viewer-toggle` (`2px solid rgb(59, 130, 246)`).                                 |
-| **j) 3D viewer lazy load, teardown & remount**         | Switching to `3D Rehearsal` did not fetch the viewer chunk (`0` requests). Clicking `Open 3D viewer` fetched `/chunk-DFIW_ROG.js` and mounted `<app-viewer3d>` with `<canvas>`. Leaving to `Confidence & Data` destroyed `<app-viewer3d>` (`null`) and reset `aria-expanded="false"` while keeping Planner and Notebook mounted. Re-opening `Open 3D viewer` remounted `<canvas>` cleanly without duplicate module fetches.                                                                                                                                                                                                                                                  |
-| **Errors & failed requests**                           | `0` uncaught `Runtime.exceptionThrown` exceptions, `0` `console.error` entries, and `0` HTTP `>= 400` / `loadingFailed` network failures across normal runs.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+- **Prettier Code Style**:
+  `npx prettier --check` across all 21 modified files: **Passed** (`All matched files use Prettier code style!`).
+- **Angular & Vitest Unit Tests**:
+  `npm test` (`ng test --watch=false`): **16 test files passed, 158 tests passed** (`0` failures, `0` skipped).
+- **PWA Service Worker Tests**:
+  `npm run test:pwa` (`node --test tools/pwa/worker.test.mjs`): **11 tests passed** (`0` failures).
+- **Production Build (`npm run build`)**:
+  - `main-SU6BSXRL.js` (`main`): `427.80 kB` raw / `109.38 kB` transfer
+  - `styles-2WTUZKL3.css` (`styles`): `13.85 kB` raw / `3.19 kB` transfer
+  - **Initial total: `441.64 kB` raw / `112.57 kB` transfer** (Well below `500.00 kB` warning budget; `0` initial warnings).
+  - Lazy chunks:
+    - `chunk-ZWypTkfs.js` (`viewer3d-component`): `597.05 kB` raw / `123.01 kB` transfer
+    - `chunk-aSKtI6ow.js` (`route-planner-component`): `15.54 kB` raw / `4.09 kB` transfer
+    - `chunk-E4wwO4UG.js` (`notebook-component`): `13.68 kB` raw / `3.82 kB` transfer
+  - Offline pack: **18 assets, 1,666,706 bytes**, version `882801080628`.
+- **Component Stylesheet Budget Inspection (`anyComponentStyle`: 4 kB warning / 8 kB error)**:
+  - `src/app/ui/header/header.component.scss`: `3,933 B` compiled (`3.93 kB`) — **Passed**
+  - `src/app/ui/shell/shell.component.scss`: `3,925 B` compiled (`3.93 kB`) — **Passed**
+  - `src/app/notebook/notebook.component.scss`: `3,595 B` compiled (`3.60 kB`) — **Passed**
+  - `src/app/planner/route-planner.component.scss`: `3,379 B` compiled (`3.38 kB`) — **Passed**
+  - `src/app/science/science-context.component.scss`: `3,251 B` compiled (`3.25 kB`) — **Passed**
+  - `src/app/evidence/image-passport.component.scss`: `2,723 B` compiled (`2.72 kB`) — **Passed**
+  - `src/app/evidence/exploration-confidence.component.scss`: `2,512 B` compiled (`2.51 kB`) — **Passed**
+  - `src/app/ui/confidence-panel/confidence-panel.component.scss`: `1,004 B` compiled (`1.00 kB`) — **Passed**
+  - **Total component budget warnings: 0**.
 
-### Actual Chrome WCAG AA contrast measurements (sample set)
+---
 
-| Element / state                                              | Dark theme (fg / bg / ratio)                             | Light theme (fg / bg / ratio)                            |
-| ------------------------------------------------------------ | -------------------------------------------------------- | -------------------------------------------------------- |
-| `.tab-btn.active`                                            | `rgb(255, 157, 144)` / `rgb(20, 26, 35)` (**`8.72:1`**)  | `rgb(154, 52, 18)` / `rgb(255, 255, 255)` (**`7.31:1`**) |
-| `.viewer-toggle`                                             | `rgb(241, 245, 249)` / `rgb(26, 34, 46)` (**`14.61:1`**) | `rgb(15, 23, 42)` / `rgb(248, 250, 252)` (**`17.06:1`**) |
-| `app-header .action-btn`                                     | `rgb(240, 171, 125)` / `rgb(51, 36, 40)` (**`7.64:1`**)  | `rgb(154, 52, 18)` / `rgb(248, 232, 226)` (**`6.14:1`**) |
-| `app-header .layer-btn.active`                               | `rgb(6, 182, 212)` / `rgb(23, 56, 71)` (**`5.10:1`**)    | `rgb(3, 105, 161)` / `rgb(218, 236, 246)` (**`4.89:1`**) |
-| `.footer-val`                                                | `rgb(6, 182, 212)` / `rgb(20, 26, 35)` (**`7.20:1`**)    | `rgb(3, 105, 161)` / `rgb(255, 255, 255)` (**`5.93:1`**) |
-| `app-notebook .submit-btn`                                   | `rgb(15, 23, 42)` / `rgb(240, 171, 125)` (**`9.20:1`**)  | `rgb(255, 255, 255)` / `rgb(194, 65, 12)` (**`5.18:1`**) |
-| `app-notebook .feedback-alert` (success)                     | `rgb(110, 231, 183)` / `rgb(24, 57, 58)` (**`8.20:1`**)  | `rgb(6, 95, 70)` / `rgb(224, 240, 237)` (**`6.53:1`**)   |
-| `app-route-planner .mode-btn.active` (Inspect)               | `rgb(255, 157, 144)` / `rgb(56, 42, 50)` (**`6.76:1`**)  | `rgb(154, 52, 18)` / `rgb(242, 228, 223)` (**`5.88:1`**) |
-| `app-route-planner .mode-start.active` / `.badge-start`      | `rgb(110, 231, 183)` / `rgb(24, 57, 58)` (**`8.20:1`**)  | `rgb(6, 95, 70)` / `rgb(224, 240, 237)` (**`6.53:1`**)   |
-| `app-route-planner .mode-waypoint.active` / `.badge-wp`      | `rgb(103, 232, 249)` / `rgb(23, 56, 71)` (**`8.54:1`**)  | `rgb(21, 94, 117)` / `rgb(218, 236, 246)` (**`5.99:1`**) |
-| `app-route-planner .mode-destination.active` / `.badge-dest` | `rgb(252, 211, 77)` / `rgb(52, 49, 42)` (**`9.00:1`**)   | `rgb(146, 64, 14)` / `rgb(248, 243, 233)` (**`6.39:1`**) |
+## 5. Live Headless Chrome CDP Verification (`HeadlessChrome/157.0.8103.52`)
 
-> **Static observation outside W4 ownership:** Unmodified `src/app/science/science-context.component.scss`, `src/app/evidence/exploration-confidence.component.scss`, and `src/app/evidence/image-passport.component.scss` use fixed dark card palettes even when `[data-theme='light']` is active.
+Driven over HTTP against the production build in `dist/marswalk/browser`:
 
-## 5. Pending work (not implemented or verified in Phase 1)
+### A. Truthful Header Readiness Evaluation
 
-- **PENDING — W4 Phase 2 (Consistent professional design):** Visual specification alignment with Willy and Enzo (spacing, typography hierarchy, panel density, action hierarchy, clarifying header readiness states so metadata/image/persistence/connectivity/offline-cache states are never conflated, and reserving mount slots for Enzo's environmental component and W6's PWA status/install/update UI).
-- **PENDING — W4 Phase 3 (Deployed interface verification):** HTTPS preview testing across clean and existing-storage profiles, standalone PWA viewport verification, offline route -> evidence -> note -> recovery/export workflows, and supported update prompts (W6 PwaService and the custom generated worker/full-pack strategy are now implemented; no Angular service-worker dependency or ngsw-config.json is required).
-- **PENDING — W4 Phase 4 (Release freeze & support):** Final component/chunk handoff to coordinator, post-release entry URL/private-window checks, final screenshots for Enzo, and commit SHA recording after branch commit.
-- **PENDING — Physical device & outside-user testing:** Real Android/iOS/tablet hardware touch/performance checks and three-participant usability testing (`docs/USABILITY.md`) remain unrun.
-- **PENDING — Coordinator unowned initial bundle cleanup (`8.20 kB` over `500.00 kB`):** Removal of unused `provideRouter(routes)` in `src/app/app.config.ts` and/or Leaflet packaging (`src/app/map/map.component.ts`).
+- **Metadata loaded**: Renders `Metadata: Loaded` with `.status-info` (`rgb(6, 182, 212)` cyan border/dot). Never receives `.status-ready`.
+- **Network connectivity**: Renders `Network: Online` with `.status-neutral` (`rgb(148, 163, 184)` subtle border/dot). Emulating offline network switches to `Network: Offline` with `.status-loading` (amber pulse). Never receives `.status-ready`.
+- **Offline pack**: Prior to cache preparation, renders `Offline Pack: Not Prepared` with `.status-neutral`. Only receives `.status-ready` when the offline pack is actually verified.
+
+### B. Dark & Light Theme Contrast Audit (WCAG AA >= 4.5:1)
+
+Zero contrast failures (`contrastFailures: []`). All cards in `science-context`, `exploration-confidence`, and `image-passport` properly swap from dark `#1a222e` to light `rgb(248, 250, 252)` / `rgb(255, 255, 255)` with dark text:
+
+| Element / Selector                                    | Dark theme (fg / bg / ratio)                             | Light theme (fg / bg / ratio)                            | Result  |
+| ----------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | ------- |
+| `app-header .metadata-pill`                           | `rgb(207, 250, 254)` / `rgb(23, 56, 71)` (**`12.22:1`**) | `rgb(12, 74, 110)` / `rgb(218, 236, 246)` (**`8.12:1`**) | Pass AA |
+| `app-header .network-pill`                            | `rgb(241, 245, 249)` / `rgb(26, 34, 46)` (**`14.61:1`**) | `rgb(15, 23, 42)` / `rgb(248, 250, 252)` (**`17.06:1`**) | Pass AA |
+| `app-header .action-btn`                              | `rgb(240, 171, 125)` / `rgb(51, 36, 40)` (**`7.60:1`**)  | `rgb(154, 52, 18)` / `rgb(248, 232, 226)` (**`6.14:1`**) | Pass AA |
+| `app-header .layer-btn.active`                        | `rgb(6, 182, 212)` / `rgb(23, 56, 71)` (**`5.11:1`**)    | `rgb(3, 105, 161)` / `rgb(218, 236, 246)` (**`4.89:1`**) | Pass AA |
+| `app-shell .tab-btn.active`                           | `rgb(255, 157, 144)` / `rgb(20, 26, 35)` (**`8.72:1`**)  | `rgb(154, 52, 18)` / `rgb(255, 255, 255)` (**`7.31:1`**) | Pass AA |
+| `app-shell .footer-val`                               | `rgb(6, 182, 212)` / `rgb(20, 26, 35)` (**`7.20:1`**)    | `rgb(3, 105, 161)` / `rgb(255, 255, 255)` (**`5.93:1`**) | Pass AA |
+| `app-shell .footer-boundary`                          | `rgb(148, 163, 184)` / `rgb(20, 26, 35)` (**`6.82:1`**)  | `rgb(51, 65, 85)` / `rgb(255, 255, 255)` (**`10.35:1`**) | Pass AA |
+| `app-confidence-panel .env-slot-card p`               | `rgb(148, 163, 184)` / `rgb(26, 34, 46)` (**`6.82:1`**)  | `rgb(51, 65, 85)` / `rgb(248, 250, 252)` (**`10.35:1`**) | Pass AA |
+| `app-confidence-panel .env-slot-badge`                | `rgb(240, 171, 125)` / `rgb(45, 34, 24)` (**`7.77:1`**)  | `rgb(154, 52, 18)` / `rgb(248, 232, 226)` (**`6.41:1`**) | Pass AA |
+| `app-exploration-confidence .badge-caution`           | `rgb(253, 230, 138)` / `rgb(52, 49, 42)` (**`10.42:1`**) | `rgb(146, 64, 14)` / `rgb(248, 243, 233)` (**`6.41:1`**) | Pass AA |
+| `app-exploration-confidence .metric-value`            | `rgb(241, 245, 249)` / `rgb(20, 26, 35)` (**`15.95:1`**) | `rgb(15, 23, 42)` / `rgb(255, 255, 255)` (**`17.85:1`**) | Pass AA |
+| `app-science-context .record-badge`                   | `rgb(125, 211, 252)` / `rgb(20, 26, 35)` (**`10.48:1`**) | `rgb(3, 105, 161)` / `rgb(255, 255, 255)` (**`5.93:1`**) | Pass AA |
+| `app-science-context .science-record-button.selected` | `rgb(241, 245, 249)` / `rgb(48, 38, 38)` (**`11.04:1`**) | `rgb(15, 23, 42)` / `rgb(247, 239, 237)` (**`14.85:1`**) | Pass AA |
+| `app-science-context a`                               | `rgb(125, 211, 252)` / `rgb(20, 26, 35)` (**`10.48:1`**) | `rgb(3, 105, 161)` / `rgb(255, 255, 255)` (**`5.93:1`**) | Pass AA |
+| `app-image-passport .external-link`                   | `rgb(125, 211, 252)` / `rgb(20, 26, 35)` (**`10.48:1`**) | `rgb(3, 105, 161)` / `rgb(255, 255, 255)` (**`5.93:1`**) | Pass AA |
+| `app-image-passport .badge-caution`                   | `rgb(253, 230, 138)` / `rgb(45, 34, 24)` (**`11.45:1`**) | `rgb(146, 64, 14)` / `rgb(245, 232, 218)` (**`6.66:1`**) | Pass AA |
+| `app-route-planner .next-step-banner`                 | `rgb(241, 245, 249)` / `rgb(36, 42, 54)` (**`9.44:1`**)  | `rgb(15, 23, 42)` / `rgb(235, 240, 245)` (**`6.24:1`**)  | Pass AA |
+| `app-route-planner .mode-btn.active`                  | `rgb(255, 157, 144)` / `rgb(56, 42, 50)` (**`6.78:1`**)  | `rgb(154, 52, 18)` / `rgb(242, 228, 223)` (**`5.89:1`**) | Pass AA |
+| `app-route-planner .mode-start.active`                | `rgb(110, 231, 183)` / `rgb(24, 57, 58)` (**`8.18:1`**)  | `rgb(6, 95, 70)` / `rgb(224, 240, 237)` (**`6.53:1`**)   | Pass AA |
+| `app-route-planner .feedback-alert` (error)           | `rgb(252, 165, 165)` / `rgb(58, 39, 49)` (**`7.31:1`**)  | `rgb(153, 27, 27)` / `rgb(245, 229, 231)` (**`6.82:1`**) | Pass AA |
+| `app-notebook .next-step-banner`                      | `rgb(241, 245, 249)` / `rgb(36, 42, 54)` (**`9.44:1`**)  | `rgb(15, 23, 42)` / `rgb(235, 240, 245)` (**`6.24:1`**)  | Pass AA |
+| `app-notebook .submit-btn`                            | `rgb(15, 23, 42)` / `rgb(240, 171, 125)` (**`9.20:1`**)  | `rgb(255, 255, 255)` / `rgb(194, 65, 12)` (**`5.18:1`**) | Pass AA |
+| `app-notebook .feedback-alert` (error)                | `rgb(252, 165, 165)` / `rgb(58, 39, 49)` (**`7.31:1`**)  | `rgb(153, 27, 27)` / `rgb(245, 229, 231)` (**`6.82:1`**) | Pass AA |
+
+### C. Responsive Layout & Touch Targets
+
+- Tested 50 states across 5 viewports (`1440×900`, `1280×800`, `1024×800`, `820×900`, and `390×844`) in both dark and light themes:
+  - **`0` horizontal overflows** (`scrollWidth <= clientWidth` in all 50 checks).
+  - **`0` undersized controls** (`>= 44px` across all W4-owned controls in all viewports).
+
+### D. Workflows & Console Errors
+
+- **`0` uncaught exceptions**, **`0` console errors**, **`0` HTTP network failures**.
+- Key workflows verified: roving ARIA tablist (`ArrowRight`/`ArrowLeft`/`Home`/`End`), typing in `#obs-input` without tab interception, notebook draft retention across tab switches and `QuotaExceededError`, 3D rehearsal lazy load and complete teardown upon leaving tab.
+
+---
+
+## 6. Pending Work (Release Freeze & Deployment Responsibilities)
+
+- **PENDING — W4 Phase 3 (Deployed interface verification)**: Acceptance checks on the public HTTPS host (`https://marswalk-jet.vercel.app/`) await coordinator deployment of this UI commit (the existing host runs older source `b6669fb`).
+- **PENDING — Physical device & outside-user sessions**: Target Android/iOS standalone testing and three-participant usability protocol (`docs/USABILITY.md`) remain to be observed on physical hardware.
+- **PENDING — Environmental data integration**: Enzo's environmental component mounting awaits verified PDS data schema agreement.

@@ -1,6 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { LayerId } from '../../core/models';
 import { MissionService } from '../../core/mission.service';
+import { PwaService } from '../../core/pwa.service';
 import { ThemeService } from '../theme.service';
 
 @Component({
@@ -12,22 +13,79 @@ import { ThemeService } from '../theme.service';
 export class HeaderComponent {
   private missionService = inject(MissionService);
   private themeService = inject(ThemeService);
+  private pwaService = inject(PwaService);
 
   readonly dataStatus = this.missionService.dataStatus;
   readonly image = this.missionService.image;
   readonly layers = this.missionService.layers;
   readonly theme = this.themeService.theme;
+  readonly online = this.pwaService.online;
+  readonly offlineState = this.pwaService.state;
+  readonly offlineMessage = this.pwaService.message;
+  readonly offlineProgress = this.pwaService.progress;
+  readonly updateAvailable = this.pwaService.updateAvailable;
+  readonly canInstall = this.pwaService.canInstall;
 
   readonly statusLabel = computed(() => {
     switch (this.dataStatus()) {
       case 'ready':
-        return 'Data Ready';
+        return 'Metadata: Loaded';
       case 'loading':
-        return 'Loading Data...';
+        return 'Metadata: Loading…';
       case 'unavailable':
-        return 'Data Unavailable';
+        return 'Metadata: Unavailable';
       case 'error':
-        return 'Data Error';
+        return 'Metadata: Error';
+    }
+  });
+
+  readonly metadataStatusClass = computed(() => {
+    switch (this.dataStatus()) {
+      case 'ready':
+        return 'status-info';
+      case 'loading':
+        return 'status-loading';
+      case 'unavailable':
+      case 'error':
+        return 'status-error';
+    }
+  });
+
+  readonly networkLabel = computed(() => (this.online() ? 'Network: Online' : 'Network: Offline'));
+
+  readonly offlinePackLabel = computed(() => {
+    switch (this.offlineState()) {
+      case 'ready':
+        return 'Offline Pack: Verified';
+      case 'preparing': {
+        const p = this.offlineProgress();
+        return p
+          ? `Offline Pack: Preparing (${p.completed}/${p.total})`
+          : 'Offline Pack: Preparing…';
+      }
+      case 'checking':
+        return 'Offline Pack: Checking…';
+      case 'not-prepared':
+        return 'Offline Pack: Not Prepared';
+      case 'unsupported':
+        return 'Offline Pack: Unavailable';
+      case 'error':
+        return 'Offline Pack: Error';
+    }
+  });
+
+  readonly offlinePackStatusClass = computed(() => {
+    switch (this.offlineState()) {
+      case 'ready':
+        return 'status-ready';
+      case 'preparing':
+      case 'checking':
+        return 'status-loading';
+      case 'error':
+        return 'status-error';
+      case 'not-prepared':
+      case 'unsupported':
+        return 'status-neutral';
     }
   });
 
