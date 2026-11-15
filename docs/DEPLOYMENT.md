@@ -1,6 +1,8 @@
 # Production build, hosting and rollback
 
-PWA foundation source: **`8a4dadc`**. The user has now selected Vercel; [Vercel setup status](VERCEL_SETUP.md) records the prepared configuration and current network blocker. No Vercel account/project/production URL is connected or published yet. Deployment and environment publication are separate actions from pushing GitHub code. [Actual checks and limits](qa/PWA_FOUNDATION.md).
+PWA foundation source: **`8a4dadc`**. Public production app: **https://marswalk-jet.vercel.app/**, tested deployment source **`b6669fb`**. [Vercel setup/runbook](VERCEL_SETUP.md) records account/project, exact CLI workflow, optional global-profile blockers and unconnected automatic GitHub deployment. [New public acceptance](qa/VERCEL_PRODUCTION.md), [prior local PWA checks](qa/PWA_FOUNDATION.md).
+
+Actual target-device home-screen installation remains pending. Source documentation updates do not automatically deploy while GitHub is unconnected. Environment publication and competition submission are separate from this app deployment.
 
 ## Reproducible build
 
@@ -39,7 +41,7 @@ Host the contents of `dist/marswalk/browser` at `/marswalk/`. Rebuild with the r
 3. On the target supported device install from browser UI or offered Install action. Record browser/device/version and actual standalone behavior. Do not assume an install prompt exists or equate incognito diagnostics with normal installability.
 4. Save route/note, disconnect, close/reopen from launcher, inspect image/science, explicitly load saved route, edit/save/recover/export. Browser source pages may need internet. Record actual outcomes in [PWA acceptance](qa/PWA_ACCEPTANCE.md).
 5. Exercise two build versions safely: updates download/verify before waiting; no automatic reload while old tabs are open. Save/export drafts and close other app tabs before explicit apply. Natural activation after all old clients close uses the already-prepared pack. Test failed preparation/update with isolated data.
-6. Promote only the tested complete artifact through the authorized release workflow. Recheck production URL/manifest/worker/data and actual mission. No hosting or competition submission has been executed merely by this checklist.
+6. Promote only the tested complete artifact through the authorized release workflow. Recheck production URL/manifest/worker/data and actual mission. The Vercel CLI deployment is now live as recorded above; no competition entry has been submitted.
 
 ## Rollback and storage
 

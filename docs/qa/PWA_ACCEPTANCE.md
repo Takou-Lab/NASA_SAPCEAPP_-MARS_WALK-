@@ -10,6 +10,10 @@ Longla's latest [submitted device record](submissions/LONGLA_23d5180.md) is pres
 
 **Result meanings:** Passed means the named check was actually run in the stated environment. Pending means unrun. Blocked means an explicit prerequisite is absent. A written scenario is not a pass.
 
+## Public host delivered
+
+**https://marswalk-jet.vercel.app/** is live from `b6669fb`. Production-origin full-pack verification and complete browser-process restart disconnected pass, including route/note recovery/export and deferred 3D. [Actual provider/browser checks](VERCEL_PRODUCTION.md). Missing image/data/worker URLs correctly return 404. Physical home-screen installation and standalone/device acceptance still need Longla/Willy observations. Automatic GitHub deployment is not connected; record the actual deployed source rather than assuming every main commit is live.
+
 ## Current evidence and prerequisites
 
 **PWA update:** code `8a4dadc`, tested in production Chromium 156.0.8078.79 Linux, includes real preparation/worker/update support. [Detailed current results](PWA_FOUNDATION.md), [deployment runbook](../DEPLOYMENT.md). Earlier `b744b0b` counts above remain historical. New checks: **136 Angular, 11 worker, 28 data tests** and root/subpath builds pass.

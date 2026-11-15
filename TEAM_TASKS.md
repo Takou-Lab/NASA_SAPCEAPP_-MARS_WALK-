@@ -1,5 +1,8 @@
 # MARSWALK — Current team work plan
 
+> **Live deployment update — 15 November:** https://marswalk-jet.vercel.app/ is public and passes production-origin browser offline restart/mission recovery checks. Source `b6669fb`; [deployment evidence](docs/qa/VERCEL_PRODUCTION.md), [Vercel runbook](docs/VERCEL_SETUP.md). Physical home-screen acceptance remains pending; automatic GitHub deployment is not connected. Earlier revision-scoped statements below retain their historical scope.
+
+
 Updated **15 November 2026 (Africa/Douala)**. Latest PWA application code: **`8a4dadc`** (all feature integration retained). All eight advertised feature tips are integrated, preserving history. [REVIEW.md](REVIEW.md) records verdicts; [final integration evidence](docs/qa/FINAL_BRANCH_INTEGRATION.md) records exact revisions and checks. This is the canonical assignment plan; preserve any later local work.
 
 Product: **Angular PWA for Mars exploration rehearsal**, focused on the prepared Mount Sharp/Gale image. Read [SOUL.MD](SOUL.MD). The Willy/Gaddielle role swap remains in force. Emma uses he/him; Royce is the original-plan name for the role documented as Longla.

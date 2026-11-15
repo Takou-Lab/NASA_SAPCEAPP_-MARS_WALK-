@@ -26,3 +26,8 @@ AI assistance also supported the Angular integration, guarded mission transfer, 
 ## Coordinator PWA foundation
 
 Codex assisted implementation/review of the production worker, build-pack generation, lifecycle UI/service, tests, original geometric install artwork and documentation in `8a4dadc`. The icon is original app artwork, not NASA branding. Real automated/browser outcomes and limitations are recorded in [PWA_FOUNDATION.md](qa/PWA_FOUNDATION.md). These development uses are not a runtime AI feature, independent scientific verification or physical-device acceptance.
+
+
+## Vercel deployment follow-through
+
+Codex assisted hosting configuration, actual CLI deployment, source/asset auditing and production browser verification. The live app is recorded in [VERCEL_PRODUCTION.md](qa/VERCEL_PRODUCTION.md). Optional Vercel plugin/global-skills and MCP installation attempts failed on the managed read-only profile; they are not claimed installed or used as a runtime AI feature.
