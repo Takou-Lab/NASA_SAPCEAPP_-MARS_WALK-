@@ -47,3 +47,4 @@ Thumbs.db
 # Python data-tool bytecode
 __pycache__/
 *.py[cod]
+.env*
