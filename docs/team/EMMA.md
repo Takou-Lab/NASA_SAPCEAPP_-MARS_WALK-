@@ -1,5 +1,11 @@
 # Emma — Remaining professional UI and deployment work
 
+## CURRENT — mission workspace accepted; candidate verification next
+
+Your dbef815 assignment is complete and accepted. Both mission-workspace/release-ui branch names refer to that same commit. **235 combined tests/build/local production-browser workflow and full-process offline recovery pass**; [review/evidence](../reviews/EMMA.md#mission-decision-workspace-dbef815--accepted). Do not repeat the substantial package below; it is retained as the completed specification.
+
+Next perform revision-specific acceptance after coordinator deploys this UI: new workflow buttons expand panels/focus correctly, draft/route state retained, source/location/limited REMS boundaries readable, both themes/phone layout and actual save/load/export. Supply actual screenshots and reproducible blockers for Enzo's presentation; no invented users/physical checks. Public candidate remains older until separately deployed. Preserve unpublished work and safely incorporate main; no new design expansion or core/calibration edits. Agent 2 observation guide stays independent.
+
 ## Latest team integration check
 
 Agent 2 briefing d4b335a is accepted/mounted centrally. Agent 1 UI remains accepted at 59e00e1; no newer mission workspace advertised. Preserve unpublished summary/navigation work and send actual branch/SHA for review. Do not duplicate or overwrite Agent 2 briefing. Both agents share acceptance evidence below. [Checks and limits](../qa/TEAM_SUBMISSION_CHECK.md).

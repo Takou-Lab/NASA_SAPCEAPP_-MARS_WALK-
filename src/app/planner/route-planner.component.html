@@ -227,7 +227,30 @@
           <span class="status-none">Not Set</span>
         }
       </div>
+
+      <div class="status-box">
+        <span class="status-key">Planar Distance:</span>
+        @if (
+          assessment().distanceStatus === 'derived' &&
+          assessment().planarDistanceMeters !== null
+        ) {
+          <span class="status-val font-mono"
+            >{{ assessment().planarDistanceMeters!.toFixed(1) }} m</span
+          >
+        } @else {
+          <span class="status-none">Unavailable (uncalibrated)</span>
+        }
+      </div>
     </div>
+
+    <p class="mode-hint">
+      <span class="hint-bullet" aria-hidden="true">⚠</span>
+      <span class="hint-text">
+        Visual pixel sketch only: no verified metric scale, DEM slope, obstacle clearance, or route
+        safety rating is supplied. Contextual science records without pixel coordinates are
+        regional, not located targets on this frame.
+      </span>
+    </p>
 
     @if (orderedPoints().length > 0) {
       <div class="points-table-container">
@@ -336,11 +359,13 @@
     }
 
     <div class="storage-notice">
-      <span
-        >Saved routes are versioned and tied to the active raster reference ({{
+      <span>
+        Saved missions are versioned and tied to the active raster reference ({{
           image() ? image()!.imageRef : 'none'
-        }}).</span
-      >
+        }}). <strong>Load Route</strong> recovers both the saved route and saved observations for
+        this browser origin; use <strong>Mission Transfer</strong> to export JSON across origins or
+        devices.
+      </span>
     </div>
   </section>
 </div>

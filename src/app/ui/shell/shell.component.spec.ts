@@ -378,4 +378,71 @@ describe('ShellComponent', () => {
     expect(envProjected.nextElementSibling?.tagName.toLowerCase()).toBe('app-science-context');
     hostFixture.destroy();
   });
+
+  it('connects mission review workflow buttons to open panels, expand collapsed sidebar, focus tab, and preserve drafts/state without storage writes', async () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const mission = TestBed.inject(MissionService);
+
+    // Open notebook first and type an unsaved draft
+    const notebookBtn = compiled.querySelector(
+      '[data-workflow-tab="notebook"]',
+    ) as HTMLButtonElement;
+    notebookBtn.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(component.activeTab()).toBe('notebook');
+
+    const notebookDebug = fixture.debugElement.query(By.directive(NotebookComponent));
+    const notebookComp = notebookDebug.componentInstance as NotebookComponent;
+    notebookComp.setDraftText('Unsaved boxwork fracture observation draft');
+    fixture.detectChanges();
+
+    // Collapse the sidebar and spy on storage/mission methods
+    component.togglePanel();
+    fixture.detectChanges();
+    expect(component.isPanelCollapsed()).toBe(true);
+
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+    const saveRouteSpy = vi.spyOn(mission, 'saveRoute');
+    const clearRouteSpy = vi.spyOn(mission, 'clearRoute');
+    const exportSpy = vi.spyOn(mission, 'exportMission');
+    const setModeSpy = vi.spyOn(mission, 'setMode');
+
+    // Click "2. Edit route" in MissionReviewComponent while sidebar is collapsed
+    const plannerBtn = compiled.querySelector('[data-workflow-tab="planner"]') as HTMLButtonElement;
+    plannerBtn.click();
+    fixture.detectChanges();
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    fixture.detectChanges();
+
+    expect(component.isPanelCollapsed()).toBe(false);
+    expect(component.activeTab()).toBe('planner');
+    expect(document.activeElement?.id).toBe('tab-planner');
+
+    // Navigate through transfer and back to notebook
+    const transferBtn = compiled.querySelector(
+      '[data-workflow-tab="transfer"]',
+    ) as HTMLButtonElement;
+    transferBtn.click();
+    fixture.detectChanges();
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    expect(component.activeTab()).toBe('transfer');
+    expect(document.activeElement?.id).toBe('tab-transfer');
+
+    notebookBtn.click();
+    fixture.detectChanges();
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    expect(component.activeTab()).toBe('notebook');
+    expect(document.activeElement?.id).toBe('tab-notebook');
+    expect(notebookComp.draftText()).toBe('Unsaved boxwork fracture observation draft');
+
+    // Verify zero side effects on mission or storage
+    expect(setItemSpy).not.toHaveBeenCalled();
+    expect(saveRouteSpy).not.toHaveBeenCalled();
+    expect(clearRouteSpy).not.toHaveBeenCalled();
+    expect(exportSpy).not.toHaveBeenCalled();
+    expect(setModeSpy).not.toHaveBeenCalled();
+    setItemSpy.mockRestore();
+  });
 });

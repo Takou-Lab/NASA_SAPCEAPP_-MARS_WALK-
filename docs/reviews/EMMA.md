@@ -1,5 +1,15 @@
 # Emma — release UI Phase 2 approved and integrated; Phase 3 deployed UI validation next
 
+## Mission decision workspace dbef815 — accepted
+
+Reviewed 15 November 2026. feature/emma-release-ui and feature/emma-mission-workspace point to identical dbef815, one implementation. New MissionReviewComponent reads existing endpoint/waypoint/distance/selected-record/observation signals and emits typed tab requests. Shell expands sidebar and focuses the real tab; no new mission store, distance formula, automatic save/export or drawing-mode change. Planner gives explicit Load Route/origin guidance. Owned UI/planner/test/QA scope respected; briefing/core/science data unchanged.
+
+**New integrated checks:** 235 Angular tests across 22 files pass; build/full-pack pass; initial **472.63 kB**, within unchanged 500 kB warning budget. Pack prefix **9fb8687993c1**, 19 assets / 1,700,720 bytes. Leaflet CommonJS warning remains. Persistent Chromium production-browser check verifies new workflow actions from collapsed sidebar, correct focus and exact unsaved draft preservation, alongside existing keyboard/briefing/disclosures, induced failed-save retention, successful save/export/import guard, width/focus behavior and both-theme 390px no overflow. Full browser process restart disconnected before navigation recovers route/observations/export and limited environment context; opt-in flat viewer teardown passes.
+
+Browser harness adjusted to test lazy initial mounts before intentionally opening panels and to check the actual inert state instead of requiring a serialized aria-hidden=false attribute. No product fix required. Temporary evidence /tmp/emma-workspace-*; this record preserves method and scope. Contributor desktop/tablet/contrast/zoom claims in RELEASE_UI.md retain their own scope; no new physical hardware/unfamiliar-user outcomes claimed.
+
+Assignment complete within current visual-planning boundary. Geographic calibration/terrain remain unavailable; no operational survival-map completion claim. Next Emma: preserve local work/incorporate main, then validate the exact next coordinator-deployed candidate and provide blocking issues/screenshots. Do not repeat workspace/briefing implementation or add a new redesign. Public source 38516f8 is older; no redeployment in this review.
+
 ## Mission briefing d4b335a — accepted and mounted
 
 15 November 2026. Read-only standalone question/evidence/checklist component accepted; no mission/store mutation. Coordinator mounted once, reused actual theme tokens and collapsed long details by default. Two branch aliases identify the same commit. 229 combined Angular tests/build/local browser offline recovery pass. Existing mission-workspace Agent 1 slice is separate; no newer source for it is advertised. [Combined evidence](../qa/TEAM_SUBMISSION_CHECK.md). No deployment in this review.

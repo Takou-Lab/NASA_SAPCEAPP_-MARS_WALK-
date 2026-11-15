@@ -78,6 +78,10 @@ Emma Agent 2 d4b335a briefing accepted/mounted once (both briefing branch names 
 
 User requested objective-related work in personal MDs. Emma 2: field observation template/copy-with-fallback in owned briefing folder, no Notebook mutation. Enzo 1: optional readonly two-record science evidence comparison in science TS/HTML/tests, no route/pin/store changes. Willy 1: route-geometry/mode/edge-case map interaction if current unpublished slice complete. Willy 2: real installed mission save/offline/load/export evidence. Existing incomplete corrections remain unchanged. All bounded to current APIs/ownership and no fake science/safety; see personal NEXT ACTIVE SLICE sections. No runtime implementation in this assignment update.
 
+## Emma mission workspace dbef815 accepted
+
+Both mission-workspace/release-ui branches point to dbef815. Signal-based mission summary + typed workflow tab actions accepted, expands sidebar/focuses tabs without save/mode/mission mutation. 235 Angular tests/build/local browser/offline recovery pass, initial 472.63 kB. See docs/reviews/EMMA.md. No redeployment: public 38516f8 remains older; Emma's next is actual candidate acceptance, not repeat implementation. Agent 2 briefing/observation guide separate. Calibration/terrain still unavailable.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.
