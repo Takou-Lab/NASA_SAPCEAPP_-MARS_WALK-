@@ -1,5 +1,9 @@
 # Enzo review — final shell integrated
 
+## Location clarity 8855a2e — accepted
+
+15 November 2026. Science component differentiates evidence category from location confidence; regional records are not route stops, selection leaves route unchanged. Exact shared models and original null positions preserved, no new pins. 229 combined tests/build/local browser recovery pass. Agent 2 source draft corrections remain open; this does not approve AI content. [Combined evidence](../qa/TEAM_SUBMISSION_CHECK.md). No deployment in this review.
+
 ## Agent 2 38cd2b3 — status note only; source corrections still open
 
 Reviewed 15 November 2026. Compared with e161e41, the only change is a five-line note in PRESENTATION.md identifying the explanation package as proposal-only. The three explanation bodies, pending review claims and missing sentence-to-source mapping are unchanged. No new runtime feature or corrected source package; not merged. Agent 1 remains accepted at 2b2a708 with no newer navigation tip.

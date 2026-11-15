@@ -1,5 +1,9 @@
 # Emma 2 — Guided boxwork mission briefing
 
+## Latest team integration check
+
+Your d4b335a briefing is accepted and mounted once, with coordinator theme-token/collapsed-detail adjustments. No repeat component needed. Safely incorporate main preserving work, then check question/source/structural-checklist readability and keyboard disclosure on the next actual deployed revision; current public candidate is older. No new coordinates/calibration or mission-success claims. [Checks and limits](../qa/TEAM_SUBMISSION_CHECK.md).
+
 ## Coordination with Agent 1's mission workspace
 
 Your original standalone briefing remains your assignment; preserve any completed/unpublished work and send its actual branch/SHA. No new briefing branch is advertised in the latest check, so completion cannot yet be reviewed. Agent 1 now implements a compact operational summary and shell tab-navigation actions in src/app/ui only. You keep scientific question/background, evidence-location explanation and readonly structural checklist under src/app/mission-briefing only. Avoid duplicated route/quantity dashboards or shell edits; coordinator reconciles mounting. Deliver a small reviewable component promptly, not additional documentation in place of code. Existing no-fake-position/scale/mission-success boundaries apply.

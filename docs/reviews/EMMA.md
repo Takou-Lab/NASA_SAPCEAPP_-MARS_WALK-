@@ -1,5 +1,9 @@
 # Emma — release UI Phase 2 approved and integrated; Phase 3 deployed UI validation next
 
+## Mission briefing d4b335a — accepted and mounted
+
+15 November 2026. Read-only standalone question/evidence/checklist component accepted; no mission/store mutation. Coordinator mounted once, reused actual theme tokens and collapsed long details by default. Two branch aliases identify the same commit. 229 combined Angular tests/build/local browser offline recovery pass. Existing mission-workspace Agent 1 slice is separate; no newer source for it is advertised. [Combined evidence](../qa/TEAM_SUBMISSION_CHECK.md). No deployment in this review.
+
 ## Phase 2 59e00e1 — accepted and integrated
 
 Reviewed 15 November 2026 against main 1f6c81a. Owned shell/header/planner/notebook, three expressly delegated shared SCSS theme files and QA only. Header consumes existing PwaService read-only signals to distinguish metadata/network/full-pack readiness; no duplicated initialization or action surface. Native controls, next-action hints and theme tokens preserve coordinator evidence disclosures and mission state. Environmental projection slot is reserved with honest pending status, not a fabricated data API.

@@ -11,8 +11,9 @@
       }
     </div>
     <p class="science-context-note">
-      Regional Curiosity and orbital findings remain readable here as exploration context when pixel
-      coordinates on the active image are unavailable.
+      Evidence category describes the record; position status says whether it is located on this
+      image. Regional context can guide a science question, but it is not a route stop. Selecting a
+      record never changes the route; place route points separately on the map.
     </p>
     @if (
       mission.dataStatus() !== 'loading' &&
@@ -127,11 +128,7 @@
                 <span class="record-title">{{ record.name }}</span>
                 <span class="record-badges">
                   <span class="record-evidence pill">{{ record.evidenceType }}</span>
-                  <span class="record-position-badge pill">{{
-                    record.positionStatus === 'unavailable' || record.position === null
-                      ? 'Contextual (unlocated)'
-                      : record.positionStatus
-                  }}</span>
+                  <span class="record-position-badge pill">{{ formatPositionBadge(record) }}</span>
                 </span>
               </button>
             </li>
@@ -195,8 +192,14 @@
 
           <dl class="record-metadata stack">
             <div class="metadata-row">
-              <dt>Evidence type</dt>
-              <dd>{{ record.evidenceType }}</dd>
+              <dt>Record-level evidence category</dt>
+              <dd>
+                {{ record.evidenceType }}
+                <small class="metadata-explanation">
+                  Read the finding for any source-specific observations, derivations, and
+                  interpretations.
+                </small>
+              </dd>
             </div>
             <div class="metadata-row">
               <dt>Instrument</dt>

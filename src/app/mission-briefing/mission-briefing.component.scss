@@ -1,12 +1,12 @@
 :host {
   display: block;
-  color: var(--mars-text, #f1f5fa);
+  color: var(--text-primary, #f1f5fa);
   font-family: inherit;
 }
 
 .mission-briefing {
-  background: var(--mars-surface, #151b25);
-  border: 1px solid var(--mars-border, #2e3846);
+  background: var(--bg-card, #151b25);
+  border: 1px solid var(--border-subtle, #2e3846);
   border-radius: 0.5rem;
   padding: 0.85rem 1rem;
   max-width: 100%;
@@ -23,34 +23,34 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--mars-text-muted, #9aa6b8);
+  color: var(--text-secondary, #9aa6b8);
 }
 
 .briefing-title {
   margin: 0;
   font-size: 1rem;
   line-height: 1.35;
-  color: var(--mars-text, #f1f5fa);
+  color: var(--text-primary, #f1f5fa);
 }
 
 .briefing-state {
   margin: 0.5rem 0;
   padding: 0.5rem 0.65rem;
   border-radius: 0.375rem;
-  background: var(--mars-surface-elevated, #1d2635);
-  border: 1px solid var(--mars-border, #2e3846);
+  background: var(--bg-surface, #1d2635);
+  border: 1px solid var(--border-subtle, #2e3846);
   font-size: 0.85rem;
 }
 
 .briefing-state--error {
-  border-color: var(--mars-danger, #f27979);
+  border-color: var(--warning-text, #f27979);
 }
 
 .briefing-disclosure {
   margin-top: 0.65rem;
-  border: 1px solid var(--mars-border, #2e3846);
+  border: 1px solid var(--border-subtle, #2e3846);
   border-radius: 0.375rem;
-  background: var(--mars-surface-elevated, #1b2230);
+  background: var(--bg-surface, #1b2230);
 }
 
 .briefing-summary {
@@ -62,14 +62,14 @@
 }
 
 .briefing-summary:focus-visible {
-  outline: 2px solid var(--mars-focus, #8bc8ff);
+  outline: 2px solid var(--border-focus, #8bc8ff);
   outline-offset: 2px;
   border-radius: 0.375rem;
 }
 
 .briefing-body {
   padding: 0.5rem 0.75rem 0.75rem;
-  border-top: 1px solid var(--mars-border, #2e3846);
+  border-top: 1px solid var(--border-subtle, #2e3846);
   font-size: 0.84rem;
   line-height: 1.45;
 }
@@ -84,7 +84,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: var(--mars-text-muted, #9aa6b8);
+  color: var(--text-secondary, #9aa6b8);
 }
 
 .briefing-section p {
@@ -133,7 +133,7 @@
 .checklist-disclaimer {
   margin: 0.5rem 0 0;
   font-size: 0.78rem;
-  color: var(--mars-text-muted, #9aa6b8);
+  color: var(--text-secondary, #9aa6b8);
 }
 
 a {
@@ -142,6 +142,6 @@ a {
 }
 
 a:focus-visible {
-  outline: 2px solid var(--mars-focus, #8bc8ff);
+  outline: 2px solid var(--border-focus, #8bc8ff);
   outline-offset: 2px;
 }

@@ -173,6 +173,19 @@ export class ScienceContextComponent {
     return this.mission.selectedMarkerId() === id;
   }
 
+  formatPositionBadge(record: ScienceMarker): string {
+    if (record.positionStatus === 'unavailable' || record.position === null) {
+      return 'Regional context';
+    }
+    if (record.positionStatus === 'illustrative') {
+      return 'Illustrative image point';
+    }
+    if (record.positionStatus === 'verified') {
+      return 'Verified image point';
+    }
+    return 'Position status unavailable';
+  }
+
   private selectAdjacentRecord(offset: -1 | 1): void {
     const currentIndex = this.selectedFilteredIndex();
     const adjacentRecord = this.filteredMarkers()[currentIndex + offset];
@@ -184,15 +197,15 @@ export class ScienceContextComponent {
 
   formatPositionStatus(record: ScienceMarker): string {
     if (record.positionStatus === 'unavailable' || record.position === null) {
-      return 'Unavailable on this image (contextual record — no map pin)';
+      return 'Unavailable on this image — regional context only, with no point to use as a route stop. Choose a route point on the map separately.';
     }
     if (record.positionStatus === 'illustrative' && record.position) {
-      return `Illustrative (${record.position.x}, ${record.position.y} px)`;
+      return `Illustrative image position (${record.position.x}, ${record.position.y} px; bottom-left origin); not a verified location. Selecting this record does not set a route point.`;
     }
     if (record.positionStatus === 'verified' && record.position) {
-      return `Verified (${record.position.x}, ${record.position.y} px)`;
+      return `Verified image position (${record.position.x}, ${record.position.y} px; bottom-left origin). Selecting this record highlights its map point but does not set a route point.`;
     }
-    return 'Unavailable on this image';
+    return 'Unavailable on this image — position status is missing or unsupported; do not use as a route stop.';
   }
 
   safeExternalUrl(url: string): string | null {

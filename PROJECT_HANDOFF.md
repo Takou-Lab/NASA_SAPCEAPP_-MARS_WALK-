@@ -70,6 +70,10 @@ User requested substantial objective-focused work. Published UI tip still 59e00e
 
 6a5e351 requested for preview, but unmodified isolated test/build both fail NG5002 notebook HTML unmatched @else; test compilation also TS2352 mock cast. Checkbox regression remains. No working preview or merge of that SHA. LONGLA.md lists corrections and requires a new SHA. Public candidate 38516f8 stays available; main runtime unchanged by this review.
 
+## Latest team submission check
+
+Emma Agent 2 d4b335a briefing accepted/mounted once (both briefing branch names same tip), coordinator theme-token/collapsed-details adjustment. Enzo Agent 1 8855a2e location clarity accepted. 229 Angular tests/build and local full-process offline recovery pass; initial 464.82 kB. See docs/qa/TEAM_SUBMISSION_CHECK.md. No redeployment: public source 38516f8 is older. Royce 6a5e351 still fails compilation; Enzo 2 38cd2b3 source corrections open; no new Willy/Gaddielle/Takou submission. Emma Agent 1 workspace not advertised. Preserve unpublished work.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

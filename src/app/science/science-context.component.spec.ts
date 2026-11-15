@@ -168,7 +168,7 @@ describe('ScienceContextComponent', () => {
     fixture.detectChanges();
   });
 
-  it('renders three unlocated records as selectable native buttons with aria-pressed="false"', () => {
+  it('renders the three contextual records with distinct evidence and image-location labels', () => {
     const buttons = fixture.nativeElement.querySelectorAll(
       'ul.science-record-list button.science-record-button',
     ) as NodeListOf<HTMLButtonElement>;
@@ -180,7 +180,7 @@ describe('ScienceContextComponent', () => {
       expect(button.tagName).toBe('BUTTON');
       expect(button.getAttribute('type')).toBe('button');
       expect(button.getAttribute('aria-pressed')).toBe('false');
-      expect(button.textContent).toContain('Contextual (unlocated)');
+      expect(button.textContent).toContain('Regional context');
     });
 
     expect(buttons[0].textContent).toContain('Synthetic Sulfate Zone');
@@ -189,6 +189,12 @@ describe('ScienceContextComponent', () => {
     expect(buttons[1].textContent).toContain('interpreted');
     expect(buttons[2].textContent).toContain('Synthetic Clay Transition');
     expect(buttons[2].textContent).toContain('derived');
+
+    const contextNote = fixture.nativeElement.querySelector('.science-context-note') as HTMLElement;
+    expect(contextNote.textContent).toContain('Evidence category describes the record');
+    expect(contextNote.textContent).toContain('position status says whether it is located');
+    expect(contextNote.textContent).toContain('it is not a route stop');
+    expect(contextNote.textContent).toContain('place route points separately on the map');
   });
 
   it('selects a record, displays complete details and limitations, and clears selection', () => {
@@ -214,10 +220,14 @@ describe('ScienceContextComponent', () => {
       'Synthetic elevated sulfate signature detected across fracture fill.',
     );
     expect(details.textContent).toContain('measured');
+    expect(details.textContent).toContain('Record-level evidence category');
+    expect(details.textContent).toContain(
+      'Read the finding for any source-specific observations, derivations, and interpretations.',
+    );
     expect(details.textContent).toContain('APXS');
     expect(details.textContent).toContain('2024-06-01');
     expect(details.textContent).toContain(
-      'Unavailable on this image (contextual record — no map pin)',
+      'Unavailable on this image — regional context only, with no point to use as a route stop. Choose a route point on the map separately.',
     );
     expect(details.textContent).toContain('Synthetic Lab A');
     expect(details.textContent).toContain('External source link requires network connectivity.');
@@ -546,12 +556,22 @@ describe('ScienceContextComponent', () => {
       positionStatus: 'unknown' as unknown as ScienceMarker['positionStatus'],
     };
 
-    expect(component.formatPositionStatus(illustrative)).toBe('Illustrative (120, 340 px)');
-    expect(component.formatPositionStatus(verified)).toBe('Verified (45, 90 px)');
-    expect(component.formatPositionStatus(unavailable)).toBe(
-      'Unavailable on this image (contextual record — no map pin)',
+    expect(component.formatPositionBadge(illustrative)).toBe('Illustrative image point');
+    expect(component.formatPositionBadge(verified)).toBe('Verified image point');
+    expect(component.formatPositionBadge(unavailable)).toBe('Regional context');
+    expect(component.formatPositionStatus(illustrative)).toBe(
+      'Illustrative image position (120, 340 px; bottom-left origin); not a verified location. Selecting this record does not set a route point.',
     );
-    expect(component.formatPositionStatus(unknownStatus)).toBe('Unavailable on this image');
+    expect(component.formatPositionStatus(verified)).toBe(
+      'Verified image position (45, 90 px; bottom-left origin). Selecting this record highlights its map point but does not set a route point.',
+    );
+    expect(component.formatPositionStatus(unavailable)).toBe(
+      'Unavailable on this image — regional context only, with no point to use as a route stop. Choose a route point on the map separately.',
+    );
+    expect(component.formatPositionBadge(unknownStatus)).toBe('Position status unavailable');
+    expect(component.formatPositionStatus(unknownStatus)).toBe(
+      'Unavailable on this image — position status is missing or unsupported; do not use as a route stop.',
+    );
 
     expect(component.safeExternalUrl('https://mars.nasa.gov/example')).toBe(
       'https://mars.nasa.gov/example',

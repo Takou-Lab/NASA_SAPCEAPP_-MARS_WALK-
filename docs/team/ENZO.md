@@ -1,5 +1,9 @@
 # Enzo — Remaining verification, science, AI and presentation work
 
+## Latest team integration check
+
+Your 8855a2e location-clarity change is accepted; no repeat navigation/copy task. Preserve work and safely incorporate main. Next verify actual selected-record provenance/location labels with the mission briefing on the next candidate; any spatial mapping requires reviewed raster identity/coordinates. Agent 2 source explanations remain a different review. [Checks and limits](../qa/TEAM_SUBMISSION_CHECK.md).
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Agent 1 priority now — location-aware science presentation

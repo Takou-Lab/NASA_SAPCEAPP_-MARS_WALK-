@@ -64,6 +64,7 @@ describe('App integration', () => {
     expect(fixture.nativeElement.querySelectorAll('app-exploration-confidence')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-image-passport')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('app-environment-context')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelectorAll('app-mission-briefing')).toHaveLength(1);
     expect(fixture.nativeElement.textContent).toContain('measurements withheld');
 
     const buttons = fixture.nativeElement.querySelectorAll(

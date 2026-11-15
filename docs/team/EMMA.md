@@ -1,5 +1,9 @@
 # Emma — Remaining professional UI and deployment work
 
+## Latest team integration check
+
+Agent 2 briefing d4b335a is accepted/mounted centrally. Agent 1 UI remains accepted at 59e00e1; no newer mission workspace advertised. Preserve unpublished summary/navigation work and send actual branch/SHA for review. Do not duplicate or overwrite Agent 2 briefing. Both agents share acceptance evidence below. [Checks and limits](../qa/TEAM_SUBMISSION_CHECK.md).
+
 ## Active substantial implementation — mission decision workspace
 
 User requested work directly focused on the Marswalk objective. Published release-ui remains 59e00e1 (accepted); no newer UI or mission-briefing tip is advertised as of this check. Do not assume unpublished work is absent. Preserve it and send its branch/SHA before overlapping changes. The following is Agent 1's next CODE slice, not another presentation document or decorative redesign.
