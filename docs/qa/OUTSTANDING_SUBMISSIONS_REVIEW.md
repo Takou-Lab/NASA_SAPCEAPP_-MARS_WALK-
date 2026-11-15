@@ -26,3 +26,7 @@ Raw archives do not enter public/data, the runtime image/mission contracts or of
 390px touch-emulated production browser: keyboard placement via Enter, coordinate bounds, real start/waypoint/destination drawing, Reset/Focus route preservation, reversible Notebook attachment, source disclosures, bounded science comparison, scenario arithmetic/download, exact route/note/objective/declaration/assumption recovery after full process restart offline and no horizontal page overflow pass. Physical phone acceptance is pending.
 
 Build warnings remain the prior shell stylesheet warning and Leaflet CommonJS optimization notice; budgets are unchanged. Combined offline pack is about 9.74 MB with 20 assets and includes uploaded relief; raw data bundles are excluded.
+
+## Public candidate acceptance
+
+Runtime 828fb35 at https://marswalk-review-boys-band.vercel.app/; unique deployment https://marswalk-2t995p660-boys-band.vercel.app/ (dpl_9mYU2Y81DvGTAHb2gCFnzZxn7BHU). Anonymous HTTP checks verify all 20 asset hashes and 404 for the raw REMS table URL; pack f09d91208dbb8dc278678cb6e22525590b2b58fb3530d60a332982d2dc7a90d6, 9,738,193 bytes. On this public origin the keyboard map-center placement, Reset/Focus preservation, reversible note attachment, source/comparison and complete mission/brief/scenario/full-process offline recovery checks pass at 390px. Production alias unchanged. Physical-device tests remain pending; save/export before applying a PWA update.
