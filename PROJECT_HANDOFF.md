@@ -2,6 +2,10 @@
 
 Updated 15 November 2026 UTC. This file is the cross-chat handoff, not an assertion that every remote feature is accepted. Verify Git and deployment state before acting. Never include credentials here.
 
+## Source library and evidence comparison
+
+Source links/long limitations are collapsed by default; a central Sources, data & methods disclosure indexes image, science, historical environmental and model provenance. Findings and critical location/review/planning boundaries remain visible. Enzo e68e734 cherry-picked as 73be9d1 for optional two-record comparison. [Evidence](docs/qa/SOURCE_LIBRARY_AND_COMPARISON.md); 278 tests/build pass. Takou-owned styles untouched; source-branch integration is not blanket acceptance of data deliveries.
+
 ## Mission preparation and combined brief implemented
 
 Coordinator took over Emma 1’s unclaimed slice. Route Planner’s survival card now has collapsed objective/user-declaration editor, separate explicit save/automatic restoration and a combined downloadable TXT including route, time assumptions, selected science finding/source/limits and saved observation text. [Evidence](docs/qa/SURVIVAL_BRIEF.md). 274 tests/build and phone-size full-process offline recovery pass. Checks are user declarations, never operational clearance; Emma should not duplicate this component. No Takou styles touched.

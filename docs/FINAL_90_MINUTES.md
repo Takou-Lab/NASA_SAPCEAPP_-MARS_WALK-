@@ -53,3 +53,7 @@ At the user’s request while teammates were unavailable, coordinator completed 
 ## Coordinator takeover — mission brief implemented
 
 Emma Agent 1’s unclaimed mission-brief package is now implemented and integrated in the existing survival time card. [Evidence](qa/SURVIVAL_BRIEF.md). Objective and reversible declarations save/restore separately; the combined text download includes route, time scenario, selected science source/limits and saved observation text. 274 tests/build and full-process phone-size offline browser recovery pass. Emma must not start a competing implementation. Takou/Charles remains the visual-polish owner.
+
+## Source decluttering and Enzo comparison accepted
+
+Sources are grouped in a closed central data/methods library and contextual disclosures. Key findings, location/review status and planning limits stay visible. Enzo e68e734 accepted as 73be9d1: optional two-record evidence comparison, no route/science-selection/storage mutation. [Evidence](qa/SOURCE_LIBRARY_AND_COMPARISON.md): 278 tests/build; native disclosure/comparison and complete offline mission browser checks. Other raw-source deliveries and Takou visual branch remain independent review items.

@@ -10,5 +10,47 @@
       records and environmental readings have their own source disclosures.
     </p>
     <app-image-passport />
+    <section aria-label="Science source index">
+      <h3>Science records</h3>
+      <p>Regional context is not a confirmed location on the active image.</p>
+      <ul>
+        @for (record of mission.markers(); track record.id) {
+          <li>
+            @if (sourceUrl(record.source.url); as url) {
+              <a [href]="url" target="_blank" rel="noopener noreferrer">{{ record.name }}</a>
+            } @else {
+              <span>{{ record.name }}</span>
+            }
+            <p>{{ record.source.credit }} · {{ record.positionStatus }} position</p>
+          </li>
+        }
+      </ul>
+    </section>
+    @if (environment.context(); as context) {
+      <section aria-label="Environmental source index">
+        <h3>Historical environmental data</h3>
+        @if (sourceUrl(context.sourceUrl); as url) {
+          <a [href]="url" target="_blank" rel="noopener noreferrer">Curiosity REMS archive</a>
+        }
+        <p>
+          Review state: {{ environment.status() }}. Historical rover-local context, not current
+          conditions along your route.
+        </p>
+      </section>
+    }
+    <section aria-label="Generated model source">
+      <h3>Generated 3D model</h3>
+      <a href="https://github.com/TencentARC/Pixal3D" target="_blank" rel="noopener noreferrer"
+        >Tencent ARC Pixal3D</a
+      >
+      <p>
+        User-supplied AI-generated illustration. Its geometry does not provide measured Martian
+        elevation or slope.
+      </p>
+    </section>
+    <p>
+      External source websites require internet. Local source descriptions remain available in a
+      prepared offline pack.
+    </p>
   </details>
 </div>

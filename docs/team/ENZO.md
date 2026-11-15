@@ -2,7 +2,7 @@
 
 ## ACTIVE — final 90-minute survival-planning release
 
-Hand off 99dc2d5 REMS source/extractor/tests/quality and spatial limits. No unreviewed runtime integration. Send e68e734 comparison SHA for coordinator review; do not start another data search.
+Hand off 99dc2d5 REMS source/extractor/tests/quality and spatial limits. No unreviewed runtime integration. Comparison e68e734 is now accepted and integrated as 73be9d1; do not reimplement it. Its checks and remaining source-review boundary are recorded in docs/qa/SOURCE_LIBRARY_AND_COMPARISON.md. Do not start another data search.
 
 Read [the exact shared assignment, ownership and clock](../FINAL_90_MINUTES.md). This section supersedes older future-work lists. Preserve/push existing work first; use current main and stable review URL. First handoff by minute 35, integration freeze at minute 55, submission reserved for final 15 minutes. No inferred safe-route or life-support claims.
 

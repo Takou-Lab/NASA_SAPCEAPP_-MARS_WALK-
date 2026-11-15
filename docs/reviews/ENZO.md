@@ -1,5 +1,10 @@
 # Enzo review — final shell integrated
 
+## Evidence comparison e68e734 — accepted in 73be9d1
+
+Read-only two-record comparison reviewed and integrated with source-library decluttering. 278 combined Angular tests/build pass; phone-size browser checks validate bounded selection and unchanged route/notes/global science selection. [Evidence](../qa/SOURCE_LIBRARY_AND_COMPARISON.md). This does not approve the separate REMS raw-source branch or older Agent 2 explanation claims.
+
+
 ## Location clarity 8855a2e — accepted
 
 15 November 2026. Science component differentiates evidence category from location confidence; regional records are not route stops, selection leaves route unchanged. Exact shared models and original null positions preserved, no new pins. 229 combined tests/build/local browser recovery pass. Agent 2 source draft corrections remain open; this does not approve AI content. [Combined evidence](../qa/TEAM_SUBMISSION_CHECK.md). No deployment in this review.
