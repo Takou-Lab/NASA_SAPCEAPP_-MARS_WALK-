@@ -1,4 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MissionService } from '../../core/mission.service';
 
 /**
@@ -7,9 +8,9 @@ import { MissionService } from '../../core/mission.service';
  * No mutations, storage, or navigation actions are performed.
  */
 @Component({
-  selector: 'app-emma-mission-briefing',
+  selector: 'app-mission-briefing',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './emma-mission-briefing.component.html',
   styleUrl: './emma-mission-briefing.component.scss',
 })

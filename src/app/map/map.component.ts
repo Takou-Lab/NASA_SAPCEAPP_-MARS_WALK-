@@ -146,6 +146,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         .markers()
         .find((marker) => marker.id === selectedId && marker.imageRef === image.imageRef) ?? null
     );
+   /** True when a route has any points (start, destination, or waypoints). */
+   readonly hasRoute = computed(() => routePoints(this.mission.route()).length > 0);
+   /** Called by the HUD buttons – stops propagation to the map. */
+   undoRoute(event: Event): void {
+     event.stopPropagation();
+     this.mission.undoRoute();
+   }
+   clearRoute(event: Event): void {
+     event.stopPropagation();
+     this.mission.clearRoute();
+   }
   }
 
   setLayerVisible(id: 'imagery' | 'markers', event: Event): void {
@@ -365,6 +376,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         fill: '#71430e',
       }),
     );
+   /** True when a route has any points (start, destination, or waypoints). */
+   readonly hasRoute = computed(() => routePoints(this.mission.route()).length > 0);
+   /** Called by the HUD buttons – stops propagation to the map. */
+   undoRoute(event: Event): void {
+     event.stopPropagation();
+     this.mission.undoRoute();
+   }
+   clearRoute(event: Event): void {
+     event.stopPropagation();
+     this.mission.clearRoute();
+   }
     if (route.destination)
       desired.set('destination', {
         point: route.destination,
@@ -389,6 +411,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           ? { point: marker.position, color: '#f4a340', fill: '#71430e' }
           : { point: marker.position, color: '#8ecbff', fill: '#16466c' },
       );
+   /** True when a route has any points (start, destination, or waypoints). */
+   readonly hasRoute = computed(() => routePoints(this.mission.route()).length > 0);
+   /** Called by the HUD buttons – stops propagation to the map. */
+   undoRoute(event: Event): void {
+     event.stopPropagation();
+     this.mission.undoRoute();
+   }
+   clearRoute(event: Event): void {
+     event.stopPropagation();
+     this.mission.clearRoute();
+   }
     }
     this.reconcilePointLayers(this.scienceMarkers, desired, this.markerLayer);
     for (const [id, layer] of this.scienceMarkers) {

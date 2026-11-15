@@ -1,0 +1,20 @@
+.mission-briefing {
+  margin: 1rem;
+  max-width: 390px;
+}
+
+.mission-briefing h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.mission-briefing details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.mission-briefing ul {
+  list-style: disc inside;
+  padding-left: 0.5rem;
+}

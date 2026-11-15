@@ -1,0 +1,39 @@
+<section class="mission-briefing" aria-labelledby="briefing-title">
+  <h2 id="briefing-title">{{ title }}</h2>
+
+  <details open>
+    <summary>Briefing</summary>
+    <p>Purpose: Examine contextual NASA evidence for the boxwork interpretation and document a proposed exploration.</p>
+    <p *ngIf="imageSource(); else noImage">
+      Evidence image: <a [href]="imageSource().url" target="_blank" rel="noopener noreferrer">{{ imageSource().title }}</a>
+      ({{ imageSource().credit }})
+    </p>
+    <ng-template #noImage>
+      <p>No image source available.</p>
+    </ng-template>
+    <h3>Science Records</h3>
+    <ul>
+      <li *ngFor="let m of markers()">
+        {{ m.name }} – {{ m.evidenceType }}
+      </li>
+    </ul>
+    <h3>Limits</h3>
+    <p>Science records have no verified image positions; exact overlap is unverified. No metric scale, DEM, slope, current weather, obstacle clearance or safety rating is provided.</p>
+  </details>
+
+  <details>
+    <summary>Checklist (read‑only)</summary>
+    <ul>
+      <li>
+        Start & Destination selected: {{ checklist().startAndDestination ? '✓' : '✗' }}
+      </li>
+      <li>
+        Science record selected: {{ checklist().markerSelected ? '✓' : '✗' }}
+      </li>
+      <li>
+        Observation present: {{ checklist().observationPresent ? '✓' : '✗' }}
+      </li>
+    </ul>
+    <p>These items only indicate that the inputs exist; they do not imply a successful mission.</p>
+  </details>
+</section>
