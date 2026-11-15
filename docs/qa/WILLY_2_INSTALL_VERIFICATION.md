@@ -42,3 +42,35 @@ The webmanifest parsed successfully. It declares MARSWALK name and short name, E
 4. Keep the unapproved npm install-script warnings and Leaflet CommonJS warning visible for coordinator review; they did not block either production build.
 
 No physical-device acceptance, current-host iOS launcher discovery, or installed offline mission recovery is claimed by this report.
+
+## Execution details added after independent review
+
+### Initial Git state
+
+Before fetching main, the branch was `feature/willy-pwa-install-assets` at `ac79be5876f80ce3c728c17756fa86f7873f2af0`; it was three commits behind `origin/main`. `git status --short --branch` showed only the existing staged modification to `docs/qa/PWA_INSTALL_ASSETS.md`. `stash@{0}` was `90e027034e605698f5981d2553c31519462ac33c`.
+
+After the fast-forward to tested commit `d6801a417a5a32375bf6453deadcc024d1460919` and before `npm.cmd ci`, the only tracked worktree change was that same QA document, reapplied by Git's autostash as an **unstaged** modification. The stash remained unchanged. No clean-working-tree state is claimed for this run.
+
+### Local HTTP server commands and requested URLs
+
+Both temporary servers listened on `127.0.0.1:4173`. The root server mapped `/` to `dist/marswalk/browser/index.html`; the subpath server only served requests prefixed by `/marswalk/` from the same build directory. These are the inline Node commands used:
+
+Root build:
+
+```powershell
+node.exe --% -e "const http=require('http'),fs=require('fs'),path=require('path');const root=path.resolve('dist/marswalk/browser');http.createServer((req,res)=>{let url=new URL(req.url,'http://localhost').pathname;let rel=url.startsWith('/')?url.slice(1):url;if(!rel||rel.endsWith('/'))rel+='index.html';const file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end('forbidden')}fs.readFile(file,(err,b)=>{if(err){res.writeHead(404);return res.end('not found')}const ext=path.extname(file);const types={'.html':'text/html','.webmanifest':'application/manifest+json','.json':'application/json','.js':'text/javascript','.css':'text/css','.png':'image/png','.ico':'image/x-icon'};res.writeHead(200,{'Content-Type':types[ext]||'application/octet-stream','Content-Length':b.length});res.end(b)})}).listen(4173,'127.0.0.1',()=>console.log('ROOT-READY'))"
+```
+
+Subpath build:
+
+```powershell
+node.exe --% -e "const http=require('http'),fs=require('fs'),path=require('path');const root=path.resolve('dist/marswalk/browser');http.createServer((req,res)=>{let url=new URL(req.url,'http://localhost').pathname;const prefix='/marswalk/';if(!url.startsWith(prefix)){res.writeHead(404);return res.end('outside subpath')}let rel=url.slice(prefix.length);if(!rel||rel.endsWith('/'))rel+='index.html';const file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end('forbidden')}fs.readFile(file,(err,b)=>{if(err){res.writeHead(404);return res.end('not found')}const ext=path.extname(file);const types={'.html':'text/html','.webmanifest':'application/manifest+json','.json':'application/json','.js':'text/javascript','.css':'text/css','.png':'image/png','.ico':'image/x-icon'};res.writeHead(200,{'Content-Type':types[ext]||'application/octet-stream','Content-Length':b.length});res.end(b)})}).listen(4173,'127.0.0.1',()=>console.log('MARSWALK-READY'))"
+```
+
+The root request loop used `Invoke-WebRequest` against `http://127.0.0.1:4173/`, `/manifest.webmanifest`, `/icons/marswalk-192.png`, `/icons/marswalk-512.png`, `/icons/marswalk-maskable-512.png`, `/data/manifest.json`, `/offline-pack.json` and `/service-worker.js`. The subpath loop used the same paths prefixed with `/marswalk/`; `curl.exe` also checked that the root-level `/manifest.webmanifest` returned 404 on the subpath-only server.
+
+**Raster image HTTP request: NOT PERFORMED.** The local request loops did not request the raster path from `manifest.assetPath`; the hosted URL checks also did not request it. No raster HTTP status or response size is claimed.
+
+### Archived logs
+
+Build and HTTP results were observed in the interactive command output and summarized in this report. **No build logs, HTTP transcripts, screenshots or network traces were archived as files.**
