@@ -27,3 +27,5 @@ Anonymous browser verification on the stable HTTPS alias passed the same real-mo
 ## Discoverability correction
 
 The uploaded relief now opens by default when Open 3D viewer is selected. Flat mission map remains an explicit alternative; selected controls have theme-aware styling and touch targets. 252 Angular tests/build pass; a 390px touch-emulated browser loads the supplied model without selecting a second mode, taps triangles, returns to the flat view and reopens the model after full-process offline restart.
+
+Published source 620d259 on stable alias https://marswalk-review-boys-band.vercel.app/, unique deployment https://marswalk-klqfh2y08-boys-band.vercel.app/. All 20 asset hashes match the local build. Anonymous HTTPS phone-size touch-emulated test confirms uploaded relief is selected on opening, without a second mode click; metrics/triangle selection, return to flat map and full-process offline reopening pass. Existing installs may need Check for updates then Prepare & apply update after saving/exporting work. Production alias was not promoted.
