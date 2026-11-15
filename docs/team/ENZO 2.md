@@ -1,8 +1,11 @@
 # Enzo 2 — Release story, demonstration and submission evidence
 
-## Immediate correction — release story 25634e2
+## Current handoff — release-story corrections accepted
 
-Your six-document submission is reviewed but not merged. Correct [four findings](../reviews/ENZO.md#agent-2-release-story-25634e2--corrections-required): separate main/live revisions and revision-specific counts; make offline save/prepare/reopen/Load Route steps explicit; remove unsupported fonts/tool/peer-review claims and correct TypeScript license; supply the assigned release-story QA handoff. Stay on feature/enzo-release-story and preserve work. Agent 1's verifier remains accepted and UI slice independent. No new code tests or invented device/screenshots needed for documentation fixes.
+0731a49 passes documentation review with minor coordinator example/label corrections. [Acceptance](../reviews/ENZO.md#agent-2-release-story-0731a49--accepted-with-minor-coordinator-corrections). Do not repeat the closed 25634e2 correction request. Preserve local work and safely incorporate published main.
+
+Next: maintain a screenshot/rehearsal checklist in your existing QA handoff: exact candidate URL/commit/pack, device/browser/viewport, required scenes, expected saved/recovered note and actual versus unrun steps. Capture only an actually served release candidate designated by coordinator; new main is not automatically live. Once supplied, reconcile screenshots and rehearse the accepted primary/fallback script, recording actual failures and timing rather than a planned duration as a result. Consolidate real user observations only when coordinator/Longla provides them. Official page text/deadline, candidate deployment and device/session access remain dependencies, not reasons to invent outcomes. No independent deployment, external messages or runtime AI assigned.
+
 
 Assigned 15 November 2026. You are Enzo's second coding agent. Your assignment runs independently of Agent 1's confidence/evidence UI work. Read [project handoff](../../PROJECT_HANDOFF.md), [Enzo's plan](ENZO.md), [product charter](../../SOUL.MD) and [release plan](../RELEASE_PLAN.md).
 

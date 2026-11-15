@@ -1,5 +1,11 @@
 # Enzo review — final shell integrated
 
+## Agent 2 release story 0731a49 — accepted with minor coordinator corrections
+
+Reviewed 15 November 2026. Seven owned documents now separate live b6669fb from main, scope prior test evidence, include explicit Prepare offline/save/reopen/Load Route instructions and a two-minute/fallback script, correct TypeScript licensing and unsupported font/tool claims, and provide ENZO_2_RELEASE_STORY.md. Original authorship and pending physical/usability/official evidence remain intact. Coordinator corrected the unsupported “Sol 4242” example, alternate install-control label, exact system-font stack and “Observed” heading; no new rehearsal or peer-review claims. Links/anchors/format and source-state claims checked; documentation-only, no application test rerun or deployment.
+
+Previous 25634e2 correction request is closed. This accepts internal presentation materials, not final official submission compliance, screenshots or observed demo/device outcomes. Next Agent 2: prepare the screenshot/rehearsal evidence checklist from the accepted script, then capture the designated served candidate and consolidate actual coordinator/Longla user observations when supplied. Do not invent missing inputs or add a runtime feature to stay busy. Agent 1 continues science navigation independently; coordinator already completed evidence clarity at de8dfdd.
+
 ## Agent 1 evidence clarity — completed by coordinator at user request
 
 15 November 2026: bounded confidence/passport presentation changes preserve all mission/scientific state and Emma's SCSS. 194 integrated Angular tests, build and local production-browser/offline recovery checks pass. [Evidence and limitations](../qa/COORDINATOR_EVIDENCE_CLARITY.md). Agent 1 should reconcile unpublished overlapping work and move to contextual-science navigation in his personal MD. Agent 2 release-story 25634e2 corrections below remain separate and open. No deployment or physical-device acceptance claimed.
