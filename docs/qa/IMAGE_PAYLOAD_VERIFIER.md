@@ -28,6 +28,10 @@ The attempted restore of the existing locked package timed out without a registr
 
 This feature adds no runtime mount or readiness UI. It has no deployment effect until the coordinator reviews and integrates the branch and a production build is run successfully. Physical installation, complete prepared-cache readiness, disconnected app reopening and science/image acceptance remain separate checks.
 
+## Windows LF compatibility handoff — 15 November 2026
+
+After merging main `ac79be5` in merge commit `740a2a1`, the manifest working copy was refreshed to canonical LF: **1,200 bytes**, SHA-256 `40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82`. The W3 branch content remains intact. On Windows with Node `v24.20.0`, npm `12.0.2` and Git `2.55.0.windows.3`, `npm test`, `npm run build` and `npm run build -- --base-href /marswalk/` all stop before tests/pack verification because `three@0.187.0` is missing from `node_modules`; registry restore timed out. No deployment or dependency-manifest change was made.
+
 ## Files in this slice
 
 - `src/app/offline/image-payload-verifier.ts`

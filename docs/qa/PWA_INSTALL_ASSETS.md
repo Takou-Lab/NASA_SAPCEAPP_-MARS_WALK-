@@ -18,3 +18,12 @@ Source **`8a4dadc`**, **15 November 2026**. Coordinator supplied these while tea
 - Root and actual `/marswalk/` production builds served correct relative assets; Chromium manifest diagnostics and non-incognito installability diagnostics return no errors. [Full evidence](PWA_FOUNDATION.md).
 
 Actual target-device installation/launcher appearance is pending. Willy's next work: inspect/refine the original mark and launcher-size appearance, verify actual host paths/standalone/device behavior, then continue his map-release checklist. A visual refinement changes manifest/icon hashes and requires a fresh full production build/pack and update test; do not replace deployed files outside that build.
+
+## Enzo Windows LF compatibility check — 15 November 2026
+
+- Tested branch: `feature/enzo-image-payload-verifier`, merge commit `740a2a1` (main `ac79be5` merged with no conflicts). Platform: Windows PowerShell, Node `v24.20.0`, npm `12.0.2`, Git `2.55.0.windows.3`.
+- Refreshed `public/data/manifest.json` from the Git-generated checkout copy after the documented `git restore` was a no-op on the clean, CRLF-normalized file. Final worktree is LF, **1,200 bytes**, SHA-256 `40381b96e243b6876c4aa796d4cfcb5b222592982a5c1726101f467622418f82`; no data/index/hash change is staged.
+- `npm test`: blocked before tests ran because local `node_modules` lacks locked `three@0.187.0`.
+- `npm run build`: blocked at Angular compilation by the same missing `three` package; full pack verification did not run.
+- `npm run build -- --base-href /marswalk/`: same Angular compilation blocker; full pack verification did not run.
+- An attempt to restore the already locked package timed out without a registry response. `package.json` and `package-lock.json` are unchanged. No deployment was performed.
