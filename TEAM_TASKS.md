@@ -18,7 +18,7 @@ Gaddielle's R3 encoded/whitespace path gap is closed by the coordinator. Longla'
 | --- | --- | --- |
 | Willy map/navigation/retry | `21cf6f0`, `02134f1` | Accepted, merged |
 | Emma research/science/evidence workspace | `947ff1a`, `4efcb5a`, `3b7b1c1` | Accepted, merged; three shared UI components mounted once |
-| Gaddielle data/R3/release handoff | `0514da1` | Handoff accepted with byte/cache documentation corrections; prior R3/33-test evidence retained |
+| Gaddielle environmental prototype | `286374b` | Changes required R1–R4; not merged. Prior R3/release handoff remain accepted |
 | Enzo shell/planner/notebook | `16a2e66` | Accepted, merged; root conflicts resolved, transfer/drafts retained |
 | Longla optional viewer and QA submission | `23d5180` | Viewer merged; submitted hardware claims need clarification |
 
@@ -31,7 +31,7 @@ Each personal file now contains that person's **entire ordered checklist through
 | Person / complete file | Start now | Later implementation | Deployment / final responsibility |
 | --- | --- | --- | --- |
 | [Willy](docs/team/WILLY.md) | Review/refine supplied install assets | Owned map usability, agreed calibration integration checks | Actual hosted paths/icons/map/installed offline validation; final map screenshots |
-| [Gaddielle](docs/team/GADDIELLE.md) | Actual REMS/RAD source samples and audit/schema proposal | Reproducible numerical converter after agreement; scale investigation later | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
+| [Gaddielle](docs/team/GADDIELLE.md) | Correct provenance, source protection and numerical validation in environmental prototype | Reproducible numerical converter after agreement; scale investigation later | Deployed data/hash/unit/version audit, essential-cache inclusion and credits |
 | [Enzo](docs/team/ENZO.md) | Pure image-payload verifier | Environmental quantity/date UI after contract; clearer evidence; bounded prepared AI-assisted explanations | Presentation/scientific claims, deployed/offline evidence UI and real usability outcomes |
 | [Emma — he/him](docs/team/EMMA.md) | Accessibility/size cleanup | Professional consistent shell/planner/notebook; consume real lifecycle UI contract | Responsive/keyboard/standalone deployed UI checks and final screenshots |
 | [Royce / Longla](docs/team/LONGLA.md) | Clarify device report; integrated hardware QA | Real WebXR feasibility/prototype on supported hardware, separately reviewed | HTTPS/install/full offline/update acceptance and actual device/demo evidence |
@@ -54,7 +54,7 @@ No numerical environment dataset, AI feature or immersive VR is implemented by t
 | Piece | Owner | Next deliverable | Branch | Exact scope |
 | --- | --- | --- | --- | --- |
 | [W1](#w1) | Willy | Review/refine supplied install assets | Proposed `feature/willy-pwa-install-assets` | Public assets/QA only; starter discovery/worker already supplied |
-| [W2](#w2) | Gaddielle | Numerical environmental source evidence, then agreed converter | Proposed `feature/gaddielle-environment-data`; preserve existing progress | Actual pressure/temperature/RAD samples, provenance/quality/schema; no guessed API |
+| [W2](#w2) | Gaddielle | Environmental R1–R4 corrections and source evidence | Existing `feature/gaddielle-environment-data` | Preserve prototype; source traceability/alias guard/finite values/quantity audit; no runtime approval yet |
 | [W3](#w3) | Enzo | Read-only image-payload verifier | Proposed `feature/enzo-image-payload-verifier` | Pure module/spec/QA; exact planned byte-check contract |
 | [W4](#w4) | Emma | Release accessibility and size cleanup | Proposed `feature/emma-release-ui` | Owned UI/tests/styles; preserve mission behavior and budgets |
 | [W5](#w5) | Longla | Device report clarification and actual-device QA | Existing `feature/longla-3d-rehearsal` | QA records only; exact integrated build/device/outcomes |
@@ -67,6 +67,8 @@ Map/navigation/retry are complete. Coordinator `8a4dadc` has supplied the initia
 
 <a id="w2"></a>
 ## W2 — Gaddielle: numerical environmental data
+
+**Current gate:** `286374b` is reviewed with changes required; 42 tests pass but temporary probes expose source overwrite/non-finite/range/zero issues, and original-product provenance is missing. Complete [R1–R4](docs/reviews/GADDIELLE.md#latest-environmental-submission--changes-required-before-merge) on the same branch before proceeding. No environmental code/data has been merged.
 
 R1–R3 and release-data handoff `0514da1` are complete. Coordinator corrected CRLF/LF hash/byte differences and pack membership in the accepted handoff; no scientific assets changed. Do not reassign completed work.
 

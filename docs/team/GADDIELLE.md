@@ -2,6 +2,19 @@
 
 > Current piece: [W2](../../TEAM_TASKS.md#w2). Updated **15 November 2026**. This is your single remaining-work file and coding-agent prompt.
 
+## Active review corrections — complete before later phases
+
+Latest branch **`feature/gaddielle-environment-data`**, tip **`286374b`**, is reviewed but **not approved/merged**. All **42 isolated data tests pass**, including your nine new cases; manual temporary-input probes found failures outside that coverage. [Exact findings/evidence](../reviews/GADDIELLE.md#latest-environmental-submission--changes-required-before-merge).
+
+Preserve the audit/sample/converter prototype and work on this same branch. Safely merge published main for the corrected accepted release-data handoff. No reset/force-push, duplicate branch or new UI task. Complete these corrections before claiming Phase A verified or requesting runtime generation:
+
+1. **R1 — source evidence:** exact original REMS/RAD products/labels/download URLs, raw-file hashes and extraction/row mapping for the displayed values; documented units/detector/time/quality/sentinels. The current CSV is unverified. If illustrative/untraceable, label it test-only and remove verified-NASA claims. Do not emit verified status from any arbitrary numerically valid CSV.
+2. **R2 — source protection:** reject output aliases of source (including relevant samefile/symlink/hardlink cases) before writes; clean exit 1, no source/destination byte/mtime changes. Add regressions.
+3. **R3 — finite/consistent data:** reject NaN/±Infinity/overflow and inconsistent min/mean/max before write; strict JSON serialization, actual invalid-input tests and unchanged existing output on failure.
+4. **R4 — per-quantity audit:** preserve legitimate zero per documented product rules; independently count usable/missing/rejected measurements and explain aggregation. Distinguish computed summaries from raw measurements. Fix local Windows links/stale anchors and substantiate period/location/quality claims.
+
+Hand off actual source evidence, changed files, commands/results and commit for re-review. Keep `public/data/environment.json` absent until provenance and shared schema are agreed. Core/models/loader/worker/deployment remain coordinator-owned; Enzo owns UI. Previously accepted imagery/R3/release handoff stays complete.
+
 ## Completed — do not repeat
 
 - Image package, Data Passport and image-only index are accepted. R3 `42a0dd2` is integrated at `c7ac053`, retaining all 33 data regressions.
@@ -11,11 +24,11 @@
 
 Preserve local progress and original source credits. Do not repeat R1–R3, image acquisition, passport/index creation or the completed release-data handoff.
 
-## Active assignment — real pressure, temperature and radiation data
+## Remaining assignment after correction review — numerical environmental data
 
 **Goal:** supply a small, reproducible numerical dataset Enzo can explain in the app, with enough source evidence for the coordinator to agree a shared typed contract. These are historical Curiosity/Gale regional measurements, not current weather or hazards along a drawn route.
 
-First milestone is **actual source samples plus an evidence/schema proposal**. You can complete this while the runtime API is pending. Do not wait for UI work or invent fields on MissionService.
+The unresolved first milestone is **traceable original source samples plus an evidence/schema proposal**; the current prototype does not establish that evidence yet. You can complete this while the runtime API is pending. Do not wait for UI work or invent fields on MissionService.
 
 Continue your existing branch if this work has already started. Otherwise merge published main safely and use proposed **`feature/gaddielle-environment-data`**. Keep the accepted data-preparation branch/history. Do not reset/force-push or duplicate an unpublished implementation.
 
@@ -64,25 +77,24 @@ After the numerical-data handoff, investigate whether a documented scale bar/pro
 ## Agent prompt — copy this
 
 ```text
-You are Gaddielle's MARSWALK numerical-data agent.
-Read docs/team/GADDIELLE.md, TEAM_TASKS.md W2, CODING_AGENTS.md and
-docs/data/RELEASE_DATA_HANDOFF.md. Preserve completed imagery/R3/handoff.
-0514da1 is accepted with canonical-byte/cache-membership doc corrections;
-do not repeat that phase. Preserve any unpublished local work.
+You are Gaddielle's MARSWALK environmental-data correction agent.
+Read docs/team/GADDIELLE.md and the latest docs/reviews/GADDIELLE.md.
+Stay on existing feature/gaddielle-environment-data; preserve the prototype
+and unpublished work. Merge current main safely, no reset or force push.
+286374b is NOT approved: 42 tests pass but manual probes reveal blockers.
 
-Start with Phase A: actual documented REMS pressure/temperature samples and
-RAD feasibility, an ENVIRONMENT_SOURCE_AUDIT.md and reviewable source rows.
-Record real product/field/unit/time/quality/sentinel/uncertainty evidence.
-Propose the JSON contract; coordinator agrees shared types/loader and Enzo
-consumes the implemented UI API. No invented measurements, dates or API.
+R1: provide original REMS/RAD products/labels, product IDs/URLs/hashes and
+exact row extraction/quality/unit/time mapping. Current CSV is unverified;
+if illustrative, make it test-only and remove verified-NASA claims.
+R2: reject source/output aliases before writes, preserve bytes/mtime.
+R3: reject non-finite/overflow/inconsistent input and serialize strict JSON;
+fail without replacing a valid destination. Add meaningful regressions.
+R4: independent quantity quality/counts, legitimate zeros, honest derived
+aggregation, valid repository links and evidence-backed metadata.
 
-After agreement implement the owned local converter/tests/environment.json.
-Emit deterministic UTF-8/LF; preserve existing output on invalid input.
-Test meaningful extraction/error cases and report actual checks/hashes.
-Keep the image-only index unchanged. Coordinator owns full-pack inclusion,
-root/core/packages/worker/deployment; Enzo owns UI/presentation.
-No guessed units, simulated records labeled measured, route safety claim,
-new terrain search before data handoff, or duplicate app/store.
-Push only the assigned feature branch and report actual commit/files,
-source evidence/results/blockers. No main merge, deployment or messages.
+No public environment.json until source/schema agreement. No shared
+core/model/worker/UI/package edits or deployment. Preserve prior accepted
+image/R3/release handoff. Run actual relevant tests, review diff, push only
+this feature branch and report source evidence, commit/files/results/limits.
+Do not start a new speculative dataset or claim tests certify NASA origin.
 ```

@@ -1,5 +1,8 @@
 # MARSWALK — Submitted branches reviewed and integrated
 
+> **Latest Gaddielle review:** environmental tip `286374b` requires changes and is **not merged/deployed**. All 42 isolated tests pass, but temporary probes reproduce source overwrite, Infinity JSON and inconsistent statistics; original-product provenance remains missing. [Findings and correction prompt](docs/reviews/GADDIELLE.md#latest-environmental-submission--changes-required-before-merge). Prior R3/release handoff and the live app remain accepted.
+
+
 > **Live deployment update — 15 November:** https://marswalk-jet.vercel.app/ is public and passes production-origin browser offline restart/mission recovery checks. Source `b6669fb`; [deployment evidence](docs/qa/VERCEL_PRODUCTION.md), [Vercel runbook](docs/VERCEL_SETUP.md). Physical home-screen acceptance remains pending; automatic GitHub deployment is not connected. Earlier revision-scoped statements below retain their historical scope.
 
 
