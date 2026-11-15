@@ -62,6 +62,10 @@ Enzo Agent 1 2b2a708 navigation accepted. User-authorized numerical subset is li
 
 User requested substantial additional work. ENZO 2.md now assigns ordered commits for actual source-text corrections, science-target location dossier, mission/layer evidence matrix, candidate-specific demo/screenshots/judges answers and submission readiness drafts. Three new documentation files allowed; no runtime/core/calibration edits. Coordinator/user retain raster task, Agent 1 retains science code. Unsupported coordinates and official portal rules stay pending; no deployment/submission authorization. First source-correction handoff is the priority, not new optional AI expansion.
 
+## Emma next implementation package
+
+User requested substantial objective-focused work. Published UI tip still 59e00e1 accepted, no newer mission-briefing branch visible. EMMA.md now assigns Agent 1 an owned mission decision summary plus typed shell navigation to route/science/notebook/transfer, no automatic state mutations or invented readiness. EMMA 2.md retains separate briefing/science-purpose component. Preserve unpublished progress; request actual commit before treating it complete. Tests must cover focus/collapse/draft/state preservation and scientific unavailable states. No new runtime implementation in this brief update.
+
 ## Ordered next work
 
 1. User supplied [official challenge URL](https://www.spaceappschallenge.org/2026/challenges/interplanetary-survival-guide-martian-map/?tab=details). User supplied Details text; see docs/challenge/REQUIREMENTS.md. Proxy retrieval remains blocked. Obtain Resources/submission rules and exact deadline/timezone; do not call supplied Details requirements unknown. Do not invent them.

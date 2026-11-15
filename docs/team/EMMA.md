@@ -1,5 +1,46 @@
 # Emma — Remaining professional UI and deployment work
 
+## Active substantial implementation — mission decision workspace
+
+User requested work directly focused on the Marswalk objective. Published release-ui remains 59e00e1 (accepted); no newer UI or mission-briefing tip is advertised as of this check. Do not assume unpublished work is absent. Preserve it and send its branch/SHA before overlapping changes. The following is Agent 1's next CODE slice, not another presentation document or decorative redesign.
+
+### Outcome
+
+A first-time user should move through **inspect evidence → sketch route → record observation → save/recover/export**, understanding what location/terrain/environment evidence supports the plan. The map remains the main workspace. Do not call this an operational survival or safe-route planner when calibration/hazards remain unavailable.
+
+### A. Implement a compact mission decision summary
+
+Within your owned src/app/ui/ folder, create a small standalone MissionReviewComponent if useful, or a similarly bounded shell section. Own new UI TS/HTML/SCSS/tests, existing shell/planner/notebook changes and docs/qa/RELEASE_UI.md only. Agent 2 owns src/app/mission-briefing and its QA; do not edit or duplicate it. Map/core/data/evidence/science logic and coordinator root remain outside your slice.
+
+Derive the summary with computed() from current MissionService signals: endpoint state, waypoint count, existing assessment planar distance/status, selected marker looked up in actual records, and observation count. Display a concise distinction between route geometry, science context and remaining evidence. Selected record is selection, not proof of reading/visiting. Observation count is current mission state, not proof of a newly completed or saved session. No duplicate counter/store or custom distance formula.
+
+Keep data unavailable until existing assessment says otherwise. If derived planar distance later arrives, show it with its existing basis and separate terrain unavailable status; do not infer slopes, north, safety, current weather or located science from the route. Imported/preexisting state must not manufacture a mission-success flag. No invented saved/exported/installed states. PWA status already has a real API and one action surface; do not duplicate it.
+
+### B. Make the next action executable
+
+Have MissionReviewComponent emit a typed navigation request for existing tabs (planner/confidence/notebook/transfer), handled inside the shell using its current active-tab state. Verify real tab IDs/types before implementing; do not change root/core APIs or invent an external workflow service. Buttons such as Review science evidence, Edit route, Record observation and Save or export should open the relevant existing panel, expand the collapsed sidebar when necessary and move focus to its tab or heading predictably.
+
+Do not place points, alter map drawing mode, save/clear a mission, select a record, create a note or export automatically when navigating. Retain notebook draft and selected science across steps. Opening/closing panels must not silently mark tasks complete. Use concise native controls and a narrow-layout arrangement; not another large tab or competing dashboard. Explain Load Route recovers route AND notes and that previews have origin-specific storage. Do not promise automatic recovery until coordinator accepts that behavior.
+
+### C. Clarify the scientific decision boundary in the workspace
+
+Default view should make three things easy to find: proposed route status, selected science's actual position availability, and measurement limits. “Regional contextual record — not located on this image” is preferable to implying a target was visited. Use existing marker positionStatus and image identity; never compare record names to guess spatial overlap. An available limited REMS excerpt is historical rover context, not a route hazard layer; show a pointer to the existing environmental panel rather than duplicate numerical cards or make new requests.
+
+Coordinate labels/layout only through your owned summary/shell and the assigned theme files; do not rewrite Enzo's science component or coordinator evidence content. Agent 2 briefing supplies question/background separately. Provide its proposed mount slot to coordinator only after reviewing the actual selector; no root mount in your commit.
+
+### D. Validate real behavior
+
+Add tests for missing/partial/complete endpoints, derived zero distance versus unavailable metrics, selected record removal/unlocated status, preexisting/imported observations and no safety/completion claims. Test each navigation action opens the correct tab, restores a collapsed sidebar, has appropriate focus and retains exact unsaved notebook text and unchanged route/mode/layers/selection. Test that summary navigation makes no storage write, save, delete, export or initialization call.
+
+In a browser verify keyboard activation/roving tabs, 390px light/dark readability and map area usability. Re-run the actual save-note/failure draft/save-route/export/reopen/Load Route workflow on your served production build; distinguish local from public deployed evidence. Run full npm test and npm run build without raising budgets or adding dependencies. No physical-device pass without hardware.
+
+### E. Review handoff and time boundary
+
+Continue existing feature/emma-release-ui if it contains progress; otherwise use feature/emma-mission-workspace from published main in an independent checkout. Do not reset, force push or interfere with Agent 2. First deliver the reviewable summary/navigation implementation within one focused slice (about two hours maximum); stop expanding for coordinator integration/release. No new AI/VR, onboarding framework, global font, model, geospatial transform or decorative redesign.
+
+Update RELEASE_UI.md with branch/commit/files, exact state/navigation behavior, tests/build/size results, actual screenshots, accessibility observations and remaining blockers. Push and explicitly say ready for review. Coordinator merges/mounts/deploys; normal feature push does not deploy automatically.
+
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Agent 1 priority now — mission flow, not another redesign

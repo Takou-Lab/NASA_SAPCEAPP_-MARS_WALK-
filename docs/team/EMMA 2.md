@@ -1,5 +1,9 @@
 # Emma 2 — Guided boxwork mission briefing
 
+## Coordination with Agent 1's mission workspace
+
+Your original standalone briefing remains your assignment; preserve any completed/unpublished work and send its actual branch/SHA. No new briefing branch is advertised in the latest check, so completion cannot yet be reviewed. Agent 1 now implements a compact operational summary and shell tab-navigation actions in src/app/ui only. You keep scientific question/background, evidence-location explanation and readonly structural checklist under src/app/mission-briefing only. Avoid duplicated route/quantity dashboards or shell edits; coordinator reconciles mounting. Deliver a small reviewable component promptly, not additional documentation in place of code. Existing no-fake-position/scale/mission-success boundaries apply.
+
 > **Current priority override:** [Finish the integrated mission map](../MISSION_MAP_FINISH_PLAN.md). The assignment below takes precedence over older unchecked optional phases; preserve completed/unpublished work.
 
 ## Current priority — mission question linked to actual map evidence
