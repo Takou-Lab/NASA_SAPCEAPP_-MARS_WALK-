@@ -23,11 +23,13 @@ describe('NotebookComponent', () => {
     service = TestBed.inject(MissionService);
     http = TestBed.inject(HttpTestingController);
     const initialized = service.initialize();
-    http.expectOne((request) => request.url.endsWith('/data/manifest.json')).flush({
-      ...testImage(),
-      width: 1000,
-      height: 1000,
-    });
+    http
+      .expectOne((request) => request.url.endsWith('/data/manifest.json'))
+      .flush({
+        ...testImage(),
+        width: 1000,
+        height: 1000,
+      });
     await Promise.resolve();
     http.expectOne((request) => request.url.endsWith('/data/markers.json')).flush([]);
     await initialized;
@@ -106,5 +108,59 @@ describe('NotebookComponent', () => {
     component.onSubmit();
 
     expect(service.observations()[0].position).toEqual({ x: 340, y: 520 });
+  });
+
+  it('updates draftText from native textarea input and clears textarea on submit', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const textarea = compiled.querySelector('#obs-input') as HTMLTextAreaElement;
+    const submitBtn = compiled.querySelector('.submit-btn') as HTMLButtonElement;
+
+    textarea.value = 'Layered ridge texture near crater rim';
+    textarea.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(component.draftText()).toBe('Layered ridge texture near crater rim');
+    expect(submitBtn.disabled).toBe(false);
+
+    const form = compiled.querySelector('form.note-form') as HTMLFormElement;
+    const submitSpy = vi.spyOn(component, 'onSubmit');
+    const submitEvent = new Event('submit', { cancelable: true });
+    form.dispatchEvent(submitEvent);
+    fixture.detectChanges();
+
+    expect(submitEvent.defaultPrevented).toBe(true);
+    expect(submitSpy).toHaveBeenCalledTimes(1);
+    expect(component.draftText()).toBe('');
+    expect(textarea.value).toBe('');
+  });
+
+  it('formats timestamps safely and renders observation entries without tabindex', () => {
+    expect(component.formatTimestamp('not-a-valid-date')).toBe('not-a-valid-date');
+    const iso = '2026-11-15T03:56:38.000Z';
+    const expectedFormatted = new Intl.DateTimeFormat(undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    }).format(new Date(iso));
+    expect(component.formatTimestamp(iso)).toBe(expectedFormatted);
+
+    component.setDraftText('Polygonal fracture pattern observed');
+    component.onSubmit();
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const svgs = Array.from(compiled.querySelectorAll('svg'));
+    expect(svgs.length).toBeGreaterThan(0);
+    for (const svg of svgs) {
+      expect(svg.getAttribute('aria-hidden')).toBe('true');
+    }
+
+    const entry = compiled.querySelector('.obs-entry') as HTMLElement;
+    expect(entry).toBeTruthy();
+    expect(entry.hasAttribute('tabindex')).toBe(false);
+
+    const timestampEl = entry.querySelector('.entry-timestamp') as HTMLElement;
+    expect(timestampEl.textContent?.trim()).toBe(
+      component.formatTimestamp(service.observations()[0].createdAt),
+    );
   });
 });

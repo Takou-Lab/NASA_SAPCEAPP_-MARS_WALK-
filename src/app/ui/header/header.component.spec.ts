@@ -45,4 +45,34 @@ describe('HeaderComponent', () => {
     component.toggleTheme();
     expect(component.theme()).not.toBe(initialTheme);
   });
+
+  it('marks decorative SVGs aria-hidden while preserving button accessible names', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const assertSvgsHidden = () => {
+      const svgs = Array.from(compiled.querySelectorAll('svg'));
+      expect(svgs.length).toBeGreaterThanOrEqual(6);
+      for (const svg of svgs) {
+        expect(svg.getAttribute('aria-hidden')).toBe('true');
+      }
+    };
+
+    assertSvgsHidden();
+    component.toggleTheme();
+    fixture.detectChanges();
+    assertSvgsHidden();
+
+    const buttons = Array.from(compiled.querySelectorAll('button'));
+    expect(buttons).toHaveLength(5);
+    for (const button of buttons) {
+      expect((button.getAttribute('aria-label') ?? '').trim().length).toBeGreaterThan(0);
+    }
+
+    expect(compiled.querySelector('button[aria-label="Toggle Imagery Layer"]')).toBeTruthy();
+    expect(
+      compiled.querySelector('button[aria-label="Toggle Science Markers Layer"]'),
+    ).toBeTruthy();
+    expect(compiled.querySelector('button[aria-label="Coordinate grid unavailable"]')).toBeTruthy();
+    expect(compiled.querySelector('button[aria-label="Export mission record JSON"]')).toBeTruthy();
+    expect(compiled.querySelector('.theme-toggle-btn')?.getAttribute('aria-label')).toBeTruthy();
+  });
 });

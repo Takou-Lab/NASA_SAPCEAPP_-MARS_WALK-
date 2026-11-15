@@ -22,6 +22,7 @@
             class="panel-toggle-btn"
             (click)="togglePanel()"
             [attr.aria-expanded]="!isPanelCollapsed()"
+            aria-controls="side-panel"
             aria-label="Toggle Side Panel"
           >
             {{ isPanelCollapsed() ? 'Show Panel ◂' : 'Collapse Panel ▸' }}
@@ -31,39 +32,50 @@
     </section>
 
     <!-- Resizable Splitter Handle (Drag to widen/narrow, double click to reset) -->
-    @if (!isPanelCollapsed()) {
-      <div
-        class="panel-resizer"
-        role="separator"
-        tabindex="0"
-        aria-orientation="vertical"
-        [attr.aria-valuenow]="panelWidth()"
-        aria-valuemin="300"
-        [attr.aria-valuemax]="maxPanelWidth()"
-        aria-label="Resize side panel (drag or use arrow keys, double click to reset)"
-        title="Drag left/right to resize sidebar. Double-click to reset."
-        (mousedown)="startResize($event)"
-        (touchstart)="startResize($event)"
-        (dblclick)="resetPanelWidth()"
-        (keydown)="onResizerKeydown($event)"
-      >
-        <div class="resizer-bar" aria-hidden="true"></div>
-      </div>
-    }
+    <div
+      class="panel-resizer"
+      role="separator"
+      [hidden]="isPanelCollapsed()"
+      [attr.tabindex]="isPanelCollapsed() ? -1 : 0"
+      [attr.aria-hidden]="isPanelCollapsed() ? 'true' : null"
+      aria-orientation="vertical"
+      [attr.aria-valuenow]="panelWidth()"
+      aria-valuemin="300"
+      [attr.aria-valuemax]="maxPanelWidth()"
+      aria-label="Resize side panel (drag or use arrow keys, double click to reset)"
+      title="Drag left/right to resize sidebar. Double-click to reset."
+      (mousedown)="startResize($event)"
+      (touchstart)="startResize($event)"
+      (dblclick)="resetPanelWidth()"
+      (keydown)="onResizerKeydown($event)"
+    >
+      <div class="resizer-bar" aria-hidden="true"></div>
+    </div>
 
     <!-- Side Panel (Resizable & Collapsible) -->
     <aside
+      id="side-panel"
       class="side-panel"
       [style.width.px]="isPanelCollapsed() ? 0 : panelWidth()"
+      [attr.inert]="isPanelCollapsed() ? '' : null"
+      [attr.aria-hidden]="isPanelCollapsed() ? 'true' : null"
       aria-label="Mission Controls & Data Panel"
     >
-      <nav class="panel-tabs" role="tablist">
+      <nav
+        class="panel-tabs"
+        role="tablist"
+        aria-label="Workspace Sections"
+        (keydown)="onTabKeydown($event)"
+      >
         <button
           type="button"
           role="tab"
+          id="tab-confidence"
+          aria-controls="panel-confidence"
           class="tab-btn"
           [class.active]="activeTab() === 'confidence'"
           [attr.aria-selected]="activeTab() === 'confidence'"
+          [attr.tabindex]="activeTab() === 'confidence' ? 0 : -1"
           (click)="setActiveTab('confidence')"
         >
           Confidence & Data
@@ -72,9 +84,12 @@
         <button
           type="button"
           role="tab"
+          id="tab-planner"
+          aria-controls="panel-planner"
           class="tab-btn"
           [class.active]="activeTab() === 'planner'"
           [attr.aria-selected]="activeTab() === 'planner'"
+          [attr.tabindex]="activeTab() === 'planner' ? 0 : -1"
           (click)="setActiveTab('planner')"
         >
           Route Planner
@@ -83,9 +98,12 @@
         <button
           type="button"
           role="tab"
+          id="tab-notebook"
+          aria-controls="panel-notebook"
           class="tab-btn"
           [class.active]="activeTab() === 'notebook'"
           [attr.aria-selected]="activeTab() === 'notebook'"
+          [attr.tabindex]="activeTab() === 'notebook' ? 0 : -1"
           (click)="setActiveTab('notebook')"
         >
           Notebook ({{ observations().length }})
@@ -94,19 +112,26 @@
         <button
           type="button"
           role="tab"
+          id="tab-transfer"
+          aria-controls="panel-transfer"
           class="tab-btn"
           [class.active]="activeTab() === 'transfer'"
           [attr.aria-selected]="activeTab() === 'transfer'"
+          [attr.tabindex]="activeTab() === 'transfer' ? 0 : -1"
           (click)="setActiveTab('transfer')"
         >
           Mission Transfer
         </button>
+
         <button
           type="button"
           role="tab"
+          id="tab-rehearsal"
+          aria-controls="panel-rehearsal"
           class="tab-btn"
           [class.active]="activeTab() === 'rehearsal'"
           [attr.aria-selected]="activeTab() === 'rehearsal'"
+          [attr.tabindex]="activeTab() === 'rehearsal' ? 0 : -1"
           (click)="setActiveTab('rehearsal')"
         >
           3D Rehearsal
@@ -114,10 +139,77 @@
       </nav>
 
       <div class="tab-content">
+        <div
+          class="tab-panel"
+          role="tabpanel"
+          id="panel-confidence"
+          aria-labelledby="tab-confidence"
+          [hidden]="activeTab() !== 'confidence'"
+          tabindex="0"
+        >
+          <app-confidence-panel />
+        </div>
+
+        <div
+          class="tab-panel"
+          role="tabpanel"
+          id="panel-planner"
+          aria-labelledby="tab-planner"
+          [hidden]="activeTab() !== 'planner'"
+          tabindex="0"
+        >
+          @if (plannerOpened()) {
+            @defer (on immediate) {
+              <app-route-planner />
+            } @loading {
+              <p class="defer-status" role="status">Loading route planner…</p>
+            } @error {
+              <p class="defer-error" role="alert">
+                Unable to load route planner. Export your work before reloading to retry.
+              </p>
+            }
+          }
+        </div>
+
+        <div
+          class="tab-panel"
+          role="tabpanel"
+          id="panel-notebook"
+          aria-labelledby="tab-notebook"
+          [hidden]="activeTab() !== 'notebook'"
+          tabindex="0"
+        >
+          @if (notebookOpened()) {
+            @defer (on immediate) {
+              <app-notebook />
+            } @loading {
+              <p class="defer-status" role="status">Loading notebook…</p>
+            } @error {
+              <p class="defer-error" role="alert">
+                Unable to load notebook. Export your work before reloading to retry.
+              </p>
+            }
+          }
+        </div>
+
+        <div
+          class="tab-panel"
+          role="tabpanel"
+          id="panel-transfer"
+          aria-labelledby="tab-transfer"
+          [hidden]="activeTab() !== 'transfer'"
+          tabindex="0"
+        >
+          <ng-content select="[mission-transfer]"></ng-content>
+        </div>
+
         <section
-          class="rehearsal-panel"
+          class="tab-panel rehearsal-panel"
+          role="tabpanel"
+          id="panel-rehearsal"
+          aria-labelledby="tab-rehearsal"
           [hidden]="activeTab() !== 'rehearsal'"
-          aria-labelledby="viewer-title"
+          tabindex="0"
         >
           <h2 id="viewer-title">Optional 3D rehearsal</h2>
           <p>A flat image view. No verified terrain or immersive VR is supplied.</p>
@@ -135,9 +227,9 @@
               @defer (on immediate) {
                 <app-viewer3d />
               } @loading {
-                <p role="status">Loading optional 3D viewer…</p>
+                <p class="defer-status" role="status">Loading optional 3D viewer…</p>
               } @error {
-                <p role="alert">
+                <p class="defer-error" role="alert">
                   The optional viewer could not be loaded. Export your work before reloading to
                   retry; the 2D mission remains available.
                 </p>
@@ -145,12 +237,6 @@
             }
           </div>
         </section>
-        <app-confidence-panel [hidden]="activeTab() !== 'confidence'" />
-        <app-route-planner [hidden]="activeTab() !== 'planner'" />
-        <app-notebook [hidden]="activeTab() !== 'notebook'" />
-        <div [hidden]="activeTab() !== 'transfer'">
-          <ng-content select="[mission-transfer]"></ng-content>
-        </div>
       </div>
     </aside>
   </main>
